@@ -9,7 +9,8 @@
     "build:data": "tsx scripts/build-data.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "smoke:map": "node scripts/smoke-map.mjs"
+    "smoke:map": "node scripts/smoke-map.mjs",
+    "smoke:session": "node scripts/smoke-session.mjs"
   },
   "repository": {
     "type": "git",

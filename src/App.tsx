@@ -1,61 +1,95 @@
-import { useEffect, useState } from 'react'
-import { GeoMap } from './map/GeoMap'
-import type { MapView } from './map/projection'
+import { useEffect, useMemo, useState } from 'react'
 import { loadIndex, type CountryIndex } from './data/load'
-import type { MarkRole } from './map/GeoMap'
+import { buildSession, type SessionItem } from './session/builder'
+import { useStudyStore } from './store/useStore'
+import { Home } from './ui/Home'
+import { StudyView, type SessionResult } from './ui/StudyView'
 
-/**
- * Temporary harness for milestone 2: renders every map view and reports what
- * was clicked, so projection fitting and tap targets can be checked by hand
- * before the study loop exists.
- */
+type Screen =
+  | { name: 'home' }
+  | { name: 'study'; items: SessionItem[] }
+  | { name: 'summary'; result: SessionResult }
+
 export function App() {
   const [index, setIndex] = useState<CountryIndex | null>(null)
-  const [view, setView] = useState<MapView>({ kind: 'world' })
-  const [picked, setPicked] = useState<string | null>(null)
+  const { snapshot, reload } = useStudyStore()
+  const [screen, setScreen] = useState<Screen>({ name: 'home' })
 
   useEffect(() => {
-    loadIndex().then(setIndex)
+    void loadIndex().then(setIndex)
   }, [])
 
-  if (!index) return <p style={{ padding: 24 }}>Loading…</p>
+  // Rebuilt whenever storage changes so the home counts stay honest after a
+  // session, an import, or a settings change.
+  const pending = useMemo(() => {
+    if (!index || !snapshot) return null
+    return buildSession({
+      now: new Date(),
+      index,
+      cards: snapshot.cards,
+      stats: snapshot.stats,
+      settings: snapshot.settings,
+    })
+  }, [index, snapshot])
 
-  const marks: Record<string, MarkRole> = picked ? { [picked]: 'target' } : {}
-  const country = picked ? index.byIso3.get(picked) : null
+  if (!index || !snapshot || !pending) return <p className="loading">Loading…</p>
+
+  if (screen.name === 'study') {
+    return (
+      <StudyView
+        items={screen.items}
+        index={index}
+        onDone={(result) => {
+          reload()
+          setScreen({ name: 'summary', result })
+        }}
+        onQuit={() => {
+          reload()
+          setScreen({ name: 'home' })
+        }}
+      />
+    )
+  }
+
+  if (screen.name === 'summary') {
+    const { answered, correct, introduced, elapsedMs } = screen.result
+    const accuracy = answered ? Math.round((correct / answered) * 100) : 0
+    return (
+      <div className="home">
+        <h1>Session done</h1>
+        <div className="stats">
+          <div className="stat">
+            <strong>{answered}</strong>
+            <span>answered</span>
+          </div>
+          <div className="stat">
+            <strong>{accuracy}%</strong>
+            <span>first try</span>
+          </div>
+          <div className="stat">
+            <strong>{introduced}</strong>
+            <span>new</span>
+          </div>
+          <div className="stat">
+            <strong>{Math.round(elapsedMs / 1000)}s</strong>
+            <span>elapsed</span>
+          </div>
+        </div>
+        <button className="primary big" onClick={() => setScreen({ name: 'home' })}>
+          Back
+        </button>
+      </div>
+    )
+  }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <div style={{ padding: 12, display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-        <select
-          value={view.kind === 'world' ? 'world' : view.slug}
-          onChange={(e) =>
-            setView(e.target.value === 'world' ? { kind: 'world' } : { kind: 'region', slug: e.target.value })
-          }
-          style={{ padding: 10, background: 'var(--panel)', color: 'var(--text)', borderRadius: 10, border: '1px solid #334155' }}
-        >
-          <option value="world">World ({index.bundle.countries.length})</option>
-          {index.bundle.regions
-            .slice()
-            .sort((a, b) => a.order - b.order)
-            .map((r) => (
-              <option key={r.slug} value={r.slug}>
-                {r.name} ({r.countries.length})
-              </option>
-            ))}
-        </select>
-        <span style={{ color: 'var(--muted)' }}>
-          {country ? `${country.flag} ${country.name} — ${country.subregion}` : 'tap a country'}
-        </span>
-      </div>
-
-      <div style={{ flex: 1, minHeight: 0 }}>
-        <GeoMap
-          view={view}
-          marks={marks}
-          labels={picked ? [picked] : []}
-          onPick={setPicked}
-        />
-      </div>
-    </div>
+    <Home
+      snapshot={snapshot}
+      index={index}
+      dueCount={pending.filter((i) => !i.isNew).length}
+      newCount={pending.filter((i) => i.isNew).length}
+      onStart={() => setScreen({ name: 'study', items: pending })}
+      onReload={reload}
+    />
   )
 }

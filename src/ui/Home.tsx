@@ -1,0 +1,119 @@
+import { useRef } from 'react'
+import type { CountryIndex } from '../data/load'
+import { retrievability } from '../srs/scheduler'
+import { State } from 'ts-fsrs'
+import { BACKUP_NAG_DAYS, type StudySnapshot } from '../store/store'
+import { store } from '../store/useStore'
+
+/** Stability, in days, at which a country counts as durably learned rather
+ *  than merely fresh. Matches the threshold that unlocks extra card types. */
+const MASTERY_STABILITY_DAYS = 21
+
+interface HomeProps {
+  snapshot: StudySnapshot
+  index: CountryIndex
+  dueCount: number
+  newCount: number
+  onStart: () => void
+  onReload: () => void
+}
+
+export function Home({ snapshot, index, dueCount, newCount, onStart, onReload }: HomeProps) {
+  const fileRef = useRef<HTMLInputElement>(null)
+  const now = new Date()
+
+  const seen = new Set(Object.values(snapshot.cards).map((c) => c.iso3))
+
+  // Mastery is measured by stability, not by current retrievability. Anything
+  // just reviewed has a retrievability near 1.0, so that measure would call a
+  // country "solidly placed" seconds after first meeting it.
+  const known = Object.values(snapshot.cards).filter(
+    (c) => c.type === 'locate' && c.state === State.Review && c.stability >= MASTERY_STABILITY_DAYS,
+  ).length
+
+  // How much of the world is still holding right now, across everything seen.
+  const locateCards = Object.values(snapshot.cards).filter((c) => c.type === 'locate')
+  const retention = locateCards.length
+    ? Math.round((locateCards.reduce((sum, c) => sum + retrievability(c, now), 0) / locateCards.length) * 100)
+    : 0
+
+  const daysSinceBackup = store.daysSinceBackup()
+  const nagging = daysSinceBackup != null && daysSinceBackup >= BACKUP_NAG_DAYS
+
+  async function exportBackup() {
+    const json = await store.exportAll()
+    const url = URL.createObjectURL(new Blob([json], { type: 'application/json' }))
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `geography-bee-${new Date().toISOString().slice(0, 10)}.json`
+    a.click()
+    URL.revokeObjectURL(url)
+    await store.markBackedUp()
+    onReload()
+  }
+
+  async function importBackup(file: File) {
+    try {
+      await store.importAll(await file.text())
+      onReload()
+    } catch (e) {
+      alert(`Could not import: ${(e as Error).message}`)
+    }
+  }
+
+  return (
+    <div className="home">
+      <h1>Geography Bee</h1>
+
+      <div className="stats">
+        <Stat value={dueCount} label="due" />
+        <Stat value={newCount} label="new" />
+        <Stat value={`${seen.size}/${index.bundle.countries.length}`} label="countries seen" />
+        <Stat value={known} label="solidly placed" />
+        {locateCards.length > 0 && <Stat value={`${retention}%`} label="recall now" />}
+      </div>
+
+      <button className="primary big" onClick={onStart} disabled={dueCount + newCount === 0}>
+        {dueCount + newCount === 0 ? 'Nothing due — come back later' : `Study ${dueCount + newCount} cards`}
+      </button>
+
+      {store.quotaExhausted && (
+        <p className="warn">
+          Storage is full and progress is no longer saving. Export a backup, then clear some site data.
+        </p>
+      )}
+
+      {nagging && (
+        <p className="warn">
+          No backup in {daysSinceBackup} days. Progress lives only in this browser — clearing site data
+          erases it.
+        </p>
+      )}
+
+      <div className="row">
+        <button onClick={() => void exportBackup()}>Export backup</button>
+        <button onClick={() => fileRef.current?.click()}>Import backup</button>
+        <input
+          ref={fileRef}
+          type="file"
+          accept="application/json"
+          hidden
+          onChange={(e) => {
+            const f = e.target.files?.[0]
+            if (f) void importBackup(f)
+            e.target.value = ''
+          }}
+        />
+      </div>
+    </div>
+  )
+}
+
+function Stat({ value, label }: { value: number | string; label: string }) {
+  return (
+    <div className="stat">
+      <strong>{value}</strong>
+      <span>{label}</span>
+    </div>
+  )
+}
