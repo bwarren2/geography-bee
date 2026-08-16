@@ -1,6 +1,7 @@
 import { chromium } from 'playwright'
 
 const OUT = process.env.SMOKE_OUT ?? '/tmp'
+const BASE = process.env.SMOKE_URL ?? 'http://localhost:5173'
 const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' })
 const page = await browser.newPage({ viewport: { width: 390, height: 780 } })
 
@@ -8,7 +9,7 @@ const errors = []
 page.on('console', (m) => m.type() === 'error' && errors.push(m.text()))
 page.on('pageerror', (e) => errors.push(String(e)))
 
-await page.goto('http://localhost:5173/', { waitUntil: 'networkidle' })
+await page.goto(BASE + '/', { waitUntil: 'networkidle' })
 await page.waitForSelector('svg path[data-iso3]', { timeout: 15000 })
 
 const label = () => page.locator('span').last().textContent()

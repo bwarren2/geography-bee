@@ -30,6 +30,10 @@ const DRAG_SLOP_PX = 8
  *  a micro-state cannot swallow clicks aimed at its neighbour. */
 const CROWDING_FACTOR = 0.45
 const MIN_SNAP_PX = 5
+/** Minimum separation between two rendered labels before the later one is
+ *  dropped. Wider than tall because names are wide and short. */
+const LABEL_MIN_GAP_X = 54
+const LABEL_MIN_GAP_Y = 14
 
 interface GeoMapProps {
   view: MapView
@@ -158,6 +162,26 @@ export function GeoMap({ view, marks, labels, onPick, pickable, className }: Geo
     return { projection, path, shapes, snaps }
   }, [geo, index, view, width, height])
 
+  /**
+   * Greedy label placement: the requested order wins, and any later label whose
+   * anchor falls too close to one already placed is dropped. Small neighbours
+   * cluster tightly — Suriname and Guyana sit within a few pixels of each other
+   * at region zoom — and overlapping text is less useful than one clear label.
+   */
+  const placedLabels = useMemo(() => {
+    if (!scene || !labels?.length) return []
+    const out: { iso3: string; s: (typeof scene.shapes)[number] }[] = []
+    for (const iso3 of labels) {
+      const s = scene.shapes.find((x) => x.iso3 === iso3)
+      if (!s?.hasCentroid) continue
+      const clash = out.some(
+        (o) => Math.abs(o.s.cx - s.cx) < LABEL_MIN_GAP_X && Math.abs(o.s.cy - s.cy) < LABEL_MIN_GAP_Y,
+      )
+      if (!clash) out.push({ iso3, s })
+    }
+    return out
+  }, [scene, labels])
+
   const canPick = (iso3: string) => !!onPick && (!pickable || pickable.has(iso3))
 
   /**
@@ -235,9 +259,7 @@ export function GeoMap({ view, marks, labels, onPick, pickable, className }: Geo
           </g>
 
           <g pointerEvents="none">
-            {labels?.map((iso3) => {
-              const s = scene.shapes.find((x) => x.iso3 === iso3)
-              if (!s?.hasCentroid) return null
+            {placedLabels.map(({ iso3, s }) => {
               const name = index?.byIso3.get(iso3)?.name ?? iso3
               return (
                 <text

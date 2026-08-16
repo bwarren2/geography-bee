@@ -341,8 +341,24 @@ const regions: QuizRegion[] = REGION_DEFS.map((def) => {
 
 mkdirSync(GEO_OUT, { recursive: true })
 
+/**
+ * Names for neighbours that are not themselves UN members — French Guiana on
+ * Brazil's border, Western Sahara on Morocco's. They are never quiz answers,
+ * but a reveal panel listing "GUF" instead of "French Guiana" reads like a bug.
+ */
+const memberIso3 = new Set(records.map((r) => r.iso3))
+const territoryNames: Record<string, string> = {}
+for (const r of records) {
+  for (const code of r.borders) {
+    if (memberIso3.has(code) || territoryNames[code]) continue
+    const match = raw.find((c) => c.cca3 === code)
+    if (match) territoryNames[code] = match.name.common
+  }
+}
+
 const bundle: DataBundle = {
   version: 1,
+  territoryNames,
   generatedFrom: {
     'world-atlas': read(nm('world-atlas/package.json')).version,
     'world-countries': read(nm('world-countries/package.json')).version,

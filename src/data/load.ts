@@ -22,6 +22,27 @@ const json = async <T,>(url: string): Promise<T> => {
 
 export const loadBundle = () => once('bundle', () => json<DataBundle>('data/countries.json'))
 
+export interface CountryHook {
+  /** The one memorable thing about this country. */
+  hook: string
+  /** Anchors the country against its neighbours. */
+  place: string
+  /** Leading exports by value. */
+  exports: string[]
+}
+
+/** Hand-written context, keyed by ISO3. Absent for countries not yet written,
+ *  so every consumer must treat a miss as normal rather than an error. */
+export const loadHooks = () =>
+  once('hooks', async (): Promise<Map<string, CountryHook>> => {
+    try {
+      const data = await json<{ hooks: Record<string, CountryHook> }>('data/hooks.json')
+      return new Map(Object.entries(data.hooks ?? {}))
+    } catch {
+      return new Map()
+    }
+  })
+
 export interface CountryIndex {
   bundle: DataBundle
   byIso3: Map<string, CountryRecord>

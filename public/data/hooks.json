@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "note": "Hand-written context shown on the reveal screen. `hook` is the one memorable thing; `place` anchors the country against its neighbours so location has something to hang on; `exports` are the leading goods by value. Unlike everything else in this directory these are authored rather than generated, so they are edited here directly and never overwritten by `npm run build:data`.",
+  "hooks": {
+    "BRA": {
+      "hook": "Borders every country in South America except Chile and Ecuador — ten neighbours, more than any country outside Russia and China.",
+      "place": "Fills the whole eastern bulge. If you can draw Brazil, the rest of the continent is the leftovers around it.",
+      "exports": ["soybeans", "iron ore", "crude petroleum"]
+    },
+    "ARG": {
+      "hook": "Home to Aconcagua, at 6,961m the highest peak anywhere outside Asia — and it sits barely 100km from the Chilean border.",
+      "place": "The long southern wedge below Brazil, sharing the Andes spine with Chile the whole way down.",
+      "exports": ["soybean meal", "corn", "soybean oil"]
+    },
+    "PER": {
+      "hook": "The Amazon starts here, in Andean meltwater, and runs the width of the continent before reaching the Atlantic in Brazil.",
+      "place": "Pacific coast, just south of the equator. Ecuador and Colombia above, Chile below, Brazil behind the mountains.",
+      "exports": ["copper ore", "gold", "refined copper"]
+    },
+    "COL": {
+      "hook": "The only country in South America with coastline on both the Pacific and the Caribbean.",
+      "place": "The top-left corner of the continent, and the only one that touches Panama — the land bridge to North America.",
+      "exports": ["crude petroleum", "coal briquettes", "coffee"]
+    },
+    "VEN": {
+      "hook": "Angel Falls drops 979m, so tall the water atomises into mist before it lands.",
+      "place": "The Caribbean shoulder, east of Colombia. Trinidad sits just off its northeast tip.",
+      "exports": ["crude petroleum", "gold", "iron ore"]
+    },
+    "CHL": {
+      "hook": "4,300km long and averages 180km wide — the same proportions as a country stretched from Norway to the Sahara.",
+      "place": "The ribbon down the Pacific edge, pinned between the Andes and the ocean for its entire length.",
+      "exports": ["refined copper", "copper ore", "lithium carbonate"]
+    },
+    "ECU": {
+      "hook": "Named after the equator, which crosses just north of Quito — the only country named for a line of latitude.",
+      "place": "A small Pacific notch between Colombia and Peru. The Galápagos belong to it, 900km out to sea.",
+      "exports": ["crude petroleum", "bananas", "crustaceans"]
+    },
+    "BOL": {
+      "hook": "Landlocked since 1884, and still keeps a navy — it patrols Lake Titicaca and waits for the sea to come back.",
+      "place": "The landlocked heart of the continent, ringed by Brazil, Peru, Chile, Argentina and Paraguay.",
+      "exports": ["natural gas", "gold", "zinc ore"]
+    },
+    "PRY": {
+      "hook": "Runs almost entirely on the Itaipú dam and sells the surplus to Brazil, making it one of the world's largest electricity exporters per head.",
+      "place": "The other landlocked one, tucked between Bolivia, Brazil and Argentina.",
+      "exports": ["soybeans", "electricity", "beef"]
+    },
+    "URY": {
+      "hook": "Smaller than every other Spanish-speaking country in South America, with more cattle than people — about four to one.",
+      "place": "The small wedge on the Atlantic between Brazil and Argentina, across the river from Buenos Aires.",
+      "exports": ["beef", "soybeans", "wood pulp"]
+    },
+    "GUY": {
+      "hook": "The only country in South America where English is the official language — and since a 2015 offshore oil strike, among the fastest-growing economies on Earth.",
+      "place": "One of the three small countries stacked along the northeast coast, east of Venezuela.",
+      "exports": ["crude petroleum", "gold", "rice"]
+    },
+    "SUR": {
+      "hook": "Dutch-speaking, and the smallest sovereign country in South America — most of it is rainforest almost nobody lives in.",
+      "place": "The middle of the three northeastern neighbours: Guyana to its west, French Guiana to its east.",
+      "exports": ["gold", "crude petroleum", "sawn wood"]
+    }
+  }
+}

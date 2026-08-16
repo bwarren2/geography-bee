@@ -314,3 +314,26 @@ button.ghost {
   font-size: 13px;
   color: #cbd5e1;
 }
+
+/* The sticky layer: shown, never tested at first. Its job is to give the shape
+   a story, not to be recalled. */
+.hook {
+  background: #172033;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hook p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.hook .place {
+  color: var(--muted);
+  font-size: 13px;
+}

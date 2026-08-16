@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react'
 import { GeoMap } from '../map/GeoMap'
 import type { MarkRole } from '../map/GeoMap'
-import type { CountryIndex } from '../data/load'
+import { loadHooks, type CountryHook, type CountryIndex } from '../data/load'
 import type { CountryRecord } from '../types'
 
 const fmt = new Intl.NumberFormat('en-US')
@@ -19,7 +20,9 @@ function facts(country: CountryRecord, index: CountryIndex): string[] {
   else if (country.coastlineKm) out.push(`Coastline: ${fmt.format(Math.round(country.coastlineKm))} km`)
 
   if (country.borders.length) {
-    const names = country.borders.map((b) => index.byIso3.get(b)?.name ?? b)
+    const names = country.borders.map(
+      (b) => index.byIso3.get(b)?.name ?? index.bundle.territoryNames[b] ?? b,
+    )
     out.push(`Borders: ${names.join(', ')}`)
   }
   if (country.nationalDish) out.push(`National dish: ${country.nationalDish}`)
@@ -36,6 +39,15 @@ interface RevealProps {
 }
 
 export function Reveal({ country, index, correct, chosen, onNext }: RevealProps) {
+  const [hook, setHook] = useState<CountryHook | null>(null)
+  useEffect(() => {
+    let live = true
+    void loadHooks().then((h) => live && setHook(h.get(country.iso3) ?? null))
+    return () => {
+      live = false
+    }
+  }, [country.iso3])
+
   const marks: Record<string, MarkRole> = { [country.iso3]: correct ? 'correct' : 'target' }
   for (const b of country.borders) marks[b] ??= 'context'
   if (chosen && chosen !== country.iso3) marks[chosen] = 'wrong'
@@ -58,6 +70,14 @@ export function Reveal({ country, index, correct, chosen, onNext }: RevealProps)
       <div className="reveal-map">
         <GeoMap view={{ kind: 'region', slug: country.region }} marks={marks} labels={labels} />
       </div>
+
+      {hook && (
+        <div className="hook">
+          <p>{hook.hook}</p>
+          <p className="place">{hook.place}</p>
+          {hook.exports.length > 0 && <p className="place">Exports: {hook.exports.join(', ')}</p>}
+        </div>
+      )}
 
       <ul className="facts">
         {facts(country, index).map((f) => (

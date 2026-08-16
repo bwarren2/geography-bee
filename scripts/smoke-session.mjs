@@ -1,6 +1,7 @@
 import { chromium } from 'playwright'
 
 const OUT = process.env.SMOKE_OUT ?? '/tmp'
+const BASE = process.env.SMOKE_URL ?? 'http://localhost:5173'
 const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' })
 const page = await browser.newPage({ viewport: { width: 390, height: 780 } })
 
@@ -10,7 +11,7 @@ page.on('pageerror', (e) => errors.push(String(e)))
 
 const shot = (n) => page.screenshot({ path: `${OUT}/session-${n}.png` })
 
-await page.goto('http://localhost:5173/', { waitUntil: 'networkidle' })
+await page.goto(BASE + '/', { waitUntil: 'networkidle' })
 await page.waitForSelector('.home', { timeout: 15000 })
 console.log('home:', (await page.locator('.stats').innerText()).replace(/\n/g, ' '))
 await shot('1-home')

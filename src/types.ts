@@ -59,6 +59,9 @@ export interface QuizRegion {
 
 export interface DataBundle {
   version: number
+  /** Names of bordering territories that are not UN members (French Guiana,
+   *  Western Sahara), so neighbour lists never show a bare ISO code. */
+  territoryNames: Record<string, string>
   generatedFrom: Record<string, string>
   regions: QuizRegion[]
   countries: CountryRecord[]
