@@ -1,0 +1,56 @@
+:root {
+  --ocean: #0b1220;
+  --land: #334155;
+  --border: #0b1220;
+  --label: #f8fafc;
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #f59e0b;
+  --good: #22c55e;
+  --bad: #ef4444;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.5 system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Respect notches on iOS when installed to the home screen. */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: var(--panel);
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  /* Comfortable thumb target on a phone. */
+  min-height: 44px;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--muted);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}

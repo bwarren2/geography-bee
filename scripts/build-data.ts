@@ -5,7 +5,7 @@
  * emits is committed to the repo, so the app has zero network dependencies at
  * build or runtime and every data change shows up as a reviewable diff.
  *
- * Sources (see data/ATTRIBUTION.md):
+ * Sources (see ATTRIBUTION-DATA.md):
  *   world-atlas     — Natural Earth geometry, public domain
  *   world-countries — codes/capitals/borders/area, ODbL
  *   country-json    — population and context facts, MIT
@@ -21,7 +21,7 @@ import type { CountryRecord, QuizRegion, DataBundle } from '../src/types'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(HERE, '..')
-const OUT = join(ROOT, 'data')
+const OUT = join(ROOT, 'public', 'data')
 const GEO_OUT = join(OUT, 'geo')
 
 const read = (p: string) => JSON.parse(readFileSync(p, 'utf8'))
