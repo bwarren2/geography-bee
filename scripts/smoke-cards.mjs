@@ -43,12 +43,16 @@ const seeded = [
   card('BOL', 'neighbors'),
 ]
 
-await page.goto(BASE + '/')
-await page.evaluate((cards) => {
+// The fixture is planted before any page script runs. The previous pattern
+// (goto, write localStorage, reload) raced the app's own first load: virgin
+// storage triggers the known-by-default seeding, whose debounced flush could
+// land after the test fixture was written and clobber it.
+await page.addInitScript((cards) => {
   localStorage.setItem('gb:v1:cards', JSON.stringify(Object.fromEntries(cards.map((c) => [c.id, c]))))
-  localStorage.setItem('gb:v1:settings', JSON.stringify({ newCardsPerDay: 0, enabledRegions: [] }))
+  localStorage.setItem('gb:v1:settings', JSON.stringify({ newCardsPerDay: 0 }))
+  localStorage.setItem('gb:v1:stats', JSON.stringify({ perCard: {}, daily: {}, confusion: {} }))
 }, seeded)
-await page.reload({ waitUntil: 'networkidle' })
+await page.goto(BASE + '/', { waitUntil: 'networkidle' })
 await page.waitForSelector('.home')
 await page.locator('button.primary').click()
 await page.waitForSelector('.study')

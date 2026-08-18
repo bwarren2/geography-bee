@@ -11,15 +11,17 @@ page.on('pageerror', (e) => errors.push(String(e)))
 
 const shot = (n) => page.screenshot({ path: `${OUT}/session-${n}.png` })
 
-await page.goto(BASE + '/', { waitUntil: 'networkidle' })
-// This script models a learner with no claimed prior knowledge; writing an
-// explicit empty cards key stops the known-by-default seeding.
-await page.evaluate(() => {
-  localStorage.clear()
-  localStorage.setItem('gb:v1:cards', '{}')
-  localStorage.setItem('gb:v1:stats', JSON.stringify({ perCard: {}, daily: {}, confusion: {} }))
+// This script models a learner with no claimed prior knowledge: an explicit
+// empty cards key stops the known-by-default seeding, planted via init script
+// so it exists before the app's very first load (a goto-then-write-then-reload
+// pattern would race the seeding's debounced flush).
+await page.addInitScript(() => {
+  if (!localStorage.getItem('gb:v1:cards')) {
+    localStorage.setItem('gb:v1:cards', '{}')
+    localStorage.setItem('gb:v1:stats', JSON.stringify({ perCard: {}, daily: {}, confusion: {} }))
+  }
 })
-await page.reload({ waitUntil: 'networkidle' })
+await page.goto(BASE + '/', { waitUntil: 'networkidle' })
 await page.waitForSelector('.home', { timeout: 15000 })
 console.log('home:', (await page.locator('.stats').innerText()).replace(/\n/g, ' '))
 await shot('1-home')
