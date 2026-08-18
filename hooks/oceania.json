@@ -1,0 +1,72 @@
+{
+  "AUS": {
+    "hook": "The only country that is also a continent, and more than 80% of its mammals, reptiles and frogs live nowhere else.",
+    "place": "The continent-sized island between the Indian and Pacific oceans, below Indonesia and Papua New Guinea.",
+    "exports": ["iron ore", "coal", "natural gas"]
+  },
+  "PNG": {
+    "hook": "Over 800 living languages are spoken here — roughly one in eight of all the languages on Earth, in one country.",
+    "place": "The eastern half of New Guinea, sharing the island with Indonesia, directly north of Australia.",
+    "exports": ["natural gas", "gold", "crude petroleum"]
+  },
+  "NZL": {
+    "hook": "One of the last large landmasses humans reached, settled only around 1300 — and it had no land mammals at all except bats.",
+    "place": "Two main islands about 2,000km southeast of Australia, alone in the South Pacific.",
+    "exports": ["concentrated milk", "sheep and goat meat", "butter"]
+  },
+  "FJI": {
+    "hook": "The 180th meridian runs right through it, so the international date line had to be bent around the country to keep it on one day.",
+    "place": "About 330 islands in the South Pacific east of Vanuatu — the hub of the region.",
+    "exports": ["water", "fish", "raw sugar"]
+  },
+  "SLB": {
+    "hook": "Nearly a thousand islands, and Guadalcanal among them — the campaign fought there turned the Pacific war.",
+    "place": "A double chain running southeast from Papua New Guinea, northeast of Australia.",
+    "exports": ["rough wood", "fish", "palm oil"]
+  },
+  "VUT": {
+    "hook": "Regularly ranked the most disaster-exposed country on Earth — cyclones, earthquakes and active volcanoes, all at once.",
+    "place": "A Y-shaped chain west of Fiji, out in the Coral Sea east of Australia.",
+    "exports": ["fish", "copra", "beef"]
+  },
+  "WSM": {
+    "hook": "Skipped 30 December 2011 entirely, jumping across the date line so it could share a working week with Australia and New Zealand.",
+    "place": "In Polynesia, northeast of Fiji.",
+    "exports": ["coconut oil", "fish", "beer"]
+  },
+  "TON": {
+    "hook": "The only Pacific nation never colonised, and the only one to keep its own monarchy unbroken through the whole colonial era.",
+    "place": "In Polynesia south of Samoa and east of Fiji.",
+    "exports": ["squash", "fish", "root vegetables"]
+  },
+  "KIR": {
+    "hook": "The only country in all four hemispheres — its islands are scattered over 3.5 million km² of ocean, an area the size of India.",
+    "place": "Strung across the central Pacific, straddling both the equator and the date line.",
+    "exports": ["fish", "coconut oil", "copra"]
+  },
+  "FSM": {
+    "hook": "Nan Madol is a ruined city built on around a hundred artificial islets of stacked basalt — a Venice made of volcanic rock.",
+    "place": "A long scatter of islands north of Papua New Guinea, running east from Palau.",
+    "exports": ["fish", "ships", "machinery"]
+  },
+  "MHL": {
+    "hook": "Bikini Atoll absorbed 23 nuclear tests, one of them a thousand times the Hiroshima bomb — the crater is still in the reef.",
+    "place": "Two parallel chains of atolls in the central Pacific, north of Kiribati.",
+    "exports": ["ships", "fish", "recreational boats"]
+  },
+  "PLW": {
+    "hook": "Created the world's first shark sanctuary, and requires every visitor to sign a pledge to the country's children on arrival.",
+    "place": "The westernmost Pacific islands, east of the Philippines and north of Indonesia.",
+    "exports": ["fish", "ships", "machinery"]
+  },
+  "TUV": {
+    "hook": "Earns a large slice of national income leasing its .tv internet domain — an accident of the alphabet worth millions a year.",
+    "place": "Nine low atolls in the central Pacific north of Fiji, and among the smallest countries anywhere.",
+    "exports": ["fish", "ships", "coconut products"]
+  },
+  "NRU": {
+    "hook": "About 21km² and strip-mined for phosphate until most of the interior was left as bare limestone pinnacles — briefly the richest country per head on Earth.",
+    "place": "A single island just south of the equator, west of Kiribati.",
+    "exports": ["phosphates", "fish", "machinery"]
+  }
+}

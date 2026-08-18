@@ -6,11 +6,12 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "build:data": "tsx scripts/build-data.ts",
+    "build:data": "tsx scripts/build-data.ts && tsx scripts/build-hooks.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "smoke:map": "node scripts/smoke-map.mjs",
-    "smoke:session": "node scripts/smoke-session.mjs"
+    "smoke:session": "node scripts/smoke-session.mjs",
+    "build:hooks": "tsx scripts/build-hooks.ts"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,52 @@
+{
+  "GBR": {
+    "hook": "Nowhere in Britain is more than about 125km from the sea — no point on the island is genuinely inland.",
+    "place": "The large island off northwest France, plus Northern Ireland across the Irish Sea.",
+    "exports": ["gold", "cars", "packaged medicines"]
+  },
+  "IRL": {
+    "hook": "Has no native snakes, and far more people of Irish descent live abroad than on the island itself.",
+    "place": "The western island of the British Isles, across the Irish Sea from Britain.",
+    "exports": ["packaged medicines", "blood products", "nitrogen compounds"]
+  },
+  "NOR": {
+    "hook": "The fjords fold its coastline out to about 100,000km — more than twice the distance around the Earth.",
+    "place": "The western spine of Scandinavia, running up the Atlantic side from Denmark to the Arctic.",
+    "exports": ["crude petroleum", "natural gas", "fish"]
+  },
+  "SWE": {
+    "hook": "Has roughly 270,000 islands, more than any other country, though barely a thousand of them are lived on.",
+    "place": "The eastern half of the Scandinavian peninsula, Norway to the west, Baltic Sea to the east.",
+    "exports": ["cars", "packaged medicines", "refined petroleum"]
+  },
+  "DNK": {
+    "hook": "Over 400 islands and a peninsula, and no point in the country is further than about 52km from the sea.",
+    "place": "The peninsula and islands above Germany, corking the entrance to the Baltic. Greenland and the Faroes are its territories.",
+    "exports": ["packaged medicines", "electric generators", "pork"]
+  },
+  "FIN": {
+    "hook": "Counts about 188,000 lakes, and its language is related to neither Swedish nor Russian — it is not Indo-European at all.",
+    "place": "East of Sweden, sharing a 1,340km border with Russia — the longest in the EU.",
+    "exports": ["refined petroleum", "paper", "sawn wood"]
+  },
+  "EST": {
+    "hook": "The first country in the world to hold a general election online, and more forested now than a century ago.",
+    "place": "The northernmost Baltic state, across a narrow gulf from Finland.",
+    "exports": ["broadcasting equipment", "refined petroleum", "sawn wood"]
+  },
+  "LVA": {
+    "hook": "Riga holds the largest concentration of Art Nouveau architecture anywhere in the world.",
+    "place": "The middle of the three Baltic states, between Estonia and Lithuania.",
+    "exports": ["sawn wood", "wheat", "refined petroleum"]
+  },
+  "LTU": {
+    "hook": "Was once the largest country in Europe — the medieval Grand Duchy stretched from the Baltic all the way to the Black Sea.",
+    "place": "The southernmost of the three Baltic states, sitting directly above Poland.",
+    "exports": ["refined petroleum", "furniture", "wheat"]
+  },
+  "ISL": {
+    "hook": "Straddles the Mid-Atlantic Ridge and is pulling apart about 2cm a year — and heats nearly every home with geothermal water.",
+    "place": "Alone in the North Atlantic between Norway and Greenland, just below the Arctic Circle.",
+    "exports": ["aluminium", "fish fillets", "fish"]
+  }
+}

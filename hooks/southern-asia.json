@@ -1,0 +1,47 @@
+{
+  "IND": {
+    "hook": "Runs on a single time zone offset by half an hour from the rest of the world — and is now the most populous country on Earth.",
+    "place": "The triangle jutting into the Indian Ocean, Himalaya across the top, Pakistan west and Bangladesh east.",
+    "exports": ["refined petroleum", "packaged medicines", "diamonds"]
+  },
+  "PAK": {
+    "hook": "Holds K2 and four more of the world's fourteen 8,000m peaks — a greater concentration than anywhere outside Nepal.",
+    "place": "West of India, running from the Arabian Sea up to the Karakoram, with Afghanistan and Iran to the west.",
+    "exports": ["knitted garments", "rice", "textiles"]
+  },
+  "BGD": {
+    "hook": "Most of the country is one enormous river delta, barely above sea level — the Ganges and Brahmaputra meet and empty out through it.",
+    "place": "Almost entirely surrounded by India, opening south onto the Bay of Bengal.",
+    "exports": ["knitted garments", "non-knit garments", "textiles"]
+  },
+  "IRN": {
+    "hook": "Persian, not Arabic, and Indo-European rather than Semitic — the language is a closer relative of English than of the languages around it.",
+    "place": "Between the Caspian and the Gulf, with Iraq and Türkiye west, Afghanistan and Pakistan east.",
+    "exports": ["crude petroleum", "ethylene polymers", "iron alloys"]
+  },
+  "AFG": {
+    "hook": "The Wakhan Corridor is a finger of land drawn purely to keep the Russian and British empires from touching — it still reaches out to China.",
+    "place": "Landlocked between Iran, Pakistan and the Central Asian states, with the Hindu Kush through its middle.",
+    "exports": ["grapes", "coal", "insect resins"]
+  },
+  "NPL": {
+    "hook": "Holds eight of the world's ten highest mountains, and is the only country whose flag is not a rectangle.",
+    "place": "A long strip along the Himalaya, entirely between India and China.",
+    "exports": ["iron alloys", "carpets", "tea"]
+  },
+  "LKA": {
+    "hook": "Produces some of the world's best tea from land that was all coffee until a fungus wiped the crop out in the 1870s.",
+    "place": "The island off India's southeastern tip, separated by a strait shallow enough to nearly walk.",
+    "exports": ["tea", "knitted garments", "rubber tyres"]
+  },
+  "BTN": {
+    "hook": "Measures Gross National Happiness alongside GDP, and is one of the few carbon-negative countries — its forests absorb more than it emits.",
+    "place": "A small Himalayan kingdom between India and China, east of Nepal.",
+    "exports": ["iron alloys", "electricity", "dolomite"]
+  },
+  "MDV": {
+    "hook": "The lowest country on Earth — its highest natural point is about 2.4m, lower than most ceilings.",
+    "place": "A chain of atolls in the Indian Ocean, southwest of Sri Lanka.",
+    "exports": ["fish", "scrap iron", "coconut products"]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "ZAF": {
+    "hook": "Has three capital cities at once — Pretoria governs, Cape Town legislates, Bloemfontein judges — and twelve official languages.",
+    "place": "The bottom of the continent, completely surrounding Lesotho and wrapping around Eswatini.",
+    "exports": ["gold", "platinum", "cars"]
+  },
+  "NAM": {
+    "hook": "The Namib is the oldest desert on Earth at around 55 million years, and its Skeleton Coast is littered with shipwrecks.",
+    "place": "On the Atlantic between Angola and South Africa, with the Caprivi Strip reaching east toward the Zambezi.",
+    "exports": ["diamonds", "gold", "uranium"]
+  },
+  "BWA": {
+    "hook": "The Okavango spills into the Kalahari and simply evaporates — one of the few great river deltas that never reaches the sea.",
+    "place": "Landlocked above South Africa, between Namibia and Zimbabwe.",
+    "exports": ["diamonds", "insulated wire", "gold"]
+  },
+  "LSO": {
+    "hook": "One of only three countries entirely surrounded by a single other country — and its lowest point, at 1,400m, is the highest low point on Earth.",
+    "place": "Entirely inside South Africa, up in the Drakensberg mountains.",
+    "exports": ["diamonds", "knitted garments", "non-knit garments"]
+  },
+  "SWZ": {
+    "hook": "Renamed itself from Swaziland in 2018, partly because it kept being confused with Switzerland — and it remains one of the world's last absolute monarchies.",
+    "place": "A small landlocked kingdom between South Africa and Mozambique.",
+    "exports": ["raw sugar", "perfume mixtures", "packaged medicines"]
+  }
+}

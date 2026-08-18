@@ -36,7 +36,7 @@ so day three is not a wall.
 ```bash
 npm install
 npm run dev            # http://localhost:5173
-npm test               # 45 unit tests
+npm test               # 51 unit tests
 npm run typecheck
 npm run build          # production build into dist/
 ```
@@ -60,8 +60,12 @@ Vercel only runs `vite build` over the committed files.
 See [ATTRIBUTION-DATA.md](./ATTRIBUTION-DATA.md) for sources, licensing, and the
 upstream data defects the pipeline works around.
 
-`public/data/hooks.json` is the exception: hand-written context, edited directly
-and never overwritten by the pipeline.
+Hooks are the one authored dataset. They live in `hooks/<region>.json` — one
+file per quiz region, so edits stay scoped to the part of the world you are
+working on — and `npm run build:hooks` merges them into `public/data/hooks.json`
+after checking that every ISO code is real, filed under the right region, and
+not duplicated. `build:data` runs the merge too, so region changes and hooks
+cannot drift apart.
 
 ## Layout
 
@@ -90,6 +94,6 @@ without a backup.
 
 ## Status
 
-Milestones 1–4 are done: the app is usable. Still to come are the mastery
-choropleth and confusion-pair drills, hooks for the remaining 183 countries, and
+Milestones 1–4 are done and all 195 countries have written hooks: the app is
+usable. Still to come are the mastery choropleth, confusion-pair drills, and
 FSRS parameter fitting against your own review history.

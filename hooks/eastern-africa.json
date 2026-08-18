@@ -1,0 +1,87 @@
+{
+  "ETH": {
+    "hook": "Never colonised, and it keeps its own calendar — thirteen months, and about seven years behind the one the rest of the world uses.",
+    "place": "The highlands of the Horn of Africa, landlocked since Eritrea broke away in 1993.",
+    "exports": ["coffee", "sesame seeds", "cut flowers"]
+  },
+  "KEN": {
+    "hook": "The Great Rift Valley runs straight through it — the same crack in the continent that will eventually split Africa in two.",
+    "place": "On the Indian Ocean astride the equator, between Somalia and Tanzania.",
+    "exports": ["tea", "cut flowers", "coffee"]
+  },
+  "TZA": {
+    "hook": "Kilimanjaro rises 5,895m straight off the plain with no range around it — the tallest freestanding mountain on Earth.",
+    "place": "On the Indian Ocean below Kenya, with Zanzibar offshore and Lake Victoria at its northwestern corner.",
+    "exports": ["gold", "raw tobacco", "cashews"]
+  },
+  "UGA": {
+    "hook": "The White Nile begins here, flowing out of Lake Victoria and then running 6,000km north to the Mediterranean.",
+    "place": "Landlocked on the equator between Kenya and DR Congo, on Lake Victoria's northern shore.",
+    "exports": ["gold", "coffee", "fish"]
+  },
+  "RWA": {
+    "hook": "The land of a thousand hills — and it banned plastic bags back in 2008, long before anyone else did.",
+    "place": "Small and landlocked, between DR Congo, Uganda, Tanzania and Burundi.",
+    "exports": ["gold", "coffee", "tin ore"]
+  },
+  "BDI": {
+    "hook": "One of the most densely populated countries in Africa, and the southernmost headwater of the Nile rises inside it.",
+    "place": "Landlocked directly below Rwanda, on the northeastern shore of Lake Tanganyika.",
+    "exports": ["gold", "coffee", "tea"]
+  },
+  "SOM": {
+    "hook": "Has the longest coastline of any country in mainland Africa — over 3,000km wrapping around the Horn.",
+    "place": "The Horn itself, curving around Ethiopia from the Gulf of Aden to the Indian Ocean.",
+    "exports": ["live sheep and goats", "gold", "bananas"]
+  },
+  "DJI": {
+    "hook": "Lake Assal is the lowest point in Africa and one of the saltiest bodies of water anywhere — saltier than the Dead Sea.",
+    "place": "A small country on the Bab-el-Mandeb strait, wedged between Eritrea, Ethiopia and Somalia.",
+    "exports": ["reexported goods", "livestock", "dried legumes"]
+  },
+  "ERI": {
+    "hook": "Asmara is a near-intact Italian modernist city, built in the 1930s and now a World Heritage site.",
+    "place": "On the Red Sea directly above Ethiopia — this is the coastline Ethiopia lost in 1993.",
+    "exports": ["gold", "copper ore", "zinc"]
+  },
+  "ZMB": {
+    "hook": "Shares Victoria Falls with Zimbabwe — the largest single sheet of falling water in the world, and its spray is visible from 50km away.",
+    "place": "Landlocked in south-central Africa above Zimbabwe, touching eight neighbours.",
+    "exports": ["refined copper", "copper ore", "raw sugar"]
+  },
+  "ZWE": {
+    "hook": "Named after Great Zimbabwe, a stone city built entirely without mortar — the largest ancient structure south of the Sahara.",
+    "place": "Landlocked between Zambia and South Africa, sharing Victoria Falls along its northern border.",
+    "exports": ["gold", "raw tobacco", "iron alloys"]
+  },
+  "MWI": {
+    "hook": "Lake Malawi holds more fish species than any other lake on Earth — several hundred of them found nowhere else.",
+    "place": "A long thin landlocked country wrapped around its own lake, between Zambia, Tanzania and Mozambique.",
+    "exports": ["raw tobacco", "raw sugar", "tea"]
+  },
+  "MOZ": {
+    "hook": "One of very few country names containing all five vowels — and its coast faces Madagascar across a 400km channel.",
+    "place": "The long Indian Ocean coast below Tanzania, curving around toward South Africa.",
+    "exports": ["coal", "aluminium", "natural gas"]
+  },
+  "MDG": {
+    "hook": "Broke away from Africa about 160 million years ago, and roughly 90% of its wildlife lives nowhere else on Earth.",
+    "place": "The huge island off Mozambique — the fourth largest in the world.",
+    "exports": ["vanilla", "nickel", "cobalt"]
+  },
+  "MUS": {
+    "hook": "The dodo lived here and only here, and was gone within about eighty years of humans first landing.",
+    "place": "An island in the Indian Ocean roughly 900km east of Madagascar.",
+    "exports": ["knitted garments", "raw sugar", "fish"]
+  },
+  "COM": {
+    "hook": "Supplies most of the world's ylang-ylang — the flower essence at the heart of Chanel No. 5.",
+    "place": "A small archipelago in the channel between Mozambique and Madagascar.",
+    "exports": ["cloves", "essential oils", "vanilla"]
+  },
+  "SYC": {
+    "hook": "The smallest population of any African country, and its coco de mer palm grows the largest seed in the plant kingdom.",
+    "place": "115 islands in the Indian Ocean, northeast of Madagascar.",
+    "exports": ["fish", "refined petroleum", "boats"]
+  }
+}

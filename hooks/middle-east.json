@@ -1,0 +1,155 @@
+{
+  "TUR": {
+    "hook": "Straddles two continents, which makes Istanbul the only major city in the world with a European half and an Asian half.",
+    "place": "The land bridge between Europe and Asia, Black Sea above, Mediterranean below.",
+    "exports": [
+      "cars",
+      "vehicle parts",
+      "gold"
+    ]
+  },
+  "SAU": {
+    "hook": "The largest country on Earth with no rivers — not one permanent watercourse anywhere in it.",
+    "place": "Most of the Arabian peninsula, Red Sea to the west, the Gulf to the east.",
+    "exports": [
+      "crude petroleum",
+      "refined petroleum",
+      "ethylene polymers"
+    ]
+  },
+  "IRQ": {
+    "hook": "Mesopotamia, the land between the Tigris and Euphrates — writing, the wheel and the city were all invented here.",
+    "place": "Between Iran and Syria, with a narrow squeeze of coast at the head of the Gulf.",
+    "exports": [
+      "crude petroleum",
+      "refined petroleum",
+      "gold"
+    ]
+  },
+  "SYR": {
+    "hook": "Damascus has been continuously inhabited for perhaps 11,000 years, which makes it a contender for the oldest city on Earth.",
+    "place": "On the eastern Mediterranean between Türkiye and Jordan, with Iraq to the east.",
+    "exports": [
+      "olive oil",
+      "spices",
+      "cotton"
+    ]
+  },
+  "JOR": {
+    "hook": "Its Dead Sea shore is the lowest dry land on the planet, about 430m below sea level — and dropping about a metre a year.",
+    "place": "Between the West Bank and Iraq, with one small outlet to the Red Sea at Aqaba.",
+    "exports": [
+      "potassic fertilizers",
+      "packaged medicines",
+      "phosphates"
+    ]
+  },
+  "ISR": {
+    "hook": "Recycles around 90% of its wastewater, far more than any other country — the next best manages barely a quarter.",
+    "place": "A narrow strip on the eastern Mediterranean, between Lebanon and Egypt's Sinai.",
+    "exports": [
+      "diamonds",
+      "integrated circuits",
+      "packaged medicines"
+    ]
+  },
+  "PSE": {
+    "hook": "Two separated territories with Israel in between — the West Bank and Gaza are about 45km apart with no direct link.",
+    "place": "The West Bank inland along the Jordan, and Gaza on the Mediterranean coast beside Egypt.",
+    "exports": [
+      "building stone",
+      "dates",
+      "olive oil"
+    ]
+  },
+  "LBN": {
+    "hook": "The cedar on its flag once supplied timber to Egypt and Phoenicia for millennia — only a few ancient groves are left standing.",
+    "place": "A narrow coastal strip on the eastern Mediterranean, squeezed between Syria and Israel.",
+    "exports": [
+      "gold",
+      "jewellery",
+      "packaged medicines"
+    ]
+  },
+  "OMN": {
+    "hook": "Its detached northern tip controls the Strait of Hormuz, the 33km gap that about a fifth of the world's oil must pass through.",
+    "place": "The southeastern corner of Arabia, with the Musandam exclave cut off by the UAE.",
+    "exports": [
+      "crude petroleum",
+      "refined petroleum",
+      "natural gas"
+    ]
+  },
+  "ARE": {
+    "hook": "A federation of seven emirates, and home to the Burj Khalifa — still the tallest building in the world by a wide margin.",
+    "place": "On the southern shore of the Gulf, between Saudi Arabia and Oman.",
+    "exports": [
+      "crude petroleum",
+      "gold",
+      "refined petroleum"
+    ]
+  },
+  "QAT": {
+    "hook": "Sits on the largest single natural gas field on Earth, which it shares with Iran across the middle of the Gulf.",
+    "place": "A thumb of land pointing north into the Gulf from Saudi Arabia.",
+    "exports": [
+      "natural gas",
+      "crude petroleum",
+      "ethylene polymers"
+    ]
+  },
+  "KWT": {
+    "hook": "Its dinar is the highest-valued currency in the world — one buys more than three US dollars.",
+    "place": "At the very top of the Gulf, wedged between Iraq and Saudi Arabia.",
+    "exports": [
+      "crude petroleum",
+      "refined petroleum",
+      "ethylene polymers"
+    ]
+  },
+  "BHR": {
+    "hook": "First Gulf state to strike oil, and the first to largely run out — it has been diversifying longer than its neighbours have had to.",
+    "place": "A small archipelago in the Gulf off Saudi Arabia's east coast, linked by a 25km causeway.",
+    "exports": [
+      "refined petroleum",
+      "aluminium",
+      "iron ore"
+    ]
+  },
+  "YEM": {
+    "hook": "Its island of Socotra has been isolated so long that a third of its plants grow nowhere else — including trees that bleed red sap.",
+    "place": "The southwestern corner of Arabia, on the strait where the Red Sea meets the Gulf of Aden.",
+    "exports": [
+      "crude petroleum",
+      "fish",
+      "gold"
+    ]
+  },
+  "GEO": {
+    "hook": "Has been making wine for about 8,000 years, fermenting it in clay vessels buried in the ground — the oldest such tradition known.",
+    "place": "Between the Black Sea and the Caucasus, below Russia and above Armenia and Türkiye.",
+    "exports": [
+      "copper ore",
+      "cars",
+      "iron alloys"
+    ]
+  },
+  "ARM": {
+    "hook": "The first state anywhere to adopt Christianity, in 301 — and its national symbol, Mount Ararat, sits across a closed border in Türkiye.",
+    "place": "Landlocked in the southern Caucasus, ringed by Türkiye, Georgia, Azerbaijan and Iran.",
+    "exports": [
+      "copper ore",
+      "gold",
+      "tobacco"
+    ]
+  },
+  "AZE": {
+    "hook": "The name means Land of Fire, and the gas seeps at Yanar Dag have been burning on the hillside for centuries.",
+    "place": "On the Caspian's western shore below Russia, with the Nakhchivan exclave cut off by Armenia.",
+    "exports": [
+      "crude petroleum",
+      "refined petroleum",
+      "natural gas"
+    ]
+  }
+}
