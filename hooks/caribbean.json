@@ -1,0 +1,67 @@
+{
+  "CUB": {
+    "hook": "The largest island in the Caribbean and the longest — end to end it covers about the distance from London to Edinburgh, yet sits only 145km from Florida.",
+    "place": "The long island guarding the mouth of the Gulf of Mexico, directly south of Florida.",
+    "exports": ["cigars", "raw sugar", "nickel"]
+  },
+  "HTI": {
+    "hook": "The only nation founded by a successful slave revolt, in 1804 — and the first independent country in Latin America.",
+    "place": "The western third of Hispaniola, sharing one island with the Dominican Republic.",
+    "exports": ["knitted t-shirts", "essential oils", "mangoes"]
+  },
+  "DOM": {
+    "hook": "Holds the highest peak in the entire Caribbean, Pico Duarte at 3,101m — high enough that it occasionally gets frost.",
+    "place": "The eastern two-thirds of Hispaniola, the island between Cuba and Puerto Rico.",
+    "exports": ["gold", "medical instruments", "cigars"]
+  },
+  "JAM": {
+    "hook": "Its Blue Mountains are steep and wet enough that the coffee grown there sells for several times the world price.",
+    "place": "South of Cuba and west of Hispaniola, on its own in the middle of the sea.",
+    "exports": ["alumina", "bauxite", "refined petroleum"]
+  },
+  "BHS": {
+    "hook": "Around 700 islands, only about 30 of them inhabited — and the seabed beside the shallow banks drops away to 4,000m.",
+    "place": "The long scatter northeast of Cuba, beginning just off the Florida coast.",
+    "exports": ["ships", "crustaceans", "rum"]
+  },
+  "TTO": {
+    "hook": "Home to Pitch Lake, the largest natural asphalt deposit on Earth — parts of London and New York are paved with it.",
+    "place": "Just 11km off Venezuela's northeast tip, the last stop at the bottom of the island arc.",
+    "exports": ["natural gas", "ammonia", "crude petroleum"]
+  },
+  "BRB": {
+    "hook": "Sits out in the Atlantic beyond the island arc rather than in it, which is why hurricanes so often pass it by.",
+    "place": "Alone to the east of the chain, past Saint Vincent — the most easterly country in the Caribbean.",
+    "exports": ["rum", "ships", "orthopaedic appliances"]
+  },
+  "LCA": {
+    "hook": "The Pitons rise straight out of the sea as twin volcanic spires — the only place in the Caribbean with a drive-in volcano.",
+    "place": "Midway down the eastern arc, between Martinique and Saint Vincent.",
+    "exports": ["refined petroleum", "bananas", "beer"]
+  },
+  "VCT": {
+    "hook": "One main island plus 32 smaller ones, and a volcano — La Soufrière — that erupted as recently as 2021.",
+    "place": "In the eastern arc, directly between Saint Lucia and Grenada.",
+    "exports": ["ships", "wheat flour", "bananas"]
+  },
+  "GRD": {
+    "hook": "The Isle of Spice, and one of the world's great nutmeg producers — the nut is on the national flag.",
+    "place": "The southern end of the eastern arc, just north of Trinidad.",
+    "exports": ["nutmeg", "fish", "cocoa beans"]
+  },
+  "DMA": {
+    "hook": "The Nature Island, with the world's second-largest boiling lake — and no relation whatsoever to the Dominican Republic, 800km northwest.",
+    "place": "In the eastern arc between Guadeloupe and Martinique. The mix-up with the Dominican Republic is the one to watch for.",
+    "exports": ["medical instruments", "bananas", "soap"]
+  },
+  "ATG": {
+    "hook": "Claims a beach for every day of the year — 365 of them, one for each day.",
+    "place": "Near the top of the eastern arc, east of Saint Kitts.",
+    "exports": ["ships", "refined petroleum", "precious metal scrap"]
+  },
+  "KNA": {
+    "hook": "The smallest sovereign state in the Americas by both area and population — the whole country would fit inside Liverpool.",
+    "place": "Near the top of the eastern arc, northwest of Antigua.",
+    "exports": ["electronics", "machinery", "beverages"]
+  }
+}

@@ -1,0 +1,534 @@
+:root {
+  --ocean: #0b1220;
+  --land: #334155;
+  --border: #0b1220;
+  --label: #f8fafc;
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #f59e0b;
+  --good: #22c55e;
+  --bad: #ef4444;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.5 system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Respect notches on iOS when installed to the home screen. */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: var(--panel);
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  /* Comfortable thumb target on a phone. */
+  min-height: 44px;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--muted);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ---------------------------------------------------------------- layout */
+
+.loading {
+  padding: 24px;
+  color: var(--muted);
+}
+
+.home {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.home h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+}
+
+.stat {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat strong {
+  font-size: 22px;
+}
+
+.stat span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #1c1207;
+  font-weight: 600;
+}
+
+button.big {
+  padding: 16px;
+  font-size: 17px;
+}
+
+button.ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--muted);
+}
+
+.warn {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #422006;
+  border: 1px solid #854d0e;
+  color: #fed7aa;
+  font-size: 14px;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ----------------------------------------------------------------- study */
+
+.study {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.study-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+}
+
+.study-head .progress {
+  flex: 1;
+  height: 6px;
+  background: var(--panel);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.study-head .bar {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+
+.study-head .count {
+  color: var(--muted);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ask,
+.teach,
+.reveal {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 12px 16px;
+}
+
+.prompt,
+.teach h2 {
+  margin: 0;
+  font-size: 21px;
+  text-align: center;
+}
+
+.teach .lead {
+  margin: 0;
+  text-align: center;
+  color: var(--accent);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* The map is the centrepiece: give it everything left over, but never so
+   little that countries become untappable on a short screen. */
+.map-panel {
+  flex: 1;
+  min-height: 260px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--ocean);
+}
+
+.big-flag {
+  font-size: 88px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.option {
+  text-align: center;
+}
+
+.option.wrong {
+  background: #45161a;
+  border-color: var(--bad);
+  color: #fecaca;
+  opacity: 1;
+}
+
+.typed {
+  display: flex;
+  gap: 8px;
+}
+
+.typed input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  color: inherit;
+  background: var(--panel);
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.ask-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 44px;
+}
+
+/* ---------------------------------------------------------------- reveal */
+
+.verdict {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--panel);
+  border-left: 4px solid var(--muted);
+}
+
+.verdict.good {
+  border-left-color: var(--good);
+}
+
+.verdict.bad {
+  border-left-color: var(--bad);
+}
+
+.verdict strong {
+  font-size: 19px;
+}
+
+.verdict .flag {
+  font-size: 34px;
+}
+
+.reveal-map {
+  flex: 1;
+  min-height: 200px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.facts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-height: 132px;
+  overflow-y: auto;
+}
+
+.facts li {
+  background: var(--panel);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #cbd5e1;
+}
+
+/* The sticky layer: shown, never tested at first. Its job is to give the shape
+   a story, not to be recalled. */
+.hook {
+  background: #172033;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hook p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.hook .place {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.centered {
+  text-align: center;
+  margin: 0;
+}
+
+.zoom-reset {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 8px 12px;
+  min-height: 0;
+  font-size: 13px;
+  background: rgba(15, 23, 42, 0.85);
+  border-color: #475569;
+}
+
+/* ----------------------------------------------------------------- packs */
+
+.packs-head {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.packs-head h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.pack-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pack-group h2 {
+  margin: 8px 0 0;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.pack-group > .muted {
+  margin: 0;
+  font-size: 13px;
+}
+
+.pack {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.pack.on {
+  border-color: var(--accent);
+}
+
+.pack-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pack-text .muted {
+  font-size: 13px;
+}
+
+.pack-progress {
+  font-size: 12px;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.pack button {
+  flex-shrink: 0;
+  padding: 10px 16px;
+}
+
+/* ------------------------------------------------------------- dashboard */
+
+.dash-map {
+  height: 240px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--ocean);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+
+.legend .chip {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.legend .chip:first-child {
+  margin-left: 0;
+}
+
+.eta-headline {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.eta-headline strong {
+  font-size: 17px;
+}
+
+.region-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.region-table th {
+  text-align: left;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 6px;
+}
+
+.region-table td {
+  padding: 7px 6px;
+  border-top: 1px solid #1e293b;
+}
+
+.region-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.region-table .barcell {
+  width: 30%;
+}
+
+.minibar {
+  position: relative;
+  height: 8px;
+  background: #1e293b;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.minibar .seen {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: #475569;
+}
+
+.minibar .fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--good);
+  z-index: 1;
+}
+
+.small {
+  font-size: 12px;
+}
+
+.lead-inline {
+  color: var(--accent);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  white-space: nowrap;
+}
+
+.rapid-score {
+  font-variant-numeric: tabular-nums;
+}

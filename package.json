@@ -1,0 +1,57 @@
+{
+  "name": "geography-bee",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "build:data": "tsx scripts/build-data.ts && tsx scripts/build-hooks.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "smoke:session": "node scripts/smoke-session.mjs",
+    "build:hooks": "tsx scripts/build-hooks.ts",
+    "smoke:cards": "node scripts/smoke-cards.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bwarren2/geography-bee.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bwarren2/geography-bee/issues"
+  },
+  "homepage": "https://github.com/bwarren2/geography-bee#readme",
+  "devDependencies": {
+    "@types/d3-geo": "^3.1.1",
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@types/topojson-client": "^3.1.5",
+    "@types/topojson-specification": "^1.0.5",
+    "@vitejs/plugin-react": "^6.0.5",
+    "country-json": "^2.3.0",
+    "playwright": "^1.62.1",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.1",
+    "vite-plugin-pwa": "^1.3.0",
+    "vitest": "^4.1.10",
+    "world-atlas": "^2.0.2",
+    "world-countries": "^5.1.0"
+  },
+  "dependencies": {
+    "d3-geo": "^3.1.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "topojson-client": "^3.1.0",
+    "ts-fsrs": "^5.4.1"
+  },
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": "22.x"
+  }
+}
