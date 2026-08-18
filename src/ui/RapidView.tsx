@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { CountryIndex } from '../data/load'
 import { GeoMap, type MarkRole } from '../map/GeoMap'
+import { borderOpacityFor } from '../session/builder'
 import type { RapidItem } from '../session/rapid'
 import { deriveRating, type AnswerOutcome } from '../srs/model'
 import { schedule } from '../srs/scheduler'
@@ -122,6 +123,9 @@ export function RapidView({ items, index, onDone, onQuit }: RapidViewProps) {
             key={card.id}
             view={{ kind: 'region', slug: country.region }}
             marks={marks}
+            // The sprint asks at the same difficulty the card has earned; the
+            // answer flash restores full borders so the miss shows in context.
+            borderOpacity={flash ? 1 : borderOpacityFor(card)}
             labels={flash ? [country.iso3] : []}
             onPick={pick}
           />

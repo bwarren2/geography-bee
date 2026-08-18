@@ -37,6 +37,17 @@ removed. Due cards and the weakest recall claim the round's slots, and the
 round is then shuffled — a predictable sequence would let order memory stand in
 for actually knowing the map.
 
+**Borders are training wheels that fade with mastery.** A locate card's map
+draws internal borders at full strength while the card is young, fades them
+continuously as stability grows, and goes fully blank — coastline only — at
+the established threshold. With borders visible a country can be found by
+elimination; the mature question demands absolute position. Snap zones stay
+active, so micro-states remain answerable by proximity, and a wrong tap still
+fills the offending country so feedback survives the blankness. (The fade
+blends stroke colour toward the land colour rather than reducing opacity: a
+transparent stroke lets the ocean grin through anti-aliasing seams between
+adjacent fills as ghost borders.)
+
 **Wrong answers become drills.** Every wrong map click is logged as a confusion
 pair. Once a pair recurs, a confusion round runs after the session: both
 candidates marked, tap the named one, then the mirror question. A correct

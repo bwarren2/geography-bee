@@ -6,7 +6,7 @@ import type { DataBundle, CountryRecord } from '../types'
 import { cardId, type StoredCard } from '../srs/model'
 import { createCard, schedule } from '../srs/scheduler'
 import { DEFAULT_SETTINGS, type Aggregates } from '../store/store'
-import { answerModeFor, buildSession, pickOptions, stimulusFor } from './builder'
+import { answerModeFor, borderOpacityFor, buildSession, pickOptions, stimulusFor } from './builder'
 import { matchAnswer, normalize } from './matching'
 import { ALL_TYPES } from '../srs/model'
 
@@ -289,6 +289,37 @@ describe('buildSession', () => {
   })
 })
 
+
+describe('borderOpacityFor', () => {
+  it('shows full borders on a brand-new card', () => {
+    expect(borderOpacityFor(createCard('PER', 'locate', now))).toBe(1)
+  })
+
+  it('reaches a fully blank map exactly at the established threshold', () => {
+    const card = { ...createCard('PER', 'locate', now), stability: 21, state: 2 as const }
+    expect(borderOpacityFor(card)).toBe(0)
+  })
+
+  it('fades continuously in between and never goes negative', () => {
+    const mid = { ...createCard('PER', 'locate', now), stability: 10.5, state: 2 as const }
+    expect(borderOpacityFor(mid)).toBeCloseTo(0.5, 5)
+    const over = { ...createCard('PER', 'locate', now), stability: 60, state: 2 as const }
+    expect(borderOpacityFor(over)).toBe(0)
+  })
+
+  it('fades monotonically as stability grows', () => {
+    let c = createCard('PER', 'locate', new Date('2026-01-01'))
+    let prev = borderOpacityFor(c)
+    for (let i = 0; i < 6; i++) {
+      c = schedule(c, Rating.Easy, new Date(c.due))
+      const next = borderOpacityFor(c)
+      expect(next).toBeLessThanOrEqual(prev)
+      prev = next
+    }
+    // Eight easy reviews establish a card, so the training wheels are gone.
+    expect(prev).toBeLessThan(0.3)
+  })
+})
 
 describe('answer mode', () => {
   it('answers a locate card on the map, never by typing', () => {

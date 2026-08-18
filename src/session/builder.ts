@@ -1,6 +1,6 @@
 import type { CountryIndex } from '../data/load'
 import { cardId, STARTING_TYPES, type CardType, type StoredCard } from '../srs/model'
-import { createCard, hasEarnedExtraTypes } from '../srs/scheduler'
+import { createCard, ESTABLISHED_STABILITY_DAYS, hasEarnedExtraTypes } from '../srs/scheduler'
 import { regionSlugOf, SKILL_PACK_TYPES, WORLD_PACK_ID } from './packs'
 import { State } from 'ts-fsrs'
 import type { Aggregates, Settings } from '../store/store'
@@ -38,6 +38,23 @@ export function answerModeFor(type: CardType, assisted: boolean): AnswerMode {
     case 'capital':
       return 'text'
   }
+}
+
+/**
+ * How strongly a locate card's map draws its internal borders.
+ *
+ * Borders are training wheels: with them visible, a country can be found by
+ * elimination — recognising the shapes around it — rather than by knowing
+ * where it is. They fade with the card's stability and disappear exactly at
+ * the established threshold, so the mature form of the question is a blank
+ * map with only the coastline. The fade is continuous rather than a cliff:
+ * each review is asked at the hardest presentation recent evidence says the
+ * learner can bear. Wrong-pick feedback still shows (marks fill the country),
+ * and the snap zones remain active, which is what makes micro-states
+ * answerable by proximity when their outlines are gone.
+ */
+export function borderOpacityFor(card: StoredCard): number {
+  return Math.min(1, Math.max(0, 1 - card.stability / ESTABLISHED_STABILITY_DAYS))
 }
 
 export function stimulusFor(type: CardType): Stimulus {

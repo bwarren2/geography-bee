@@ -3,7 +3,7 @@ import type { CountryIndex } from '../data/load'
 import { GeoMap, type MarkRole } from '../map/GeoMap'
 import { deriveRating, type AnswerOutcome } from '../srs/model'
 import { schedule } from '../srs/scheduler'
-import { answerModeFor, stimulusFor, type SessionItem } from '../session/builder'
+import { answerModeFor, borderOpacityFor, stimulusFor, type SessionItem } from '../session/builder'
 import { matchAnswer } from '../session/matching'
 import { store } from '../store/useStore'
 import { Reveal } from './Reveal'
@@ -170,6 +170,10 @@ export function StudyView({ items, index, onDone, onQuit }: StudyViewProps) {
                 key={card.id}
                 view={{ kind: 'region', slug: country.region }}
                 marks={marks}
+                // Locate cards earn a blanker map as they strengthen; every
+                // other card keeps full borders — there the map is context,
+                // not the question.
+                borderOpacity={card.type === 'locate' ? borderOpacityFor(card) : 1}
                 labels={stimulus === 'map-highlight' && mode === 'map-multi' ? [country.iso3] : []}
                 onPick={
                   mode === 'map-single'

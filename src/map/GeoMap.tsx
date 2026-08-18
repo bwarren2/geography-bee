@@ -89,6 +89,10 @@ interface GeoMapProps {
   /** Raw per-country fill colours (choropleths). A mark always wins over a
    *  fill, so answer feedback stays visible on a shaded map. */
   fills?: Record<string, string>
+  /** Opacity of internal country borders, 0–1. At 0 the land is a single
+   *  silhouette with only the coastline (the fill's edge against the ocean).
+   *  Marked countries keep full-strength feedback regardless. Default 1. */
+  borderOpacity?: number
   /** ISO3 codes to label. */
   labels?: string[]
   onPick?: (iso3: string) => void
@@ -113,7 +117,7 @@ function useSize(ref: React.RefObject<HTMLElement | null>) {
   return size
 }
 
-export function GeoMap({ view, marks, fills, labels, onPick, pickable, className }: GeoMapProps) {
+export function GeoMap({ view, marks, fills, labels, onPick, pickable, className, borderOpacity = 1 }: GeoMapProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const { width, height } = useSize(wrapRef)
   const [geo, setGeo] = useState<Map<string, CountryFeature> | null>(null)
@@ -428,8 +432,19 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, className
                 d={s.d}
                 fill={marks?.[s.iso3] ? ROLE_FILL[marks[s.iso3]!] : (fills?.[s.iso3] ?? 'var(--land)')}
                 stroke="var(--border)"
-                strokeWidth={0.5}
+                // Fading is done by blending the stroke toward the land colour
+                // rather than by opacity: adjacent fills leave anti-aliasing
+                // seams, and a transparent stroke lets the ocean grin through
+                // them as ghost borders. A land-coloured stroke seals the seams
+                // while being invisible — and it widens as it fades, because a
+                // hairline is not enough paint to cover the seam it hides.
+                strokeWidth={0.5 + (1 - borderOpacity) * 1.1}
                 vectorEffect="non-scaling-stroke"
+                style={
+                  borderOpacity < 1
+                    ? { stroke: `color-mix(in srgb, var(--border) ${Math.round(borderOpacity * 100)}%, var(--land))` }
+                    : undefined
+                }
               />
             ))}
           </g>
@@ -449,6 +464,7 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, className
                   fill={marks?.[s.iso3] ? ROLE_FILL[marks[s.iso3]!] : (fills?.[s.iso3] ?? 'var(--land)')}
                   stroke="var(--border)"
                   strokeWidth={0.5 / tf.k}
+                  opacity={marks?.[s.iso3] ? 1 : borderOpacity}
                 />
               ))}
           </g>
