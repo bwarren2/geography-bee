@@ -60,6 +60,14 @@ until tomorrow — correct, but it reads as a bug. A "+5 new cards today" button
 grants extra budget for today only: it stacks within the day, never leaks into
 tomorrow, and only appears when pressing it would actually surface cards.
 
+**Some knowledge is declared, not learned.** A fresh install seeds North and
+Central America as already learned — Review-state cards built by simulating
+real FSRS reviews, due immediately for one confirming pass. Learned is not
+established: the seeds start short of the mastery threshold, so the blank-map
+graduation and the dashboard's mastery count still have to be earned, and an
+overclaimed country simply lapses like any other. Seeding touches only virgin
+storage; an explicitly empty collection or any real progress is never altered.
+
 **Extra material is opt-in, through packs.** The world tour (locate + identify)
 is on by default. Skill packs — Capitals, Flags, Borders — add a new kind of
 question, and generate cards per country only once its two map cards are

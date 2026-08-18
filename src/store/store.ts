@@ -1,4 +1,5 @@
 import type { CardId, StoredCard } from '../srs/model'
+import { seedKnownCards } from '../srs/seed'
 import { defaultDriver, QuotaError, type KeyValueDriver } from './driver'
 
 const NS = 'gb:v1'
@@ -148,7 +149,16 @@ export class StudyStore {
         this.driver.get<Meta>(K.meta),
         this.driver.get<Record<string, number>>(K.logIndex),
       ])
-      this.cards = cards ?? {}
+      // Virgin storage — no cards key was ever written, not even an empty
+      // one — starts with the known-by-default countries already learned.
+      // Anything less than virgin is someone's real progress (or a backup
+      // restore) and is never touched.
+      const virgin = cards === null && stats === null
+      this.cards = cards ?? (virgin ? seedKnownCards(new Date()) : {})
+      if (virgin && Object.keys(this.cards).length) {
+        this.dirty.add('cards')
+        this.scheduleFlush()
+      }
       this.stats = { ...emptyAggregates(), ...(stats ?? {}) }
       this.settings = { ...DEFAULT_SETTINGS, ...(settings ?? {}) }
       this.meta = meta ?? this.meta

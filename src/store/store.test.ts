@@ -19,9 +19,11 @@ describe('StudyStore', () => {
     store = new StudyStore(driver)
   })
 
-  it('starts empty and applies default settings', async () => {
+  it('starts a fresh install with the known-by-default countries and default settings', async () => {
     const snap = await store.load()
-    expect(Object.keys(snap.cards)).toHaveLength(0)
+    // 9 known countries x locate + identify. The seed's own contract lives in
+    // seed.test.ts; here we only pin that a virgin store is not empty.
+    expect(Object.keys(snap.cards)).toHaveLength(18)
     expect(snap.settings.newCardsPerDay).toBe(8)
   })
 
