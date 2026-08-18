@@ -44,7 +44,7 @@ npm run build          # production build into dist/
 Browser smoke tests need a server already running:
 
 ```bash
-npm run smoke:map      # clicks real geometry across five regions
+npm run smoke:cards    # asserts every card type shows its matching control
 npm run smoke:session  # drives a full study session and reloads
 ```
 

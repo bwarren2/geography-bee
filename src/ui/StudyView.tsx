@@ -164,7 +164,10 @@ export function StudyView({ items, index, onDone, onQuit }: StudyViewProps) {
             <div className="big-flag">{country.flag}</div>
           ) : (
             <div className="map-panel">
+              {/* Keyed by card so consecutive same-region cards each start at
+                  1:1 — zoom is an aid for one tap, never ambient state. */}
               <GeoMap
+                key={card.id}
                 view={{ kind: 'region', slug: country.region }}
                 marks={marks}
                 labels={stimulus === 'map-highlight' && mode === 'map-multi' ? [country.iso3] : []}

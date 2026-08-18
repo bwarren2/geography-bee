@@ -35,6 +35,54 @@ const MIN_SNAP_PX = 5
 const LABEL_MIN_GAP_X = 54
 const LABEL_MIN_GAP_Y = 14
 
+const MAX_ZOOM = 8
+const WHEEL_SENSITIVITY = 0.0022
+
+/**
+ * The map owns its own pan/zoom instead of leaving pinch to the browser.
+ * Page-level pinch zoom was the original behaviour, and it made small
+ * countries a trap: zoom the page in to tap Monaco, answer, and the reveal
+ * replaces the question while the page is still magnified into a corner with
+ * no obvious way back. An in-map transform never outlives its map — every card
+ * starts at 1:1 — and a reset control is always in reach.
+ */
+export interface MapTransform {
+  k: number
+  x: number
+  y: number
+}
+
+export const IDENTITY: MapTransform = { k: 1, x: 0, y: 0 }
+
+/** Clamp scale to [1, MAX_ZOOM] and translation so the map always covers the
+ *  viewport — no gap can open at any edge, and k=1 is always exactly home. */
+export function clampTransform(tf: MapTransform, width: number, height: number): MapTransform {
+  const k = Math.min(MAX_ZOOM, Math.max(1, tf.k))
+  return {
+    k,
+    x: Math.min(0, Math.max(width - width * k, tf.x)),
+    y: Math.min(0, Math.max(height - height * k, tf.y)),
+  }
+}
+
+/** Rescale around a fixed screen point, so the spot under the cursor or pinch
+ *  midpoint stays put while everything grows around it. */
+export function zoomAround(
+  tf: MapTransform,
+  cx: number,
+  cy: number,
+  nextK: number,
+  width: number,
+  height: number,
+): MapTransform {
+  const k = Math.min(MAX_ZOOM, Math.max(1, nextK))
+  return clampTransform(
+    { k, x: cx - ((cx - tf.x) * k) / tf.k, y: cy - ((cy - tf.y) * k) / tf.k },
+    width,
+    height,
+  )
+}
+
 interface GeoMapProps {
   view: MapView
   marks?: Record<string, MarkRole>
@@ -68,6 +116,139 @@ export function GeoMap({ view, marks, labels, onPick, pickable, className }: Geo
   const [geo, setGeo] = useState<Map<string, CountryFeature> | null>(null)
   const [index, setIndex] = useState<CountryIndex | null>(null)
   const pressRef = useRef<{ x: number; y: number } | null>(null)
+
+  const [tf, setTf] = useState<MapTransform>(IDENTITY)
+  /** Authoritative transform for gesture math; state lags a frame behind. */
+  const tfRef = useRef(tf)
+  /** Live pointers, for distinguishing pan from pinch. */
+  const pointersRef = useRef(new Map<number, { x: number; y: number }>())
+  /** Baseline captured when the pointer set changes; deltas apply against it. */
+  const gestureRef = useRef<{
+    tf: MapTransform
+    mid: { x: number; y: number }
+    dist: number
+    captured: boolean
+  } | null>(null)
+  /** A pinch fires a stray click on some browsers; swallow it. */
+  const suppressClickRef = useRef(false)
+
+  const applyTf = (next: MapTransform) => {
+    const clamped = clampTransform(next, width, height)
+    tfRef.current = clamped
+    setTf(clamped)
+  }
+
+  const localPoint = (e: { clientX: number; clientY: number }) => {
+    const rect = wrapRef.current!.getBoundingClientRect()
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top }
+  }
+
+  const rebaseGesture = () => {
+    const pts = [...pointersRef.current.values()]
+    if (pts.length === 0) {
+      gestureRef.current = null
+      return
+    }
+    const mid =
+      pts.length >= 2
+        ? { x: (pts[0]!.x + pts[1]!.x) / 2, y: (pts[0]!.y + pts[1]!.y) / 2 }
+        : { ...pts[0]! }
+    const dist = pts.length >= 2 ? Math.hypot(pts[0]!.x - pts[1]!.x, pts[0]!.y - pts[1]!.y) : 0
+    gestureRef.current = {
+      tf: tfRef.current,
+      mid,
+      dist,
+      captured: gestureRef.current?.captured ?? false,
+    }
+  }
+
+  /**
+   * Pointer capture is taken lazily — only once a drag exceeds slop or a
+   * second finger lands. Capturing on every press retargets the eventual
+   * click to the wrapper, which means the SVG's click handler never fires
+   * and no tap can answer a card. A plain tap must stay uncaptured.
+   */
+  const capture = (e: React.PointerEvent<HTMLDivElement>) => {
+    const g = gestureRef.current
+    if (!g || g.captured) return
+    for (const id of pointersRef.current.keys()) {
+      try {
+        e.currentTarget.setPointerCapture(id)
+      } catch {
+        /* pointer already gone */
+      }
+    }
+    g.captured = true
+  }
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return
+    if ((e.target as Element).closest?.('.zoom-reset')) return
+    pointersRef.current.set(e.pointerId, localPoint(e))
+    if (pointersRef.current.size === 1) {
+      pressRef.current = { x: e.clientX, y: e.clientY }
+      suppressClickRef.current = false
+    } else {
+      suppressClickRef.current = true
+    }
+    rebaseGesture()
+    // Two fingers is unambiguously a gesture; one finger might be a tap.
+    if (pointersRef.current.size >= 2) capture(e)
+  }
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!pointersRef.current.has(e.pointerId)) return
+    pointersRef.current.set(e.pointerId, localPoint(e))
+    const g = gestureRef.current
+    if (!g) return
+
+    const pts = [...pointersRef.current.values()]
+    if (pts.length === 1) {
+      const dx = pts[0]!.x - g.mid.x
+      const dy = pts[0]!.y - g.mid.y
+      // Below slop this is still possibly a tap; leave it uncaptured and
+      // unmoved so the click, if it comes, lands on the country.
+      if (!g.captured && Math.hypot(dx, dy) <= DRAG_SLOP_PX) return
+      capture(e)
+      // Pan. Harmless at k=1 — the clamp pins translation to zero there.
+      applyTf({ k: g.tf.k, x: g.tf.x + dx, y: g.tf.y + dy })
+    } else if (g.dist > 0) {
+      const dist = Math.hypot(pts[0]!.x - pts[1]!.x, pts[0]!.y - pts[1]!.y)
+      const mid = { x: (pts[0]!.x + pts[1]!.x) / 2, y: (pts[0]!.y + pts[1]!.y) / 2 }
+      const scaled = zoomAround(g.tf, g.mid.x, g.mid.y, (g.tf.k * dist) / g.dist, width, height)
+      applyTf({ k: scaled.k, x: scaled.x + (mid.x - g.mid.x), y: scaled.y + (mid.y - g.mid.y) })
+    }
+  }
+
+  const onPointerEnd = (e: React.PointerEvent<HTMLDivElement>) => {
+    pointersRef.current.delete(e.pointerId)
+    rebaseGesture()
+  }
+
+  // Wheel zoom, attached by hand: React registers wheel listeners passively,
+  // and a passive listener cannot preventDefault, so the page would scroll
+  // while the map zooms underneath it.
+  useEffect(() => {
+    const el = wrapRef.current
+    if (!el) return
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      const rect = el.getBoundingClientRect()
+      const cur = tfRef.current
+      const next = zoomAround(
+        cur,
+        e.clientX - rect.left,
+        e.clientY - rect.top,
+        cur.k * Math.exp(-e.deltaY * WHEEL_SENSITIVITY),
+        width,
+        height,
+      )
+      tfRef.current = next
+      setTf(next)
+    }
+    el.addEventListener('wheel', onWheel, { passive: false })
+    return () => el.removeEventListener('wheel', onWheel)
+  }, [width, height])
 
   // The world view uses the coarse topology (fast, and its 29 missing
   // microstates are sub-pixel there anyway); region views use the detailed one.
@@ -190,17 +371,22 @@ export function GeoMap({ view, marks, labels, onPick, pickable, className }: Geo
    */
   const handleClick = (e: React.MouseEvent<SVGSVGElement>) => {
     if (!onPick || !scene) return
+    if (suppressClickRef.current) return
 
     const start = pressRef.current
     if (start && Math.hypot(e.clientX - start.x, e.clientY - start.y) > DRAG_SLOP_PX) return
 
     const rect = e.currentTarget.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
+    // Scene geometry lives in base (unzoomed) coordinates; invert the transform.
+    const x = (e.clientX - rect.left - tf.x) / tf.k
+    const y = (e.clientY - rect.top - tf.y) / tf.k
 
+    // Snap distances compare in screen pixels, so zooming in shrinks the snap
+    // zones on the ground: the assist fades out exactly as it stops being
+    // needed, and a zoomed-in tap lands where it visibly points.
     let best: { iso3: string; dist: number } | null = null
     for (const s of scene.snaps) {
-      const dist = Math.hypot(s.cx - x, s.cy - y)
+      const dist = Math.hypot(s.cx - x, s.cy - y) * tf.k
       if (dist <= s.radius && (!best || dist < best.dist) && canPick(s.iso3)) {
         best = { iso3: s.iso3, dist }
       }
@@ -215,8 +401,11 @@ export function GeoMap({ view, marks, labels, onPick, pickable, className }: Geo
     <div
       ref={wrapRef}
       className={className}
-      onPointerDown={(e) => (pressRef.current = { x: e.clientX, y: e.clientY })}
-      style={{ width: '100%', height: '100%', touchAction: 'manipulation' }}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerEnd}
+      onPointerCancel={onPointerEnd}
+      style={{ width: '100%', height: '100%', touchAction: 'none', position: 'relative' }}
     >
       {scene && (
         <svg
@@ -227,6 +416,7 @@ export function GeoMap({ view, marks, labels, onPick, pickable, className }: Geo
         >
           <rect width={width} height={height} fill="var(--ocean)" />
 
+          <g transform={`translate(${tf.x},${tf.y}) scale(${tf.k})`}>
           <g>
             {scene.shapes.map((s) => (
               <path
@@ -242,18 +432,20 @@ export function GeoMap({ view, marks, labels, onPick, pickable, className }: Geo
           </g>
 
           {/* Visible dots for countries whose polygon is too small to see. */}
+          {/* Dots and labels counter-scale by 1/k to hold constant screen
+              size — text ballooning to 8x is worse than useless. */}
           <g pointerEvents="none">
             {scene.shapes
-              .filter((s) => s.hasCentroid && s.extent < MIN_VISIBLE_PX)
+              .filter((s) => s.hasCentroid && s.extent * tf.k < MIN_VISIBLE_PX)
               .map((s) => (
                 <circle
                   key={s.iso3}
                   cx={s.cx}
                   cy={s.cy}
-                  r={3}
+                  r={3 / tf.k}
                   fill={marks?.[s.iso3] ? ROLE_FILL[marks[s.iso3]!] : 'var(--land)'}
                   stroke="var(--border)"
-                  strokeWidth={0.5}
+                  strokeWidth={0.5 / tf.k}
                 />
               ))}
           </g>
@@ -265,14 +457,14 @@ export function GeoMap({ view, marks, labels, onPick, pickable, className }: Geo
                 <text
                   key={iso3}
                   x={s.cx}
-                  y={s.cy - (s.extent < MIN_VISIBLE_PX ? 8 : 0)}
+                  y={s.cy - (s.extent * tf.k < MIN_VISIBLE_PX ? 8 / tf.k : 0)}
                   textAnchor="middle"
                   dominantBaseline="middle"
-                  fontSize={11}
+                  fontSize={11 / tf.k}
                   fontWeight={600}
                   fill="var(--label)"
                   stroke="var(--ocean)"
-                  strokeWidth={3}
+                  strokeWidth={3 / tf.k}
                   paintOrder="stroke"
                 >
                   {name}
@@ -280,7 +472,21 @@ export function GeoMap({ view, marks, labels, onPick, pickable, className }: Geo
               )
             })}
           </g>
+          </g>
         </svg>
+      )}
+
+      {tf.k > 1.01 && (
+        <button
+          type="button"
+          className="zoom-reset"
+          onClick={(e) => {
+            e.stopPropagation()
+            applyTf(IDENTITY)
+          }}
+        >
+          ⤢ 1:1
+        </button>
       )}
     </div>
   )
