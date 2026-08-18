@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import type { CountryIndex } from '../data/load'
+import { RAPID_MIN_SEEN } from '../session/rapid'
 import { isEstablished, retrievability } from '../srs/scheduler'
 import { BACKUP_NAG_DAYS, type StudySnapshot } from '../store/store'
 import { store } from '../store/useStore'
@@ -10,12 +11,13 @@ interface HomeProps {
   dueCount: number
   newCount: number
   onStart: () => void
+  onRapid: () => void
   onPacks: () => void
   onDashboard: () => void
   onReload: () => void
 }
 
-export function Home({ snapshot, index, dueCount, newCount, onStart, onPacks, onDashboard, onReload }: HomeProps) {
+export function Home({ snapshot, index, dueCount, newCount, onStart, onRapid, onPacks, onDashboard, onReload }: HomeProps) {
   const fileRef = useRef<HTMLInputElement>(null)
   const now = new Date()
 
@@ -73,6 +75,14 @@ export function Home({ snapshot, index, dueCount, newCount, onStart, onPacks, on
       <button className="primary big" onClick={onStart} disabled={dueCount + newCount === 0}>
         {dueCount + newCount === 0 ? 'Nothing due — come back later' : `Study ${dueCount + newCount} cards`}
       </button>
+
+      {/* A sprint over countries already met: no teach screens, no reveal,
+          just tap after tap — with every answer still recorded. */}
+      {seen.size >= RAPID_MIN_SEEN && (
+        <button className="big" onClick={onRapid}>
+          ⚡ Rapid review
+        </button>
+      )}
 
       {store.quotaExhausted && (
         <p className="warn">

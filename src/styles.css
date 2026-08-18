@@ -528,3 +528,7 @@ button.ghost {
   letter-spacing: 0.07em;
   white-space: nowrap;
 }
+
+.rapid-score {
+  font-variant-numeric: tabular-nums;
+}

@@ -2,11 +2,13 @@ import { useEffect, useMemo, useState } from 'react'
 import { loadIndex, type CountryIndex } from './data/load'
 import { buildSession, type SessionItem } from './session/builder'
 import { buildDrills, type Drill } from './session/drills'
+import { buildRapidQueue, RAPID_MIN_SEEN, type RapidItem } from './session/rapid'
 import { store, useStudyStore } from './store/useStore'
 import { DashboardView } from './ui/DashboardView'
 import { DrillView, type DrillResult } from './ui/DrillView'
 import { Home } from './ui/Home'
 import { PacksView } from './ui/PacksView'
+import { RapidView } from './ui/RapidView'
 import { StudyView, type SessionResult } from './ui/StudyView'
 
 type Screen =
@@ -14,6 +16,7 @@ type Screen =
   | { name: 'packs' }
   | { name: 'dashboard' }
   | { name: 'study'; items: SessionItem[] }
+  | { name: 'rapid'; items: RapidItem[] }
   | { name: 'drills'; drills: Drill[]; result: SessionResult }
   | { name: 'summary'; result: SessionResult; drills?: DrillResult }
 
@@ -54,6 +57,23 @@ export function App() {
           const drills = buildDrills(store.snapshot().stats.confusion, index)
           if (drills.length) setScreen({ name: 'drills', drills, result })
           else setScreen({ name: 'summary', result })
+        }}
+        onQuit={() => {
+          reload()
+          setScreen({ name: 'home' })
+        }}
+      />
+    )
+  }
+
+  if (screen.name === 'rapid') {
+    return (
+      <RapidView
+        items={screen.items}
+        index={index}
+        onDone={(result) => {
+          reload()
+          setScreen({ name: 'summary', result })
         }}
         onQuit={() => {
           reload()
@@ -137,6 +157,10 @@ export function App() {
       dueCount={pending.filter((i) => !i.isNew).length}
       newCount={pending.filter((i) => i.isNew).length}
       onStart={() => setScreen({ name: 'study', items: pending })}
+      onRapid={() => {
+        const items = buildRapidQueue(index, snapshot.cards, new Date())
+        if (items.length) setScreen({ name: 'rapid', items })
+      }}
       onPacks={() => setScreen({ name: 'packs' })}
       onDashboard={() => setScreen({ name: 'dashboard' })}
       onReload={reload}
