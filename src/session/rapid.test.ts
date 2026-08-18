@@ -5,7 +5,7 @@ import type { CountryIndex } from '../data/load'
 import type { DataBundle } from '../types'
 import type { StoredCard } from '../srs/model'
 import { createCard, schedule } from '../srs/scheduler'
-import { buildRapidQueue, RAPID_ROUND_SIZE } from './rapid'
+import { buildRapidQueue, RAPID_ROUND_SIZE, selectRapidCards } from './rapid'
 
 const bundle: DataBundle = JSON.parse(readFileSync('public/data/countries.json', 'utf8'))
 const index: CountryIndex = {
@@ -36,29 +36,29 @@ describe('buildRapidQueue', () => {
     expect(queue.map((i) => i.card.id)).toEqual(['PER:locate'])
   })
 
-  it('puts due cards before not-yet-due ones', () => {
+  it('selects a due card over a not-yet-due one when slots run out', () => {
+    // Selection priority is exercised through the cap: one slot, two claimants.
     const cards: Record<string, StoredCard> = {}
     const overdue = { ...reviewed('PER', new Date('2026-05-01')), due: now.getTime() - 1000 }
     const future = { ...reviewed('BRA', new Date('2026-05-30')), due: now.getTime() + 86_400_000 }
     cards[overdue.id] = overdue
     cards[future.id] = future
 
-    const queue = buildRapidQueue(index, cards, now)
-    expect(queue[0]!.card.iso3).toBe('PER')
-    expect(queue[1]!.card.iso3).toBe('BRA')
+    const queue = selectRapidCards(index, cards, now, 1)
+    expect(queue.map((i) => i.card.iso3)).toEqual(['PER'])
   })
 
-  it('fills the rest weakest-recall first', () => {
+  it('gives spare slots to the weakest recall', () => {
     const cards: Record<string, StoredCard> = {}
     // Same stability, but ARG was reviewed a month ago and BRA yesterday, so
-    // ARG's recall has decayed further and it should come first.
+    // ARG's recall has decayed further and it claims the single slot.
     const stale = { ...reviewed('ARG', new Date('2026-05-01')), due: now.getTime() + 86_400_000 }
     const fresh = { ...reviewed('BRA', new Date('2026-05-31')), due: now.getTime() + 86_400_000 }
     cards[stale.id] = stale
     cards[fresh.id] = fresh
 
-    const queue = buildRapidQueue(index, cards, now)
-    expect(queue.map((i) => i.card.iso3)).toEqual(['ARG', 'BRA'])
+    const queue = selectRapidCards(index, cards, now, 1)
+    expect(queue.map((i) => i.card.iso3)).toEqual(['ARG'])
   })
 
   it('caps the round', () => {
@@ -68,5 +68,37 @@ describe('buildRapidQueue', () => {
       cards[card.id] = card
     }
     expect(buildRapidQueue(index, cards, now)).toHaveLength(RAPID_ROUND_SIZE)
+  })
+
+  /** Deterministic LCG so shuffle tests are repeatable. */
+  const lcg = (seed: number) => () => {
+    seed = (seed * 1664525 + 1013904223) % 4294967296
+    return seed / 4294967296
+  }
+
+  it('scrambles presentation order without changing membership', () => {
+    // A deterministic order lets sequence memory stand in for recall — the
+    // third card becomes "the one after Bolivia" instead of a map fact.
+    const cards: Record<string, StoredCard> = {}
+    for (const c of index.ordered.slice(0, RAPID_ROUND_SIZE)) {
+      const card = reviewed(c.iso3, new Date('2026-05-01'))
+      cards[card.id] = card
+    }
+    const selection = selectRapidCards(index, cards, now).map((i) => i.card.iso3)
+    const round = buildRapidQueue(index, cards, now, RAPID_ROUND_SIZE, lcg(42)).map((i) => i.card.iso3)
+
+    expect([...round].sort()).toEqual([...selection].sort())
+    expect(round).not.toEqual(selection)
+  })
+
+  it('shuffles differently across rounds', () => {
+    const cards: Record<string, StoredCard> = {}
+    for (const c of index.ordered.slice(0, RAPID_ROUND_SIZE)) {
+      const card = reviewed(c.iso3, new Date('2026-05-01'))
+      cards[card.id] = card
+    }
+    const a = buildRapidQueue(index, cards, now, RAPID_ROUND_SIZE, lcg(1)).map((i) => i.card.iso3)
+    const b = buildRapidQueue(index, cards, now, RAPID_ROUND_SIZE, lcg(2)).map((i) => i.card.iso3)
+    expect(a).not.toEqual(b)
   })
 })

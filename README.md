@@ -33,7 +33,9 @@ is to give the shape a story, not to be recalled.
 met: no teach screens, no reveal panel, just prompt → tap → a sub-second flash
 of the answer → next. One attempt per card. Every answer still lands in the
 scheduler, the review log, and the confusion matrix — only the ceremony is
-removed. Due cards come first, then the weakest recall.
+removed. Due cards and the weakest recall claim the round's slots, and the
+round is then shuffled — a predictable sequence would let order memory stand in
+for actually knowing the map.
 
 **Wrong answers become drills.** Every wrong map click is logged as a confusion
 pair. Once a pair recurs, a confusion round runs after the session: both
