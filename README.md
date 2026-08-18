@@ -27,9 +27,15 @@ answer cold.
 
 **Facts are shown, not tested — at first.** After every answer the reveal panel
 shows the country with its neighbours labelled, plus context. Their job early on
-is to give the shape a story, not to be recalled. Extra card types (capital,
-flag, borders) unlock per country only once its first two cards are established,
-so day three is not a wall.
+is to give the shape a story, not to be recalled.
+
+**Extra material is opt-in, through packs.** The world tour (locate + identify)
+is on by default. Skill packs — Capitals, Flags, Borders — add a new kind of
+question, and generate cards per country only once its two map cards are
+established, so day three is not a wall. Region spotlights pull one region into
+the rotation ahead of the world tour. Pausing a pack stops new introductions
+but never touches the review schedule of existing cards: a card owes its
+reviews to the forgetting curve, not to the pack that spawned it.
 
 ## Running it
 
@@ -113,6 +119,7 @@ without a backup.
 
 ## Status
 
-Milestones 1–4 are done and all 195 countries have written hooks: the app is
-usable. Still to come are the mastery choropleth, confusion-pair drills, and
-FSRS parameter fitting against your own review history.
+Milestones 1–4 are done, all 195 countries have written hooks, and packs
+(skills + region spotlights) are in. Still to come are the mastery choropleth,
+confusion-pair drills, and FSRS parameter fitting against your own review
+history.

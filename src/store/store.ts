@@ -66,8 +66,10 @@ export interface Aggregates {
 
 export interface Settings {
   newCardsPerDay: number
-  /** Region slugs the user has enabled; empty means follow curriculum order. */
-  enabledRegions: string[]
+  /** Pack ids in the rotation, in the order they were started. New cards are
+   *  only ever introduced from started packs; pausing a pack stops future
+   *  introductions but never touches the review schedule of existing cards. */
+  packs: string[]
 }
 
 export interface Meta {
@@ -76,7 +78,7 @@ export interface Meta {
   createdAt: number
 }
 
-export const DEFAULT_SETTINGS: Settings = { newCardsPerDay: 8, enabledRegions: [] }
+export const DEFAULT_SETTINGS: Settings = { newCardsPerDay: 8, packs: ['world'] }
 
 const emptyAggregates = (): Aggregates => ({ perCard: {}, daily: {}, confusion: {} })
 const emptyCardStats = (): CardStats => ({ reps: 0, lapses: 0, ratings: [0, 0, 0, 0, 0], totalMs: 0 })

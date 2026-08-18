@@ -3,10 +3,12 @@ import { loadIndex, type CountryIndex } from './data/load'
 import { buildSession, type SessionItem } from './session/builder'
 import { useStudyStore } from './store/useStore'
 import { Home } from './ui/Home'
+import { PacksView } from './ui/PacksView'
 import { StudyView, type SessionResult } from './ui/StudyView'
 
 type Screen =
   | { name: 'home' }
+  | { name: 'packs' }
   | { name: 'study'; items: SessionItem[] }
   | { name: 'summary'; result: SessionResult }
 
@@ -51,6 +53,17 @@ export function App() {
     )
   }
 
+  if (screen.name === 'packs') {
+    return (
+      <PacksView
+        index={index}
+        snapshot={snapshot}
+        onBack={() => setScreen({ name: 'home' })}
+        onChanged={reload}
+      />
+    )
+  }
+
   if (screen.name === 'summary') {
     const { answered, correct, introduced, elapsedMs } = screen.result
     const accuracy = answered ? Math.round((correct / answered) * 100) : 0
@@ -89,6 +102,7 @@ export function App() {
       dueCount={pending.filter((i) => !i.isNew).length}
       newCount={pending.filter((i) => i.isNew).length}
       onStart={() => setScreen({ name: 'study', items: pending })}
+      onPacks={() => setScreen({ name: 'packs' })}
       onReload={reload}
     />
   )

@@ -157,18 +157,42 @@ describe('buildSession', () => {
     expect(items[0]!.assisted).toBe(false)
   })
 
-  it('keeps extra card types locked until the starting pair is established', () => {
+  it('keeps skill cards locked until the starting pair is established, even with the pack started', () => {
     const cards: Record<string, StoredCard> = {}
     const iso = index.ordered[0]!.iso3
     for (const t of ['locate', 'identify'] as const) {
       const c = createCard(iso, t, now)
       cards[c.id] = { ...c, due: now.getTime() + 86_400_000 }
     }
-    const items = buildSession({ ...base, cards })
+    const items = buildSession({
+      ...base,
+      cards,
+      settings: { ...DEFAULT_SETTINGS, packs: ['world', 'capitals', 'flags', 'borders'] },
+    })
     expect(items.some((i) => i.country.iso3 === iso && !['locate', 'identify'].includes(i.card.type))).toBe(false)
   })
 
-  it('unlocks extra card types once the starting pair is established', () => {
+  it('generates skill-pack cards for established countries once the pack is started', () => {
+    const cards: Record<string, StoredCard> = {}
+    const iso = index.ordered[0]!.iso3
+    for (const t of ['locate', 'identify'] as const) {
+      let c = createCard(iso, t, new Date('2026-01-01'))
+      for (let i = 0; i < 8; i++) c = schedule(c, Rating.Easy, new Date(c.due))
+      cards[cardId(iso, t)] = { ...c, due: now.getTime() + 86_400_000 }
+    }
+    const items = buildSession({
+      ...base,
+      cards,
+      settings: { ...DEFAULT_SETTINGS, packs: ['world', 'capitals', 'flags'] },
+    })
+    const extra = items.filter((i) => i.country.iso3 === iso).map((i) => i.card.type)
+    expect(extra).toContain('capital')
+    expect(extra).toContain('flag')
+    // Borders pack was not started, so no neighbours card appears.
+    expect(extra).not.toContain('neighbors')
+  })
+
+  it('never generates skill cards while their pack is unstarted, however established', () => {
     const cards: Record<string, StoredCard> = {}
     const iso = index.ordered[0]!.iso3
     for (const t of ['locate', 'identify'] as const) {
@@ -177,9 +201,7 @@ describe('buildSession', () => {
       cards[cardId(iso, t)] = { ...c, due: now.getTime() + 86_400_000 }
     }
     const items = buildSession({ ...base, cards })
-    const extra = items.filter((i) => i.country.iso3 === iso).map((i) => i.card.type)
-    expect(extra).toContain('capital')
-    expect(extra).toContain('flag')
+    expect(items.filter((i) => i.country.iso3 === iso)).toHaveLength(0)
   })
 
   it('never offers a neighbours card to a country with no land borders', () => {
@@ -190,17 +212,38 @@ describe('buildSession', () => {
       for (let i = 0; i < 8; i++) c = schedule(c, Rating.Easy, new Date(c.due))
       cards[cardId(island.iso3, t)] = { ...c, due: now.getTime() + 86_400_000 }
     }
-    const items = buildSession({ ...base, cards })
+    const items = buildSession({
+      ...base,
+      cards,
+      settings: { ...DEFAULT_SETTINGS, packs: ['world', 'borders'] },
+    })
     expect(items.some((i) => i.country.iso3 === island.iso3 && i.card.type === 'neighbors')).toBe(false)
   })
 
-  it('limits introductions to enabled regions when set', () => {
+  it('introduces only from started packs', () => {
     const items = buildSession({
       ...base,
       cards: {},
-      settings: { ...DEFAULT_SETTINGS, enabledRegions: ['oceania'] },
+      settings: { ...DEFAULT_SETTINGS, packs: ['region:oceania'] },
     })
+    expect(items.length).toBeGreaterThan(0)
     expect(items.every((i) => i.country.region === 'oceania')).toBe(true)
+  })
+
+  it('lets a region spotlight jump the world curriculum', () => {
+    const items = buildSession({
+      ...base,
+      cards: {},
+      settings: { ...DEFAULT_SETTINGS, packs: ['world', 'region:oceania'] },
+    })
+    // Oceania is last in the world curriculum, so without the spotlight the
+    // first session would be all North America.
+    expect(items[0]!.country.region).toBe('oceania')
+  })
+
+  it('introduces nothing at all with every pack paused', () => {
+    const items = buildSession({ ...base, cards: {}, settings: { ...DEFAULT_SETTINGS, packs: [] } })
+    expect(items).toHaveLength(0)
   })
 })
 

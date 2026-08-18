@@ -1,6 +1,7 @@
 import type { CountryIndex } from '../data/load'
-import { ALL_TYPES, cardId, STARTING_TYPES, type CardType, type StoredCard } from '../srs/model'
+import { cardId, STARTING_TYPES, type CardType, type StoredCard } from '../srs/model'
 import { createCard, hasEarnedExtraTypes } from '../srs/scheduler'
+import { regionSlugOf, SKILL_PACK_TYPES, WORLD_PACK_ID } from './packs'
 import { State } from 'ts-fsrs'
 import type { Aggregates, Settings } from '../store/store'
 import type { CountryRecord } from '../types'
@@ -171,41 +172,56 @@ export function buildSession({ now, index, cards, stats, settings, limit }: Buil
   const introducedToday = stats.daily?.[today(now)]?.introduced ?? 0
   let budget = Math.max(0, settings.newCardsPerDay - introducedToday)
 
-  const enabled = new Set(settings.enabledRegions)
-  const inScope = (c: CountryRecord) => enabled.size === 0 || enabled.has(c.region)
-
+  const started = new Set(settings.packs)
   const fresh: SessionItem[] = []
+  const queued = new Set<string>()
 
-  // Unlocked card types for countries already established come first. There are
-  // always more unseen countries than budget, so putting them first would starve
-  // this branch forever — and deepening a country you already place on the map
-  // is both cheaper and more valuable than adding another unfamiliar name.
-  for (const country of index.ordered) {
-    if (budget <= 0) break
-    if (!inScope(country)) continue
-    const locate = cards[cardId(country.iso3, 'locate')]
-    const identify = cards[cardId(country.iso3, 'identify')]
-    if (!hasEarnedExtraTypes(locate, identify)) continue
+  const trySeed = (country: CountryRecord, type: CardType) => {
+    const id = cardId(country.iso3, type)
+    if (budget <= 0 || cards[id] || queued.has(id)) return
+    if (type === 'neighbors' && country.borders.length === 0) return
+    queued.add(id)
+    fresh.push(item(createCard(country.iso3, type, now), country, true))
+    budget -= 1
+  }
 
-    for (const type of ALL_TYPES) {
+  const startedSkillTypes = Object.entries(SKILL_PACK_TYPES)
+    .filter(([packId]) => started.has(packId))
+    .map(([, type]) => type)
+
+  // Started skill packs come first: they only ever deepen countries whose
+  // locate and identify are already established, and there are always more
+  // unseen countries than budget — introduce those first and this branch
+  // starves forever.
+  if (startedSkillTypes.length) {
+    for (const country of index.ordered) {
       if (budget <= 0) break
-      if (STARTING_TYPES.includes(type)) continue
-      if (cards[cardId(country.iso3, type)]) continue
-      if (type === 'neighbors' && country.borders.length === 0) continue
-      fresh.push(item(createCard(country.iso3, type, now), country, true))
-      budget -= 1
+      const locate = cards[cardId(country.iso3, 'locate')]
+      const identify = cards[cardId(country.iso3, 'identify')]
+      if (!hasEarnedExtraTypes(locate, identify)) continue
+      for (const type of startedSkillTypes) trySeed(country, type)
     }
   }
 
-  for (const country of index.ordered) {
-    if (budget <= 0) break
-    if (!inScope(country)) continue
-
-    for (const type of STARTING_TYPES) {
+  // Region spotlights jump their countries ahead of the world curriculum, in
+  // the order the packs were started. Within a region the roster is already in
+  // curriculum (salience) order.
+  for (const packId of settings.packs) {
+    const slug = regionSlugOf(packId)
+    if (!slug) continue
+    for (const iso3 of index.regionBySlug.get(slug)?.countries ?? []) {
       if (budget <= 0) break
-      if (cards[cardId(country.iso3, type)]) continue
-      fresh.push(item(createCard(country.iso3, type, now), country, true))
-      budget -= 1
+      const country = index.byIso3.get(iso3)
+      if (!country) continue
+      for (const type of STARTING_TYPES) trySeed(country, type)
+    }
+  }
+
+  // The world curriculum fills whatever budget remains.
+  if (started.has(WORLD_PACK_ID)) {
+    for (const country of index.ordered) {
+      if (budget <= 0) break
+      for (const type of STARTING_TYPES) trySeed(country, type)
     }
   }
 
@@ -229,7 +245,3 @@ function interleave(due: SessionItem[], fresh: SessionItem[], limit?: number): S
   return limit ? out.slice(0, limit) : out
 }
 
-/** Cards of a country that a later question may safely reference. */
-export function cardTypesFor(country: CountryRecord): CardType[] {
-  return ALL_TYPES.filter((t) => t !== 'neighbors' || country.borders.length > 0)
-}

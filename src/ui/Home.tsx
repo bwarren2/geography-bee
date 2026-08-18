@@ -15,10 +15,11 @@ interface HomeProps {
   dueCount: number
   newCount: number
   onStart: () => void
+  onPacks: () => void
   onReload: () => void
 }
 
-export function Home({ snapshot, index, dueCount, newCount, onStart, onReload }: HomeProps) {
+export function Home({ snapshot, index, dueCount, newCount, onStart, onPacks, onReload }: HomeProps) {
   const fileRef = useRef<HTMLInputElement>(null)
   const now = new Date()
 
@@ -91,6 +92,7 @@ export function Home({ snapshot, index, dueCount, newCount, onStart, onReload }:
       )}
 
       <div className="row">
+        <button onClick={onPacks}>Packs ({snapshot.settings.packs.length} started)</button>
         <button onClick={() => void exportBackup()}>Export backup</button>
         <button onClick={() => fileRef.current?.click()}>Import backup</button>
         <input
