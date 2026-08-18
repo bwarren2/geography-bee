@@ -259,6 +259,19 @@ export class StudyStore {
     return chunks.flatMap((c) => c ?? [])
   }
 
+  /**
+   * Nudge one confusion pair up or down. Drills call this: a correct
+   * discrimination decays the count that keeps the pair in rotation, a wrong
+   * one feeds it — so drilling is self-limiting without any extra state.
+   */
+  async adjustConfusion(key: string, delta: number): Promise<void> {
+    const next = (this.stats.confusion[key] ?? 0) + delta
+    if (next <= 0) delete this.stats.confusion[key]
+    else this.stats.confusion[key] = next
+    this.dirty.add('stats')
+    this.scheduleFlush()
+  }
+
   async setSettings(patch: Partial<Settings>): Promise<void> {
     this.settings = { ...this.settings, ...patch }
     this.dirty.add('settings')

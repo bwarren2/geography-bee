@@ -86,6 +86,9 @@ export function zoomAround(
 interface GeoMapProps {
   view: MapView
   marks?: Record<string, MarkRole>
+  /** Raw per-country fill colours (choropleths). A mark always wins over a
+   *  fill, so answer feedback stays visible on a shaded map. */
+  fills?: Record<string, string>
   /** ISO3 codes to label. */
   labels?: string[]
   onPick?: (iso3: string) => void
@@ -110,7 +113,7 @@ function useSize(ref: React.RefObject<HTMLElement | null>) {
   return size
 }
 
-export function GeoMap({ view, marks, labels, onPick, pickable, className }: GeoMapProps) {
+export function GeoMap({ view, marks, fills, labels, onPick, pickable, className }: GeoMapProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const { width, height } = useSize(wrapRef)
   const [geo, setGeo] = useState<Map<string, CountryFeature> | null>(null)
@@ -423,7 +426,7 @@ export function GeoMap({ view, marks, labels, onPick, pickable, className }: Geo
                 key={s.iso3}
                 data-iso3={s.iso3}
                 d={s.d}
-                fill={marks?.[s.iso3] ? ROLE_FILL[marks[s.iso3]!] : 'var(--land)'}
+                fill={marks?.[s.iso3] ? ROLE_FILL[marks[s.iso3]!] : (fills?.[s.iso3] ?? 'var(--land)')}
                 stroke="var(--border)"
                 strokeWidth={0.5}
                 vectorEffect="non-scaling-stroke"
@@ -443,7 +446,7 @@ export function GeoMap({ view, marks, labels, onPick, pickable, className }: Geo
                   cx={s.cx}
                   cy={s.cy}
                   r={3 / tf.k}
-                  fill={marks?.[s.iso3] ? ROLE_FILL[marks[s.iso3]!] : 'var(--land)'}
+                  fill={marks?.[s.iso3] ? ROLE_FILL[marks[s.iso3]!] : (fills?.[s.iso3] ?? 'var(--land)')}
                   stroke="var(--border)"
                   strokeWidth={0.5 / tf.k}
                 />

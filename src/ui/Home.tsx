@@ -1,13 +1,8 @@
 import { useRef } from 'react'
 import type { CountryIndex } from '../data/load'
-import { retrievability } from '../srs/scheduler'
-import { State } from 'ts-fsrs'
+import { isEstablished, retrievability } from '../srs/scheduler'
 import { BACKUP_NAG_DAYS, type StudySnapshot } from '../store/store'
 import { store } from '../store/useStore'
-
-/** Stability, in days, at which a country counts as durably learned rather
- *  than merely fresh. Matches the threshold that unlocks extra card types. */
-const MASTERY_STABILITY_DAYS = 21
 
 interface HomeProps {
   snapshot: StudySnapshot
@@ -16,10 +11,11 @@ interface HomeProps {
   newCount: number
   onStart: () => void
   onPacks: () => void
+  onDashboard: () => void
   onReload: () => void
 }
 
-export function Home({ snapshot, index, dueCount, newCount, onStart, onPacks, onReload }: HomeProps) {
+export function Home({ snapshot, index, dueCount, newCount, onStart, onPacks, onDashboard, onReload }: HomeProps) {
   const fileRef = useRef<HTMLInputElement>(null)
   const now = new Date()
 
@@ -29,7 +25,7 @@ export function Home({ snapshot, index, dueCount, newCount, onStart, onPacks, on
   // just reviewed has a retrievability near 1.0, so that measure would call a
   // country "solidly placed" seconds after first meeting it.
   const known = Object.values(snapshot.cards).filter(
-    (c) => c.type === 'locate' && c.state === State.Review && c.stability >= MASTERY_STABILITY_DAYS,
+    (c) => c.type === 'locate' && isEstablished(c),
   ).length
 
   // How much of the world is still holding right now, across everything seen.
@@ -92,6 +88,7 @@ export function Home({ snapshot, index, dueCount, newCount, onStart, onPacks, on
       )}
 
       <div className="row">
+        <button onClick={onDashboard}>Progress</button>
         <button onClick={onPacks}>Packs ({snapshot.settings.packs.length} started)</button>
         <button onClick={() => void exportBackup()}>Export backup</button>
         <button onClick={() => fileRef.current?.click()}>Import backup</button>

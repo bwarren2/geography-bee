@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { loadIndex, type CountryIndex } from './data/load'
 import { buildSession, type SessionItem } from './session/builder'
-import { useStudyStore } from './store/useStore'
+import { buildDrills, type Drill } from './session/drills'
+import { store, useStudyStore } from './store/useStore'
+import { DashboardView } from './ui/DashboardView'
+import { DrillView, type DrillResult } from './ui/DrillView'
 import { Home } from './ui/Home'
 import { PacksView } from './ui/PacksView'
 import { StudyView, type SessionResult } from './ui/StudyView'
@@ -9,8 +12,10 @@ import { StudyView, type SessionResult } from './ui/StudyView'
 type Screen =
   | { name: 'home' }
   | { name: 'packs' }
+  | { name: 'dashboard' }
   | { name: 'study'; items: SessionItem[] }
-  | { name: 'summary'; result: SessionResult }
+  | { name: 'drills'; drills: Drill[]; result: SessionResult }
+  | { name: 'summary'; result: SessionResult; drills?: DrillResult }
 
 export function App() {
   const [index, setIndex] = useState<CountryIndex | null>(null)
@@ -43,7 +48,12 @@ export function App() {
         index={index}
         onDone={(result) => {
           reload()
-          setScreen({ name: 'summary', result })
+          // Drills come from the store directly, not the React snapshot: the
+          // wrong clicks made seconds ago in this very session are the
+          // freshest — and most drillable — confusions of all.
+          const drills = buildDrills(store.snapshot().stats.confusion, index)
+          if (drills.length) setScreen({ name: 'drills', drills, result })
+          else setScreen({ name: 'summary', result })
         }}
         onQuit={() => {
           reload()
@@ -51,6 +61,23 @@ export function App() {
         }}
       />
     )
+  }
+
+  if (screen.name === 'drills') {
+    return (
+      <DrillView
+        drills={screen.drills}
+        index={index}
+        onDone={(drillResult) => {
+          reload()
+          setScreen({ name: 'summary', result: screen.result, drills: drillResult })
+        }}
+      />
+    )
+  }
+
+  if (screen.name === 'dashboard') {
+    return <DashboardView index={index} snapshot={snapshot} onBack={() => setScreen({ name: 'home' })} />
   }
 
   if (screen.name === 'packs') {
@@ -87,6 +114,14 @@ export function App() {
             <strong>{Math.round(elapsedMs / 1000)}s</strong>
             <span>elapsed</span>
           </div>
+          {screen.drills && (
+            <div className="stat">
+              <strong>
+                {screen.drills.correct}/{screen.drills.asked}
+              </strong>
+              <span>drills</span>
+            </div>
+          )}
         </div>
         <button className="primary big" onClick={() => setScreen({ name: 'home' })}>
           Back
@@ -103,6 +138,7 @@ export function App() {
       newCount={pending.filter((i) => i.isNew).length}
       onStart={() => setScreen({ name: 'study', items: pending })}
       onPacks={() => setScreen({ name: 'packs' })}
+      onDashboard={() => setScreen({ name: 'dashboard' })}
       onReload={reload}
     />
   )

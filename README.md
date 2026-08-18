@@ -29,6 +29,12 @@ answer cold.
 shows the country with its neighbours labelled, plus context. Their job early on
 is to give the shape a story, not to be recalled.
 
+**Wrong answers become drills.** Every wrong map click is logged as a confusion
+pair. Once a pair recurs, a confusion round runs after the session: both
+candidates marked, tap the named one, then the mirror question. A correct
+discrimination decays the pair's count and a wrong one feeds it, so a pair is
+drilled exactly until it stops being confused — no extra scheduling state.
+
 **Extra material is opt-in, through packs.** The world tour (locate + identify)
 is on by default. Skill packs — Capitals, Flags, Borders — add a new kind of
 question, and generate cards per country only once its two map cards are
@@ -99,7 +105,8 @@ scripts/build-data.ts   data pipeline (run locally, output committed)
 src/map/                d3-geo rendering, projection fitting, click snapping
 src/srs/                card model, behaviour-derived grading, FSRS wrapper
 src/store/              chunked localStorage, capped review log, aggregates
-src/session/            session composition, answer matching
+src/session/            session composition, answer matching, packs, drills
+src/stats/              mastery, pacing, and time-to-mastery projections
 src/ui/                 study loop, reveal panel, home
 ```
 
@@ -119,7 +126,6 @@ without a backup.
 
 ## Status
 
-Milestones 1–4 are done, all 195 countries have written hooks, and packs
-(skills + region spotlights) are in. Still to come are the mastery choropleth,
-confusion-pair drills, and FSRS parameter fitting against your own review
-history.
+Milestones 1–4 are done, all 195 countries have written hooks, and packs,
+confusion drills, and the progress dashboard (mastery choropleth + region ETAs)
+are in. Still to come: FSRS parameter fitting against your own review history.

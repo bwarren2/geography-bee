@@ -65,17 +65,22 @@ export function retrievability(card: StoredCard, now: Date): number {
 }
 
 /**
- * A country's extra card types unlock only once its first two are genuinely
- * established. Introducing five cards per country at once buries you by day
- * three — the whole point of the curriculum order is that pegs land before
- * detail hangs off them.
+ * The one definition of "durably learned": a review-state card whose memory is
+ * projected to hold for at least this many days. Everything that needs the
+ * concept — skill-pack unlocks, the home screen's mastery count, the
+ * dashboard's projections — reads this, so they can never quietly disagree.
  */
-const UNLOCK_STABILITY_DAYS = 21
+export const ESTABLISHED_STABILITY_DAYS = 21
 
+export const isEstablished = (c: StoredCard | undefined): boolean =>
+  !!c && c.state === State.Review && c.stability >= ESTABLISHED_STABILITY_DAYS
+
+/** A country's extra card types unlock only once its first two are genuinely
+ *  established. Introducing five cards per country at once buries you by day
+ *  three — the whole point of the curriculum order is that pegs land before
+ *  detail hangs off them. */
 export function hasEarnedExtraTypes(locate: StoredCard | undefined, identify: StoredCard | undefined): boolean {
-  const mature = (c: StoredCard | undefined) =>
-    !!c && c.state === State.Review && c.stability >= UNLOCK_STABILITY_DAYS
-  return mature(locate) && mature(identify)
+  return isEstablished(locate) && isEstablished(identify)
 }
 
 export { Rating, State }
