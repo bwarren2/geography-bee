@@ -6,8 +6,9 @@ import type { DataBundle, CountryRecord } from '../types'
 import { cardId, type StoredCard } from '../srs/model'
 import { createCard, schedule } from '../srs/scheduler'
 import { DEFAULT_SETTINGS, type Aggregates } from '../store/store'
-import { buildSession, pickOptions } from './builder'
+import { answerModeFor, buildSession, pickOptions, stimulusFor } from './builder'
 import { matchAnswer, normalize } from './matching'
+import { ALL_TYPES } from '../srs/model'
 
 const bundle: DataBundle = JSON.parse(readFileSync('public/data/countries.json', 'utf8'))
 
@@ -200,5 +201,59 @@ describe('buildSession', () => {
       settings: { ...DEFAULT_SETTINGS, enabledRegions: ['oceania'] },
     })
     expect(items.every((i) => i.country.region === 'oceania')).toBe(true)
+  })
+})
+
+
+describe('answer mode', () => {
+  it('answers a locate card on the map, never by typing', () => {
+    // The bug this guards: locate once fell through a ternary chain in the view
+    // and rendered a text box, so "Where is Guatemala?" could be answered by
+    // typing "Guatemala" — grading naming instead of location.
+    expect(answerModeFor('locate', false)).toBe('map-single')
+    expect(answerModeFor('locate', true)).toBe('map-single')
+  })
+
+  it('answers a neighbours card by selecting on the map', () => {
+    expect(answerModeFor('neighbors', false)).toBe('map-multi')
+  })
+
+  it('moves identify from choice to typing as the card matures', () => {
+    expect(answerModeFor('identify', true)).toBe('choice')
+    expect(answerModeFor('identify', false)).toBe('text')
+  })
+
+  it('always offers a list for a flag, and a box for a capital', () => {
+    expect(answerModeFor('flag', false)).toBe('choice')
+    expect(answerModeFor('capital', false)).toBe('text')
+  })
+
+  it('never highlights the answer on a locate card', () => {
+    expect(stimulusFor('locate')).toBe('map-plain')
+  })
+
+  it('shows the country for every card that asks about a known one', () => {
+    for (const type of ['identify', 'capital', 'neighbors'] as const) {
+      expect(stimulusFor(type)).toBe('map-highlight')
+    }
+    expect(stimulusFor('flag')).toBe('flag')
+  })
+
+  it('defines a mode and a stimulus for every card type', () => {
+    for (const type of ALL_TYPES) {
+      for (const assisted of [true, false]) {
+        expect(answerModeFor(type, assisted)).toBeTruthy()
+      }
+      expect(stimulusFor(type)).toBeTruthy()
+    }
+  })
+
+  it('supplies options exactly when something picks from them', () => {
+    const items = buildSession({ now, index, stats: emptyStats(), settings: { ...DEFAULT_SETTINGS }, cards: {} })
+    for (const it of items) {
+      const mode = answerModeFor(it.card.type, it.assisted)
+      // Offering choices a card cannot use is how question and control drift apart.
+      expect(it.options.length > 0).toBe(mode === 'choice')
+    }
   })
 })

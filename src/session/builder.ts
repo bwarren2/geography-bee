@@ -5,6 +5,54 @@ import { State } from 'ts-fsrs'
 import type { Aggregates, Settings } from '../store/store'
 import type { CountryRecord } from '../types'
 
+/**
+ * How a card is answered. Derived from the card type by an exhaustive switch
+ * rather than by a chain of conditions in the view: the first version of this
+ * lived as a ternary chain in the UI, where `locate` fell through to the final
+ * branch and rendered a text box. "Where is Guatemala?" could then be answered
+ * by typing "Guatemala" — the location card silently graded naming instead,
+ * collapsing the two skills the whole app exists to keep apart.
+ */
+export type AnswerMode = 'map-single' | 'map-multi' | 'choice' | 'text'
+
+/** What the learner is shown alongside the prompt. */
+export type Stimulus = 'map-plain' | 'map-highlight' | 'flag'
+
+/**
+ * The switch is exhaustive over CardType with no default, so adding a card type
+ * without deciding how it is answered is a type error rather than a card that
+ * quietly renders the wrong control.
+ */
+export function answerModeFor(type: CardType, assisted: boolean): AnswerMode {
+  switch (type) {
+    case 'locate':
+      return 'map-single'
+    case 'neighbors':
+      return 'map-multi'
+    case 'flag':
+      return 'choice'
+    case 'identify':
+      // Recognition while the card is young, free recall once it holds.
+      return assisted ? 'choice' : 'text'
+    case 'capital':
+      return 'text'
+  }
+}
+
+export function stimulusFor(type: CardType): Stimulus {
+  switch (type) {
+    case 'flag':
+      return 'flag'
+    // Never highlight the answer on a locate card — that is the question.
+    case 'locate':
+      return 'map-plain'
+    case 'identify':
+    case 'capital':
+    case 'neighbors':
+      return 'map-highlight'
+  }
+}
+
 export interface SessionItem {
   card: StoredCard
   country: CountryRecord
@@ -96,13 +144,16 @@ export function buildSession({ now, index, cards, stats, settings, limit }: Buil
     // blank box mostly produces blanks.
     const assisted =
       card.type === 'identify' && (card.state !== State.Review || card.stability < TYPING_STABILITY)
+    // Options exist only where something picks from them, so a mismatch cannot
+    // arise between what is offered and how the card is answered.
+    const mode = answerModeFor(card.type, assisted)
     return {
       card,
       country,
       isNew,
       introduce: isNew && card.type === STARTING_TYPES[0],
       assisted,
-      options: assisted || card.type === 'flag' ? pickOptions(country, index, confusion) : [],
+      options: mode === 'choice' ? pickOptions(country, index, confusion) : [],
     }
   }
 

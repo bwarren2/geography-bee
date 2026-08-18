@@ -337,3 +337,8 @@ button.ghost {
   color: var(--muted);
   font-size: 13px;
 }
+
+.centered {
+  text-align: center;
+  margin: 0;
+}

@@ -3,7 +3,7 @@ import type { CountryIndex } from '../data/load'
 import { GeoMap, type MarkRole } from '../map/GeoMap'
 import { deriveRating, type AnswerOutcome } from '../srs/model'
 import { schedule } from '../srs/scheduler'
-import type { SessionItem } from '../session/builder'
+import { answerModeFor, stimulusFor, type SessionItem } from '../session/builder'
 import { matchAnswer } from '../session/matching'
 import { store } from '../store/useStore'
 import { Reveal } from './Reveal'
@@ -106,9 +106,13 @@ export function StudyView({ items, index, onDone, onQuit }: StudyViewProps) {
     setWrongPicks((w) => (iso3 && w.includes(iso3) ? w : [...w, iso3 ?? '']))
   }
 
+  const mode = answerModeFor(card.type, item.assisted)
+  const stimulus = stimulusFor(card.type)
+
   const marks: Record<string, MarkRole> = {}
   for (const w of wrongPicks) if (w) marks[w] = 'wrong'
-  if (item.card.type === 'identify' || item.card.type === 'capital') marks[country.iso3] = 'target'
+  if (stimulus === 'map-highlight') marks[country.iso3] = 'target'
+  if (mode === 'map-multi') for (const s of selected) marks[s] = 'correct'
 
   return (
     <div className="study">
@@ -155,43 +159,32 @@ export function StudyView({ items, index, onDone, onQuit }: StudyViewProps) {
         <div className="ask">
           <h2 className="prompt">{promptFor(item, index)}</h2>
 
-          {card.type === 'locate' && (
+          {/* What is shown. A locate card must never highlight its own answer. */}
+          {stimulus === 'flag' ? (
+            <div className="big-flag">{country.flag}</div>
+          ) : (
             <div className="map-panel">
               <GeoMap
                 view={{ kind: 'region', slug: country.region }}
                 marks={marks}
-                onPick={(iso3) => (iso3 === country.iso3 ? void finish(true, iso3) : wrong(iso3))}
-              />
-            </div>
-          )}
-
-          {card.type === 'identify' && (
-            <div className="map-panel">
-              <GeoMap view={{ kind: 'region', slug: country.region }} marks={marks} labels={[]} />
-            </div>
-          )}
-
-          {card.type === 'neighbors' && (
-            <div className="map-panel">
-              <GeoMap
-                view={{ kind: 'region', slug: country.region }}
-                marks={{
-                  [country.iso3]: 'target',
-                  ...Object.fromEntries(selected.map((s) => [s, 'correct' as MarkRole])),
-                  ...marks,
-                }}
-                labels={[country.iso3]}
-                onPick={(iso3) =>
-                  setSelected((s) => (s.includes(iso3) ? s.filter((x) => x !== iso3) : [...s, iso3]))
+                labels={stimulus === 'map-highlight' && mode === 'map-multi' ? [country.iso3] : []}
+                onPick={
+                  mode === 'map-single'
+                    ? (iso3) => (iso3 === country.iso3 ? void finish(true, iso3) : wrong(iso3))
+                    : mode === 'map-multi'
+                      ? (iso3) =>
+                          setSelected((s) =>
+                            s.includes(iso3) ? s.filter((x) => x !== iso3) : [...s, iso3],
+                          )
+                      : undefined
                 }
               />
             </div>
           )}
 
-          {card.type === 'flag' && <div className="big-flag">{country.flag}</div>}
-
-          {/* Multiple choice while a card is young; free recall once it holds. */}
-          {item.assisted || card.type === 'flag' ? (
+          {/* How it is answered, switched on one derived mode so the control can
+              never disagree with the question being asked. */}
+          {mode === 'choice' ? (
             <div className="options">
               {options.map((iso3) => {
                 const wrongPick = wrongPicks.includes(iso3)
@@ -207,7 +200,7 @@ export function StudyView({ items, index, onDone, onQuit }: StudyViewProps) {
                 )
               })}
             </div>
-          ) : card.type === 'neighbors' ? (
+          ) : mode === 'map-multi' ? (
             <button
               className="primary"
               onClick={() => {
@@ -220,7 +213,7 @@ export function StudyView({ items, index, onDone, onQuit }: StudyViewProps) {
             >
               Done ({selected.length}/{country.borders.length})
             </button>
-          ) : (
+          ) : mode === 'text' ? (
             <form
               className="typed"
               onSubmit={(e) => {
@@ -251,6 +244,9 @@ export function StudyView({ items, index, onDone, onQuit }: StudyViewProps) {
                 Check
               </button>
             </form>
+          ) : (
+            // map-single: the map itself is the input, so there is no control here.
+            <p className="muted centered">Tap the country on the map</p>
           )}
 
           <div className="ask-foot">

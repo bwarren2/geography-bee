@@ -11,7 +11,8 @@
     "test": "vitest run",
     "smoke:map": "node scripts/smoke-map.mjs",
     "smoke:session": "node scripts/smoke-session.mjs",
-    "build:hooks": "tsx scripts/build-hooks.ts"
+    "build:hooks": "tsx scripts/build-hooks.ts",
+    "smoke:cards": "node scripts/smoke-cards.mjs"
   },
   "repository": {
     "type": "git",
