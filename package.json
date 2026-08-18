@@ -50,5 +50,8 @@
     "ts-fsrs": "^5.4.1"
   },
   "type": "module",
-  "private": true
+  "private": true,
+  "engines": {
+    "node": "22.x"
+  }
 }

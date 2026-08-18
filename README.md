@@ -67,6 +67,25 @@ after checking that every ISO code is real, filed under the right region, and
 not duplicated. `build:data` runs the merge too, so region changes and hooks
 cannot drift apart.
 
+## Deployment
+
+Vercel runs `vite build` over the committed files — the data pipeline never runs
+at deploy time.
+
+Two things in `vercel.json` are deliberate:
+
+- **`/data/*` is revalidated, not cached immutably.** Those files keep stable
+  paths across builds, so an immutable header would leave anyone holding a
+  cached copy unable to see regenerated data. Offline support comes from the
+  service worker, which versions its own precache.
+- **`PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1`.** Vercel installs devDependencies to
+  build, and `playwright` otherwise downloads ~150MB of Chromium during install
+  for smoke tests that never run there.
+
+Note that `vercel.json` is schema-validated strictly and rejects any unknown
+property — including a `comment` key inside a header entry, which fails the
+deploy before it reaches the build step. Keep explanations here instead.
+
 ## Layout
 
 ```
