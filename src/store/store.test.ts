@@ -115,6 +115,16 @@ describe('StudyStore', () => {
     expect(await fresh.getRawLog()).toHaveLength(1)
   })
 
+  it('stacks boosts within a day and replaces a stale one', async () => {
+    await store.load()
+    await store.grantBoost(5, '2026-03-01')
+    await store.grantBoost(5, '2026-03-01')
+    expect(store.snapshot().settings.boost).toEqual({ day: '2026-03-01', extra: 10 })
+    // A new day starts fresh rather than inheriting yesterday's grant.
+    await store.grantBoost(5, '2026-03-02')
+    expect(store.snapshot().settings.boost).toEqual({ day: '2026-03-02', extra: 5 })
+  })
+
   it('rejects a file that is not one of our backups', async () => {
     await store.load()
     await expect(store.importAll('{"format":"anki/apkg"}')).rejects.toThrow(/not a geography bee backup/i)

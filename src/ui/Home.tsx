@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import type { CountryIndex } from '../data/load'
+import { BOOST_STEP } from '../session/builder'
 import { RAPID_MIN_SEEN } from '../session/rapid'
 import { isEstablished, retrievability } from '../srs/scheduler'
 import { BACKUP_NAG_DAYS, type StudySnapshot } from '../store/store'
@@ -11,13 +12,16 @@ interface HomeProps {
   dueCount: number
   newCount: number
   onStart: () => void
+  /** True when granting more budget would actually surface more cards. */
+  canBoost: boolean
+  onBoost: () => void
   onRapid: () => void
   onPacks: () => void
   onDashboard: () => void
   onReload: () => void
 }
 
-export function Home({ snapshot, index, dueCount, newCount, onStart, onRapid, onPacks, onDashboard, onReload }: HomeProps) {
+export function Home({ snapshot, index, dueCount, newCount, onStart, canBoost, onBoost, onRapid, onPacks, onDashboard, onReload }: HomeProps) {
   const fileRef = useRef<HTMLInputElement>(null)
   const now = new Date()
 
@@ -75,6 +79,15 @@ export function Home({ snapshot, index, dueCount, newCount, onStart, onRapid, on
       <button className="primary big" onClick={onStart} disabled={dueCount + newCount === 0}>
         {dueCount + newCount === 0 ? 'Nothing due — come back later' : `Study ${dueCount + newCount} cards`}
       </button>
+
+      {/* The daily cap quietly zeroes the "new" count once spent — which reads
+          as a freshly started pack failing to enqueue. This makes the escape
+          hatch explicit: force more into today without touching the cap. */}
+      {canBoost && (
+        <button className="big" onClick={onBoost}>
+          +{BOOST_STEP} new cards today
+        </button>
+      )}
 
       {/* A sprint over countries already met: no teach screens, no reveal,
           just tap after tap — with every answer still recorded. */}

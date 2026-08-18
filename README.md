@@ -41,6 +41,12 @@ candidates marked, tap the named one, then the mirror question. A correct
 discrimination decays the pair's count and a wrong one feeds it, so a pair is
 drilled exactly until it stops being confused — no extra scheduling state.
 
+**The daily cap has an explicit escape hatch.** New material is budgeted per
+day, which means a pack started after today's budget is spent enqueues nothing
+until tomorrow — correct, but it reads as a bug. A "+5 new cards today" button
+grants extra budget for today only: it stacks within the day, never leaks into
+tomorrow, and only appears when pressing it would actually surface cards.
+
 **Extra material is opt-in, through packs.** The world tour (locate + identify)
 is on by default. Skill packs — Capitals, Flags, Borders — add a new kind of
 question, and generate cards per country only once its two map cards are

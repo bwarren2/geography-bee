@@ -76,7 +76,10 @@ const TYPING_STABILITY = 14
  *  not front-load everything unfamiliar. */
 const NEW_CARD_SPACING = 4
 
-const today = (now: Date) => now.toISOString().slice(0, 10)
+export const today = (now: Date) => now.toISOString().slice(0, 10)
+
+/** How much one press of the boost button adds to today's new-card budget. */
+export const BOOST_STEP = 5
 
 /**
  * Distractors for a multiple-choice prompt.
@@ -170,7 +173,9 @@ export function buildSession({ now, index, cards, stats, settings, limit }: Buil
   // New material, budgeted against what has already been introduced today
   // ---------------------------------------------------------------------
   const introducedToday = stats.daily?.[today(now)]?.introduced ?? 0
-  let budget = Math.max(0, settings.newCardsPerDay - introducedToday)
+  // A boost is day-stamped: yesterday's leftover grant must not apply today.
+  const boost = settings.boost?.day === today(now) ? settings.boost.extra : 0
+  let budget = Math.max(0, settings.newCardsPerDay + boost - introducedToday)
 
   const started = new Set(settings.packs)
   const fresh: SessionItem[] = []

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { loadIndex, type CountryIndex } from './data/load'
-import { buildSession, type SessionItem } from './session/builder'
+import { BOOST_STEP, buildSession, today, type SessionItem } from './session/builder'
 import { buildDrills, type Drill } from './session/drills'
 import { buildRapidQueue, RAPID_MIN_SEEN, type RapidItem } from './session/rapid'
 import { store, useStudyStore } from './store/useStore'
@@ -41,6 +41,24 @@ export function App() {
       settings: snapshot.settings,
     })
   }, [index, snapshot])
+
+  // Would granting more budget actually surface more cards? Probing the real
+  // builder answers it exactly — packs, gates and dedup included — so the
+  // boost button can never appear when pressing it would do nothing.
+  const canBoost = useMemo(() => {
+    if (!index || !snapshot || !pending) return false
+    const probe = buildSession({
+      now: new Date(),
+      index,
+      cards: snapshot.cards,
+      stats: snapshot.stats,
+      settings: {
+        ...snapshot.settings,
+        newCardsPerDay: snapshot.settings.newCardsPerDay + BOOST_STEP,
+      },
+    })
+    return probe.filter((i) => i.isNew).length > pending.filter((i) => i.isNew).length
+  }, [index, snapshot, pending])
 
   if (!index || !snapshot || !pending) return <p className="loading">Loading…</p>
 
@@ -157,6 +175,10 @@ export function App() {
       dueCount={pending.filter((i) => !i.isNew).length}
       newCount={pending.filter((i) => i.isNew).length}
       onStart={() => setScreen({ name: 'study', items: pending })}
+      canBoost={canBoost}
+      onBoost={() => {
+        void store.grantBoost(BOOST_STEP, today(new Date())).then(reload)
+      }}
       onRapid={() => {
         const items = buildRapidQueue(index, snapshot.cards, new Date())
         if (items.length) setScreen({ name: 'rapid', items })

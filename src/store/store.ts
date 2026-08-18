@@ -70,6 +70,11 @@ export interface Settings {
    *  only ever introduced from started packs; pausing a pack stops future
    *  introductions but never touches the review schedule of existing cards. */
   packs: string[]
+  /** Extra new-card budget granted for one specific day (UTC date key). Lets
+   *  the learner force material into today's queue — after starting a pack,
+   *  say — without touching the standing daily cap. A stale day is ignored,
+   *  so a boost can never silently leak into tomorrow. */
+  boost: { day: string; extra: number }
 }
 
 export interface Meta {
@@ -78,7 +83,11 @@ export interface Meta {
   createdAt: number
 }
 
-export const DEFAULT_SETTINGS: Settings = { newCardsPerDay: 8, packs: ['world'] }
+export const DEFAULT_SETTINGS: Settings = {
+  newCardsPerDay: 8,
+  packs: ['world'],
+  boost: { day: '', extra: 0 },
+}
 
 const emptyAggregates = (): Aggregates => ({ perCard: {}, daily: {}, confusion: {} })
 const emptyCardStats = (): CardStats => ({ reps: 0, lapses: 0, ratings: [0, 0, 0, 0, 0], totalMs: 0 })
@@ -270,6 +279,14 @@ export class StudyStore {
     else this.stats.confusion[key] = next
     this.dirty.add('stats')
     this.scheduleFlush()
+  }
+
+  /** Grant extra new-card budget for the given day, stacking with any boost
+   *  already granted today and replacing one left over from another day. */
+  async grantBoost(extra: number, day: string): Promise<void> {
+    const cur = this.settings.boost
+    const next = cur.day === day ? { day, extra: cur.extra + extra } : { day, extra }
+    return this.setSettings({ boost: next })
   }
 
   async setSettings(patch: Partial<Settings>): Promise<void> {

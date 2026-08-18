@@ -245,6 +245,48 @@ describe('buildSession', () => {
     const items = buildSession({ ...base, cards: {}, settings: { ...DEFAULT_SETTINGS, packs: [] } })
     expect(items).toHaveLength(0)
   })
+
+  it("a boost reopens today's budget after the cap is spent", () => {
+    // The exact complaint this exists for: cap spent, pack freshly started,
+    // and yet nothing enqueues.
+    const stats = emptyStats()
+    stats.daily['2026-03-01'] = { reviews: 40, correct: 30, introduced: 8 }
+    const without = buildSession({ ...base, stats, cards: {} })
+    expect(without).toHaveLength(0)
+
+    const boosted = buildSession({
+      ...base,
+      stats,
+      cards: {},
+      settings: { ...DEFAULT_SETTINGS, boost: { day: '2026-03-01', extra: 5 } },
+    })
+    expect(boosted).toHaveLength(5)
+    expect(boosted.every((i) => i.isNew)).toBe(true)
+  })
+
+  it("ignores a boost granted on a different day", () => {
+    const stats = emptyStats()
+    stats.daily['2026-03-01'] = { reviews: 40, correct: 30, introduced: 8 }
+    const items = buildSession({
+      ...base,
+      stats,
+      cards: {},
+      settings: { ...DEFAULT_SETTINGS, boost: { day: '2026-02-28', extra: 50 } },
+    })
+    expect(items).toHaveLength(0)
+  })
+
+  it('a boost cannot conjure cards from unstarted packs', () => {
+    const stats = emptyStats()
+    stats.daily['2026-03-01'] = { reviews: 40, correct: 30, introduced: 8 }
+    const items = buildSession({
+      ...base,
+      stats,
+      cards: {},
+      settings: { ...DEFAULT_SETTINGS, packs: [], boost: { day: '2026-03-01', extra: 50 } },
+    })
+    expect(items).toHaveLength(0)
+  })
 })
 
 
