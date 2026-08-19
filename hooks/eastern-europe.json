@@ -1,22 +1,29 @@
 {
-  "RUS": {
-    "hook": "Spans eleven time zones — when Monday morning starts in Kaliningrad it is already Monday evening in Kamchatka.",
-    "place": "From the Baltic to the Pacific across the whole top of Asia. Kaliningrad is a detached piece between Poland and Lithuania.",
-    "exports": ["crude petroleum", "refined petroleum", "natural gas"]
-  },
   "UKR": {
     "hook": "The largest country lying entirely within Europe, sitting on roughly a third of the world's black-earth chernozem soil.",
     "place": "North of the Black Sea, filling the space between Poland and Russia.",
-    "exports": ["sunflower oil", "corn", "iron ore"]
+    "exports": [
+      "sunflower oil",
+      "corn",
+      "iron ore"
+    ]
   },
   "BLR": {
     "hook": "About 40% forest, and it shares the Białowieża primeval woodland — and its bison — with Poland.",
     "place": "Landlocked between Poland and Russia, directly above Ukraine.",
-    "exports": ["potassic fertilizers", "refined petroleum", "cheese"]
+    "exports": [
+      "potassic fertilizers",
+      "refined petroleum",
+      "cheese"
+    ]
   },
   "MDA": {
     "hook": "One of the most wine-dependent economies anywhere — the Cricova cellars alone run for over 120km underground, with streets and traffic signs.",
     "place": "The small landlocked country wedged between Romania and Ukraine.",
-    "exports": ["sunflower seeds", "insulated wire", "wine"]
+    "exports": [
+      "sunflower seeds",
+      "insulated wire",
+      "wine"
+    ]
   }
 }

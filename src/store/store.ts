@@ -76,6 +76,10 @@ export interface Settings {
    *  say — without touching the standing daily cap. A stale day is ignored,
    *  so a boost can never silently leak into tomorrow. */
   boost: { day: string; extra: number }
+  /** Which generation of quiz-region slugs `packs` speaks. Bumped when
+   *  regions are re-cut so stored pack ids can be mapped forward exactly
+   *  once (see REGION_SPLITS). */
+  regionsVersion: number
 }
 
 export interface Meta {
@@ -84,10 +88,41 @@ export interface Meta {
   createdAt: number
 }
 
+export const REGIONS_VERSION = 2
+
 export const DEFAULT_SETTINGS: Settings = {
   newCardsPerDay: 8,
   packs: ['world'],
   boost: { day: '', extra: 0 },
+  regionsVersion: REGIONS_VERSION,
+}
+
+/**
+ * Region packs are named after quiz-region slugs, and the locate-framing work
+ * (#3) cut several regions so each frames at a single scale. A stored
+ * rotation predating a cut gets each old pack replaced by the packs covering
+ * the same countries — never fewer: whoever toured North & Central America is
+ * now touring both halves. The regionsVersion stamp makes this one-shot, so a
+ * learner who later drops one half is not re-subscribed on the next load.
+ */
+const REGION_SPLITS: Record<string, string[]> = {
+  'region:north-central-america': ['region:north-america', 'region:central-america'],
+  'region:southern-europe': ['region:southern-europe', 'region:balkans'],
+  'region:eastern-europe': ['region:eastern-europe', 'region:russia'],
+  'region:eastern-asia': ['region:japan-koreas', 'region:china-mongolia'],
+  'region:western-africa': ['region:western-africa', 'region:sahel'],
+  'region:oceania': ['region:australia-nz', 'region:pacific-islands'],
+}
+
+/** Merge stored (or imported) settings over the defaults and bring their pack
+ *  ids up to the current region generation. A blob without a stamp predates
+ *  stamping entirely, so it is treated as generation 1 — never as current. */
+function hydrateSettings(stored: Partial<Settings> | null): { settings: Settings; migrated: boolean } {
+  if (!stored) return { settings: { ...DEFAULT_SETTINGS }, migrated: false }
+  const merged: Settings = { ...DEFAULT_SETTINGS, ...stored, regionsVersion: stored.regionsVersion ?? 1 }
+  if (merged.regionsVersion >= REGIONS_VERSION) return { settings: merged, migrated: false }
+  const packs = [...new Set(merged.packs.flatMap((p) => REGION_SPLITS[p] ?? [p]))]
+  return { settings: { ...merged, packs, regionsVersion: REGIONS_VERSION }, migrated: true }
 }
 
 const emptyAggregates = (): Aggregates => ({ perCard: {}, daily: {}, confusion: {} })
@@ -160,7 +195,12 @@ export class StudyStore {
         this.scheduleFlush()
       }
       this.stats = { ...emptyAggregates(), ...(stats ?? {}) }
-      this.settings = { ...DEFAULT_SETTINGS, ...(settings ?? {}) }
+      const hydrated = hydrateSettings(settings)
+      this.settings = hydrated.settings
+      if (hydrated.migrated) {
+        this.dirty.add('settings')
+        this.scheduleFlush()
+      }
       this.meta = meta ?? this.meta
       this.logCounts = logIndex ?? (await this.rebuildLogIndex())
       this.loaded = true
@@ -407,7 +447,9 @@ export class StudyStore {
 
     this.cards = data.cards ?? {}
     this.stats = { ...emptyAggregates(), ...(data.stats ?? {}) }
-    this.settings = { ...DEFAULT_SETTINGS, ...(data.settings ?? {}) }
+    // Backups written before a region re-cut carry old pack ids; imports go
+    // through the same migration as stored settings.
+    this.settings = hydrateSettings(data.settings ?? null).settings
     this.meta = data.meta ?? this.meta
     this.loaded = true
 

@@ -224,21 +224,21 @@ describe('buildSession', () => {
     const items = buildSession({
       ...base,
       cards: {},
-      settings: { ...DEFAULT_SETTINGS, packs: ['region:oceania'] },
+      settings: { ...DEFAULT_SETTINGS, packs: ['region:pacific-islands'] },
     })
     expect(items.length).toBeGreaterThan(0)
-    expect(items.every((i) => i.country.region === 'oceania')).toBe(true)
+    expect(items.every((i) => i.country.region === 'pacific-islands')).toBe(true)
   })
 
   it('lets a region spotlight jump the world curriculum', () => {
     const items = buildSession({
       ...base,
       cards: {},
-      settings: { ...DEFAULT_SETTINGS, packs: ['world', 'region:oceania'] },
+      settings: { ...DEFAULT_SETTINGS, packs: ['world', 'region:pacific-islands'] },
     })
-    // Oceania is last in the world curriculum, so without the spotlight the
-    // first session would be all North America.
-    expect(items[0]!.country.region).toBe('oceania')
+    // The Pacific islands are last in the world curriculum, so without the
+    // spotlight the first session would be all North America.
+    expect(items[0]!.country.region).toBe('pacific-islands')
   })
 
   it('introduces nothing at all with every pack paused', () => {

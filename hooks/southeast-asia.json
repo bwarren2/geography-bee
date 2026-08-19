@@ -2,56 +2,100 @@
   "IDN": {
     "hook": "Over 17,000 islands spread across 5,000km — wider than the United States — and it is moving its capital off Java because Jakarta is sinking.",
     "place": "The great archipelago strung along the equator between mainland Asia and Australia.",
-    "exports": ["coal", "palm oil", "iron alloys"]
-  },
-  "THA": {
-    "hook": "The only country in Southeast Asia never colonised by a European power — it played the British and French off against each other.",
-    "place": "The middle of the mainland, between Myanmar and Laos, tailing south down the peninsula toward Malaysia.",
-    "exports": ["cars", "computers", "integrated circuits"]
-  },
-  "VNM": {
-    "hook": "About 1,650km long but as little as 50km wide at its waist — you can drive coast to border in under an hour in the middle.",
-    "place": "The eastern edge of the mainland, an S-curve down the coast from China to the Mekong delta.",
-    "exports": ["broadcasting equipment", "telephones", "integrated circuits"]
+    "exports": [
+      "coal",
+      "palm oil",
+      "iron alloys"
+    ]
   },
   "PHL": {
     "hook": "7,641 islands on the Ring of Fire, and about 20 typhoons a year — more than anywhere else on Earth.",
     "place": "The archipelago north of Indonesia and east of Vietnam, facing the open Pacific.",
-    "exports": ["integrated circuits", "office machine parts", "insulated wire"]
+    "exports": [
+      "integrated circuits",
+      "office machine parts",
+      "insulated wire"
+    ]
   },
-  "MYS": {
-    "hook": "Split clean in two by the South China Sea — half a peninsula, half a slice of Borneo, 640km apart.",
-    "place": "Below Thailand on the mainland peninsula, and along the north coast of Borneo beside Indonesia and Brunei.",
-    "exports": ["integrated circuits", "refined petroleum", "palm oil"]
+  "THA": {
+    "hook": "The only country in Southeast Asia never colonised by a European power — it played the British and French off against each other.",
+    "place": "The middle of the mainland, between Myanmar and Laos, tailing south down the peninsula toward Malaysia.",
+    "exports": [
+      "cars",
+      "computers",
+      "integrated circuits"
+    ]
+  },
+  "VNM": {
+    "hook": "About 1,650km long but as little as 50km wide at its waist — you can drive coast to border in under an hour in the middle.",
+    "place": "The eastern edge of the mainland, an S-curve down the coast from China to the Mekong delta.",
+    "exports": [
+      "broadcasting equipment",
+      "telephones",
+      "integrated circuits"
+    ]
   },
   "MMR": {
     "hook": "Produces the large majority of the world's rubies, from the Mogok valley — and answers to Burma just as often.",
     "place": "The western end of mainland Southeast Asia, between India and Thailand.",
-    "exports": ["natural gas", "non-knit garments", "rice"]
+    "exports": [
+      "natural gas",
+      "non-knit garments",
+      "rice"
+    ]
+  },
+  "MYS": {
+    "hook": "Split clean in two by the South China Sea — half a peninsula, half a slice of Borneo, 640km apart.",
+    "place": "Below Thailand on the mainland peninsula, and along the north coast of Borneo beside Indonesia and Brunei.",
+    "exports": [
+      "integrated circuits",
+      "refined petroleum",
+      "palm oil"
+    ]
   },
   "KHM": {
     "hook": "Angkor Wat is the largest religious monument on Earth, and Cambodia's is the only national flag anywhere that shows a building.",
     "place": "Between Thailand and Vietnam, opening onto the Gulf of Thailand.",
-    "exports": ["non-knit garments", "knitted garments", "footwear"]
+    "exports": [
+      "non-knit garments",
+      "knitted garments",
+      "footwear"
+    ]
   },
   "LAO": {
     "hook": "The only landlocked country in Southeast Asia, and the most heavily bombed country per person in history — unexploded ordnance is still being cleared.",
     "place": "Landlocked between Thailand and Vietnam, the Mekong running down much of its western edge.",
-    "exports": ["electricity", "copper", "gold"]
-  },
-  "SGP": {
-    "hook": "One of the last true city-states, and about a quarter larger than at independence — the extra land was reclaimed from the sea.",
-    "place": "At the tip of the Malay peninsula, on the Strait of Malacca, one of the busiest shipping lanes on Earth.",
-    "exports": ["integrated circuits", "refined petroleum", "gold"]
-  },
-  "BRN": {
-    "hook": "Oil wealth means no income tax at all — and the country is split into two separate pieces by Malaysian territory.",
-    "place": "Two enclaves on the north coast of Borneo, both entirely surrounded by Malaysia.",
-    "exports": ["crude petroleum", "natural gas", "refined petroleum"]
+    "exports": [
+      "electricity",
+      "copper",
+      "gold"
+    ]
   },
   "TLS": {
     "hook": "One of the youngest countries on Earth, independent only in 2002 after 24 years of occupation.",
     "place": "The eastern half of Timor at the far end of the Indonesian arc, just north of Australia.",
-    "exports": ["crude petroleum", "coffee", "natural gas"]
+    "exports": [
+      "crude petroleum",
+      "coffee",
+      "natural gas"
+    ]
+  },
+  "SGP": {
+    "hook": "One of the last true city-states, and about a quarter larger than at independence — the extra land was reclaimed from the sea.",
+    "place": "At the tip of the Malay peninsula, on the Strait of Malacca, one of the busiest shipping lanes on Earth.",
+    "exports": [
+      "integrated circuits",
+      "refined petroleum",
+      "gold"
+    ]
+  },
+  "BRN": {
+    "hook": "Oil wealth means no income tax at all — and the country is split into two separate pieces by Malaysian territory.",
+    "place": "Two enclaves on the north coast of Borneo, both entirely surrounded by Malaysia.",
+    "exports": [
+      "crude petroleum",
+      "natural gas",
+      "refined petroleum"
+    ]
   }
 }

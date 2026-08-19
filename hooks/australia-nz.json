@@ -1,0 +1,20 @@
+{
+  "AUS": {
+    "hook": "The only country that is also a continent, and more than 80% of its mammals, reptiles and frogs live nowhere else.",
+    "place": "The continent-sized island between the Indian and Pacific oceans, below Indonesia and Papua New Guinea.",
+    "exports": [
+      "iron ore",
+      "coal",
+      "natural gas"
+    ]
+  },
+  "NZL": {
+    "hook": "One of the last large landmasses humans reached, settled only around 1300 — and it had no land mammals at all except bats.",
+    "place": "Two main islands about 2,000km southeast of Australia, alone in the South Pacific.",
+    "exports": [
+      "concentrated milk",
+      "sheep and goat meat",
+      "butter"
+    ]
+  }
+}

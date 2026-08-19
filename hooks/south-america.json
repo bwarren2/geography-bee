@@ -17,15 +17,6 @@
       "soybean oil"
     ]
   },
-  "PER": {
-    "hook": "The Amazon starts here, in Andean meltwater, and runs the width of the continent before reaching the Atlantic in Brazil.",
-    "place": "Pacific coast, just south of the equator. Ecuador and Colombia above, Chile below, Brazil behind the mountains.",
-    "exports": [
-      "copper ore",
-      "gold",
-      "refined copper"
-    ]
-  },
   "COL": {
     "hook": "The only country in South America with coastline on both the Pacific and the Caribbean.",
     "place": "The top-left corner of the continent, and the only one that touches Panama — the land bridge to North America.",
@@ -33,6 +24,15 @@
       "crude petroleum",
       "coal briquettes",
       "coffee"
+    ]
+  },
+  "PER": {
+    "hook": "The Amazon starts here, in Andean meltwater, and runs the width of the continent before reaching the Atlantic in Brazil.",
+    "place": "Pacific coast, just south of the equator. Ecuador and Colombia above, Chile below, Brazil behind the mountains.",
+    "exports": [
+      "copper ore",
+      "gold",
+      "refined copper"
     ]
   },
   "VEN": {
@@ -53,15 +53,6 @@
       "lithium carbonate"
     ]
   },
-  "ECU": {
-    "hook": "Named after the equator, which crosses just north of Quito — the only country named for a line of latitude.",
-    "place": "A small Pacific notch between Colombia and Peru. The Galápagos belong to it, 900km out to sea.",
-    "exports": [
-      "crude petroleum",
-      "bananas",
-      "crustaceans"
-    ]
-  },
   "BOL": {
     "hook": "Landlocked since 1884, and still keeps a navy — it patrols Lake Titicaca and waits for the sea to come back.",
     "place": "The landlocked heart of the continent, ringed by Brazil, Peru, Chile, Argentina and Paraguay.",
@@ -69,6 +60,15 @@
       "natural gas",
       "gold",
       "zinc ore"
+    ]
+  },
+  "ECU": {
+    "hook": "Named after the equator, which crosses just north of Quito — the only country named for a line of latitude.",
+    "place": "A small Pacific notch between Colombia and Peru. The Galápagos belong to it, 900km out to sea.",
+    "exports": [
+      "crude petroleum",
+      "bananas",
+      "crustaceans"
     ]
   },
   "PRY": {

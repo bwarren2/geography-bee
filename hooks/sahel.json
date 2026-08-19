@@ -1,0 +1,29 @@
+{
+  "NER": {
+    "hook": "Has the youngest population on Earth — around half of Niger is under fifteen.",
+    "place": "Landlocked and mostly Sahara, sitting directly on top of Nigeria. The two names are the mix-up to watch.",
+    "exports": [
+      "uranium",
+      "gold",
+      "sesame seeds"
+    ]
+  },
+  "MLI": {
+    "hook": "Timbuktu was a university town when Oxford was new, and its medieval ruler Mansa Musa may have been the richest person who ever lived.",
+    "place": "Landlocked across the western Sahel, with the Niger river arcing through its middle.",
+    "exports": [
+      "gold",
+      "cotton",
+      "sesame seeds"
+    ]
+  },
+  "MRT": {
+    "hook": "Runs one of the longest trains in the world — up to 2.5km of iron ore across the desert, with passengers riding on top of the load.",
+    "place": "Where the Sahara meets the Atlantic, above Senegal and west of Mali.",
+    "exports": [
+      "iron ore",
+      "gold",
+      "fish"
+    ]
+  }
+}
