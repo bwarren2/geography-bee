@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { StudyStore, type StudySnapshot } from './store'
 
 /** One store per page load; the app is single-user and single-tab in practice. */
@@ -31,5 +31,8 @@ export function useStudyStore(): { snapshot: StudySnapshot | null; reload: () =>
     void store.load().then(setSnapshot)
   }, [nonce])
 
-  return { snapshot, reload: () => setNonce((n) => n + 1) }
+  // Stable identity: reload is a dependency of App's history listeners, and a
+  // fresh closure per render would re-subscribe them on every state change.
+  const reload = useCallback(() => setNonce((n) => n + 1), [])
+  return { snapshot, reload }
 }

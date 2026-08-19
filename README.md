@@ -91,6 +91,7 @@ Browser smoke tests need a server already running:
 ```bash
 npm run smoke:cards    # asserts every card type shows its matching control
 npm run smoke:session  # drives a full study session and reloads
+npm run smoke:back     # browser back gesture always lands on home, never blank
 ```
 
 Both accept `SMOKE_URL` (default `http://localhost:5173`) and `SMOKE_OUT` for
