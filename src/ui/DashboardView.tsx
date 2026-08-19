@@ -1,8 +1,12 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import type { CountryIndex } from '../data/load'
+import { recallFill } from '../map/colors'
 import { GeoMap } from '../map/GeoMap'
+import { APP_URL, buildShareCardSvg, progressCardContent, svgToPngBlob } from '../share/shareCard'
 import { buildOutlook, formatEta } from '../stats/outlook'
 import type { StudySnapshot } from '../store/store'
+
+export { recallFill }
 
 interface DashboardViewProps {
   index: CountryIndex
@@ -10,20 +14,38 @@ interface DashboardViewProps {
   onBack: () => void
 }
 
-/**
- * Recall shading for the choropleth: unseen stays neutral land, seen countries
- * sweep red → amber → green with recall probability. Saturation is kept low
- * enough that the wrong-answer red used during study still reads as louder.
- */
-export function recallFill(recall: number, seen: boolean): string | undefined {
-  if (!seen) return undefined
-  const clamped = Math.max(0, Math.min(1, recall))
-  const hue = 8 + clamped * 134 // red 8° → green 142°
-  return `hsl(${Math.round(hue)}, 48%, 34%)`
-}
-
 export function DashboardView({ index, snapshot, onBack }: DashboardViewProps) {
   const outlook = useMemo(() => buildOutlook(index, snapshot, new Date()), [index, snapshot])
+  const [shareState, setShareState] = useState<'idle' | 'busy' | 'saved'>('idle')
+
+  /** Render the choropleth card and hand it to the OS share sheet — a shared
+   *  image displays natively in Discord and friends, which a static site's
+   *  link preview never could (the crawler cannot see this browser's
+   *  progress). Fallback: save the PNG. */
+  async function shareProgress() {
+    setShareState('busy')
+    try {
+      const content = await progressCardContent(index, snapshot, new Date())
+      const blob = await svgToPngBlob(buildShareCardSvg(content))
+      const file = new File([blob], 'geography-bee-progress.png', { type: 'image/png' })
+      if (navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ files: [file], title: 'Geography Bee', text: `${content.headline} — ${APP_URL}` })
+        setShareState('idle')
+      } else {
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = file.name
+        a.click()
+        URL.revokeObjectURL(url)
+        setShareState('saved')
+        setTimeout(() => setShareState('idle'), 2000)
+      }
+    } catch {
+      // Dismissing the share sheet rejects; that is not an error.
+      setShareState('idle')
+    }
+  }
 
   const fills: Record<string, string> = {}
   for (const [iso3, s] of outlook.countries) {
@@ -69,6 +91,9 @@ export function DashboardView({ index, snapshot, onBack }: DashboardViewProps) {
         <span className="chip" style={{ background: recallFill(0.2, true) }} /> fading
         <span className="chip" style={{ background: recallFill(0.6, true) }} /> holding
         <span className="chip" style={{ background: recallFill(1, true) }} /> solid
+        <button className="ghost share-map" onClick={() => void shareProgress()} disabled={shareState === 'busy'}>
+          {shareState === 'busy' ? 'Rendering…' : shareState === 'saved' ? 'Saved ✓' : '↗ Share map'}
+        </button>
       </div>
 
       <div className="eta-headline">

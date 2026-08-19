@@ -6,6 +6,20 @@
     <meta name="theme-color" content="#0a101f" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>Geography Bee</title>
+    <!-- Rich link previews (Discord, Slack, iMessage) are built by the
+         receiving platform fetching this page, so the card must be static:
+         per-user progress can never appear here. og:image must be absolute. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Geography Bee" />
+    <meta
+      property="og:description"
+      content="Spaced repetition for where every country is — locate, name, and remember all 195 on real maps."
+    />
+    <meta property="og:url" content="https://geography-bee-three.vercel.app/" />
+    <meta property="og:image" content="https://geography-bee-three.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
     <div id="root"></div>
