@@ -108,6 +108,7 @@ export function App() {
       <StudyView
         items={screen.items}
         index={index}
+        terrain={snapshot.settings.terrain}
         onDone={(result) => {
           reload()
           // Drills come from the store directly, not the React snapshot: the
@@ -127,6 +128,7 @@ export function App() {
       <RapidView
         items={screen.items}
         index={index}
+        terrain={snapshot.settings.terrain}
         onDone={(result) => {
           reload()
           enter({ name: 'summary', result })
@@ -141,6 +143,7 @@ export function App() {
       <DrillView
         drills={screen.drills}
         index={index}
+        terrain={snapshot.settings.terrain}
         onDone={(drillResult) => {
           reload()
           enter({ name: 'summary', result: screen.result, drills: drillResult })

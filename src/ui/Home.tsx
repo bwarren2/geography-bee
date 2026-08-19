@@ -133,6 +133,15 @@ export function Home({ snapshot, index, dueCount, newCount, onStart, canBoost, o
           }}
         />
       </div>
+
+      {/* Landmarks as memory anchors — real terrain under the quiz maps.
+          Opt-in: the flat field is the purer recall test. */}
+      <button
+        className="ghost terrain-toggle"
+        onClick={() => void store.setSettings({ terrain: !snapshot.settings.terrain }).then(onReload)}
+      >
+        🛰️ Satellite terrain: {snapshot.settings.terrain ? 'on' : 'off'}
+      </button>
     </div>
   )
 }

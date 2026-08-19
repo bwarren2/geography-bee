@@ -30,7 +30,7 @@ export default defineConfig({
       workbox: {
         // Geometry files are large and immutable; cache them aggressively so the
         // app works offline and region views never re-download.
-        globPatterns: ['**/*.{js,css,html,svg,png,json}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,jpg,json}'],
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
       },
     }),

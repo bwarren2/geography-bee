@@ -14,6 +14,7 @@ const FLASH_HIT_MS = 350
 const FLASH_MISS_MS = 1100
 
 interface RapidViewProps {
+  terrain?: boolean
   items: RapidItem[]
   index: CountryIndex
   onDone: (result: SessionResult) => void
@@ -27,7 +28,7 @@ interface RapidViewProps {
  * FSRS state, review log, aggregates, and the confusion matrix (a rapid
  * wrong-click is a confusion like any other, and feeds the drill queue).
  */
-export function RapidView({ items, index, onDone, onQuit }: RapidViewProps) {
+export function RapidView({ items, index, terrain, onDone, onQuit }: RapidViewProps) {
   const [pos, setPos] = useState(0)
   const [flash, setFlash] = useState<{ chosen: string; correct: boolean } | null>(null)
   const [tally, setTally] = useState({ answered: 0, correct: 0 })
@@ -123,6 +124,7 @@ export function RapidView({ items, index, onDone, onQuit }: RapidViewProps) {
             key={card.id}
             view={{ kind: 'region', slug: country.region }}
             marks={marks}
+            terrain={terrain}
             // The sprint asks at the same difficulty the card has earned; the
             // answer flash restores full borders so the miss shows in context.
             borderOpacity={flash ? 1 : borderOpacityFor(card)}

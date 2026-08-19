@@ -13,6 +13,7 @@
     "build:hooks": "tsx scripts/build-hooks.ts",
     "audit:framing": "tsx scripts/audit-framing.ts",
     "build:fixture": "tsx scripts/build-fixture.ts",
+    "fetch:terrain": "node scripts/fetch-terrain.mjs",
     "smoke:cards": "node scripts/smoke-cards.mjs",
     "smoke:back": "node scripts/smoke-back.mjs"
   },

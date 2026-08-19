@@ -13,6 +13,13 @@ repo. The app makes no network calls at build or runtime.
 | [world-atlas](https://github.com/topojson/world-atlas) (Natural Earth) | Country geometry at 110m / 50m / 10m | Public domain |
 | [world-countries](https://github.com/mledoze/countries) | ISO codes, names, capitals, borders, area, currencies, languages, flags | [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/) |
 | [country-json](https://github.com/samayo/country-json) | Population, average elevation, coastline, national dish | MIT |
+| [NASA Blue Marble: Next Generation](https://earthobservatory.nasa.gov/features/BlueMarble) | `public/data/terrain.jpg`, the optional satellite base layer | Public domain (NASA) |
+
+The Blue Marble image (4096×2048 equirectangular) is vendored from the
+`three-globe@2.45.2` npm tarball (`example/img/earth-blue-marble.jpg`), which
+mirrors NASA's public-domain composite — `npm run fetch:terrain` re-downloads
+it from that pinned, immutable registry URL. NASA imagery is not copyrighted;
+NASA requests attribution as "NASA Earth Observatory".
 
 ## ODbL note
 
