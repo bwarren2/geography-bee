@@ -3,6 +3,7 @@ import type { CountryIndex } from '../data/load'
 import { BOOST_STEP } from '../session/builder'
 import { RAPID_MIN_SEEN } from '../session/rapid'
 import { isEstablished, retrievability } from '../srs/scheduler'
+import { dueForecast } from '../stats/forecast'
 import { BACKUP_NAG_DAYS, type StudySnapshot } from '../store/store'
 import { store } from '../store/useStore'
 
@@ -64,9 +65,14 @@ export function Home({ snapshot, index, dueCount, newCount, onStart, canBoost, o
     }
   }
 
+  const forecast = dueForecast(snapshot.cards, now)
+
   return (
     <div className="home">
-      <h1>Geography Bee</h1>
+      <header className="masthead">
+        <h1>Geography Bee</h1>
+        <Forecast counts={forecast} />
+      </header>
 
       <div className="stats">
         <Stat value={dueCount} label="due" />
@@ -136,6 +142,31 @@ function Stat({ value, label }: { value: number | string; label: string }) {
     <div className="stat">
       <strong>{value}</strong>
       <span>{label}</span>
+    </div>
+  )
+}
+
+const FORECAST_LABELS = ['today', 'tmrw', '+2d']
+
+/** The next three days of review load as labeled mini-bars. Three points is
+ *  a workload glance, not a trend, so honest little bars with the counts as
+ *  direct labels beat a wiggly line. */
+function Forecast({ counts }: { counts: number[] }) {
+  const max = Math.max(...counts, 1)
+  return (
+    <div className="forecast" aria-label={`Cards due: today ${counts[0]}, tomorrow ${counts[1]}, in two days ${counts[2]}`}>
+      {counts.map((n, i) => (
+        <div key={i} className="forecast-day">
+          <strong>{n}</strong>
+          <div className="forecast-track">
+            <div
+              className="forecast-bar"
+              style={{ height: `${n === 0 ? 0 : Math.max(0.12, n / max) * 100}%` }}
+            />
+          </div>
+          <span>{FORECAST_LABELS[i]}</span>
+        </div>
+      ))}
     </div>
   )
 }

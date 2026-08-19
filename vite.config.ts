@@ -12,8 +12,8 @@ export default defineConfig({
         name: 'Geography Bee',
         short_name: 'Geo Bee',
         description: 'Spaced repetition for country locations and context',
-        theme_color: '#0f172a',
-        background_color: '#0f172a',
+        theme_color: '#0a101f',
+        background_color: '#0a101f',
         display: 'standalone',
         orientation: 'portrait',
         icons: [
