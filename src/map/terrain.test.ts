@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { reprojectTerrain, viewBounds, type RasterWindow } from './terrain'
+import { reprojectTerrain, tilesForWindow, viewBounds, type RasterWindow } from './terrain'
 
 /**
  * A synthetic whole-world window: the western hemisphere solid red, the
@@ -87,6 +87,47 @@ describe('reprojectTerrain', () => {
     const out = reprojectTerrain(hemisphereWindow(), fakeProjection(10, 10), 10, 10, 1.5)
     expect(out.width).toBe(15)
     expect(out.height).toBe(15)
+  })
+})
+
+describe('tilesForWindow', () => {
+  // The full-resolution grid: 21600x10800 in 1800px tiles = 12x6, uniform.
+  const bmng = { width: 21600, height: 10800, tileSize: 1800, cols: 12, rows: 6 }
+
+  it('selects exactly the tiles a region window touches', () => {
+    // Central America-ish: lon -95..-75, lat 20..5. x range 5100..6300 spans
+    // tile cols 2-3; y range 4200..5100 spans rows 2.
+    const tiles = tilesForWindow(bmng, { lonLeft: -95, latTop: 20, lonSpan: 20, latSpan: 15 })
+    expect(tiles.map((t) => `${t.col},${t.row}`).sort()).toEqual(['2,2', '3,2'])
+    // First tile starts left of the window: negative offset, in source px.
+    expect(tiles[0]!.offsetX).toBe(2 * 1800 - 5100)
+    expect(tiles[0]!.offsetY).toBe(2 * 1800 - 4200)
+  })
+
+  it('wraps a Pacific window across the antimeridian into one contiguous run', () => {
+    const tiles = tilesForWindow(bmng, { lonLeft: 170, latTop: 10, lonSpan: 45, latSpan: 20 })
+    const cols = tiles.filter((t) => t.row === 3).map((t) => t.col)
+    expect(cols).toEqual([11, 0, 1])
+    // Offsets keep increasing across the wrap — the run is contiguous.
+    const offs = tiles.filter((t) => t.row === 3).map((t) => t.offsetX)
+    expect(offs[1]! - offs[0]!).toBe(1800)
+    expect(offs[2]! - offs[1]!).toBe(1800)
+  })
+
+  it('advances by the real width of a short last column when wrapping', () => {
+    // 8192px source in 1800px tiles: col 4 is only 992px wide, so the wrap
+    // from col 4 to col 0 advances 992px, not 1800.
+    const m = { width: 8192, height: 4096, tileSize: 1800, cols: 5, rows: 3 }
+    const tiles = tilesForWindow(m, { lonLeft: 160, latTop: 10, lonSpan: 40, latSpan: 20 })
+    const run = tiles.filter((t) => t.row === 1)
+    expect(run.map((t) => t.col)).toEqual([4, 0])
+    expect(run[1]!.offsetX - run[0]!.offsetX).toBe(8192 - 4 * 1800)
+  })
+
+  it('covers the whole grid for a whole-world window without duplicates', () => {
+    const tiles = tilesForWindow(bmng, { lonLeft: -180, latTop: 90, lonSpan: 360, latSpan: 180 })
+    expect(tiles).toHaveLength(12 * 6)
+    expect(new Set(tiles.map((t) => `${t.col},${t.row}`)).size).toBe(72)
   })
 })
 

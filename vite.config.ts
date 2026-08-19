@@ -32,16 +32,17 @@ export default defineConfig({
         // app works offline and region views never re-download.
         globPatterns: ['**/*.{js,css,html,svg,png,json}'],
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
-        // The satellite layer (4.4MB) is opt-in, so it is deliberately NOT
-        // precached: only learners who turn terrain on pay the download, and
-        // from then on it works offline like everything else.
+        // The satellite tiles are opt-in, so they are deliberately NOT
+        // precached: only learners who turn terrain on pay any download, each
+        // view fetches just the tiles it intersects, and every fetched tile
+        // then works offline like everything else.
         runtimeCaching: [
           {
-            urlPattern: /\/data\/terrain\.jpg$/,
+            urlPattern: /\/data\/terrain\//,
             handler: 'CacheFirst',
             options: {
               cacheName: 'terrain',
-              expiration: { maxEntries: 2 },
+              expiration: { maxEntries: 120 },
             },
           },
         ],

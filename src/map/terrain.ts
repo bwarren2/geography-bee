@@ -2,17 +2,19 @@ import type { GeoProjection } from 'd3-geo'
 
 /**
  * The optional satellite base layer (#5): NASA Blue Marble, shipped with the
- * app as one equirectangular JPEG and reprojected on-device into whatever
- * projection the current view uses. No tile servers — the app stays
- * offline-first with zero runtime network dependencies. The image is
- * runtime-cached by the service worker rather than precached, so only
- * learners who turn terrain on ever download it.
+ * app as a committed grid of equirectangular tiles plus a low-res overview
+ * (`public/data/terrain/`, built by scripts/build-terrain.mjs) and
+ * reprojected on-device into whatever projection the current view uses. No
+ * tile servers — these are static files like all other data, runtime-cached
+ * by the service worker rather than precached, so only learners who turn
+ * terrain on ever download them, and each view fetches only the tiles it
+ * intersects.
  *
- * The source is 8192×4096 — decoded whole it would be a 134MB pixel buffer,
- * over the canvas limits of older iPhones. So the full image is never
- * materialised: for each view a geographic window is cropped during decode
- * (`createImageBitmap` with a crop rect), downscaled to just above the
- * layer's own resolution, and sampled bilinearly from there.
+ * Tiling is what makes full resolution possible at all: the source worth
+ * shipping is 21600×10800 — 233 megapixels, far over every phone's image
+ * decode limits — so the resolution has to arrive in ≤2048px pieces. A view
+ * assembles its geographic window from those pieces, downscaled to just
+ * above the layer's own resolution, and samples it bilinearly from there.
  */
 
 /** A decoded rectangle of the equirectangular source with its geographic
@@ -147,67 +149,116 @@ export function reprojectTerrain(
   return { data: out, width: dw, height: dh }
 }
 
-let blobPromise: Promise<{ blob: Blob; width: number; height: number }> | null = null
+export interface TerrainManifest {
+  version: number
+  /** Full-resolution source dimensions the tile grid was cut from. */
+  width: number
+  height: number
+  tileSize: number
+  cols: number
+  rows: number
+  overviewWidth: number
+}
 
-/** Fetch the JPEG once per page load and learn its dimensions; pixels are
- *  only ever decoded per-window, never for the whole image. */
-function loadSource() {
-  blobPromise ??= (async () => {
-    const res = await fetch('data/terrain.jpg')
-    if (!res.ok) throw new Error(`terrain.jpg: ${res.status}`)
-    const blob = await res.blob()
-    const probe = await createImageBitmap(blob)
-    const size = { width: probe.width, height: probe.height }
-    probe.close?.()
-    return { blob, ...size }
-  })()
-  return blobPromise
+/** One tile's landing spot when assembling a window: offsets are in source
+ *  pixels measured from the window's top-left, already unwrapped, so a
+ *  Pacific window that crosses the antimeridian gets a contiguous run. */
+export interface TilePlacement {
+  col: number
+  row: number
+  offsetX: number
+  offsetY: number
 }
 
 /**
- * Crop the source down to the window's geographic rectangle, decoding only
- * that region and scaling it to no more than `targetWidthPx` across. A
- * window crossing the antimeridian is stitched from two crops.
+ * Which tiles a geographic window touches, and where each lands. Columns
+ * wrap around the antimeridian; the walk advances by each column's actual
+ * width because the last column of a non-divisible source is narrower.
+ */
+export function tilesForWindow(
+  m: Pick<TerrainManifest, 'width' | 'height' | 'tileSize' | 'cols' | 'rows'>,
+  bounds: GeoWindowBounds,
+): TilePlacement[] {
+  const x0 = wrap360(bounds.lonLeft + 180) * (m.width / 360)
+  const spanX = Math.min(m.width, bounds.lonSpan * (m.width / 360))
+  const y0 = Math.max(0, (90 - bounds.latTop) * (m.height / 180))
+  const spanY = Math.min(m.height - y0, bounds.latSpan * (m.height / 180))
+
+  const rowStart = Math.max(0, Math.floor(y0 / m.tileSize))
+  const rowEnd = Math.min(m.rows - 1, Math.ceil((y0 + spanY) / m.tileSize) - 1)
+
+  const out: TilePlacement[] = []
+  let col = Math.floor(x0 / m.tileSize)
+  let ux = col * m.tileSize - x0
+  for (let guard = 0; ux < spanX && guard <= m.cols; guard++) {
+    for (let row = rowStart; row <= rowEnd; row++) {
+      out.push({ col, row, offsetX: ux, offsetY: row * m.tileSize - y0 })
+    }
+    ux += Math.min(m.tileSize, m.width - col * m.tileSize)
+    col = (col + 1) % m.cols
+  }
+  return out
+}
+
+let manifestPromise: Promise<TerrainManifest> | null = null
+
+function loadManifest(): Promise<TerrainManifest> {
+  manifestPromise ??= (async () => {
+    const res = await fetch('data/terrain/manifest.json')
+    if (!res.ok) throw new Error(`terrain manifest: ${res.status}`)
+    return res.json() as Promise<TerrainManifest>
+  })()
+  return manifestPromise
+}
+
+async function fetchBitmap(name: string): Promise<ImageBitmap> {
+  const res = await fetch(`data/terrain/${name}`)
+  if (!res.ok) throw new Error(`${name}: ${res.status}`)
+  return createImageBitmap(await res.blob())
+}
+
+/**
+ * Assemble the window's geographic rectangle from tiles (or from the
+ * overview, when the view is so wide that tile resolution would be thrown
+ * away anyway — a world view at phone size does not need 233 megapixels),
+ * scaled to no more than `targetWidthPx` across.
  */
 async function extractWindow(bounds: GeoWindowBounds, targetWidthPx: number): Promise<RasterWindow> {
-  const { blob, width: srcW, height: srcH } = await loadSource()
-  const pxPerDegX = srcW / 360
-  const pxPerDegY = srcH / 180
+  const full = await loadManifest()
 
-  const sx = wrap360(bounds.lonLeft + 180) * pxPerDegX
-  const sy = Math.max(0, (90 - bounds.latTop) * pxPerDegY)
-  const sw = Math.min(srcW, bounds.lonSpan * pxPerDegX)
-  const sh = Math.min(srcH - sy, bounds.latSpan * pxPerDegY)
+  // Density the layer actually needs vs what the overview offers: wide views
+  // take the single small file, close views take the tiles they intersect.
+  const overview = { width: full.overviewWidth, height: full.overviewWidth / 2 }
+  const useOverview = targetWidthPx / bounds.lonSpan <= overview.width / 360
+  const space = useOverview
+    ? { ...overview, tileSize: overview.width, cols: 1, rows: 1 }
+    : full
+  const nameOf = (p: TilePlacement) => (useOverview ? 'overview.jpg' : `tile-${p.col}-${p.row}.jpg`)
 
-  const outW = Math.max(2, Math.round(Math.min(sw, targetWidthPx)))
-  const ratio = outW / sw
-  const outH = Math.max(2, Math.round(sh * ratio))
+  const spanX = Math.min(space.width, bounds.lonSpan * (space.width / 360))
+  const y0 = Math.max(0, (90 - bounds.latTop) * (space.height / 180))
+  const spanY = Math.min(space.height - y0, bounds.latSpan * (space.height / 180))
+
+  const outW = Math.max(2, Math.round(Math.min(spanX, targetWidthPx)))
+  const ratio = outW / spanX
+  const outH = Math.max(2, Math.round(spanY * ratio))
+
+  const placements = tilesForWindow(space, bounds)
+  const bitmaps = new Map<string, Promise<ImageBitmap>>()
+  for (const p of placements) {
+    const name = nameOf(p)
+    if (!bitmaps.has(name)) bitmaps.set(name, fetchBitmap(name))
+  }
 
   const canvas = document.createElement('canvas')
   canvas.width = outW
   canvas.height = outH
   const ctx = canvas.getContext('2d', { willReadFrequently: true })!
-
-  const drawCrop = async (cropX: number, cropW: number, destX: number, destW: number) => {
-    const bmp = await createImageBitmap(
-      blob,
-      Math.floor(cropX),
-      Math.floor(sy),
-      Math.ceil(cropW),
-      Math.ceil(sh),
-    )
-    ctx.drawImage(bmp, destX, 0, destW, outH)
-    bmp.close?.()
+  for (const p of placements) {
+    const bmp = await bitmaps.get(nameOf(p))!
+    ctx.drawImage(bmp, p.offsetX * ratio, p.offsetY * ratio, bmp.width * ratio, bmp.height * ratio)
   }
-
-  if (sx + sw <= srcW) {
-    await drawCrop(sx, sw, 0, outW)
-  } else {
-    const firstW = srcW - sx
-    const split = Math.round(firstW * ratio)
-    await drawCrop(sx, firstW, 0, split)
-    await drawCrop(0, sw - firstW, split, outW - split)
-  }
+  for (const bmp of bitmaps.values()) void bmp.then((b) => b.close?.()).catch(() => {})
 
   const img = ctx.getImageData(0, 0, outW, outH)
   return {

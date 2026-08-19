@@ -13,15 +13,18 @@ repo. The app makes no network calls at build or runtime.
 | [world-atlas](https://github.com/topojson/world-atlas) (Natural Earth) | Country geometry at 110m / 50m / 10m | Public domain |
 | [world-countries](https://github.com/mledoze/countries) | ISO codes, names, capitals, borders, area, currencies, languages, flags | [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/) |
 | [country-json](https://github.com/samayo/country-json) | Population, average elevation, coastline, national dish | MIT |
-| [NASA Blue Marble](https://visibleearth.nasa.gov/images/57730/the-blue-marble-land-surface-ocean-color-and-sea-ice) | `public/data/terrain.jpg`, the optional satellite base layer | Public domain (NASA) |
+| [NASA Blue Marble](https://earthobservatory.nasa.gov/features/BlueMarble) | `public/data/terrain/`, the optional satellite base layer | Public domain (NASA) |
 
-The satellite image (8192×4096 equirectangular) is NASA Visible Earth #57730,
-"The Blue Marble: Land Surface, Ocean Color and Sea Ice". It is vendored from
-a pinned commit of github.com/franky-adl/threejs-earth, whose README sources
-that exact file, because visibleearth.nasa.gov is not reachable from every
-build environment — `npm run fetch:terrain` re-downloads it from that pinned
-commit. NASA imagery is not copyrighted; NASA requests attribution as "NASA
-Earth Observatory".
+The satellite tiles are cut by `npm run build:terrain` from one
+equirectangular source image. The intended source is Blue Marble Next
+Generation with topography, January, at full resolution —
+`world.topo.200401.3x21600x10800.jpg` from NASA (assets.science.nasa.gov,
+under bmng/bmng-topography/january). Until that ~90MB file is fed through the
+tiler, the committed tiles are generated from NASA Visible Earth #57730
+(8192×4096, mirrored at a pinned commit of github.com/franky-adl/threejs-earth).
+The source image itself is never committed — only the tiles and overview. NASA
+imagery is not copyrighted; NASA requests attribution as "NASA Earth
+Observatory".
 
 ## ODbL note
 

@@ -49,18 +49,21 @@ transparent stroke lets the ocean grin through anti-aliasing seams between
 adjacent fills as ghost borders.)
 
 **Terrain is an opt-in memory anchor.** A home-screen setting swaps the flat
-land colour for NASA's Blue Marble imagery, reprojected on-device from one
-shipped 8192×4096 JPEG into whatever projection the current view uses — no
-tile servers. Real landmarks (the Andes, the Sahara, river deltas) give
-shapes something to hang on. The full image is never decoded at once (that
-would be a 134MB buffer, over older iPhones' canvas limits): each view crops
-its geographic window during decode and samples it bilinearly. The JPEG is
-the one asset that is runtime-cached rather than precached, so only learners
-who turn terrain on download its 4.4MB — after which it too works offline.
-Terrain stays off by default because the blank field is the purer recall
-test, and the border-fade graduation still applies: a mastered locate card
-over terrain is answered against raw geography. `npm run fetch:terrain`
-re-vendors the image from its pinned mirror (see ATTRIBUTION-DATA.md).
+land colour for NASA's Blue Marble imagery, reprojected on-device into
+whatever projection the current view uses. Real landmarks (the Andes, the
+Sahara, river deltas) give shapes something to hang on. The imagery ships as
+committed static tiles plus a small overview (`npm run build:terrain` cuts
+them from one equirectangular source; see ATTRIBUTION-DATA.md) — tiling is
+what makes full resolution possible at all, since a 21600×10800 source is 233
+megapixels and no phone can decode that whole. Each view stitches only the
+tiles its geographic window touches, samples them bilinearly, and wide views
+take the overview instead so a world map never wastes tile downloads. The
+tiles are the one asset runtime-cached rather than precached: only learners
+who turn terrain on download anything, per region as they meet it, and every
+fetched tile then works offline. Terrain stays off by default because the
+blank field is the purer recall test, and the border-fade graduation still
+applies: a mastered locate card over terrain is answered against raw
+geography.
 
 **Wrong answers become drills.** Every wrong map click is logged as a confusion
 pair. Once a pair recurs, a confusion round runs after the session: both
