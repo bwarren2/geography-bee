@@ -13,16 +13,13 @@ repo. The app makes no network calls at build or runtime.
 | [world-atlas](https://github.com/topojson/world-atlas) (Natural Earth) | Country geometry at 110m / 50m / 10m | Public domain |
 | [world-countries](https://github.com/mledoze/countries) | ISO codes, names, capitals, borders, area, currencies, languages, flags | [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/) |
 | [country-json](https://github.com/samayo/country-json) | Population, average elevation, coastline, national dish | MIT |
-| [NASA Blue Marble](https://earthobservatory.nasa.gov/features/BlueMarble) | `public/data/terrain/`, the optional satellite base layer | Public domain (NASA) |
+| [NASA Blue Marble](https://visibleearth.nasa.gov/collection/1484/blue-marble) | `public/data/terrain/`, the optional satellite base layer | Public domain (NASA) |
 
-The satellite tiles are cut by `npm run build:terrain` from one
-equirectangular source image. The intended source is Blue Marble Next
-Generation with topography, January, at full resolution —
-`world.topo.200401.3x21600x10800.jpg` from NASA (assets.science.nasa.gov,
-under bmng/bmng-topography/january). Until that ~90MB file is fed through the
-tiler, the committed tiles are generated from NASA Visible Earth #57730
-(8192×4096, mirrored at a pinned commit of github.com/franky-adl/threejs-earth).
-The source image itself is never committed — only the tiles and overview. NASA
+The satellite tiles and overview are cut by `npm run build:terrain` from the
+committed source image `public/maps/world-satellite-equirect.jpg` — Blue
+Marble Next Generation with topography, January, at full resolution
+(`world.topo.200401.3x21600x10800.jpg` from NASA, 21600×10800
+equirectangular). The app fetches only the tiles, never the source. NASA
 imagery is not copyrighted; NASA requests attribution as "NASA Earth
 Observatory".
 
