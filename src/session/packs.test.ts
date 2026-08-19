@@ -41,12 +41,12 @@ describe('packs', () => {
   })
 
   it('scopes region progress to that region', () => {
-    const oceania = allPacks(index).find((p) => p.id === regionPackId('oceania'))!
+    const anz = allPacks(index).find((p) => p.id === regionPackId('australia-nz'))!
     const cards: Record<string, StoredCard> = {
       [cardId('AUS', 'locate')]: createCard('AUS', 'locate', new Date()),
-      [cardId('PER', 'locate')]: createCard('PER', 'locate', new Date()), // not oceania
+      [cardId('PER', 'locate')]: createCard('PER', 'locate', new Date()), // not australia-nz
     }
-    expect(packProgress(oceania, index, cards)).toMatchObject({ total: 14, started: 1 })
+    expect(packProgress(anz, index, cards)).toMatchObject({ total: 2, started: 1 })
   })
 
   it('excludes borderless countries from the borders pack entirely', () => {

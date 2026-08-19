@@ -2,51 +2,91 @@
   "COD": {
     "hook": "The Congo is the deepest river in the world, over 220m in places — and the country holds most of the world's cobalt.",
     "place": "The vast heart of Africa astride the equator, with only a 40km squeeze of Atlantic coast.",
-    "exports": ["refined copper", "cobalt", "copper ore"]
-  },
-  "COG": {
-    "hook": "Its capital Brazzaville faces Kinshasa across the river — the closest pair of capital cities anywhere in the world.",
-    "place": "On the Atlantic west of DR Congo. This is the smaller Congo; the two stare at each other across the water.",
-    "exports": ["crude petroleum", "refined copper", "sawn wood"]
+    "exports": [
+      "refined copper",
+      "cobalt",
+      "copper ore"
+    ]
   },
   "AGO": {
     "hook": "Portuguese-speaking, and split in two — the oil-rich Cabinda exclave is cut off from the rest by a strip of DR Congo.",
     "place": "On the Atlantic below DR Congo, with the separate Cabinda enclave sitting to its north.",
-    "exports": ["crude petroleum", "diamonds", "refined petroleum"]
-  },
-  "CMR": {
-    "hook": "Called Africa in miniature — desert, rainforest, savanna, mountains and coast in one country, with both English and French official.",
-    "place": "At the crook of the Gulf of Guinea, where West Africa turns the corner and heads south.",
-    "exports": ["crude petroleum", "cocoa beans", "sawn wood"]
+    "exports": [
+      "crude petroleum",
+      "diamonds",
+      "refined petroleum"
+    ]
   },
   "TCD": {
     "hook": "Lake Chad has lost about 90% of its surface area since the 1960s — the country is named after a lake that is nearly gone.",
     "place": "Landlocked in north-central Africa, running from deep Sahara down into the Sahel.",
-    "exports": ["crude petroleum", "gold", "cotton"]
+    "exports": [
+      "crude petroleum",
+      "gold",
+      "cotton"
+    ]
+  },
+  "CMR": {
+    "hook": "Called Africa in miniature — desert, rainforest, savanna, mountains and coast in one country, with both English and French official.",
+    "place": "At the crook of the Gulf of Guinea, where West Africa turns the corner and heads south.",
+    "exports": [
+      "crude petroleum",
+      "cocoa beans",
+      "sawn wood"
+    ]
   },
   "SSD": {
     "hook": "The newest country in the world, independent in 2011 — and the Sudd wetland at its centre is among the largest on Earth.",
     "place": "Landlocked below Sudan, between Ethiopia and the Central African Republic.",
-    "exports": ["crude petroleum", "sawn wood", "gold"]
+    "exports": [
+      "crude petroleum",
+      "sawn wood",
+      "gold"
+    ]
   },
   "CAF": {
     "hook": "Sits almost exactly at the geographic centre of the continent, and is among the least visited countries on the planet.",
     "place": "Landlocked in the middle of Africa, below Chad and above DR Congo.",
-    "exports": ["diamonds", "sawn wood", "gold"]
+    "exports": [
+      "diamonds",
+      "sawn wood",
+      "gold"
+    ]
+  },
+  "COG": {
+    "hook": "Its capital Brazzaville faces Kinshasa across the river — the closest pair of capital cities anywhere in the world.",
+    "place": "On the Atlantic west of DR Congo. This is the smaller Congo; the two stare at each other across the water.",
+    "exports": [
+      "crude petroleum",
+      "refined copper",
+      "sawn wood"
+    ]
   },
   "GAB": {
     "hook": "About 88% forest, and in 2002 it turned a tenth of the entire country into national parks in a single stroke.",
     "place": "On the equator on the Atlantic coast, below Cameroon and west of the Republic of the Congo.",
-    "exports": ["crude petroleum", "manganese", "sawn wood"]
+    "exports": [
+      "crude petroleum",
+      "manganese",
+      "sawn wood"
+    ]
   },
   "GNQ": {
     "hook": "The only African country with Spanish as an official language — and its capital is not on the mainland but on an island.",
     "place": "A mainland slice plus islands in the Gulf of Guinea; Malabo sits on Bioko, closer to Cameroon than to its own territory.",
-    "exports": ["crude petroleum", "natural gas", "methanol"]
+    "exports": [
+      "crude petroleum",
+      "natural gas",
+      "methanol"
+    ]
   },
   "STP": {
     "hook": "Two volcanic islands on the equator that were once the largest cocoa producer in the world — from almost nothing to first place and back.",
     "place": "In the Gulf of Guinea off Gabon, straddling the equator.",
-    "exports": ["cocoa beans", "palm oil", "coffee"]
+    "exports": [
+      "cocoa beans",
+      "palm oil",
+      "coffee"
+    ]
   }
 }

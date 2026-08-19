@@ -130,15 +130,15 @@ describe('buildOutlook', () => {
 
   it('orders region ETAs by their position in the world curriculum', () => {
     const outlook = buildOutlook(index, snap(), now)
-    const first = outlook.regions.find((r) => r.slug === 'north-central-america')!
-    const last = outlook.regions.find((r) => r.slug === 'oceania')!
+    const first = outlook.regions.find((r) => r.slug === 'north-america')!
+    const last = outlook.regions.find((r) => r.slug === 'pacific-islands')!
     expect(first.etaDays!).toBeLessThan(last.etaDays!)
   })
 
   it('reports null ETA when nothing will ever introduce a region', () => {
-    const settings = { ...DEFAULT_SETTINGS, packs: ['region:oceania'] }
+    const settings = { ...DEFAULT_SETTINGS, packs: ['region:pacific-islands'] }
     const outlook = buildOutlook(index, snap({ settings }), now)
-    expect(outlook.regions.find((r) => r.slug === 'oceania')!.etaDays).not.toBeNull()
+    expect(outlook.regions.find((r) => r.slug === 'pacific-islands')!.etaDays).not.toBeNull()
     expect(outlook.regions.find((r) => r.slug === 'caribbean')!.etaDays).toBeNull()
     expect(outlook.overall.etaDays).toBeNull()
   })
@@ -147,11 +147,11 @@ describe('buildOutlook', () => {
     const base = buildOutlook(index, snap(), now)
     const spot = buildOutlook(
       index,
-      snap({ settings: { ...DEFAULT_SETTINGS, packs: ['world', 'region:oceania'] } }),
+      snap({ settings: { ...DEFAULT_SETTINGS, packs: ['world', 'region:pacific-islands'] } }),
       now,
     )
-    const before = base.regions.find((r) => r.slug === 'oceania')!.etaDays!
-    const after = spot.regions.find((r) => r.slug === 'oceania')!.etaDays!
+    const before = base.regions.find((r) => r.slug === 'pacific-islands')!.etaDays!
+    const after = spot.regions.find((r) => r.slug === 'pacific-islands')!.etaDays!
     expect(after).toBeLessThan(before / 2)
   })
 

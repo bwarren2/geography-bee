@@ -1,0 +1,29 @@
+{
+  "USA": {
+    "hook": "The only country with land borders on just two nations yet coastline on three oceans — the Arctic one courtesy of Alaska, bought from Russia for two cents an acre.",
+    "place": "The wide middle of North America, Canada above and Mexico below, with Alaska detached in the far northwest corner.",
+    "exports": [
+      "refined petroleum",
+      "crude petroleum",
+      "aircraft"
+    ]
+  },
+  "CAN": {
+    "hook": "Has the longest coastline of any country on Earth — about 202,000km, roughly a sixth of the world's total, thanks to a shattered Arctic archipelago.",
+    "place": "Everything above the United States, ocean to ocean to ocean. The border it shares with the US is the longest between any two countries.",
+    "exports": [
+      "crude petroleum",
+      "cars",
+      "gold"
+    ]
+  },
+  "MEX": {
+    "hook": "Mexico City is sinking as much as 50cm a year in places — it was built on a drained lake bed, and the ground is still compacting under it.",
+    "place": "The funnel narrowing southeast from the US border down to the Central American chain.",
+    "exports": [
+      "cars",
+      "vehicle parts",
+      "computers"
+    ]
+  }
+}

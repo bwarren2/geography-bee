@@ -2,26 +2,46 @@
   "KAZ": {
     "hook": "The largest landlocked country in the world — bigger than all of Western Europe, and Russia's border with it is the longest continuous land border anywhere.",
     "place": "The vast steppe below Russia, stretching from the Caspian east to China.",
-    "exports": ["crude petroleum", "copper", "iron alloys"]
+    "exports": [
+      "crude petroleum",
+      "copper",
+      "iron alloys"
+    ]
   },
   "UZB": {
     "hook": "One of only two doubly landlocked countries on Earth — every route to the sea crosses at least two borders. The other is Liechtenstein.",
     "place": "The centre of Central Asia, touching all four of its neighbours and Afghanistan.",
-    "exports": ["gold", "natural gas", "copper"]
+    "exports": [
+      "gold",
+      "natural gas",
+      "copper"
+    ]
   },
   "TKM": {
     "hook": "The Darvaza gas crater has been burning since 1971, when geologists set it alight expecting it to go out in weeks.",
     "place": "On the Caspian's eastern shore, mostly the Karakum desert, below Kazakhstan and Uzbekistan.",
-    "exports": ["natural gas", "refined petroleum", "cotton"]
+    "exports": [
+      "natural gas",
+      "refined petroleum",
+      "cotton"
+    ]
   },
   "TJK": {
     "hook": "Over 90% mountain — the Pamirs are so high and remote the road through them is nicknamed the roof of the world.",
     "place": "The southeastern corner of Central Asia, squeezed between Uzbekistan, Kyrgyzstan, China and Afghanistan.",
-    "exports": ["gold", "aluminium", "cotton"]
+    "exports": [
+      "gold",
+      "aluminium",
+      "cotton"
+    ]
   },
   "KGZ": {
     "hook": "Lake Issyk-Kul is the second-largest mountain lake in the world and never freezes, despite sitting at 1,600m in the Tian Shan.",
     "place": "The mountainous strip along China's western border, above Tajikistan.",
-    "exports": ["gold", "refined petroleum", "dried legumes"]
+    "exports": [
+      "gold",
+      "refined petroleum",
+      "dried legumes"
+    ]
   }
 }

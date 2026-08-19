@@ -68,6 +68,21 @@ graduation and the dashboard's mastery count still have to be earned, and an
 overclaimed country simply lapses like any other. Seeding touches only virgin
 storage; an explicitly empty collection or any real progress is never altered.
 
+**Regions are frames first, groupings second.** Every locate card opens on its
+region's map, so a region mixing a giant with a cluster of small countries
+spends the whole screen on the giant — the original North & Central America
+view was mostly Canada while asking for Honduras. Regions are therefore cut so
+each frames at one scale (Central America, the Balkans, the Sahel, Japan & the
+Koreas all stand alone), `npm run audit:framing` prints the screen share every
+country gets in its view, and a test holds two lines: no non-micro country
+below a 0.2% degeneracy floor anywhere, and cluster regions at 3% or better.
+Micro-states are exempt — no honest frame gives Malta real estate, and snap
+zones already make it tappable by proximity. `fixtures/framing-review.json`
+(regenerate with `npm run build:fixture`) is an importable backup that queues
+overdue reviews across every re-cut region for eyeballing the frames; it
+replaces all progress in the browser importing it, so it is for previews, not
+for a device holding real history.
+
 **Extra material is opt-in, through packs.** The world tour (locate + identify)
 is on by default. Skill packs — Capitals, Flags, Borders — add a new kind of
 question, and generate cards per country only once its two map cards are
@@ -81,9 +96,10 @@ reviews to the forgetting curve, not to the pack that spawned it.
 ```bash
 npm install
 npm run dev            # http://localhost:5173
-npm test               # 51 unit tests
+npm test               # unit tests
 npm run typecheck
 npm run build          # production build into dist/
+npm run audit:framing  # screen share of every country in its region view
 ```
 
 Browser smoke tests need a server already running:

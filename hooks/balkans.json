@@ -1,0 +1,74 @@
+{
+  "ROU": {
+    "hook": "Speaks a Romance language completely surrounded by Slavic and Hungarian ones — a linguistic island left behind by Rome.",
+    "place": "North of Bulgaria on the Black Sea, with the Carpathians curving through its middle and the Danube delta on its edge.",
+    "exports": [
+      "cars",
+      "insulated wire",
+      "vehicle parts"
+    ]
+  },
+  "BGR": {
+    "hook": "Grows much of the world's rose oil in the Valley of the Roses — it takes roughly 3,000kg of petals to make one kilogram.",
+    "place": "South of Romania on the Black Sea, sitting above Greece and Türkiye.",
+    "exports": [
+      "refined petroleum",
+      "copper",
+      "wheat"
+    ]
+  },
+  "SRB": {
+    "hook": "Became landlocked overnight in 2006 when Montenegro voted to leave — it kept the Danube and lost the sea.",
+    "place": "The landlocked centre of the Balkans, touching eight neighbours.",
+    "exports": [
+      "insulated wire",
+      "cars",
+      "rubber tyres"
+    ]
+  },
+  "HRV": {
+    "hook": "Over 1,200 islands, and a shape like a crescent — its coast is cut clean in two by a 20km strip belonging to Bosnia.",
+    "place": "The crescent along the Adriatic, curving around Bosnia and Herzegovina.",
+    "exports": [
+      "refined petroleum",
+      "packaged medicines",
+      "cars"
+    ]
+  },
+  "BIH": {
+    "hook": "Has just 20km of coastline, at Neum — barely a beach, but enough to split Croatia's coast into two pieces.",
+    "place": "Inside the Croatian crescent, with one narrow sliver reaching the Adriatic.",
+    "exports": [
+      "refined petroleum",
+      "insulated wire",
+      "seats"
+    ]
+  },
+  "ALB": {
+    "hook": "Over 170,000 concrete bunkers were poured across the country under Hoxha — roughly one for every eleven Albanians, and most are still there.",
+    "place": "Facing Italy's heel across the Adriatic and Ionian, directly below Montenegro.",
+    "exports": [
+      "footwear",
+      "crude petroleum",
+      "iron alloys"
+    ]
+  },
+  "MKD": {
+    "hook": "Landlocked, and Lake Ohrid on its border is among the oldest lakes on Earth — roughly 1.3 million years, with species found nowhere else.",
+    "place": "Landlocked in the middle of the southern Balkans, between Greece, Bulgaria, Serbia, Kosovo and Albania.",
+    "exports": [
+      "catalysts",
+      "insulated wire",
+      "vehicle parts"
+    ]
+  },
+  "MNE": {
+    "hook": "Its name means black mountain, and the Bay of Kotor cuts so deep inland it is often mistaken for Europe's southernmost fjord.",
+    "place": "On the Adriatic between Croatia and Albania.",
+    "exports": [
+      "aluminium",
+      "packaged medicines",
+      "electricity"
+    ]
+  }
+}

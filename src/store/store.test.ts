@@ -127,6 +127,47 @@ describe('StudyStore', () => {
     expect(store.snapshot().settings.boost).toEqual({ day: '2026-03-02', extra: 5 })
   })
 
+  it('maps pack ids from before the region re-cut, exactly once', async () => {
+    await driver.set('gb:v1:settings', {
+      newCardsPerDay: 8,
+      packs: ['world', 'region:north-central-america', 'region:south-america'],
+      boost: { day: '', extra: 0 },
+      // No regionsVersion stamp: written before stamping existed.
+    })
+    const snap = await store.load()
+    expect(snap.settings.packs).toEqual([
+      'world',
+      'region:north-america',
+      'region:central-america',
+      'region:south-america',
+    ])
+    expect(snap.settings.regionsVersion).toBe(2)
+
+    // Dropping one half of a split must survive later loads — the migration
+    // is a one-shot rename, not a standing subscription.
+    await store.setSettings({ packs: ['world', 'region:north-america', 'region:south-america'] })
+    await store.flush()
+    const again = await new StudyStore(driver).load()
+    expect(again.settings.packs).not.toContain('region:central-america')
+  })
+
+  it('migrates pack ids inside imported backups too', async () => {
+    await store.load()
+    await store.importAll(
+      JSON.stringify({
+        format: 'geography-bee/v1',
+        cards: {},
+        stats: { perCard: {}, daily: {}, confusion: {} },
+        settings: { newCardsPerDay: 8, packs: ['region:eastern-asia'], boost: { day: '', extra: 0 } },
+        log: [],
+      }),
+    )
+    expect(store.snapshot().settings.packs).toEqual([
+      'region:japan-koreas',
+      'region:china-mongolia',
+    ])
+  })
+
   it('rejects a file that is not one of our backups', async () => {
     await store.load()
     await expect(store.importAll('{"format":"anki/apkg"}')).rejects.toThrow(/not a geography bee backup/i)

@@ -58,29 +58,64 @@ interface RawCountry {
  * outward by familiarity, so early pegs exist before obscure countries need
  * somewhere to hang.
  */
-const REGION_DEFS: { slug: string; name: string; order: number; from: string[] }[] = [
-  { slug: 'north-central-america', name: 'North & Central America', order: 1, from: ['North America', 'Central America'] },
-  { slug: 'south-america', name: 'South America', order: 2, from: ['South America'] },
-  { slug: 'western-europe', name: 'Western & Central Europe', order: 3, from: ['Western Europe', 'Central Europe'] },
-  { slug: 'northern-europe', name: 'Northern Europe', order: 4, from: ['Northern Europe'] },
-  { slug: 'southern-europe', name: 'Southern & Southeast Europe', order: 5, from: ['Southern Europe', 'Southeast Europe'] },
-  { slug: 'eastern-europe', name: 'Eastern Europe', order: 6, from: ['Eastern Europe'] },
-  { slug: 'eastern-asia', name: 'East Asia', order: 7, from: ['Eastern Asia'] },
-  { slug: 'southeast-asia', name: 'Southeast Asia', order: 8, from: ['South-Eastern Asia'] },
-  { slug: 'southern-asia', name: 'South Asia', order: 9, from: ['Southern Asia'] },
-  { slug: 'middle-east', name: 'Middle East', order: 10, from: ['Western Asia'] },
-  { slug: 'central-asia', name: 'Central Asia', order: 11, from: ['Central Asia'] },
-  { slug: 'northern-africa', name: 'North Africa', order: 12, from: ['Northern Africa'] },
-  { slug: 'western-africa', name: 'West Africa', order: 13, from: ['Western Africa'] },
-  { slug: 'eastern-africa', name: 'East Africa', order: 14, from: ['Eastern Africa'] },
-  { slug: 'central-africa', name: 'Central Africa', order: 15, from: ['Middle Africa'] },
-  { slug: 'southern-africa', name: 'Southern Africa', order: 16, from: ['Southern Africa'] },
-  { slug: 'caribbean', name: 'Caribbean', order: 17, from: ['Caribbean'] },
-  { slug: 'oceania', name: 'Oceania', order: 18, from: ['Australia and New Zealand', 'Melanesia', 'Micronesia', 'Polynesia'] },
+/**
+ * Regions double as the locate card's initial frame, which puts a hard
+ * constraint on their shape (#3): a region mixing a giant with a cluster of
+ * small countries spends the whole screen on the giant, and every review of
+ * the cluster starts with a zoom. Where that happened, the region is cut so
+ * each half frames at one scale — `only`/`except` carve along country lines
+ * when a subregion itself mixes scales (Russia inside Eastern Europe, the
+ * Sahel inside Western Africa). `npm run audit:framing` prints the resulting
+ * screen shares; `src/map/framing.test.ts` enforces them.
+ */
+const REGION_DEFS: {
+  slug: string
+  name: string
+  order: number
+  from: string[]
+  only?: string[]
+  except?: string[]
+}[] = [
+  { slug: 'north-america', name: 'North America', order: 1, from: ['North America'] },
+  { slug: 'central-america', name: 'Central America', order: 2, from: ['Central America'] },
+  { slug: 'south-america', name: 'South America', order: 3, from: ['South America'] },
+  { slug: 'western-europe', name: 'Western & Central Europe', order: 4, from: ['Western Europe', 'Central Europe'] },
+  { slug: 'northern-europe', name: 'Northern Europe', order: 5, from: ['Northern Europe'] },
+  { slug: 'southern-europe', name: 'Southern Europe', order: 6, from: ['Southern Europe'] },
+  { slug: 'balkans', name: 'Balkans', order: 7, from: ['Southeast Europe'] },
+  { slug: 'eastern-europe', name: 'Eastern Europe', order: 8, from: ['Eastern Europe'], except: ['RUS'] },
+  { slug: 'russia', name: 'Russia', order: 9, from: ['Eastern Europe'], only: ['RUS'] },
+  { slug: 'japan-koreas', name: 'Japan & the Koreas', order: 10, from: ['Eastern Asia'], only: ['JPN', 'KOR', 'PRK'] },
+  { slug: 'china-mongolia', name: 'China & Mongolia', order: 11, from: ['Eastern Asia'], except: ['JPN', 'KOR', 'PRK'] },
+  { slug: 'southeast-asia', name: 'Southeast Asia', order: 12, from: ['South-Eastern Asia'] },
+  { slug: 'southern-asia', name: 'South Asia', order: 13, from: ['Southern Asia'] },
+  { slug: 'middle-east', name: 'Middle East', order: 14, from: ['Western Asia'] },
+  { slug: 'central-asia', name: 'Central Asia', order: 15, from: ['Central Asia'] },
+  { slug: 'northern-africa', name: 'North Africa', order: 16, from: ['Northern Africa'] },
+  { slug: 'sahel', name: 'Sahel', order: 17, from: ['Western Africa'], only: ['MRT', 'MLI', 'NER'] },
+  { slug: 'western-africa', name: 'West Africa', order: 18, from: ['Western Africa'], except: ['MRT', 'MLI', 'NER'] },
+  { slug: 'eastern-africa', name: 'East Africa', order: 19, from: ['Eastern Africa'] },
+  { slug: 'central-africa', name: 'Central Africa', order: 20, from: ['Middle Africa'] },
+  { slug: 'southern-africa', name: 'Southern Africa', order: 21, from: ['Southern Africa'] },
+  { slug: 'caribbean', name: 'Caribbean', order: 22, from: ['Caribbean'] },
+  { slug: 'australia-nz', name: 'Australia & New Zealand', order: 23, from: ['Australia and New Zealand'] },
+  { slug: 'pacific-islands', name: 'Pacific Islands', order: 24, from: ['Melanesia', 'Micronesia', 'Polynesia'] },
 ]
 
-const subregionToRegion = new Map<string, string>()
-for (const r of REGION_DEFS) for (const s of r.from) subregionToRegion.set(s, r.slug)
+/** Every country must land in exactly one region; only/except cuts make that
+ *  worth verifying rather than assuming. */
+function regionFor(c: { cca3: string; subregion: string }): string {
+  const hits = REGION_DEFS.filter(
+    (d) =>
+      d.from.includes(c.subregion) &&
+      (!d.only || d.only.includes(c.cca3)) &&
+      !d.except?.includes(c.cca3),
+  )
+  if (hits.length !== 1) {
+    throw new Error(`${c.cca3} (${c.subregion}) matches ${hits.length} regions: ${hits.map((h) => h.slug).join(', ') || 'none'}`)
+  }
+  return hits[0]!.slug
+}
 
 // ---------------------------------------------------------------------------
 // Load sources
@@ -199,15 +234,60 @@ const dishes = cjLookup<string>('country-by-national-dish.json', 'dish')
 
 type WorldTopo = Topology<{ countries: GeometryCollection<{ name: string }> }>
 
+/** Spherical area with an inverted-winding guard, for telling a country apart
+ *  from a stray dependency that shares its ISO id. */
+function effectiveArea(f: Feature<Polygon | MultiPolygon> | FeatureCollection): number {
+  const a = geoArea(f as never)
+  return Math.min(a, 4 * Math.PI - a)
+}
+
 function featuresByIso(res: '110m' | '50m' | '10m'): Map<string, Feature<Polygon | MultiPolygon>> {
   const topo: WorldTopo = read(nm(`world-atlas/countries-${res}.json`))
   const fc = feature(topo, topo.objects.countries) as unknown as FeatureCollection<Polygon | MultiPolygon>
   const map = new Map<string, Feature<Polygon | MultiPolygon>>()
   for (const f of fc.features) {
     if (f.id == null) continue
-    map.set(String(Number(f.id)).padStart(3, '0'), f)
+    // Natural Earth gives some dependencies their parent's ISO numeric id —
+    // Ashmore & Cartier arrives as a second "036" and, last-one-wins, once
+    // turned Australia into a 0.02° reef. On collision keep the bigger shape.
+    const key = String(Number(f.id)).padStart(3, '0')
+    const prev = map.get(key)
+    if (prev && effectiveArea(prev) >= effectiveArea(f)) continue
+    map.set(key, f)
   }
   return map
+}
+
+/**
+ * The same collision exists inside the emitted TopoJSON: the runtime loader
+ * keys features by id, so a duplicate would clobber the real country there
+ * too. Strip every duplicate id down to its largest shape before shipping.
+ */
+function dedupeTopo(topo: WorldTopo): WorldTopo {
+  const byKey = new Map<string, { g: (typeof topo.objects.countries.geometries)[number]; area: number }>()
+  const order: string[] = []
+  for (const g of topo.objects.countries.geometries) {
+    if (g.id == null) continue
+    const key = String(Number(g.id)).padStart(3, '0')
+    const area = effectiveArea(feature(topo, g) as never)
+    const prev = byKey.get(key)
+    if (!prev) order.push(key)
+    else {
+      const dropped = (prev.area < area ? prev.g : g).properties as { name?: string } | undefined
+      console.log(`  dropping duplicate ${key}: ${JSON.stringify(dropped?.name)}`)
+    }
+    if (!prev || prev.area < area) byKey.set(key, { g, area })
+  }
+  return {
+    ...topo,
+    objects: {
+      ...topo.objects,
+      countries: {
+        ...topo.objects.countries,
+        geometries: order.map((k) => byKey.get(k)!.g),
+      },
+    },
+  }
 }
 
 const geo110 = featuresByIso('110m')
@@ -252,7 +332,7 @@ for (const c of countries) {
     official: c.name.official,
     altNames,
     capital: c.capital ?? [],
-    region: subregionToRegion.get(c.subregion) ?? 'other',
+    region: regionFor(c),
     subregion: c.subregion,
     continent: c.region,
     borders: c.borders ?? [],
@@ -376,8 +456,8 @@ const write = (path: string, value: unknown) => {
 // Geometry ships as two resolutions: 110m frames the whole-world view (the 29
 // microstates it omits are sub-pixel there anyway and render as markers), 50m
 // backs every region view. Both are immutable and service-worker cached.
-const topo110: WorldTopo = read(nm('world-atlas/countries-110m.json'))
-const topo50: WorldTopo = read(nm('world-atlas/countries-50m.json'))
+const topo110: WorldTopo = dedupeTopo(read(nm('world-atlas/countries-110m.json')))
+const topo50: WorldTopo = dedupeTopo(read(nm('world-atlas/countries-50m.json')))
 
 const sizes = {
   countries: write(join(OUT, 'countries.json'), bundle),

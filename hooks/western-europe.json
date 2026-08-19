@@ -2,71 +2,127 @@
   "FRA": {
     "hook": "Spans twelve time zones — more than any other country — because its overseas departments reach from the Pacific to the Caribbean to the Indian Ocean.",
     "place": "The hexagon between the Atlantic and the Alps, Spain beyond the Pyrenees, Germany across the Rhine.",
-    "exports": ["aircraft", "cars", "packaged medicines"]
+    "exports": [
+      "aircraft",
+      "cars",
+      "packaged medicines"
+    ]
   },
   "DEU": {
     "hook": "Borders nine countries, more than any other in Europe — it touches nearly everyone from Denmark round to the Netherlands.",
     "place": "The middle of Europe, running from the North Sea coast down to the Alps.",
-    "exports": ["cars", "vehicle parts", "packaged medicines"]
-  },
-  "NLD": {
-    "hook": "About a quarter of it lies below sea level, and much of that is land the Dutch built themselves by pumping the sea out.",
-    "place": "The North Sea corner above Belgium and west of Germany.",
-    "exports": ["refined petroleum", "packaged medicines", "cut flowers"]
-  },
-  "BEL": {
-    "hook": "Antwerp handles the large majority of the world's rough diamonds, in a district a few streets across.",
-    "place": "The small country on the North Sea between France and the Netherlands.",
-    "exports": ["packaged medicines", "cars", "diamonds"]
-  },
-  "LUX": {
-    "hook": "The richest country per head on Earth, and nearly half its workforce drives in from France, Belgium and Germany every morning.",
-    "place": "Tucked into the corner where Belgium, France and Germany meet.",
-    "exports": ["iron and steel", "tyres", "plastics"]
-  },
-  "CHE": {
-    "hook": "Landlocked and mountainous, yet its rivers drain to three different seas — the North Sea, the Mediterranean and the Black Sea.",
-    "place": "The Alpine knot where France, Germany, Austria and Italy all meet.",
-    "exports": ["gold", "packaged medicines", "watches"]
-  },
-  "AUT": {
-    "hook": "Nearly two-thirds Alps, and Vienna is the only capital city with commercial vineyards inside its own boundaries.",
-    "place": "Landlocked, the Alpine strip east of Switzerland and south of Germany.",
-    "exports": ["cars", "vehicle parts", "packaged medicines"]
+    "exports": [
+      "cars",
+      "vehicle parts",
+      "packaged medicines"
+    ]
   },
   "POL": {
     "hook": "Holds Białowieża, the last great primeval lowland forest in Europe, and the wild bison that live in it.",
     "place": "On the flat plain between Germany and the Baltics — the same corridor that runs unbroken from France to Russia.",
-    "exports": ["vehicle parts", "seats", "cars"]
-  },
-  "CZE": {
-    "hook": "Drinks more beer per person than any other country, and has done for three decades running.",
-    "place": "Landlocked west of Slovakia, wrapped on three sides by Germany, Poland and Austria.",
-    "exports": ["cars", "vehicle parts", "computers"]
-  },
-  "SVK": {
-    "hook": "Builds more cars per person than any country on Earth — roughly one for every five Slovaks each year.",
-    "place": "Landlocked, directly east of Czechia. This is the one with Bratislava; Slovenia is 400km southwest.",
-    "exports": ["cars", "vehicle parts", "broadcasting equipment"]
-  },
-  "SVN": {
-    "hook": "More than half forest, one of the greenest countries in Europe — and it has only about 47km of coast to its name.",
-    "place": "At the head of the Adriatic below Austria. Not Slovakia, which is 400km northeast — the classic mix-up.",
-    "exports": ["packaged medicines", "cars", "vehicle parts"]
+    "exports": [
+      "vehicle parts",
+      "seats",
+      "cars"
+    ]
   },
   "HUN": {
     "hook": "Its language is related to nothing around it — the nearest relatives of Hungarian are Finnish and Estonian, 1,500km north.",
     "place": "The landlocked floor of the Carpathian basin, ringed by seven neighbours.",
-    "exports": ["cars", "vehicle parts", "packaged medicines"]
+    "exports": [
+      "cars",
+      "vehicle parts",
+      "packaged medicines"
+    ]
+  },
+  "CZE": {
+    "hook": "Drinks more beer per person than any other country, and has done for three decades running.",
+    "place": "Landlocked west of Slovakia, wrapped on three sides by Germany, Poland and Austria.",
+    "exports": [
+      "cars",
+      "vehicle parts",
+      "computers"
+    ]
+  },
+  "NLD": {
+    "hook": "About a quarter of it lies below sea level, and much of that is land the Dutch built themselves by pumping the sea out.",
+    "place": "The North Sea corner above Belgium and west of Germany.",
+    "exports": [
+      "refined petroleum",
+      "packaged medicines",
+      "cut flowers"
+    ]
+  },
+  "AUT": {
+    "hook": "Nearly two-thirds Alps, and Vienna is the only capital city with commercial vineyards inside its own boundaries.",
+    "place": "Landlocked, the Alpine strip east of Switzerland and south of Germany.",
+    "exports": [
+      "cars",
+      "vehicle parts",
+      "packaged medicines"
+    ]
+  },
+  "BEL": {
+    "hook": "Antwerp handles the large majority of the world's rough diamonds, in a district a few streets across.",
+    "place": "The small country on the North Sea between France and the Netherlands.",
+    "exports": [
+      "packaged medicines",
+      "cars",
+      "diamonds"
+    ]
+  },
+  "CHE": {
+    "hook": "Landlocked and mountainous, yet its rivers drain to three different seas — the North Sea, the Mediterranean and the Black Sea.",
+    "place": "The Alpine knot where France, Germany, Austria and Italy all meet.",
+    "exports": [
+      "gold",
+      "packaged medicines",
+      "watches"
+    ]
+  },
+  "SVK": {
+    "hook": "Builds more cars per person than any country on Earth — roughly one for every five Slovaks each year.",
+    "place": "Landlocked, directly east of Czechia. This is the one with Bratislava; Slovenia is 400km southwest.",
+    "exports": [
+      "cars",
+      "vehicle parts",
+      "broadcasting equipment"
+    ]
+  },
+  "SVN": {
+    "hook": "More than half forest, one of the greenest countries in Europe — and it has only about 47km of coast to its name.",
+    "place": "At the head of the Adriatic below Austria. Not Slovakia, which is 400km northeast — the classic mix-up.",
+    "exports": [
+      "packaged medicines",
+      "cars",
+      "vehicle parts"
+    ]
+  },
+  "LUX": {
+    "hook": "The richest country per head on Earth, and nearly half its workforce drives in from France, Belgium and Germany every morning.",
+    "place": "Tucked into the corner where Belgium, France and Germany meet.",
+    "exports": [
+      "iron and steel",
+      "tyres",
+      "plastics"
+    ]
   },
   "LIE": {
     "hook": "Doubly landlocked — you must cross two borders to reach any sea — and it is the world's largest producer of false teeth.",
     "place": "A 25km sliver in the upper Rhine valley, entirely between Switzerland and Austria.",
-    "exports": ["dental products", "machinery", "precision instruments"]
+    "exports": [
+      "dental products",
+      "machinery",
+      "precision instruments"
+    ]
   },
   "MCO": {
     "hook": "The most densely populated country on Earth, and small enough to walk end to end in under an hour.",
     "place": "A 2km² notch on the French Riviera coast, close to the Italian border.",
-    "exports": ["cosmetics", "pharmaceuticals", "precision instruments"]
+    "exports": [
+      "cosmetics",
+      "pharmaceuticals",
+      "precision instruments"
+    ]
   }
 }

@@ -2,31 +2,55 @@
   "EGY": {
     "hook": "About 95% of Egyptians live on roughly 5% of the land — from orbit the inhabited country is a thin green ribbon along the Nile.",
     "place": "The northeast corner of Africa, with the Sinai peninsula reaching across into Asia.",
-    "exports": ["crude petroleum", "refined petroleum", "gold"]
+    "exports": [
+      "crude petroleum",
+      "refined petroleum",
+      "gold"
+    ]
   },
   "DZA": {
     "hook": "The largest country in Africa, and about four-fifths of it is Sahara — the population clings to the northern coast.",
     "place": "The middle of the Maghreb coast between Morocco and Tunisia, running deep south into the desert.",
-    "exports": ["natural gas", "crude petroleum", "refined petroleum"]
-  },
-  "MAR": {
-    "hook": "You can stand on its coast and see Spain — the Strait of Gibraltar is only about 13km across at its narrowest.",
-    "place": "The northwest corner of Africa, with both Atlantic and Mediterranean coasts and the Atlas range inland.",
-    "exports": ["cars", "phosphates", "insulated wire"]
-  },
-  "TUN": {
-    "hook": "Contains the northernmost point in Africa, and Carthage — Rome's great rival — stood just outside the modern capital.",
-    "place": "The small wedge on the Mediterranean between Algeria and Libya, reaching closest to Sicily.",
-    "exports": ["insulated wire", "non-knit garments", "crude petroleum"]
-  },
-  "LBY": {
-    "hook": "The Great Man-Made River pumps fossil water from under the Sahara through 2,800km of pipe — the largest irrigation project ever built.",
-    "place": "On the Mediterranean between Tunisia and Egypt, almost entirely desert behind a thin coastal strip.",
-    "exports": ["crude petroleum", "refined petroleum", "gold"]
+    "exports": [
+      "natural gas",
+      "crude petroleum",
+      "refined petroleum"
+    ]
   },
   "SDN": {
     "hook": "Has more pyramids than Egypt — around 200 of them at Meroë, steeper and narrower, and far less visited.",
     "place": "Below Egypt on the Red Sea, above South Sudan, where the Blue and White Niles meet at Khartoum.",
-    "exports": ["gold", "crude petroleum", "sesame seeds"]
+    "exports": [
+      "gold",
+      "crude petroleum",
+      "sesame seeds"
+    ]
+  },
+  "MAR": {
+    "hook": "You can stand on its coast and see Spain — the Strait of Gibraltar is only about 13km across at its narrowest.",
+    "place": "The northwest corner of Africa, with both Atlantic and Mediterranean coasts and the Atlas range inland.",
+    "exports": [
+      "cars",
+      "phosphates",
+      "insulated wire"
+    ]
+  },
+  "LBY": {
+    "hook": "The Great Man-Made River pumps fossil water from under the Sahara through 2,800km of pipe — the largest irrigation project ever built.",
+    "place": "On the Mediterranean between Tunisia and Egypt, almost entirely desert behind a thin coastal strip.",
+    "exports": [
+      "crude petroleum",
+      "refined petroleum",
+      "gold"
+    ]
+  },
+  "TUN": {
+    "hook": "Contains the northernmost point in Africa, and Carthage — Rome's great rival — stood just outside the modern capital.",
+    "place": "The small wedge on the Mediterranean between Algeria and Libya, reaching closest to Sicily.",
+    "exports": [
+      "insulated wire",
+      "non-knit garments",
+      "crude petroleum"
+    ]
   }
 }
