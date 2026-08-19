@@ -50,13 +50,17 @@ adjacent fills as ghost borders.)
 
 **Terrain is an opt-in memory anchor.** A home-screen setting swaps the flat
 land colour for NASA's Blue Marble imagery, reprojected on-device from one
-bundled 4096×2048 JPEG into whatever projection the current view uses — no
-tile servers, nothing fetched at runtime, offline like everything else. Real
-landmarks (the Andes, the Sahara, river deltas) give shapes something to hang
-on. It stays off by default because the blank field is the purer recall test,
-and the border-fade graduation still applies: a mastered locate card over
-terrain is answered against raw geography. `npm run fetch:terrain` re-vendors
-the image from its pinned npm mirror (see ATTRIBUTION-DATA.md).
+shipped 8192×4096 JPEG into whatever projection the current view uses — no
+tile servers. Real landmarks (the Andes, the Sahara, river deltas) give
+shapes something to hang on. The full image is never decoded at once (that
+would be a 134MB buffer, over older iPhones' canvas limits): each view crops
+its geographic window during decode and samples it bilinearly. The JPEG is
+the one asset that is runtime-cached rather than precached, so only learners
+who turn terrain on download its 4.4MB — after which it too works offline.
+Terrain stays off by default because the blank field is the purer recall
+test, and the border-fade graduation still applies: a mastered locate card
+over terrain is answered against raw geography. `npm run fetch:terrain`
+re-vendors the image from its pinned mirror (see ATTRIBUTION-DATA.md).
 
 **Wrong answers become drills.** Every wrong map click is logged as a confusion
 pair. Once a pair recurs, a confusion round runs after the session: both
