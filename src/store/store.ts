@@ -80,6 +80,10 @@ export interface Settings {
    *  regions are re-cut so stored pack ids can be mapped forward exactly
    *  once (see REGION_SPLITS). */
   regionsVersion: number
+  /** Satellite imagery under quiz maps instead of the flat land colour —
+   *  real-terrain landmarks as memory anchors. Off by default: the blank
+   *  field is the purer recall test. */
+  terrain: boolean
 }
 
 export interface Meta {
@@ -95,6 +99,7 @@ export const DEFAULT_SETTINGS: Settings = {
   packs: ['world'],
   boost: { day: '', extra: 0 },
   regionsVersion: REGIONS_VERSION,
+  terrain: false,
 }
 
 /**

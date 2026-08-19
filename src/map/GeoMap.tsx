@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { geoPath } from 'd3-geo'
 import { loadGeometry, loadIndex, type CountryFeature, type CountryIndex } from '../data/load'
 import { mainland, makeProjection, type MapView } from './projection'
+import { terrainLayerUrl } from './terrain'
 
 /** How a country is painted. Everything not listed renders as neutral land. */
 export type MarkRole = 'target' | 'correct' | 'wrong' | 'context'
@@ -98,6 +99,10 @@ interface GeoMapProps {
   onPick?: (iso3: string) => void
   /** Countries that may be picked. Others render but ignore clicks. */
   pickable?: Set<string>
+  /** Draw the reprojected satellite base layer under the countries (#5).
+   *  Land fills go transparent so terrain shows through; marks, choropleth
+   *  fills, and hit-testing are unaffected. */
+  terrain?: boolean
   className?: string
 }
 
@@ -117,7 +122,7 @@ function useSize(ref: React.RefObject<HTMLElement | null>) {
   return size
 }
 
-export function GeoMap({ view, marks, fills, labels, onPick, pickable, className, borderOpacity = 1 }: GeoMapProps) {
+export function GeoMap({ view, marks, fills, labels, onPick, pickable, terrain, className, borderOpacity = 1 }: GeoMapProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const { width, height } = useSize(wrapRef)
   const [geo, setGeo] = useState<Map<string, CountryFeature> | null>(null)
@@ -370,6 +375,25 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, className
     return out
   }, [scene, labels])
 
+  /** Object URL of the reprojected satellite layer for the current view.
+   *  Rendered off-thread of the interaction path and cached across the
+   *  per-card GeoMap remounts, so only the first view of a region pays. */
+  const [terrainUrl, setTerrainUrl] = useState<string | null>(null)
+  useEffect(() => {
+    if (!terrain || !scene) {
+      setTerrainUrl(null)
+      return
+    }
+    let live = true
+    const key = view.kind === 'world' ? 'world' : `region:${view.slug}`
+    terrainLayerUrl(key, scene.projection, width, height)
+      .then((url) => live && setTerrainUrl(url))
+      .catch(() => live && setTerrainUrl(null))
+    return () => {
+      live = false
+    }
+  }, [terrain, scene, view, width, height])
+
   const canPick = (iso3: string) => !!onPick && (!pickable || pickable.has(iso3))
 
   /**
@@ -424,29 +448,52 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, className
           <rect width={width} height={height} fill="var(--ocean)" />
 
           <g transform={`translate(${tf.x},${tf.y}) scale(${tf.k})`}>
+          {terrain && terrainUrl && (
+            <image
+              href={terrainUrl}
+              x={0}
+              y={0}
+              width={width}
+              height={height}
+              preserveAspectRatio="none"
+              pointerEvents="none"
+            />
+          )}
           <g>
-            {scene.shapes.map((s) => (
-              <path
-                key={s.iso3}
-                data-iso3={s.iso3}
-                d={s.d}
-                fill={marks?.[s.iso3] ? ROLE_FILL[marks[s.iso3]!] : (fills?.[s.iso3] ?? 'var(--land)')}
-                stroke="var(--border)"
-                // Fading is done by blending the stroke toward the land colour
-                // rather than by opacity: adjacent fills leave anti-aliasing
-                // seams, and a transparent stroke lets the ocean grin through
-                // them as ghost borders. A land-coloured stroke seals the seams
-                // while being invisible — and it widens as it fades, because a
-                // hairline is not enough paint to cover the seam it hides.
-                strokeWidth={0.5 + (1 - borderOpacity) * 1.1}
-                vectorEffect="non-scaling-stroke"
-                style={
-                  borderOpacity < 1
-                    ? { stroke: `color-mix(in srgb, var(--border) ${Math.round(borderOpacity * 100)}%, var(--land))` }
-                    : undefined
-                }
-              />
-            ))}
+            {scene.shapes.map((s) => {
+              const onTerrain = !!(terrain && terrainUrl)
+              // Over terrain the land itself is the imagery; a transparent
+              // fill (never 'none') keeps the polygon clickable.
+              const fill = marks?.[s.iso3]
+                ? ROLE_FILL[marks[s.iso3]!]
+                : (fills?.[s.iso3] ?? (onTerrain ? 'transparent' : 'var(--land)'))
+              return (
+                <path
+                  key={s.iso3}
+                  data-iso3={s.iso3}
+                  d={s.d}
+                  fill={fill}
+                  stroke="var(--border)"
+                  // On plain land, fading blends the stroke toward the land
+                  // colour rather than using opacity: adjacent fills leave
+                  // anti-aliasing seams, and a transparent stroke lets the
+                  // ocean grin through them as ghost borders. A land-coloured
+                  // stroke seals the seams while being invisible — and it
+                  // widens as it fades, because a hairline is not enough paint
+                  // to cover the seam it hides. Over terrain the fills are
+                  // transparent, there are no seams, and plain stroke opacity
+                  // is the honest fade.
+                  strokeWidth={onTerrain ? 0.5 : 0.5 + (1 - borderOpacity) * 1.1}
+                  strokeOpacity={onTerrain ? borderOpacity : undefined}
+                  vectorEffect="non-scaling-stroke"
+                  style={
+                    !onTerrain && borderOpacity < 1
+                      ? { stroke: `color-mix(in srgb, var(--border) ${Math.round(borderOpacity * 100)}%, var(--land))` }
+                      : undefined
+                  }
+                />
+              )
+            })}
           </g>
 
           {/* Visible dots for countries whose polygon is too small to see. */}

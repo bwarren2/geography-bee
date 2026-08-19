@@ -30,6 +30,7 @@ function facts(country: CountryRecord, index: CountryIndex): string[] {
 }
 
 interface RevealProps {
+  terrain?: boolean
   country: CountryRecord
   index: CountryIndex
   correct: boolean
@@ -38,7 +39,7 @@ interface RevealProps {
   onNext: () => void
 }
 
-export function Reveal({ country, index, correct, chosen, onNext }: RevealProps) {
+export function Reveal({ country, index, terrain, correct, chosen, onNext }: RevealProps) {
   const [hook, setHook] = useState<CountryHook | null>(null)
   useEffect(() => {
     let live = true
@@ -68,7 +69,7 @@ export function Reveal({ country, index, correct, chosen, onNext }: RevealProps)
       </header>
 
       <div className="reveal-map">
-        <GeoMap view={{ kind: 'region', slug: country.region }} marks={marks} labels={labels} />
+        <GeoMap view={{ kind: 'region', slug: country.region }} marks={marks} labels={labels} terrain={terrain} />
       </div>
 
       {hook && (

@@ -16,6 +16,7 @@ export interface SessionResult {
 }
 
 interface StudyViewProps {
+  terrain?: boolean
   items: SessionItem[]
   index: CountryIndex
   onDone: (result: SessionResult) => void
@@ -24,7 +25,7 @@ interface StudyViewProps {
 
 type Phase = 'teach' | 'ask' | 'reveal'
 
-export function StudyView({ items, index, onDone, onQuit }: StudyViewProps) {
+export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewProps) {
   const [pos, setPos] = useState(0)
   const [phase, setPhase] = useState<Phase>('ask')
   const [wrongPicks, setWrongPicks] = useState<string[]>([])
@@ -139,6 +140,7 @@ export function StudyView({ items, index, onDone, onQuit }: StudyViewProps) {
               view={{ kind: 'region', slug: country.region }}
               marks={{ [country.iso3]: 'target' }}
               labels={[country.iso3]}
+              terrain={terrain}
             />
           </div>
           <p className="muted">{index.regionBySlug.get(country.region)?.name}</p>
@@ -170,6 +172,7 @@ export function StudyView({ items, index, onDone, onQuit }: StudyViewProps) {
                 key={card.id}
                 view={{ kind: 'region', slug: country.region }}
                 marks={marks}
+                terrain={terrain}
                 // Locate cards earn a blanker map as they strengthen; every
                 // other card keeps full borders — there the map is context,
                 // not the question.
@@ -267,6 +270,7 @@ export function StudyView({ items, index, onDone, onQuit }: StudyViewProps) {
 
       {phase === 'reveal' && (
         <Reveal
+          terrain={terrain}
           country={country}
           index={index}
           correct={correctSoFar}

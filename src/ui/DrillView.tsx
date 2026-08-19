@@ -10,6 +10,7 @@ export interface DrillResult {
 }
 
 interface DrillViewProps {
+  terrain?: boolean
   drills: Drill[]
   index: CountryIndex
   onDone: (result: DrillResult) => void
@@ -21,7 +22,7 @@ interface DrillViewProps {
  * try success decays it. Pairs drill themselves out of rotation by being
  * answered well.
  */
-export function DrillView({ drills, index, onDone }: DrillViewProps) {
+export function DrillView({ drills, index, terrain, onDone }: DrillViewProps) {
   const [pos, setPos] = useState(0)
   const [missed, setMissed] = useState(false)
   const [tally, setTally] = useState({ asked: 0, correct: 0 })
@@ -87,6 +88,7 @@ export function DrillView({ drills, index, onDone }: DrillViewProps) {
             key={`${drill.target}|${drill.other}`}
             view={{ kind: 'region', slug: target.region }}
             marks={marks}
+            terrain={terrain}
             pickable={new Set([drill.target, drill.other])}
             onPick={pick}
           />
