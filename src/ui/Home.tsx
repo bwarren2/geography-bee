@@ -1,8 +1,9 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import type { CountryIndex } from '../data/load'
 import { BOOST_STEP } from '../session/builder'
 import { RAPID_MIN_SEEN } from '../session/rapid'
 import { isEstablished, retrievability } from '../srs/scheduler'
+import { APP_URL } from '../share/shareCard'
 import { dueForecast } from '../stats/forecast'
 import { BACKUP_NAG_DAYS, type StudySnapshot } from '../store/store'
 import { store } from '../store/useStore'
@@ -24,7 +25,28 @@ interface HomeProps {
 
 export function Home({ snapshot, index, dueCount, newCount, onStart, canBoost, onBoost, onRapid, onPacks, onDashboard, onReload }: HomeProps) {
   const fileRef = useRef<HTMLInputElement>(null)
+  const [copied, setCopied] = useState(false)
   const now = new Date()
+
+  /** Hand the app link to the OS share sheet; the page's Open Graph tags
+   *  turn it into a rich card wherever it lands. Desktop fallback: copy. */
+  async function shareApp() {
+    const payload = {
+      title: 'Geography Bee',
+      text: 'Spaced repetition for where every country is — on real maps.',
+      url: APP_URL,
+    }
+    try {
+      if (navigator.share) await navigator.share(payload)
+      else {
+        await navigator.clipboard.writeText(APP_URL)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      }
+    } catch {
+      // Dismissing the share sheet rejects; that is not an error.
+    }
+  }
 
   const seen = new Set(Object.values(snapshot.cards).map((c) => c.iso3))
 
@@ -119,6 +141,7 @@ export function Home({ snapshot, index, dueCount, newCount, onStart, canBoost, o
       <div className="row">
         <button onClick={onDashboard}>Progress</button>
         <button onClick={onPacks}>Packs ({snapshot.settings.packs.length} started)</button>
+        <button onClick={() => void shareApp()}>{copied ? 'Link copied ✓' : '↗ Share app'}</button>
         <button onClick={() => void exportBackup()}>Export backup</button>
         <button onClick={() => fileRef.current?.click()}>Import backup</button>
         <input

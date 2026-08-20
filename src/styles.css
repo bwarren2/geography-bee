@@ -613,6 +613,13 @@ button.ghost:hover:not(:disabled) {
   margin-left: 0;
 }
 
+.legend .share-map {
+  margin-left: auto;
+  min-height: 34px;
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
 .eta-headline {
   background: var(--panel);
   border: 1px solid var(--line);
