@@ -122,6 +122,12 @@ function useSize(ref: React.RefObject<HTMLElement | null>) {
   return size
 }
 
+/** Border linework over satellite imagery: a light ink, at well under full
+ *  opacity so it reads as map lines rather than a lattice pasted on top.
+ *  borderOpacity still multiplies in, so mastery fades it to nothing. */
+const TERRAIN_BORDER = '#dbe5f2'
+const TERRAIN_BORDER_ALPHA = 0.65
+
 export function GeoMap({ view, marks, fills, labels, onPick, pickable, terrain, className, borderOpacity = 1 }: GeoMapProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const { width, height } = useSize(wrapRef)
@@ -473,7 +479,11 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, terrain, 
                   data-iso3={s.iso3}
                   d={s.d}
                   fill={fill}
-                  stroke="var(--border)"
+                  // Satellite imagery is dark and busy, so borders over it
+                  // follow the cartographic convention for imagery: light
+                  // linework, slightly wider than the flat map's hairline —
+                  // a dark stroke simply vanishes into the tinted terrain.
+                  stroke={onTerrain ? TERRAIN_BORDER : 'var(--border)'}
                   // On plain land, fading blends the stroke toward the land
                   // colour rather than using opacity: adjacent fills leave
                   // anti-aliasing seams, and a transparent stroke lets the
@@ -482,9 +492,9 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, terrain, 
                   // widens as it fades, because a hairline is not enough paint
                   // to cover the seam it hides. Over terrain the fills are
                   // transparent, there are no seams, and plain stroke opacity
-                  // is the honest fade.
-                  strokeWidth={onTerrain ? 0.5 : 0.5 + (1 - borderOpacity) * 1.1}
-                  strokeOpacity={onTerrain ? borderOpacity : undefined}
+                  // is the honest fade — same mastery signal, different medium.
+                  strokeWidth={onTerrain ? 0.8 : 0.5 + (1 - borderOpacity) * 1.1}
+                  strokeOpacity={onTerrain ? borderOpacity * TERRAIN_BORDER_ALPHA : undefined}
                   vectorEffect="non-scaling-stroke"
                   style={
                     !onTerrain && borderOpacity < 1
