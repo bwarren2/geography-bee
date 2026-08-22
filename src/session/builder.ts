@@ -1,10 +1,10 @@
 import type { CountryIndex } from '../data/load'
-import { cardId, STARTING_TYPES, type CardType, type StoredCard } from '../srs/model'
+import { cardId, cityCardId, isCityType, subjectOf, STARTING_TYPES, type CardType, type StoredCard } from '../srs/model'
 import { createCard, ESTABLISHED_STABILITY_DAYS, hasEarnedExtraTypes } from '../srs/scheduler'
-import { regionSlugOf, SKILL_PACK_TYPES, WORLD_PACK_ID } from './packs'
+import { CITIES_PACK_ID, regionSlugOf, SKILL_PACK_TYPES, WORLD_PACK_ID } from './packs'
 import { State } from 'ts-fsrs'
 import type { Aggregates, Settings } from '../store/store'
-import type { CountryRecord } from '../types'
+import type { CityRecord, CountryRecord } from '../types'
 
 /**
  * How a card is answered. Derived from the card type by an exhaustive switch
@@ -14,10 +14,10 @@ import type { CountryRecord } from '../types'
  * by typing "Guatemala" — the location card silently graded naming instead,
  * collapsing the two skills the whole app exists to keep apart.
  */
-export type AnswerMode = 'map-single' | 'map-multi' | 'choice' | 'text'
+export type AnswerMode = 'map-single' | 'map-multi' | 'choice' | 'text' | 'map-point'
 
 /** What the learner is shown alongside the prompt. */
-export type Stimulus = 'map-plain' | 'map-highlight' | 'flag'
+export type Stimulus = 'map-plain' | 'map-highlight' | 'flag' | 'map-city'
 
 /**
  * The switch is exhaustive over CardType with no default, so adding a card type
@@ -37,6 +37,12 @@ export function answerModeFor(type: CardType, assisted: boolean): AnswerMode {
       return assisted ? 'choice' : 'text'
     case 'capital':
       return 'text'
+    case 'city-locate':
+      // The map is the input: tap where the city is, graded by distance.
+      return 'map-point'
+    case 'city-identify':
+      // Same on-ramp as identify: recognition young, free recall once it holds.
+      return assisted ? 'choice' : 'text'
   }
 }
 
@@ -68,12 +74,20 @@ export function stimulusFor(type: CardType): Stimulus {
     case 'capital':
     case 'neighbors':
       return 'map-highlight'
+    // City cards frame the country (its placement is assumed known — that is
+    // the unlock condition), so no zoom is spent rediscovering it.
+    case 'city-locate':
+      return 'map-plain'
+    case 'city-identify':
+      return 'map-city'
   }
 }
 
 export interface SessionItem {
   card: StoredCard
   country: CountryRecord
+  /** Present on city cards; the map then frames `country` and quizzes this. */
+  city?: CityRecord
   /** First time this card has ever been shown. */
   isNew: boolean
   /** Show the country before asking about it — nobody can recall what they have
@@ -81,7 +95,8 @@ export interface SessionItem {
   introduce: boolean
   /** Answer from a list rather than free recall. */
   assisted: boolean
-  /** ISO3 options for assisted answering, including the correct one. */
+  /** Options for assisted answering, including the correct one: ISO3 codes
+   *  for country cards, city ids for city cards. */
   options: string[]
 }
 
@@ -142,6 +157,29 @@ export function pickOptions(
   return chosen
 }
 
+/**
+ * Distractors for a city multiple-choice prompt: other cities of the same
+ * country first (the discrimination that matters — Toronto vs Ottawa), then
+ * capitals of same-region countries, then down the global list.
+ */
+export function pickCityOptions(target: CityRecord, index: CountryIndex, count = 4): string[] {
+  const chosen: string[] = [target.id]
+  const region = index.byIso3.get(target.iso3)?.region
+
+  const sameCountry = (index.cities.byCountry.get(target.iso3) ?? []).map((c) => c.id)
+  const sameRegion = index.cities.ordered
+    .filter((c) => c.iso3 !== target.iso3 && index.byIso3.get(c.iso3)?.region === region)
+    .map((c) => c.id)
+
+  for (const pool of [sameCountry, sameRegion, index.cities.ordered.map((c) => c.id)]) {
+    for (const id of pool) {
+      if (chosen.length >= count) break
+      if (!chosen.includes(id)) chosen.push(id)
+    }
+  }
+  return chosen
+}
+
 export interface BuildOptions {
   now: Date
   index: CountryIndex
@@ -160,21 +198,26 @@ export function buildSession({ now, index, cards, stats, settings, limit }: Buil
   const ts = now.getTime()
   const confusion = stats.confusion ?? {}
 
-  const item = (card: StoredCard, country: CountryRecord, isNew: boolean): SessionItem => {
+  const item = (card: StoredCard, country: CountryRecord, isNew: boolean, city?: CityRecord): SessionItem => {
     // Typing is the goal, but only once the card is established; before that a
     // blank box mostly produces blanks.
     const assisted =
-      card.type === 'identify' && (card.state !== State.Review || card.stability < TYPING_STABILITY)
+      (card.type === 'identify' || card.type === 'city-identify') &&
+      (card.state !== State.Review || card.stability < TYPING_STABILITY)
     // Options exist only where something picks from them, so a mismatch cannot
     // arise between what is offered and how the card is answered.
     const mode = answerModeFor(card.type, assisted)
+    const options =
+      mode !== 'choice' ? [] : city ? pickCityOptions(city, index) : pickOptions(country, index, confusion)
     return {
       card,
       country,
+      city,
       isNew,
-      introduce: isNew && card.type === STARTING_TYPES[0],
+      // Cities introduce on their locate card, mirroring countries.
+      introduce: isNew && (card.type === STARTING_TYPES[0] || card.type === 'city-locate'),
       assisted,
-      options: mode === 'choice' ? pickOptions(country, index, confusion) : [],
+      options,
     }
   }
 
@@ -182,7 +225,13 @@ export function buildSession({ now, index, cards, stats, settings, limit }: Buil
   for (const card of Object.values(cards)) {
     if (card.due > ts) continue
     const country = index.byIso3.get(card.iso3)
-    if (country) due.push(item(card, country, false))
+    if (!country) continue
+    if (isCityType(card.type)) {
+      const city = index.cities.byId.get(subjectOf(card.id))
+      if (city) due.push(item(card, country, false, city))
+    } else {
+      due.push(item(card, country, false))
+    }
   }
   due.sort((a, b) => a.card.due - b.card.due)
 
@@ -222,6 +271,27 @@ export function buildSession({ now, index, cards, stats, settings, limit }: Buil
       const identify = cards[cardId(country.iso3, 'identify')]
       if (!hasEarnedExtraTypes(locate, identify)) continue
       for (const type of startedSkillTypes) trySeed(country, type)
+    }
+  }
+
+  // The Cities pack rides the same priority lane: it only ever deepens
+  // countries already established, city-locate first (it carries the teach
+  // screen), its identify twin next — same pairing as countries.
+  if (started.has(CITIES_PACK_ID)) {
+    for (const city of index.cities.ordered) {
+      if (budget <= 0) break
+      const country = index.byIso3.get(city.iso3)
+      if (!country) continue
+      const locate = cards[cardId(city.iso3, 'locate')]
+      const identify = cards[cardId(city.iso3, 'identify')]
+      if (!hasEarnedExtraTypes(locate, identify)) continue
+      for (const type of ['city-locate', 'city-identify'] as const) {
+        const id = cityCardId(city.id, type)
+        if (budget <= 0 || cards[id] || queued.has(id)) continue
+        queued.add(id)
+        fresh.push(item(createCard(city.iso3, type, now, id), country, true, city))
+        budget -= 1
+      }
     }
   }
 

@@ -47,6 +47,24 @@ export interface CountryRecord {
   introOrder: number
 }
 
+/** One quizzable city: every country's capital plus the world's major
+ *  non-capital cities. Placement is quizzed on a country-framed map, so a
+ *  city's country must be established before its cards can appear. */
+export interface CityRecord {
+  /** `${iso3}-${slug}`, stable across rebuilds — card ids hang off it. */
+  id: string
+  name: string
+  /** Accepted typed answers beyond the display name (historic, colloquial). */
+  altNames: string[]
+  iso3: string
+  lonlat: [number, number]
+  /** Metro population in millions (display only); null when unknown. */
+  popM: number | null
+  capital: boolean
+  /** Global introduction order: country curriculum order, capital first. */
+  rank: number
+}
+
 export interface QuizRegion {
   slug: string
   name: string

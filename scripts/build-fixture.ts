@@ -75,3 +75,29 @@ mkdirSync(join(ROOT, 'fixtures'), { recursive: true })
 const out = join(ROOT, 'fixtures', 'framing-review.json')
 writeFileSync(out, JSON.stringify(backup, null, 2) + '\n')
 console.log(`${Object.keys(cards).length} overdue locate cards across ${REGIONS.length} regions -> ${out}`)
+
+// ---------------------------------------------------------------------------
+// Cities demo: North & Central America established, Cities pack started, so
+// importing it makes a session introduce city cards immediately.
+// ---------------------------------------------------------------------------
+const cityDemo: Record<string, StoredCard> = {}
+for (const iso3 of ['USA', 'CAN', 'MEX', 'GTM', 'HND', 'SLV', 'NIC', 'CRI', 'PAN', 'BLZ']) {
+  for (const type of ['locate', 'identify'] as const) {
+    let when = NOW - 400 * DAY
+    let card = createCard(iso3, type, new Date(when))
+    for (let i = 0; i < 6; i++) {
+      card = schedule(card, Rating.Good, new Date(when))
+      when = Math.min(card.due, NOW - DAY)
+    }
+    cityDemo[card.id] = card // due follows the schedule: no country reviews queued
+  }
+}
+
+const cityBackup = {
+  ...backup,
+  cards: cityDemo,
+  settings: { ...backup.settings, newCardsPerDay: 10, packs: ['world', 'cities'] },
+}
+const out2 = join(ROOT, 'fixtures', 'cities-demo.json')
+writeFileSync(out2, JSON.stringify(cityBackup, null, 2) + '\n')
+console.log(`cities demo: ${Object.keys(cityDemo).length} established map cards -> ${out2}`)

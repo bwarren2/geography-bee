@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
+import { buildCityIndex } from '../data/load'
 import type { CountryIndex } from '../data/load'
 import type { DataBundle } from '../types'
 import { MemoryDriver } from '../store/driver'
@@ -7,12 +8,14 @@ import { StudyStore } from '../store/store'
 import { buildDrills } from './drills'
 
 const bundle: DataBundle = JSON.parse(readFileSync('public/data/countries.json', 'utf8'))
+const cityRecords = JSON.parse(readFileSync('public/data/cities.json', 'utf8')).cities
 const index: CountryIndex = {
   bundle,
   byIso3: new Map(bundle.countries.map((c) => [c.iso3, c])),
   byIsoNum: new Map(bundle.countries.map((c) => [c.isoNum, c])),
   regionBySlug: new Map(bundle.regions.map((r) => [r.slug, r])),
   ordered: [...bundle.countries].sort((a, b) => a.introOrder - b.introOrder),
+  cities: buildCityIndex(cityRecords),
 }
 
 describe('buildDrills', () => {

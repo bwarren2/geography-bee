@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { Rating } from 'ts-fsrs'
+import { buildCityIndex } from '../data/load'
 import type { CountryIndex } from '../data/load'
 import type { DataBundle, CountryRecord } from '../types'
 import { cardId, type StoredCard } from '../srs/model'
@@ -11,6 +12,7 @@ import { matchAnswer, normalize } from './matching'
 import { ALL_TYPES } from '../srs/model'
 
 const bundle: DataBundle = JSON.parse(readFileSync('public/data/countries.json', 'utf8'))
+const cityRecords = JSON.parse(readFileSync('public/data/cities.json', 'utf8')).cities
 
 const index: CountryIndex = {
   bundle,
@@ -18,6 +20,7 @@ const index: CountryIndex = {
   byIsoNum: new Map(bundle.countries.map((c) => [c.isoNum, c])),
   regionBySlug: new Map(bundle.regions.map((r) => [r.slug, r])),
   ordered: [...bundle.countries].sort((a, b) => a.introOrder - b.introOrder),
+  cities: buildCityIndex(cityRecords),
 }
 
 const get = (iso: string): CountryRecord => index.byIso3.get(iso)!

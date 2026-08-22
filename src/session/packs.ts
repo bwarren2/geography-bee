@@ -1,5 +1,5 @@
 import type { CountryIndex } from '../data/load'
-import { cardId, type CardType, type StoredCard } from '../srs/model'
+import { cardId, cityCardId, type CardType, type StoredCard } from '../srs/model'
 import { hasEarnedExtraTypes } from '../srs/scheduler'
 
 /**
@@ -26,6 +26,7 @@ export interface PackDef {
 }
 
 export const WORLD_PACK_ID = 'world'
+export const CITIES_PACK_ID = 'cities'
 
 /** Card type each skill pack generates. */
 export const SKILL_PACK_TYPES: Record<string, CardType> = {
@@ -35,6 +36,12 @@ export const SKILL_PACK_TYPES: Record<string, CardType> = {
 }
 
 const SKILL_PACKS: PackDef[] = [
+  {
+    id: CITIES_PACK_ID,
+    kind: 'skill',
+    name: 'Cities',
+    blurb: 'Place capitals and major cities on a map of countries you already know — and name them from a dot.',
+  },
   {
     id: 'capitals',
     kind: 'skill',
@@ -99,6 +106,17 @@ export function packProgress(
 ): PackProgress {
   const established = (iso3: string) =>
     hasEarnedExtraTypes(cards[cardId(iso3, 'locate')], cards[cardId(iso3, 'identify')])
+
+  if (pack.id === CITIES_PACK_ID) {
+    // Progress counts cities, not countries: each city is its own answer.
+    const started = index.cities.ordered.filter(
+      (c) => cards[cityCardId(c.id, 'city-locate')],
+    ).length
+    const readyNow = index.cities.ordered.filter(
+      (c) => !cards[cityCardId(c.id, 'city-locate')] && established(c.iso3),
+    ).length
+    return { total: index.cities.ordered.length, started, readyNow }
+  }
 
   if (pack.kind === 'skill') {
     const type = SKILL_PACK_TYPES[pack.id]!

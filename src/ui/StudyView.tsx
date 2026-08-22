@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CountryIndex } from '../data/load'
-import { GeoMap, type MarkRole } from '../map/GeoMap'
+import { GeoMap, type CityMark, type MarkRole } from '../map/GeoMap'
 import { deriveRating, type AnswerOutcome } from '../srs/model'
 import { schedule } from '../srs/scheduler'
 import { answerModeFor, borderOpacityFor, stimulusFor, type SessionItem } from '../session/builder'
-import { matchAnswer } from '../session/matching'
+import { matchAnswer, matchCityAnswer } from '../session/matching'
 import { store } from '../store/useStore'
 import { Reveal } from './Reveal'
 
@@ -25,10 +25,16 @@ interface StudyViewProps {
 
 type Phase = 'teach' | 'ask' | 'reveal'
 
+/** How close, in screen pixels, a tap must land to count as placing a city.
+ *  Screen pixels, not ground distance: zooming in tightens the requirement,
+ *  the same way country snap zones fade as they stop being needed. */
+const CITY_HIT_PX = 32
+
 export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewProps) {
   const [pos, setPos] = useState(0)
   const [phase, setPhase] = useState<Phase>('ask')
   const [wrongPicks, setWrongPicks] = useState<string[]>([])
+  const [wrongTaps, setWrongTaps] = useState<[number, number][]>([])
   const [typed, setTyped] = useState('')
   const [selected, setSelected] = useState<string[]>([])
   const [tally, setTally] = useState({ answered: 0, correct: 0, introduced: 0 })
@@ -43,6 +49,7 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
     if (!item) return
     setPhase(item.introduce ? 'teach' : 'ask')
     setWrongPicks([])
+    setWrongTaps([])
     setTyped('')
     setSelected([])
     shownAt.current = Date.now()
@@ -55,7 +62,7 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
 
   if (!item) return null
 
-  const { card, country } = item
+  const { card, country, city } = item
   const correctSoFar = wrongPicks.length === 0
 
   async function finish(correct: boolean, chosen?: string) {
@@ -78,8 +85,9 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
         r: rating,
         ms: outcome.latencyMs,
         // Only a genuine country mix-up is worth recording; a typo is not a
-        // confusion between two places.
-        ...(wrongPicks[0] ? { w: wrongPicks[0] } : {}),
+        // confusion between two places, and city misses stay out of the
+        // country confusion matrix that feeds drills.
+        ...(wrongPicks[0] && !city ? { w: wrongPicks[0] } : {}),
       },
       { introduced: item!.isNew },
     )
@@ -111,9 +119,17 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
   const stimulus = stimulusFor(card.type)
 
   const marks: Record<string, MarkRole> = {}
-  for (const w of wrongPicks) if (w) marks[w] = 'wrong'
+  if (!city) for (const w of wrongPicks) if (w) marks[w] = 'wrong'
   if (stimulus === 'map-highlight') marks[country.iso3] = 'target'
   if (mode === 'map-multi') for (const s of selected) marks[s] = 'correct'
+
+  // City dots: the marked city on identify, missed taps on locate.
+  const cityMarks: CityMark[] = []
+  if (city && stimulus === 'map-city') cityMarks.push({ lonlat: city.lonlat, role: 'target' })
+  if (city && mode === 'map-point') for (const t of wrongTaps) cityMarks.push({ lonlat: t, role: 'wrong' })
+
+  const askView =
+    city ? ({ kind: 'country', iso3: country.iso3 } as const) : ({ kind: 'region', slug: country.region } as const)
 
   return (
     <div className="study">
@@ -131,19 +147,29 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
 
       {phase === 'teach' && (
         <div className="teach">
-          <p className="lead">New country</p>
-          <h2>
-            {country.flag} {country.name}
-          </h2>
+          <p className="lead">{city ? 'New city' : 'New country'}</p>
+          <h2>{city ? city.name : `${country.flag} ${country.name}`}</h2>
           <div className="map-panel">
-            <GeoMap
-              view={{ kind: 'region', slug: country.region }}
-              marks={{ [country.iso3]: 'target' }}
-              labels={[country.iso3]}
-              terrain={terrain}
-            />
+            {city ? (
+              <GeoMap
+                view={askView}
+                cityMarks={[{ lonlat: city.lonlat, role: 'target', label: city.name }]}
+                terrain={terrain}
+              />
+            ) : (
+              <GeoMap
+                view={{ kind: 'region', slug: country.region }}
+                marks={{ [country.iso3]: 'target' }}
+                labels={[country.iso3]}
+                terrain={terrain}
+              />
+            )}
           </div>
-          <p className="muted">{index.regionBySlug.get(country.region)?.name}</p>
+          <p className="muted">
+            {city
+              ? `${country.flag} ${country.name}${city.capital ? ' — the capital' : ''}`
+              : index.regionBySlug.get(country.region)?.name}
+          </p>
           <button
             className="primary"
             autoFocus
@@ -170,8 +196,21 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
                   1:1 — zoom is an aid for one tap, never ambient state. */}
               <GeoMap
                 key={card.id}
-                view={{ kind: 'region', slug: country.region }}
+                view={askView}
                 marks={marks}
+                cityMarks={cityMarks}
+                pointTarget={mode === 'map-point' ? city?.lonlat : undefined}
+                onPickPoint={
+                  mode === 'map-point'
+                    ? ({ lonlat, screenDistPx }) => {
+                        if (screenDistPx <= CITY_HIT_PX) void finish(true)
+                        else {
+                          setWrongTaps((t) => [...t, lonlat])
+                          wrong()
+                        }
+                      }
+                    : undefined
+                }
                 terrain={terrain}
                 // Locate cards earn a blanker map as they strengthen; every
                 // other card keeps full borders — there the map is context,
@@ -196,16 +235,18 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
               never disagree with the question being asked. */}
           {mode === 'choice' ? (
             <div className="options">
-              {options.map((iso3) => {
-                const wrongPick = wrongPicks.includes(iso3)
+              {options.map((id) => {
+                const wrongPick = wrongPicks.includes(id)
+                const answer = city ? city.id : country.iso3
+                const label = city ? (index.cities.byId.get(id)?.name ?? id) : (index.byIso3.get(id)?.name ?? id)
                 return (
                   <button
-                    key={iso3}
+                    key={id}
                     className={wrongPick ? 'option wrong' : 'option'}
                     disabled={wrongPick}
-                    onClick={() => (iso3 === country.iso3 ? void finish(true, iso3) : wrong(iso3))}
+                    onClick={() => (id === answer ? void finish(true, id) : wrong(id))}
                   >
-                    {index.byIso3.get(iso3)?.name ?? iso3}
+                    {label}
                   </button>
                 )
               })}
@@ -232,7 +273,9 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
                 const expected =
                   card.type === 'capital'
                     ? { ok: country.capital.some((c) => sameish(c, typed)) }
-                    : matchAnswer(typed, country, index.bundle.countries)
+                    : card.type === 'city-identify'
+                      ? matchCityAnswer(typed, city!, index.cities.ordered)
+                      : matchAnswer(typed, country, index.bundle.countries)
                 if ('ok' in expected ? expected.ok : expected.correct) {
                   void finish(true)
                 } else {
@@ -245,7 +288,7 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
                 autoFocus
                 value={typed}
                 onChange={(e) => setTyped(e.target.value)}
-                placeholder={card.type === 'capital' ? 'Capital city' : 'Country name'}
+                placeholder={card.type === 'capital' ? 'Capital city' : card.type === 'city-identify' ? 'City name' : 'Country name'}
                 autoCapitalize="words"
                 autoCorrect="off"
                 spellCheck={false}
@@ -255,8 +298,10 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
               </button>
             </form>
           ) : (
-            // map-single: the map itself is the input, so there is no control here.
-            <p className="muted centered">Tap the country on the map</p>
+            // map-single / map-point: the map itself is the input.
+            <p className="muted centered">
+              {mode === 'map-point' ? `Tap where ${city?.name} is` : 'Tap the country on the map'}
+            </p>
           )}
 
           <div className="ask-foot">
@@ -272,6 +317,8 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
         <Reveal
           terrain={terrain}
           country={country}
+          city={city}
+          tappedAt={wrongTaps[0]}
           index={index}
           correct={correctSoFar}
           chosen={wrongPicks.find(Boolean)}
@@ -296,6 +343,10 @@ function promptFor(item: SessionItem, index: CountryIndex): string {
       return 'Whose flag is this?'
     case 'neighbors':
       return `Select every country bordering ${country.name} (${region})`
+    case 'city-locate':
+      return `Where is ${item.city?.name}?`
+    case 'city-identify':
+      return 'Which city is marked?'
   }
 }
 
