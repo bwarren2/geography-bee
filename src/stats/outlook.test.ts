@@ -7,7 +7,7 @@ import type { DataBundle } from '../types'
 import { cardId, type StoredCard } from '../srs/model'
 import { createCard, schedule } from '../srs/scheduler'
 import { DEFAULT_SETTINGS, type StudySnapshot } from '../store/store'
-import { buildOutlook, countryMastery, daysToEstablish, formatEta, freshCardLagDays, streakFrom } from './outlook'
+import { buildOutlook, cityMastery, countryMastery, daysToEstablish, formatEta, freshCardLagDays, streakFrom } from './outlook'
 
 const bundle: DataBundle = JSON.parse(readFileSync('public/data/countries.json', 'utf8'))
 const cityRecords = JSON.parse(readFileSync('public/data/cities.json', 'utf8')).cities
@@ -39,6 +39,16 @@ const establishedPair = (iso: string): Record<string, StoredCard> => {
   }
   return out
 }
+
+describe('cityMastery', () => {
+  it('tracks the weaker city card against the established threshold', () => {
+    expect(cityMastery({}, 'USA-washington-d-c')).toBe(0)
+    const half = { ...createCard('USA', 'city-locate', now, 'USA-washington-d-c:city-locate'), stability: 10.5 }
+    const full = { ...createCard('USA', 'city-identify', now, 'USA-washington-d-c:city-identify'), stability: 50 }
+    expect(cityMastery({ [half.id]: half, [full.id]: full }, 'USA-washington-d-c')).toBeCloseTo(0.5)
+    expect(cityMastery({ [full.id]: full }, 'USA-washington-d-c')).toBe(0)
+  })
+})
 
 describe('countryMastery', () => {
   it('is 0 unseen, tracks the weaker card, and caps at 1', () => {

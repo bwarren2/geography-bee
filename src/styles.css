@@ -672,6 +672,12 @@ button.ghost:hover:not(:disabled) {
 .country-list {
   display: flex;
   flex-direction: column;
+  /* Table cells size to their content's minimum width, so a wide row here
+     would silently widen the whole region table past the viewport. Zero
+     width with min-width 100% makes the list adopt the table's width
+     instead of dictating it. */
+  width: 0;
+  min-width: 100%;
 }
 
 .country-row {
@@ -717,6 +723,35 @@ button.ghost:hover:not(:disabled) {
   font-size: 12px;
   width: 104px;
   text-align: center;
+}
+
+/* The country name doubles as the toggle for its city list. */
+.country-row button.cname {
+  background: none;
+  border: none;
+  padding: 0;
+  min-height: 0;
+  font-size: 14px;
+  color: var(--text);
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.country-row.city-row {
+  padding-left: 34px;
+  min-height: 30px;
+  font-size: 13px;
+}
+
+.country-row.city-row .cname {
+  color: var(--muted);
+}
+
+.cap-tag {
+  color: var(--accent);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .region-table .num {

@@ -4,8 +4,9 @@ import { recallFill } from '../map/colors'
 import { GeoMap } from '../map/GeoMap'
 import { APP_URL, buildShareCardSvg, progressCardContent, svgToPngBlob } from '../share/shareCard'
 import type { DeclareLevel } from '../srs/seed'
-import { buildOutlook, countryMastery, formatEta } from '../stats/outlook'
+import { buildOutlook, cityMastery, countryMastery, formatEta } from '../stats/outlook'
 import type { StudySnapshot } from '../store/store'
+import type { CityRecord } from '../types'
 import { store } from '../store/useStore'
 
 export { recallFill }
@@ -24,6 +25,11 @@ export function DashboardView({ index, snapshot, onBack, onChanged }: DashboardV
 
   async function declare(iso3: string, level: DeclareLevel) {
     await store.declareCountry(iso3, level, new Date())
+    onChanged()
+  }
+
+  async function declareCity(city: CityRecord, level: DeclareLevel) {
+    await store.declareCity(city, level, new Date())
     onChanged()
   }
 
@@ -135,6 +141,7 @@ export function DashboardView({ index, snapshot, onBack, onChanged }: DashboardV
               snapshot={snapshot}
               outlook={outlook}
               onDeclare={declare}
+              onDeclareCity={declareCity}
               pct={pct}
             />
           ))}
@@ -158,6 +165,7 @@ interface RegionRowsProps {
   snapshot: StudySnapshot
   outlook: ReturnType<typeof buildOutlook>
   onDeclare: (iso3: string, level: DeclareLevel) => Promise<void>
+  onDeclareCity: (city: CityRecord, level: DeclareLevel) => Promise<void>
   pct: (n: number, total: number) => number
 }
 
@@ -165,7 +173,8 @@ interface RegionRowsProps {
  *  the mastery scale, and — until a country is solid — a declare button.
  *  "Know it" claims the learned tier; from halfway up, "Know it cold" claims
  *  full mastery. Both are upgrades only, and each queues a confirming pass. */
-function RegionRows({ region: r, open, onToggle, index, snapshot, outlook, onDeclare, pct }: RegionRowsProps) {
+function RegionRows({ region: r, open, onToggle, index, snapshot, outlook, onDeclare, onDeclareCity, pct }: RegionRowsProps) {
+  const [openCountry, setOpenCountry] = useState<string | null>(null)
   return (
     <>
       <tr className="region-row" onClick={onToggle}>
@@ -192,24 +201,61 @@ function RegionRows({ region: r, open, onToggle, index, snapshot, outlook, onDec
                 const standing = outlook.countries.get(iso3)
                 const mastery = countryMastery(snapshot.cards, iso3)
                 const level: DeclareLevel = mastery < 0.5 ? 'learned' : 'mastered'
+                const cities = index.cities.byCountry.get(iso3) ?? []
+                const citiesOpen = openCountry === iso3
                 return (
-                  <div key={iso3} className="country-row">
-                    <span className="cname">
-                      {country?.flag} {country?.name ?? iso3}
-                    </span>
-                    <div className="minibar">
-                      <div className="fill" style={{ width: `${Math.round(mastery * 100)}%` }} />
-                    </div>
-                    <span className="cm-pct muted">
-                      {!standing?.seen ? 'unseen' : `${Math.round(mastery * 100)}%`}
-                    </span>
-                    {standing?.mastered ? (
-                      <span className="solid-check">✓ solid</span>
-                    ) : (
-                      <button className="ghost declare" onClick={() => void onDeclare(iso3, level)}>
-                        {level === 'learned' ? 'Know it' : 'Know it cold'}
+                  <div key={iso3}>
+                    <div className="country-row">
+                      <button
+                        className="ghost cname"
+                        onClick={() => setOpenCountry(citiesOpen ? null : iso3)}
+                      >
+                        <span className="chev">{citiesOpen ? '▾' : '▸'}</span> {country?.flag}{' '}
+                        {country?.name ?? iso3}
                       </button>
-                    )}
+                      <div className="minibar">
+                        <div className="fill" style={{ width: `${Math.round(mastery * 100)}%` }} />
+                      </div>
+                      <span className="cm-pct muted">
+                        {!standing?.seen ? 'unseen' : `${Math.round(mastery * 100)}%`}
+                      </span>
+                      {standing?.mastered ? (
+                        <span className="solid-check">✓ solid</span>
+                      ) : (
+                        <button className="ghost declare" onClick={() => void onDeclare(iso3, level)}>
+                          {level === 'learned' ? 'Know it' : 'Know it cold'}
+                        </button>
+                      )}
+                    </div>
+                    {citiesOpen &&
+                      cities.map((city) => {
+                        const cm = cityMastery(snapshot.cards, city.id)
+                        const seen = cm > 0
+                        const solid = cm >= 1
+                        const cityLevel: DeclareLevel = cm < 0.5 ? 'learned' : 'mastered'
+                        return (
+                          <div key={city.id} className="country-row city-row">
+                            <span className="cname">
+                              {city.name}
+                              {city.capital && <span className="cap-tag"> capital</span>}
+                            </span>
+                            <div className="minibar">
+                              <div className="fill" style={{ width: `${Math.round(cm * 100)}%` }} />
+                            </div>
+                            <span className="cm-pct muted">{!seen ? 'unseen' : `${Math.round(cm * 100)}%`}</span>
+                            {solid ? (
+                              <span className="solid-check">✓ solid</span>
+                            ) : (
+                              <button
+                                className="ghost declare"
+                                onClick={() => void onDeclareCity(city, cityLevel)}
+                              >
+                                {cityLevel === 'learned' ? 'Know it' : 'Know it cold'}
+                              </button>
+                            )}
+                          </div>
+                        )
+                      })}
                   </div>
                 )
               })}

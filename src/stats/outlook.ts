@@ -1,6 +1,6 @@
 import { Rating } from 'ts-fsrs'
 import type { CountryIndex } from '../data/load'
-import { cardId, STARTING_TYPES, type StoredCard } from '../srs/model'
+import { cardId, CITY_TYPES, cityCardId, STARTING_TYPES, type StoredCard } from '../srs/model'
 import { createCard, ESTABLISHED_STABILITY_DAYS, isEstablished, retrievability, schedule } from '../srs/scheduler'
 import { regionSlugOf, WORLD_PACK_ID } from '../session/packs'
 import type { Settings, StudySnapshot } from '../store/store'
@@ -44,6 +44,16 @@ export function countryMastery(cards: Record<string, StoredCard>, iso3: string):
   let weakest = Infinity
   for (const type of STARTING_TYPES) {
     weakest = Math.min(weakest, cards[cardId(iso3, type)]?.stability ?? 0)
+  }
+  return Math.max(0, Math.min(1, weakest / ESTABLISHED_STABILITY_DAYS))
+}
+
+/** The city analogue of countryMastery: the weaker of a city's two cards'
+ *  stability against the established threshold, 0..1. */
+export function cityMastery(cards: Record<string, StoredCard>, cityId: string): number {
+  let weakest = Infinity
+  for (const type of CITY_TYPES) {
+    weakest = Math.min(weakest, cards[cityCardId(cityId, type)]?.stability ?? 0)
   }
   return Math.max(0, Math.min(1, weakest / ESTABLISHED_STABILITY_DAYS))
 }
