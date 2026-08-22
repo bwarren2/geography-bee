@@ -7,7 +7,7 @@ import type { DataBundle } from '../types'
 import { cardId, type StoredCard } from '../srs/model'
 import { createCard, schedule } from '../srs/scheduler'
 import { DEFAULT_SETTINGS, type StudySnapshot } from '../store/store'
-import { buildOutlook, daysToEstablish, formatEta, freshCardLagDays, streakFrom } from './outlook'
+import { buildOutlook, countryMastery, daysToEstablish, formatEta, freshCardLagDays, streakFrom } from './outlook'
 
 const bundle: DataBundle = JSON.parse(readFileSync('public/data/countries.json', 'utf8'))
 const cityRecords = JSON.parse(readFileSync('public/data/cities.json', 'utf8')).cities
@@ -39,6 +39,18 @@ const establishedPair = (iso: string): Record<string, StoredCard> => {
   }
   return out
 }
+
+describe('countryMastery', () => {
+  it('is 0 unseen, tracks the weaker card, and caps at 1', () => {
+    expect(countryMastery({}, 'PER')).toBe(0)
+    const half = { ...createCard('PER', 'locate', now), stability: 10.5 }
+    const full = { ...createCard('PER', 'identify', now), stability: 80 }
+    // Only one card: the missing identify card holds mastery at zero.
+    expect(countryMastery({ 'PER:locate': full }, 'PER')).toBe(0)
+    expect(countryMastery({ 'PER:locate': half, 'PER:identify': full }, 'PER')).toBeCloseTo(0.5)
+    expect(countryMastery({ 'PER:locate': full, 'PER:identify': full }, 'PER')).toBe(1)
+  })
+})
 
 describe('daysToEstablish', () => {
   it('is zero for an established card', () => {

@@ -655,6 +655,70 @@ button.ghost:hover:not(:disabled) {
   border-top: 1px solid var(--panel-2);
 }
 
+.region-row {
+  cursor: pointer;
+}
+
+.region-row .chev {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.country-detail td {
+  padding: 2px 0 10px;
+  border-top: none;
+}
+
+.country-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.country-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 3px 4px 3px 20px;
+  font-size: 14px;
+  min-height: 34px;
+}
+
+.country-row .cname {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.country-row .minibar {
+  width: 64px;
+  flex-shrink: 0;
+}
+
+.country-row .cm-pct {
+  width: 48px;
+  text-align: right;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.country-row .declare {
+  min-height: 30px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--accent);
+  width: 104px;
+  text-align: center;
+}
+
+.country-row .solid-check {
+  color: var(--good);
+  font-size: 12px;
+  width: 104px;
+  text-align: center;
+}
+
 .region-table .num {
   text-align: right;
   font-variant-numeric: tabular-nums;
