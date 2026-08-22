@@ -1,5 +1,5 @@
-import type { CardId, StoredCard } from '../srs/model'
-import { seedKnownCards } from '../srs/seed'
+import { STARTING_TYPES, type CardId, type StoredCard } from '../srs/model'
+import { seedKnownCards, simulateKnownCard, type DeclareLevel } from '../srs/seed'
 import { defaultDriver, QuotaError, type KeyValueDriver } from './driver'
 
 const NS = 'gb:v1'
@@ -334,6 +334,24 @@ export class StudyStore {
     else this.stats.confusion[key] = next
     this.dirty.add('stats')
     this.scheduleFlush()
+  }
+
+  /**
+   * Declare a country known at a tier: both map cards get FSRS state built
+   * from simulated reviews (see seed.ts), due immediately for one confirming
+   * pass. Strictly an upgrade — a card whose real history already carries
+   * more stability than the claim is left alone, so declaring can never
+   * erase demonstrated knowledge or reset a schedule backwards.
+   */
+  async declareCountry(iso3: string, level: DeclareLevel, now: Date): Promise<void> {
+    for (const type of STARTING_TYPES) {
+      const sim = simulateKnownCard(iso3, type, level, now)
+      const existing = this.cards[sim.id]
+      if (existing && existing.stability >= sim.stability) continue
+      this.cards[sim.id] = sim
+      this.dirty.add('cards')
+    }
+    if (this.dirty.has('cards')) return this.flush()
   }
 
   /** Grant extra new-card budget for the given day, stacking with any boost

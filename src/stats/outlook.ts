@@ -1,7 +1,7 @@
 import { Rating } from 'ts-fsrs'
 import type { CountryIndex } from '../data/load'
 import { cardId, STARTING_TYPES, type StoredCard } from '../srs/model'
-import { createCard, isEstablished, retrievability, schedule } from '../srs/scheduler'
+import { createCard, ESTABLISHED_STABILITY_DAYS, isEstablished, retrievability, schedule } from '../srs/scheduler'
 import { regionSlugOf, WORLD_PACK_ID } from '../session/packs'
 import type { Settings, StudySnapshot } from '../store/store'
 
@@ -32,6 +32,20 @@ export interface RegionOutlook {
   /** Days until every country in the region is mastered at current pace.
    *  null: never, because the region is in no started pack. 0: already done. */
   etaDays: number | null
+}
+
+/**
+ * How far along the mastery scale a country's map cards are, 0..1: the
+ * weaker of its two starting cards' stability against the established
+ * threshold. The same scale that fades borders and counts a country as
+ * "solidly placed" — 1.0 means both cards graduated.
+ */
+export function countryMastery(cards: Record<string, StoredCard>, iso3: string): number {
+  let weakest = Infinity
+  for (const type of STARTING_TYPES) {
+    weakest = Math.min(weakest, cards[cardId(iso3, type)]?.stability ?? 0)
+  }
+  return Math.max(0, Math.min(1, weakest / ESTABLISHED_STABILITY_DAYS))
 }
 
 export interface Outlook {

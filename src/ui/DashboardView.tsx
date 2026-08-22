@@ -3,8 +3,10 @@ import type { CountryIndex } from '../data/load'
 import { recallFill } from '../map/colors'
 import { GeoMap } from '../map/GeoMap'
 import { APP_URL, buildShareCardSvg, progressCardContent, svgToPngBlob } from '../share/shareCard'
-import { buildOutlook, formatEta } from '../stats/outlook'
+import type { DeclareLevel } from '../srs/seed'
+import { buildOutlook, countryMastery, formatEta } from '../stats/outlook'
 import type { StudySnapshot } from '../store/store'
+import { store } from '../store/useStore'
 
 export { recallFill }
 
@@ -12,11 +14,18 @@ interface DashboardViewProps {
   index: CountryIndex
   snapshot: StudySnapshot
   onBack: () => void
+  onChanged: () => void
 }
 
-export function DashboardView({ index, snapshot, onBack }: DashboardViewProps) {
+export function DashboardView({ index, snapshot, onBack, onChanged }: DashboardViewProps) {
   const outlook = useMemo(() => buildOutlook(index, snapshot, new Date()), [index, snapshot])
   const [shareState, setShareState] = useState<'idle' | 'busy' | 'saved'>('idle')
+  const [openRegion, setOpenRegion] = useState<string | null>(null)
+
+  async function declare(iso3: string, level: DeclareLevel) {
+    await store.declareCountry(iso3, level, new Date())
+    onChanged()
+  }
 
   /** Render the choropleth card and hand it to the OS share sheet — a shared
    *  image displays natively in Discord and friends, which a static site's
@@ -117,27 +126,97 @@ export function DashboardView({ index, snapshot, onBack }: DashboardViewProps) {
         </thead>
         <tbody>
           {outlook.regions.map((r) => (
-            <tr key={r.slug}>
-              <td>{r.name}</td>
-              <td className="num">
-                {r.mastered}/{r.total}
-              </td>
-              <td className="barcell">
-                <div className="minibar">
-                  <div className="fill" style={{ width: `${pct(r.mastered, r.total)}%` }} />
-                  <div className="seen" style={{ width: `${pct(r.seen, r.total)}%` }} />
-                </div>
-              </td>
-              <td className="num">{formatEta(r.etaDays)}</td>
-            </tr>
+            <RegionRows
+              key={r.slug}
+              region={r}
+              open={openRegion === r.slug}
+              onToggle={() => setOpenRegion(openRegion === r.slug ? null : r.slug)}
+              index={index}
+              snapshot={snapshot}
+              outlook={outlook}
+              onDeclare={declare}
+              pct={pct}
+            />
           ))}
         </tbody>
       </table>
       <p className="muted small">
         ETA is when the region's last country becomes durably known — introduction queue at your
         recent pace, then maturation simulated with the real scheduler assuming steady correct
-        answers. “—” means the region is in no started pack.
+        answers. “—” means the region is in no started pack. Tap a region for its countries;
+        declaring one known queues a single confirming review per map card.
       </p>
     </div>
+  )
+}
+
+interface RegionRowsProps {
+  region: ReturnType<typeof buildOutlook>['regions'][number]
+  open: boolean
+  onToggle: () => void
+  index: CountryIndex
+  snapshot: StudySnapshot
+  outlook: ReturnType<typeof buildOutlook>
+  onDeclare: (iso3: string, level: DeclareLevel) => Promise<void>
+  pct: (n: number, total: number) => number
+}
+
+/** One region's summary row, expanding into its countries: name, position on
+ *  the mastery scale, and — until a country is solid — a declare button.
+ *  "Know it" claims the learned tier; from halfway up, "Know it cold" claims
+ *  full mastery. Both are upgrades only, and each queues a confirming pass. */
+function RegionRows({ region: r, open, onToggle, index, snapshot, outlook, onDeclare, pct }: RegionRowsProps) {
+  return (
+    <>
+      <tr className="region-row" onClick={onToggle}>
+        <td>
+          <span className="chev">{open ? '▾' : '▸'}</span> {r.name}
+        </td>
+        <td className="num">
+          {r.mastered}/{r.total}
+        </td>
+        <td className="barcell">
+          <div className="minibar">
+            <div className="fill" style={{ width: `${pct(r.mastered, r.total)}%` }} />
+            <div className="seen" style={{ width: `${pct(r.seen, r.total)}%` }} />
+          </div>
+        </td>
+        <td className="num">{formatEta(r.etaDays)}</td>
+      </tr>
+      {open && (
+        <tr className="country-detail">
+          <td colSpan={4}>
+            <div className="country-list">
+              {(index.regionBySlug.get(r.slug)?.countries ?? []).map((iso3) => {
+                const country = index.byIso3.get(iso3)
+                const standing = outlook.countries.get(iso3)
+                const mastery = countryMastery(snapshot.cards, iso3)
+                const level: DeclareLevel = mastery < 0.5 ? 'learned' : 'mastered'
+                return (
+                  <div key={iso3} className="country-row">
+                    <span className="cname">
+                      {country?.flag} {country?.name ?? iso3}
+                    </span>
+                    <div className="minibar">
+                      <div className="fill" style={{ width: `${Math.round(mastery * 100)}%` }} />
+                    </div>
+                    <span className="cm-pct muted">
+                      {!standing?.seen ? 'unseen' : `${Math.round(mastery * 100)}%`}
+                    </span>
+                    {standing?.mastered ? (
+                      <span className="solid-check">✓ solid</span>
+                    ) : (
+                      <button className="ghost declare" onClick={() => void onDeclare(iso3, level)}>
+                        {level === 'learned' ? 'Know it' : 'Know it cold'}
+                      </button>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          </td>
+        </tr>
+      )}
+    </>
   )
 }

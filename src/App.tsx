@@ -153,7 +153,7 @@ export function App() {
   }
 
   if (screen.name === 'dashboard') {
-    return <DashboardView index={index} snapshot={snapshot} onBack={leave} />
+    return <DashboardView index={index} snapshot={snapshot} onBack={leave} onChanged={reload} />
   }
 
   if (screen.name === 'packs') {
