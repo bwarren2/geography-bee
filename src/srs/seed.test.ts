@@ -95,6 +95,33 @@ describe('declareCountry', () => {
   })
 })
 
+describe('declareCity', () => {
+  const now = new Date('2026-03-10T12:00:00Z')
+  const dc = { id: 'USA-washington-d-c', iso3: 'USA' }
+
+  it('creates both city cards at the claimed tier, due for a confirming pass', async () => {
+    const store = new StudyStore(new MemoryDriver())
+    await store.load()
+    await store.declareCity(dc, 'mastered', now)
+    const snap = store.snapshot()
+    for (const type of ['city-locate', 'city-identify'] as const) {
+      const card = snap.cards[`${dc.id}:${type}`]!
+      expect(card.iso3).toBe('USA')
+      expect(isEstablished(card)).toBe(true)
+      expect(card.due).toBe(now.getTime())
+    }
+  })
+
+  it('never downgrades a stronger city card', async () => {
+    const store = new StudyStore(new MemoryDriver())
+    await store.load()
+    await store.declareCity(dc, 'mastered', now)
+    const mastered = store.snapshot().cards[`${dc.id}:city-locate`]!
+    await store.declareCity(dc, 'learned', now)
+    expect(store.snapshot().cards[`${dc.id}:city-locate`]).toEqual(mastered)
+  })
+})
+
 describe('seeding on load', () => {
   it('seeds virgin storage and persists the result', async () => {
     const driver = new MemoryDriver()

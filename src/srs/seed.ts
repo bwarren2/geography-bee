@@ -1,5 +1,5 @@
 import { Rating } from 'ts-fsrs'
-import { STARTING_TYPES, type StoredCard } from './model'
+import { STARTING_TYPES, type CardId, type CardType, type StoredCard } from './model'
 import { createCard, schedule } from './scheduler'
 
 /**
@@ -43,12 +43,13 @@ export type DeclareLevel = keyof typeof DECLARE_REVIEWS
  */
 export function simulateKnownCard(
   iso3: string,
-  type: (typeof STARTING_TYPES)[number],
+  type: CardType,
   level: DeclareLevel,
   now: Date,
+  id?: CardId,
 ): StoredCard {
   let when = now.getTime() - 180 * DAY
-  let card = createCard(iso3, type, new Date(when))
+  let card = createCard(iso3, type, new Date(when), id)
   for (let i = 0; i < DECLARE_REVIEWS[level]; i++) {
     card = schedule(card, Rating.Good, new Date(when))
     // Follow the schedule, but keep every simulated review in the past.

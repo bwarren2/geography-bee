@@ -1,4 +1,4 @@
-import { STARTING_TYPES, type CardId, type StoredCard } from '../srs/model'
+import { CITY_TYPES, cityCardId, STARTING_TYPES, type CardId, type StoredCard } from '../srs/model'
 import { seedKnownCards, simulateKnownCard, type DeclareLevel } from '../srs/seed'
 import { citiesDemoCards, citiesDemoSettings, demoRequested } from './demo'
 import { defaultDriver, QuotaError, type KeyValueDriver } from './driver'
@@ -352,6 +352,21 @@ export class StudyStore {
   async declareCountry(iso3: string, level: DeclareLevel, now: Date): Promise<void> {
     for (const type of STARTING_TYPES) {
       const sim = simulateKnownCard(iso3, type, level, now)
+      const existing = this.cards[sim.id]
+      if (existing && existing.stability >= sim.stability) continue
+      this.cards[sim.id] = sim
+      this.dirty.add('cards')
+    }
+    if (this.dirty.has('cards')) return this.flush()
+  }
+
+  /** Declare one city known, same contract as declareCountry: both city
+   *  cards get simulated-review state, strictly as an upgrade, due once for
+   *  a confirming pass. Works even before the Cities pack is started — a
+   *  card owes its reviews to the forgetting curve, not to a pack. */
+  async declareCity(city: { id: string; iso3: string }, level: DeclareLevel, now: Date): Promise<void> {
+    for (const type of CITY_TYPES) {
+      const sim = simulateKnownCard(city.iso3, type, level, now, cityCardId(city.id, type))
       const existing = this.cards[sim.id]
       if (existing && existing.stability >= sim.stability) continue
       this.cards[sim.id] = sim
