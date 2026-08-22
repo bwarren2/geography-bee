@@ -15,6 +15,7 @@
     "build:fixture": "tsx scripts/build-fixture.ts",
     "build:terrain": "node scripts/build-terrain.mjs",
     "build:og": "tsx scripts/build-og.ts",
+    "build:cities": "tsx scripts/build-cities.ts",
     "smoke:cards": "node scripts/smoke-cards.mjs",
     "smoke:back": "node scripts/smoke-back.mjs"
   },

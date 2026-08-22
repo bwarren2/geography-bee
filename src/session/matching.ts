@@ -1,4 +1,4 @@
-import type { CountryRecord } from '../types'
+import type { CityRecord, CountryRecord } from '../types'
 
 /** Lowercase, strip accents and punctuation, collapse whitespace. */
 export function normalize(s: string): string {
@@ -77,19 +77,40 @@ export interface MatchResult {
  * "Niger" when the answer is Nigeria is marked wrong rather than forgiven.
  */
 export function matchAnswer(input: string, target: CountryRecord, all: CountryRecord[]): MatchResult {
+  const formsOf = (c: CountryRecord) => [c.name, c.official, ...c.altNames].flatMap(variants)
+  return judge(
+    input,
+    formsOf(target),
+    all.filter((c) => c.iso3 !== target.iso3).map((c) => ({ id: c.iso3, forms: formsOf(c) })),
+  )
+}
+
+/**
+ * Judge a typed city name by the same rules: display and alternate names
+ * (Bombay, Saigon, NYC) with small typos forgiven — but an exact hit on any
+ * other quizzable city is decisive, so "Osaka" never passes for "Nagoya".
+ */
+export function matchCityAnswer(input: string, target: CityRecord, all: CityRecord[]): MatchResult {
+  const formsOf = (c: CityRecord) => [c.name, ...c.altNames].flatMap(variants)
+  return judge(
+    input,
+    formsOf(target),
+    all.filter((c) => c.id !== target.id).map((c) => ({ id: c.id, forms: formsOf(c) })),
+  )
+}
+
+function judge(input: string, targetForms: string[], others: { id: string; forms: string[] }[]): MatchResult {
   if (!normalize(input)) return { correct: false }
 
   const typed = new Set(variants(input))
-  const formsOf = (c: CountryRecord) => [c.name, c.official, ...c.altNames].flatMap(variants)
   const hits = (forms: string[]) => forms.some((f) => typed.has(f))
 
-  // An exact hit on some other country is decisive and is checked first, so
+  // An exact hit on some other answer is decisive and is checked first, so
   // typo tolerance can never quietly merge two real answers.
-  for (const c of all) {
-    if (c.iso3 !== target.iso3 && hits(formsOf(c))) return { correct: false, matchedOther: c.iso3 }
+  for (const other of others) {
+    if (hits(other.forms)) return { correct: false, matchedOther: other.id }
   }
 
-  const targetForms = formsOf(target)
   if (hits(targetForms)) return { correct: true }
 
   for (const form of targetForms) {

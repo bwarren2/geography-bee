@@ -1,5 +1,6 @@
 import { STARTING_TYPES, type CardId, type StoredCard } from '../srs/model'
 import { seedKnownCards, simulateKnownCard, type DeclareLevel } from '../srs/seed'
+import { citiesDemoCards, citiesDemoSettings, demoRequested } from './demo'
 import { defaultDriver, QuotaError, type KeyValueDriver } from './driver'
 
 const NS = 'gb:v1'
@@ -194,15 +195,20 @@ export class StudyStore {
       // Anything less than virgin is someone's real progress (or a backup
       // restore) and is never touched.
       const virgin = cards === null && stats === null
-      this.cards = cards ?? (virgin ? seedKnownCards(new Date()) : {})
-      if (virgin && Object.keys(this.cards).length) {
+      // `?demo=cities` also counts an untouched default seed as overwritable:
+      // "never recorded a review" is the guard that protects real progress.
+      const reviewed =
+        Object.keys(stats?.perCard ?? {}).length > 0 || Object.keys(stats?.daily ?? {}).length > 0
+      const demo = demoRequested() && !reviewed
+      this.cards = demo ? citiesDemoCards(new Date()) : (cards ?? (virgin ? seedKnownCards(new Date()) : {}))
+      if ((virgin || demo) && Object.keys(this.cards).length) {
         this.dirty.add('cards')
         this.scheduleFlush()
       }
       this.stats = { ...emptyAggregates(), ...(stats ?? {}) }
       const hydrated = hydrateSettings(settings)
-      this.settings = hydrated.settings
-      if (hydrated.migrated) {
+      this.settings = demo ? citiesDemoSettings(hydrated.settings) : hydrated.settings
+      if (hydrated.migrated || demo) {
         this.dirty.add('settings')
         this.scheduleFlush()
       }

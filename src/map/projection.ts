@@ -1,12 +1,19 @@
 import { geoArea, geoCentroid, geoEqualEarth, geoMercator, type GeoProjection } from 'd3-geo'
 import type { CountryFeature } from '../data/load'
 
-export type MapView = { kind: 'world' } | { kind: 'region'; slug: string }
+export type MapView =
+  | { kind: 'world' }
+  | { kind: 'region'; slug: string }
+  | { kind: 'country'; iso3: string }
 
 const PAD = 8
 /** Extra inset as a fraction of the viewport's short side, so the outermost
  *  countries in a region are not flush against the edge. */
 const BREATHING_ROOM = 0.04
+/** Country views breathe more: city cards assume the country is known, so
+ *  the frame is mostly that country with just enough neighbour showing to
+ *  confirm which one it is. */
+const COUNTRY_BREATHING = 0.13
 
 /**
  * The largest single polygon of a country, used for framing only.
@@ -91,7 +98,8 @@ export function makeProjection(
     )
   }
 
-  const pad = Math.max(PAD, Math.min(width, height) * BREATHING_ROOM)
+  const factor = view.kind === 'country' ? COUNTRY_BREATHING : BREATHING_ROOM
+  const pad = Math.max(PAD, Math.min(width, height) * factor)
   return geoMercator()
     .rotate([-meanLongitude(features), 0])
     .fitExtent(

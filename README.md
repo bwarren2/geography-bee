@@ -74,6 +74,18 @@ renderer), while the progress share on the dashboard renders the mastery
 choropleth to a PNG on-device and hands the image itself to the share sheet —
 a shared picture displays natively everywhere, no crawler involved.
 
+**Cities are the same two skills, one level down.** The Cities pack quizzes
+every capital plus the world's major non-capital cities with the same pair of
+cards countries get: name → tap the spot, and a marked dot → name it. Because
+a city card only unlocks once its country's map cards are established, the
+map opens pre-zoomed to that country — the placement being tested is the
+city's, not the country's, so no time is spent rediscovering Canada. Tap
+grading is by distance, in screen pixels, so zooming in tightens the
+requirement the same way snap zones fade. City data is cut from Natural
+Earth's populated places by `npm run build:cities`; anchoring one-liners are
+authored in `hooks/cities.json`, and a reveal without one falls back to
+generated facts.
+
 **Wrong answers become drills.** Every wrong map click is logged as a confusion
 pair. Once a pair recurs, a confusion round runs after the session: both
 candidates marked, tap the named one, then the mirror question. A correct

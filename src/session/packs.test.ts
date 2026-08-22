@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { Rating } from 'ts-fsrs'
+import { buildCityIndex } from '../data/load'
 import type { CountryIndex } from '../data/load'
 import type { DataBundle } from '../types'
 import { cardId, type StoredCard } from '../srs/model'
@@ -8,12 +9,14 @@ import { createCard, schedule } from '../srs/scheduler'
 import { allPacks, packProgress, regionPackId } from './packs'
 
 const bundle: DataBundle = JSON.parse(readFileSync('public/data/countries.json', 'utf8'))
+const cityRecords = JSON.parse(readFileSync('public/data/cities.json', 'utf8')).cities
 const index: CountryIndex = {
   bundle,
   byIso3: new Map(bundle.countries.map((c) => [c.iso3, c])),
   byIsoNum: new Map(bundle.countries.map((c) => [c.isoNum, c])),
   regionBySlug: new Map(bundle.regions.map((r) => [r.slug, r])),
   ordered: [...bundle.countries].sort((a, b) => a.introOrder - b.introOrder),
+  cities: buildCityIndex(cityRecords),
 }
 
 const established = (iso: string): StoredCard[] =>
@@ -24,10 +27,10 @@ const established = (iso: string): StoredCard[] =>
   })
 
 describe('packs', () => {
-  it('indexes one core, three skills, and all eighteen regions', () => {
+  it('indexes one core, four skills, and every region', () => {
     const packs = allPacks(index)
     expect(packs.filter((p) => p.kind === 'core')).toHaveLength(1)
-    expect(packs.filter((p) => p.kind === 'skill')).toHaveLength(3)
+    expect(packs.filter((p) => p.kind === 'skill')).toHaveLength(4)
     expect(packs.filter((p) => p.kind === 'region')).toHaveLength(bundle.regions.length)
     expect(new Set(packs.map((p) => p.id)).size).toBe(packs.length)
   })

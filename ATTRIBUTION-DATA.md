@@ -14,6 +14,13 @@ repo. The app makes no network calls at build or runtime.
 | [world-countries](https://github.com/mledoze/countries) | ISO codes, names, capitals, borders, area, currencies, languages, flags | [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/) |
 | [country-json](https://github.com/samayo/country-json) | Population, average elevation, coastline, national dish | MIT |
 | [NASA Blue Marble](https://visibleearth.nasa.gov/collection/1484/blue-marble) | `public/data/terrain/`, the optional satellite base layer | Public domain (NASA) |
+| [Natural Earth populated places](https://www.naturalearthdata.com/downloads/10m-cultural-vectors/) | `public/data/cities.json`: capitals and major cities for the Cities pack | Public domain |
+
+City records are cut by `npm run build:cities` from Natural Earth's 10m
+populated places (sparse-cloned from github.com/nvkelso/natural-earth-vector,
+like the terrain pipeline). The script bridges NE's disputed-territory codes,
+repairs a few name quirks, hand-adds Yaren (Nauru has no NE entry), and folds
+metro duplicates (Delhi) into their capitals.
 
 The satellite tiles and overview are cut by `npm run build:terrain` from the
 committed source image `public/maps/world-satellite-equirect.jpg` — Blue

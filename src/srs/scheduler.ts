@@ -46,8 +46,8 @@ const fromFsrs = (id: CardId, iso3: string, type: CardType, c: FsrsCard): Stored
   last_review: c.last_review ? c.last_review.getTime() : null,
 })
 
-export function createCard(iso3: string, type: CardType, now: Date): StoredCard {
-  return fromFsrs(cardId(iso3, type), iso3, type, createEmptyCard(now))
+export function createCard(iso3: string, type: CardType, now: Date, id?: CardId): StoredCard {
+  return fromFsrs(id ?? cardId(iso3, type), iso3, type, createEmptyCard(now))
 }
 
 /** `Grade` rather than `Rating`: Rating.Manual is not a review outcome, and

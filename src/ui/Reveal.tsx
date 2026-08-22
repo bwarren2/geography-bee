@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { GeoMap } from '../map/GeoMap'
-import type { MarkRole } from '../map/GeoMap'
-import { loadHooks, type CountryHook, type CountryIndex } from '../data/load'
-import type { CountryRecord } from '../types'
+import type { CityMark, MarkRole } from '../map/GeoMap'
+import { loadCityHooks, loadHooks, type CountryHook, type CountryIndex } from '../data/load'
+import type { CityRecord, CountryRecord } from '../types'
 
 const fmt = new Intl.NumberFormat('en-US')
 
@@ -32,6 +32,10 @@ function facts(country: CountryRecord, index: CountryIndex): string[] {
 interface RevealProps {
   terrain?: boolean
   country: CountryRecord
+  /** Set for city cards: the reveal then anchors the city, not the country. */
+  city?: CityRecord
+  /** Where a missed city tap landed, to show against the real position. */
+  tappedAt?: [number, number]
   index: CountryIndex
   correct: boolean
   /** What was picked instead, when that was a country. */
@@ -39,15 +43,69 @@ interface RevealProps {
   onNext: () => void
 }
 
-export function Reveal({ country, index, terrain, correct, chosen, onNext }: RevealProps) {
+export function Reveal({ country, city, tappedAt, index, terrain, correct, chosen, onNext }: RevealProps) {
   const [hook, setHook] = useState<CountryHook | null>(null)
+  const [cityHook, setCityHook] = useState<string | null>(null)
   useEffect(() => {
     let live = true
-    void loadHooks().then((h) => live && setHook(h.get(country.iso3) ?? null))
+    if (city) void loadCityHooks().then((h) => live && setCityHook(h.get(city.id) ?? null))
+    else void loadHooks().then((h) => live && setHook(h.get(country.iso3) ?? null))
     return () => {
       live = false
     }
-  }, [country.iso3])
+  }, [country.iso3, city])
+
+  if (city) {
+    const dots: CityMark[] = [
+      { lonlat: city.lonlat, role: correct ? 'correct' : 'target', label: city.name },
+    ]
+    if (tappedAt) dots.push({ lonlat: tappedAt, role: 'wrong' })
+    // Sibling cities anchor the miss: seeing Ottawa beside Toronto is the
+    // lesson, the same way neighbours label a country reveal.
+    for (const sibling of index.cities.byCountry.get(city.iso3) ?? []) {
+      if (sibling.id !== city.id) dots.push({ lonlat: sibling.lonlat, role: 'context', label: sibling.name })
+    }
+
+    const cityFacts = [
+      city.capital ? `Capital of ${country.name}` : `Major city in ${country.name}`,
+      ...(city.popM ? [`Population: ~${city.popM}M`] : []),
+      ...(city.altNames.length ? [`Also: ${city.altNames.join(', ')}`] : []),
+    ]
+
+    return (
+      <div className="reveal">
+        <header className={correct ? 'verdict good' : 'verdict bad'}>
+          <span className="flag">{country.flag}</span>
+          <div>
+            <strong>{city.name}</strong>
+            {!correct && chosen && index.cities.byId.has(chosen) && (
+              <div className="muted">you picked {index.cities.byId.get(chosen)!.name}</div>
+            )}
+          </div>
+        </header>
+
+        <div className="reveal-map">
+          <GeoMap view={{ kind: 'country', iso3: country.iso3 }} cityMarks={dots} terrain={terrain} />
+        </div>
+
+        {cityHook && (
+          <div className="hook">
+            <p>{cityHook}</p>
+          </div>
+        )}
+
+        <ul className="facts">
+          {cityFacts.map((f) => (
+            <li key={f}>{f}</li>
+          ))}
+        </ul>
+
+        <button className="primary" onClick={onNext} autoFocus>
+          Next
+        </button>
+      </div>
+    )
+  }
 
   const marks: Record<string, MarkRole> = { [country.iso3]: correct ? 'correct' : 'target' }
   for (const b of country.borders) marks[b] ??= 'context'

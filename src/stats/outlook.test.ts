@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { Rating } from 'ts-fsrs'
+import { buildCityIndex } from '../data/load'
 import type { CountryIndex } from '../data/load'
 import type { DataBundle } from '../types'
 import { cardId, type StoredCard } from '../srs/model'
@@ -9,12 +10,14 @@ import { DEFAULT_SETTINGS, type StudySnapshot } from '../store/store'
 import { buildOutlook, countryMastery, daysToEstablish, formatEta, freshCardLagDays, streakFrom } from './outlook'
 
 const bundle: DataBundle = JSON.parse(readFileSync('public/data/countries.json', 'utf8'))
+const cityRecords = JSON.parse(readFileSync('public/data/cities.json', 'utf8')).cities
 const index: CountryIndex = {
   bundle,
   byIso3: new Map(bundle.countries.map((c) => [c.iso3, c])),
   byIsoNum: new Map(bundle.countries.map((c) => [c.isoNum, c])),
   regionBySlug: new Map(bundle.regions.map((r) => [r.slug, r])),
   ordered: [...bundle.countries].sort((a, b) => a.introOrder - b.introOrder),
+  cities: buildCityIndex(cityRecords),
 }
 
 const now = new Date('2026-06-01T09:00:00Z')

@@ -7,6 +7,13 @@ import { terrainLayerUrl } from './terrain'
 /** How a country is painted. Everything not listed renders as neutral land. */
 export type MarkRole = 'target' | 'correct' | 'wrong' | 'context'
 
+/** A point-of-interest dot (cities). Rendered above fills, below labels. */
+export interface CityMark {
+  lonlat: [number, number]
+  role: MarkRole
+  label?: string
+}
+
 const ROLE_FILL: Record<MarkRole, string> = {
   target: '#f59e0b',
   correct: '#22c55e',
@@ -99,6 +106,14 @@ interface GeoMapProps {
   onPick?: (iso3: string) => void
   /** Countries that may be picked. Others render but ignore clicks. */
   pickable?: Set<string>
+  /** City dots to draw (city cards and their reveals). */
+  cityMarks?: CityMark[]
+  /** With onPickPoint: the lon/lat the tap is measured against. */
+  pointTarget?: [number, number]
+  /** Free-point picking (city-locate): every tap reports where it landed and
+   *  how far, in screen pixels, from pointTarget — zooming in tightens the
+   *  requirement exactly like the country snap zones fade. */
+  onPickPoint?: (result: { lonlat: [number, number]; screenDistPx: number }) => void
   /** Draw the reprojected satellite base layer under the countries (#5).
    *  Land fills go transparent so terrain shows through; marks, choropleth
    *  fills, and hit-testing are unaffected. */
@@ -128,7 +143,7 @@ function useSize(ref: React.RefObject<HTMLElement | null>) {
 const TERRAIN_BORDER = '#dbe5f2'
 const TERRAIN_BORDER_ALPHA = 0.65
 
-export function GeoMap({ view, marks, fills, labels, onPick, pickable, terrain, className, borderOpacity = 1 }: GeoMapProps) {
+export function GeoMap({ view, marks, fills, labels, onPick, pickable, cityMarks, pointTarget, onPickPoint, terrain, className, borderOpacity = 1 }: GeoMapProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const { width, height } = useSize(wrapRef)
   const [geo, setGeo] = useState<Map<string, CountryFeature> | null>(null)
@@ -291,9 +306,11 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, terrain, 
     const inView: CountryFeature[] =
       view.kind === 'world'
         ? [...geo.values()]
-        : (index.regionBySlug.get(view.slug)?.countries ?? [])
-            .map((iso3) => geo.get(iso3))
-            .filter((f): f is CountryFeature => !!f)
+        : view.kind === 'country'
+          ? [geo.get(view.iso3)].filter((f): f is CountryFeature => !!f)
+          : (index.regionBySlug.get(view.slug)?.countries ?? [])
+              .map((iso3) => geo.get(iso3))
+              .filter((f): f is CountryFeature => !!f)
 
     const projection = makeProjection(view, inView, width, height)
     const path = geoPath(projection)
@@ -391,7 +408,8 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, terrain, 
       return
     }
     let live = true
-    const key = view.kind === 'world' ? 'world' : `region:${view.slug}`
+    const key =
+      view.kind === 'world' ? 'world' : view.kind === 'country' ? `country:${view.iso3}` : `region:${view.slug}`
     terrainLayerUrl(key, scene.projection, width, height)
       .then((url) => live && setTerrainUrl(url))
       .catch(() => live && setTerrainUrl(null))
@@ -407,7 +425,7 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, terrain, 
    * back to whichever polygon was actually under the cursor.
    */
   const handleClick = (e: React.MouseEvent<SVGSVGElement>) => {
-    if (!onPick || !scene) return
+    if ((!onPick && !onPickPoint) || !scene) return
     if (suppressClickRef.current) return
 
     const start = pressRef.current
@@ -417,6 +435,18 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, terrain, 
     // Scene geometry lives in base (unzoomed) coordinates; invert the transform.
     const x = (e.clientX - rect.left - tf.x) / tf.k
     const y = (e.clientY - rect.top - tf.y) / tf.k
+
+    if (onPickPoint) {
+      const lonlat = scene.projection.invert?.([x, y])
+      const target = pointTarget ? scene.projection(pointTarget) : null
+      if (lonlat && target) {
+        onPickPoint({
+          lonlat: lonlat as [number, number],
+          screenDistPx: Math.hypot(target[0] - x, target[1] - y) * tf.k,
+        })
+      }
+      return
+    }
 
     // Snap distances compare in screen pixels, so zooming in shrinks the snap
     // zones on the ground: the assist fades out exactly as it stops being
@@ -428,10 +458,10 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, terrain, 
         best = { iso3: s.iso3, dist }
       }
     }
-    if (best) return onPick(best.iso3)
+    if (best) return onPick?.(best.iso3)
 
     const hit = (e.target as Element).closest?.('[data-iso3]')?.getAttribute('data-iso3')
-    if (hit && canPick(hit)) onPick(hit)
+    if (hit && canPick(hit)) onPick?.(hit)
   }
 
   return (
@@ -449,7 +479,7 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, terrain, 
           width={width}
           height={height}
           onClick={handleClick}
-          style={{ display: 'block', cursor: onPick ? 'pointer' : 'default' }}
+          style={{ display: 'block', cursor: onPick || onPickPoint ? 'pointer' : 'default' }}
         >
           <rect width={width} height={height} fill="var(--ocean)" />
 
@@ -505,6 +535,56 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, terrain, 
               )
             })}
           </g>
+
+          {cityMarks && cityMarks.length > 0 && (
+            <g pointerEvents="none">
+              {(() => {
+                // Greedy label placement, earlier marks winning: the target
+                // city is always listed first, so a crowded coast (New York
+                // beside Washington) drops the context label, never the answer.
+                const kept: { x: number; y: number }[] = []
+                return cityMarks.map((m, i) => {
+                  const p = scene.projection(m.lonlat)
+                  if (!p) return null
+                  let showLabel = !!m.label
+                  if (showLabel) {
+                    const clash = kept.some(
+                      (o) => Math.abs(o.x - p[0]) < LABEL_MIN_GAP_X && Math.abs(o.y - p[1]) < LABEL_MIN_GAP_Y * 2,
+                    )
+                    if (clash) showLabel = false
+                    else kept.push({ x: p[0], y: p[1] })
+                  }
+                  return (
+                    <g key={i}>
+                      <circle
+                        cx={p[0]}
+                        cy={p[1]}
+                        r={5.5 / tf.k}
+                        fill={ROLE_FILL[m.role]}
+                        stroke="var(--ocean)"
+                        strokeWidth={1.5 / tf.k}
+                      />
+                      {showLabel && (
+                        <text
+                          x={p[0]}
+                          y={p[1] - 11 / tf.k}
+                          textAnchor="middle"
+                          fontSize={11 / tf.k}
+                          fontWeight={600}
+                          fill="var(--label)"
+                          stroke="var(--ocean)"
+                          strokeWidth={3 / tf.k}
+                          paintOrder="stroke"
+                        >
+                          {m.label}
+                        </text>
+                      )}
+                    </g>
+                  )
+                })
+              })()}
+            </g>
+          )}
 
           {/* Visible dots for countries whose polygon is too small to see. */}
           {/* Dots and labels counter-scale by 1/k to hold constant screen

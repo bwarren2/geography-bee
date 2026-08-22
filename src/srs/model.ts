@@ -6,14 +6,39 @@ import { Rating, type Grade } from 'ts-fsrs'
  * a shape and naming it is a different skill from being given a name and
  * pointing at the world, and the second is the one worth building.
  */
-export type CardType = 'locate' | 'identify' | 'capital' | 'flag' | 'neighbors'
+export type CardType =
+  | 'locate'
+  | 'identify'
+  | 'capital'
+  | 'flag'
+  | 'neighbors'
+  | 'city-locate'
+  | 'city-identify'
 
 /** Card types available from day one. The rest unlock per country. */
 export const STARTING_TYPES: CardType[] = ['locate', 'identify']
-export const ALL_TYPES: CardType[] = ['locate', 'identify', 'capital', 'flag', 'neighbors']
+export const ALL_TYPES: CardType[] = [
+  'locate',
+  'identify',
+  'capital',
+  'flag',
+  'neighbors',
+  'city-locate',
+  'city-identify',
+]
+
+/** The city mirror of the two starting types: name → place and place → name,
+ *  per the same philosophy that keeps locate and identify separate. */
+export const CITY_TYPES: CardType[] = ['city-locate', 'city-identify']
+export const isCityType = (type: CardType) => type === 'city-locate' || type === 'city-identify'
 
 export type CardId = `${string}:${CardType}`
 export const cardId = (iso3: string, type: CardType): CardId => `${iso3}:${type}`
+/** City cards key off the city id (`MEX-mexico-city:city-locate`); the stored
+ *  card still carries the country's iso3 for framing and grouping. */
+export const cityCardId = (cityId: string, type: CardType): CardId => `${cityId}:${type}`
+/** The entity a card id points at: a country iso3, or a city id. */
+export const subjectOf = (id: string): string => id.split(':')[0]!
 
 export function parseCardId(id: string): { iso3: string; type: CardType } {
   const [iso3, type] = id.split(':')
@@ -68,6 +93,10 @@ const TIMING: Record<CardType, { fast: number; slow: number }> = {
   capital: { fast: 2500, slow: 7000 },
   flag: { fast: 1800, slow: 5500 },
   neighbors: { fast: 6000, slow: 18000 },
+  // Pinpointing a city inside a known country is a tighter scan than finding
+  // the country itself; naming a marked city parallels identify.
+  'city-locate': { fast: 3000, slow: 9000 },
+  'city-identify': { fast: 2000, slow: 6500 },
 }
 
 /**

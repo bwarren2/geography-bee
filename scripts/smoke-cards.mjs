@@ -41,6 +41,10 @@ const seeded = [
   card('ARG', 'capital'),
   card('COL', 'flag'),
   card('BOL', 'neighbors'),
+  // City cards carry the city id in the card id; a young city-identify is
+  // included so its choice mode is exercised alongside locate's point tap.
+  card('MEX', 'city-locate', { id: 'MEX-mexico-city:city-locate' }),
+  card('CAN', 'city-identify', { id: 'CAN-toronto:city-identify', stability: 2, state: 1, reps: 1 }),
 ]
 
 // The fixture is planted before any page script runs. The previous pattern
@@ -59,7 +63,9 @@ await page.waitForSelector('.study')
 
 /** What each prompt shape is allowed to render. */
 const EXPECTED = [
+  { match: /^Where is (Mexico City|Toronto)\?/, control: 'map-only', label: 'city-locate' },
   { match: /^Where is /, control: 'map-only', label: 'locate' },
+  { match: /^Which city is marked\?$/, control: 'choice-or-text', label: 'city-identify' },
   { match: /^Which country is highlighted\?$/, control: 'choice-or-text', label: 'identify' },
   { match: /^Capital of /, control: 'text', label: 'capital' },
   { match: /^Whose flag is this\?$/, control: 'choice', label: 'flag' },
@@ -69,7 +75,7 @@ const EXPECTED = [
 const failures = []
 const seen = new Set()
 
-for (let i = 0; i < 12; i++) {
+for (let i = 0; i < 16; i++) {
   if (await page.locator('.reveal').count()) {
     await page.locator('.reveal button.primary').click()
     await page.waitForTimeout(200)

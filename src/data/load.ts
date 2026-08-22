@@ -1,7 +1,7 @@
 import { feature } from 'topojson-client'
 import type { Topology, GeometryCollection } from 'topojson-specification'
 import type { Feature, FeatureCollection, MultiPolygon, Polygon } from 'geojson'
-import type { CountryRecord, DataBundle, QuizRegion } from '../types'
+import type { CityRecord, CountryRecord, DataBundle, QuizRegion } from '../types'
 
 export type CountryFeature = Feature<Polygon | MultiPolygon, { iso3: string }>
 export type Resolution = '110m' | '50m'
@@ -43,6 +43,38 @@ export const loadHooks = () =>
     }
   })
 
+/** One-line anchoring facts for cities, keyed by city id. Authored in
+ *  hooks/cities.json; absence is normal — the reveal falls back to
+ *  generated facts (capital-of, population). */
+export const loadCityHooks = () =>
+  once('cityHooks', async (): Promise<Map<string, string>> => {
+    try {
+      const data = await json<{ cityHooks?: Record<string, string> }>('data/hooks.json')
+      return new Map(Object.entries(data.cityHooks ?? {}))
+    } catch {
+      return new Map()
+    }
+  })
+
+export interface CityIndex {
+  /** In introduction order (country curriculum order, capitals first). */
+  ordered: CityRecord[]
+  byId: Map<string, CityRecord>
+  byCountry: Map<string, CityRecord[]>
+}
+
+/** Build the city lookups from the raw records; exported so tests can feed
+ *  the committed JSON through the same construction the app uses. */
+export function buildCityIndex(records: CityRecord[]): CityIndex {
+  const ordered = [...records].sort((a, b) => a.rank - b.rank)
+  const byCountry = new Map<string, CityRecord[]>()
+  for (const city of ordered) {
+    if (!byCountry.has(city.iso3)) byCountry.set(city.iso3, [])
+    byCountry.get(city.iso3)!.push(city)
+  }
+  return { ordered, byId: new Map(ordered.map((c) => [c.id, c])), byCountry }
+}
+
 export interface CountryIndex {
   bundle: DataBundle
   byIso3: Map<string, CountryRecord>
@@ -50,17 +82,22 @@ export interface CountryIndex {
   regionBySlug: Map<string, QuizRegion>
   /** Curriculum order — the sequence new cards are introduced in. */
   ordered: CountryRecord[]
+  cities: CityIndex
 }
 
 export const loadIndex = () =>
   once('index', async (): Promise<CountryIndex> => {
-    const bundle = await loadBundle()
+    const [bundle, cityData] = await Promise.all([
+      loadBundle(),
+      json<{ cities: CityRecord[] }>('data/cities.json'),
+    ])
     return {
       bundle,
       byIso3: new Map(bundle.countries.map((c) => [c.iso3, c])),
       byIsoNum: new Map(bundle.countries.map((c) => [c.isoNum, c])),
       regionBySlug: new Map(bundle.regions.map((r) => [r.slug, r])),
       ordered: [...bundle.countries].sort((a, b) => a.introOrder - b.introOrder),
+      cities: buildCityIndex(cityData.cities),
     }
   })
 
