@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest'
 import { State } from 'ts-fsrs'
 import { MemoryDriver } from '../store/driver'
 import { StudyStore } from '../store/store'
-import { createCard } from './scheduler'
-import { KNOWN_BY_DEFAULT, seedKnownCards } from './seed'
+import { createCard, ESTABLISHED_STABILITY_DAYS, isEstablished } from './scheduler'
+import { KNOWN_BY_DEFAULT, seedKnownCards, simulateKnownCard } from './seed'
 
 const now = new Date('2026-06-01T09:00:00Z')
 
@@ -33,6 +33,65 @@ describe('seedKnownCards', () => {
       expect(card.due).toBeLessThanOrEqual(now.getTime())
       expect(card.last_review).toBeLessThan(now.getTime())
     }
+  })
+})
+
+describe('simulateKnownCard tiers', () => {
+  const now = new Date('2026-03-10T12:00:00Z')
+
+  it('learned lands past teaching but short of established', () => {
+    const card = simulateKnownCard('JPN', 'locate', 'learned', now)
+    expect(card.state).toBe(State.Review)
+    expect(card.stability).toBeGreaterThan(5)
+    expect(card.stability).toBeLessThan(ESTABLISHED_STABILITY_DAYS)
+  })
+
+  it('mastered crosses the established threshold', () => {
+    const card = simulateKnownCard('JPN', 'locate', 'mastered', now)
+    expect(card.stability).toBeGreaterThanOrEqual(ESTABLISHED_STABILITY_DAYS)
+    expect(isEstablished(card)).toBe(true)
+    // Still due immediately: declared knowledge gets one confirming pass.
+    expect(card.due).toBe(now.getTime())
+  })
+})
+
+describe('declareCountry', () => {
+  const now = new Date('2026-03-10T12:00:00Z')
+
+  it('creates both map cards at the claimed tier', async () => {
+    const store = new StudyStore(new MemoryDriver())
+    await store.load()
+    await store.declareCountry('JPN', 'mastered', now)
+    const snap = store.snapshot()
+    for (const type of ['locate', 'identify'] as const) {
+      const card = snap.cards[`JPN:${type}`]!
+      expect(isEstablished(card)).toBe(true)
+      expect(card.due).toBe(now.getTime())
+    }
+  })
+
+  it('upgrades a weaker card but never downgrades a stronger one', async () => {
+    const store = new StudyStore(new MemoryDriver())
+    await store.load()
+    // USA is seeded at the learned tier; mastering it must raise stability.
+    const before = store.snapshot().cards['USA:locate']!.stability
+    await store.declareCountry('USA', 'mastered', now)
+    const mastered = store.snapshot().cards['USA:locate']!
+    expect(mastered.stability).toBeGreaterThan(before)
+
+    // Claiming a lower tier afterwards must change nothing.
+    await store.declareCountry('USA', 'learned', now)
+    expect(store.snapshot().cards['USA:locate']).toEqual(mastered)
+  })
+
+  it('persists declared cards across a reload', async () => {
+    const driver = new MemoryDriver()
+    const store = new StudyStore(driver)
+    await store.load()
+    await store.declareCountry('BRA', 'learned', now)
+    await store.flush()
+    const reopened = await new StudyStore(driver).load()
+    expect(reopened.cards['BRA:identify']?.state).toBe(State.Review)
   })
 })
 
