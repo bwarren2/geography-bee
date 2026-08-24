@@ -1,0 +1,36 @@
+name: Regenerate hooks.json
+
+on:
+  push:
+    branches: [claude/border-stories]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+    # Guard against looping on its own commit.
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - run: npm run build:hooks
+      - run: npx vitest run
+      - name: Commit regenerated hooks.json
+        run: |
+          if git diff --quiet public/data/hooks.json; then
+            echo 'hooks.json already up to date'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add public/data/hooks.json
+          git commit -m 'Regenerate hooks.json from authored hooks/'
+          git push
