@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import type { CountryIndex } from '../data/load'
 import { recallFill } from '../map/colors'
 import { GeoMap, type CityMark } from '../map/GeoMap'
-import { RAPID_REGION_MIN_SEEN, rapidSeenByRegion } from '../session/rapid'
+import { RAPID_REGION_MIN_SEEN, rapidSeenByRegion, selectRapidCards } from '../session/rapid'
 import { retrievability } from '../srs/scheduler'
 import { cardId } from '../srs/model'
 import type { StudySnapshot } from '../store/store'
@@ -32,6 +32,10 @@ const wrapDelta = (a: number, b: number) => {
 export function RapidPickerView({ index, snapshot, onPick, onBack }: RapidPickerViewProps) {
   const now = useMemo(() => new Date(), [])
   const seenByRegion = useMemo(() => rapidSeenByRegion(index, snapshot.cards), [index, snapshot])
+  // Whether a whole-world sprint would contain anything: due cards, or cards
+  // whose recall has actually slipped. All fresh -> say so instead of a
+  // silent dead button; region sprints stay available regardless.
+  const worldCount = useMemo(() => selectRapidCards(index, snapshot.cards, now).length, [index, snapshot, now])
 
   const fills = useMemo(() => {
     const out: Record<string, string> = {}
@@ -91,8 +95,8 @@ export function RapidPickerView({ index, snapshot, onPick, onBack }: RapidPicker
         <h1>Rapid review</h1>
       </header>
 
-      <button className="primary big" onClick={() => onPick(null)}>
-        🌍 Whole world
+      <button className="primary big" onClick={() => onPick(null)} disabled={worldCount === 0}>
+        {worldCount === 0 ? 'All fresh — nothing due for a sprint' : '🌍 Whole world'}
       </button>
 
       <p className="muted">
