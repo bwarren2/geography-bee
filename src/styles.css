@@ -271,12 +271,21 @@ button.ghost:hover:not(:disabled) {
   font-size: 14px;
 }
 
+.rapid-picker {
+  height: 100%;
+}
+
 .picker-map {
-  height: 320px;
-  border-radius: 14px;
+  /* Full bleed sideways, and hug the zoomed world's height: an Equal Earth
+     world at 1.35x is about 1.45:1 in this trim, so a snug aspect leaves no
+     dead ocean band above or below. */
+  aspect-ratio: 1.45;
+  max-height: 54vh;
+  margin: 0 -16px;
   overflow: hidden;
   background: var(--ocean);
-  border: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
 .terrain-toggle {

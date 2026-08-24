@@ -99,7 +99,7 @@ export function DashboardView({ index, snapshot, onBack, onChanged }: DashboardV
       </div>
 
       <div className="dash-map">
-        <GeoMap view={{ kind: 'world' }} fills={fills} />
+        <GeoMap view={{ kind: 'world', trim: true }} fills={fills} />
       </div>
       <div className="legend">
         <span className="chip" style={{ background: 'var(--land)' }} /> unseen

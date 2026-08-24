@@ -102,7 +102,8 @@ export function RapidPickerView({ index, snapshot, onPick, onBack }: RapidPicker
 
       <div className="picker-map">
         <GeoMap
-          view={{ kind: 'world' }}
+          view={{ kind: 'world', trim: true }}
+          initialZoom={1.35}
           fills={fills}
           cityMarks={marks}
           pointTarget={[0, 0]}

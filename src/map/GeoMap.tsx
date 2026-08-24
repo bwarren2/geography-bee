@@ -114,6 +114,10 @@ interface GeoMapProps {
    *  how far, in screen pixels, from pointTarget — zooming in tightens the
    *  requirement exactly like the country snap zones fade. */
   onPickPoint?: (result: { lonlat: [number, number]; screenDistPx: number }) => void
+  /** Start zoomed in this much (centered), with the built-in pan/pinch
+   *  active — for browse maps like the rapid picker, where a width-bound
+   *  world view otherwise renders small. Default 1 (fit exactly). */
+  initialZoom?: number
   /** Draw the reprojected satellite base layer under the countries (#5).
    *  Land fills go transparent so terrain shows through; marks, choropleth
    *  fills, and hit-testing are unaffected. */
@@ -143,7 +147,7 @@ function useSize(ref: React.RefObject<HTMLElement | null>) {
 const TERRAIN_BORDER = '#dbe5f2'
 const TERRAIN_BORDER_ALPHA = 0.65
 
-export function GeoMap({ view, marks, fills, labels, onPick, pickable, cityMarks, pointTarget, onPickPoint, terrain, className, borderOpacity = 1 }: GeoMapProps) {
+export function GeoMap({ view, marks, fills, labels, onPick, pickable, cityMarks, pointTarget, onPickPoint, initialZoom, terrain, className, borderOpacity = 1 }: GeoMapProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const { width, height } = useSize(wrapRef)
   const [geo, setGeo] = useState<Map<string, CountryFeature> | null>(null)
@@ -164,6 +168,21 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, cityMarks
   } | null>(null)
   /** A pinch fires a stray click on some browsers; swallow it. */
   const suppressClickRef = useRef(false)
+
+  // Apply the requested starting zoom once real dimensions exist (and again
+  // if the view changes under the same component).
+  const zoomedRef = useRef(false)
+  useEffect(() => {
+    zoomedRef.current = false
+  }, [view.kind])
+  useEffect(() => {
+    if (!initialZoom || initialZoom <= 1 || zoomedRef.current || width < 2 || height < 2) return
+    zoomedRef.current = true
+    const k = initialZoom
+    const next = clampTransform({ k, x: (width - width * k) / 2, y: (height - height * k) / 2 }, width, height)
+    tfRef.current = next
+    setTf(next)
+  }, [initialZoom, width, height, view.kind])
 
   const applyTf = (next: MapTransform) => {
     const clamped = clampTransform(next, width, height)
