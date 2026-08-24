@@ -56,6 +56,24 @@ export const loadCityHooks = () =>
     }
   })
 
+export interface DishPhoto {
+  dish: string
+  /** "Author · License" — CC attribution shown wherever the photo is. */
+  credit: string
+}
+
+/** Which countries have a committed dish photo, with its credit line. Empty
+ *  until the photo set is built; every consumer treats a miss as normal. */
+export const loadDishPhotos = () =>
+  once('dishPhotos', async (): Promise<Map<string, DishPhoto>> => {
+    try {
+      const data = await json<{ photos: Record<string, DishPhoto> }>('data/dishes/manifest.json')
+      return new Map(Object.entries(data.photos ?? {}))
+    } catch {
+      return new Map()
+    }
+  })
+
 export interface CityIndex {
   /** In introduction order (country curriculum order, capitals first). */
   ordered: CityRecord[]

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { GeoMap } from '../map/GeoMap'
 import type { CityMark, MarkRole } from '../map/GeoMap'
-import { loadCityHooks, loadHooks, type CountryHook, type CountryIndex } from '../data/load'
+import { loadCityHooks, loadDishPhotos, loadHooks, type CountryHook, type CountryIndex, type DishPhoto } from '../data/load'
 import type { CityRecord, CountryRecord } from '../types'
 
 const fmt = new Intl.NumberFormat('en-US')
@@ -25,7 +25,7 @@ function facts(country: CountryRecord, index: CountryIndex): string[] {
     )
     out.push(`Borders: ${names.join(', ')}`)
   }
-  if (country.nationalDish) out.push(`National dish: ${country.nationalDish}`)
+  // The national dish renders separately: its pill expands into a photo.
   return out
 }
 
@@ -142,11 +142,48 @@ export function Reveal({ country, city, tappedAt, index, terrain, correct, chose
         {facts(country, index).map((f) => (
           <li key={f}>{f}</li>
         ))}
+        {country.nationalDish && <DishFact country={country} />}
       </ul>
 
       <button className="primary" onClick={onNext} autoFocus>
         Next
       </button>
     </div>
+  )
+}
+
+/**
+ * The national dish pill, tappable when a photo exists: it expands into the
+ * picture with its Commons credit line. The photo is fetched only on the
+ * first tap per country (then service-worker cached), so the reveal stays as
+ * light as before for anyone who never taps.
+ */
+function DishFact({ country }: { country: CountryRecord }) {
+  const [photo, setPhoto] = useState<DishPhoto | null>(null)
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    let live = true
+    setOpen(false)
+    void loadDishPhotos().then((m) => live && setPhoto(m.get(country.iso3) ?? null))
+    return () => {
+      live = false
+    }
+  }, [country.iso3])
+
+  if (!photo) return <li>National dish: {country.nationalDish}</li>
+
+  return (
+    <li className={open ? 'dish open' : 'dish'}>
+      <button className="dish-toggle" onClick={() => setOpen(!open)}>
+        National dish: {country.nationalDish} {open ? '▾' : '▸'}
+      </button>
+      {open && (
+        <figure className="dish-photo">
+          <img src={`data/dishes/${country.iso3}.jpg`} alt={photo.dish} loading="lazy" />
+          <figcaption className="muted">Photo: {photo.credit}</figcaption>
+        </figure>
+      )}
+    </li>
   )
 }

@@ -45,6 +45,15 @@ export default defineConfig({
               expiration: { maxEntries: 120 },
             },
           },
+          // Dish photos load on first tap, offline thereafter.
+          {
+            urlPattern: /\/data\/dishes\//,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'dishes',
+              expiration: { maxEntries: 200 },
+            },
+          },
         ],
       },
     }),

@@ -470,6 +470,42 @@ button.ghost:hover:not(:disabled) {
   color: #cbd5e1;
 }
 
+.facts li.dish {
+  padding: 0;
+}
+
+.facts li.dish.open {
+  /* The photo needs the row to itself. */
+  flex-basis: 100%;
+}
+
+.dish-toggle {
+  background: none;
+  border: none;
+  min-height: 0;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #cbd5e1;
+  width: 100%;
+  text-align: left;
+}
+
+.dish-photo {
+  margin: 0;
+  padding: 0 8px 8px;
+}
+
+.dish-photo img {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+
+.dish-photo figcaption {
+  font-size: 11px;
+  margin-top: 4px;
+}
+
 /* The sticky layer: shown, never tested at first. Its job is to give the
    shape a story, not to be recalled — so it gets the gold spine. */
 .hook {
