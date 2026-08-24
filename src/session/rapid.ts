@@ -22,8 +22,15 @@ export const RAPID_MIN_SEEN = 5
 
 /**
  * Which cards deserve a slot in the round: due cards first (oldest debt
- * first), then the weakest recall. This priority decides membership only —
- * presentation order is shuffled separately, below.
+ * first), then the weakest recall — dealt round-robin across regions.
+ *
+ * Pure priority once let a single cohort capture whole rounds: a batch of
+ * declared countries, all due for their confirming pass at once, served
+ * nothing but the Americas for days while Europe and Asia never surfaced.
+ * Dealing one card per region per pass keeps the priority order *within*
+ * each region (debts still surface, oldest first) while every studied
+ * region gets seats in every round. Presentation order is shuffled
+ * separately, below.
  */
 export function selectRapidCards(
   index: CountryIndex,
@@ -42,11 +49,30 @@ export function selectRapidCards(
     .filter((c) => c.due > ts)
     .sort((a, b) => retrievability(a, now) - retrievability(b, now))
 
-  const out: RapidItem[] = []
+  // Per-region queues in global priority order; regions take turns in the
+  // order of their most urgent card, so the region holding the oldest debt
+  // still leads the deal.
+  const queues = new Map<string, RapidItem[]>()
   for (const card of [...due, ...rest]) {
-    if (out.length >= cap) break
     const country = index.byIso3.get(card.iso3)
-    if (country) out.push({ card, country })
+    if (!country) continue
+    if (!queues.has(country.region)) queues.set(country.region, [])
+    queues.get(country.region)!.push({ card, country })
+  }
+
+  const out: RapidItem[] = []
+  const order = [...queues.values()]
+  while (out.length < cap) {
+    let dealt = false
+    for (const queue of order) {
+      if (out.length >= cap) break
+      const item = queue.shift()
+      if (item) {
+        out.push(item)
+        dealt = true
+      }
+    }
+    if (!dealt) break
   }
   return out
 }

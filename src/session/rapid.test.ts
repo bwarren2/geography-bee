@@ -64,6 +64,31 @@ describe('buildRapidQueue', () => {
     expect(queue.map((i) => i.card.iso3)).toEqual(['ARG'])
   })
 
+  it('spreads a round across regions instead of letting one cohort fill it', () => {
+    // The field report behind this: a batch of declared Americas countries,
+    // all due for their confirming pass, filled every round while Europe and
+    // Asia never appeared. One card per region per pass fixes the capture.
+    const cards: Record<string, StoredCard> = {}
+    const southAmerica = index.bundle.regions.find((r) => r.slug === 'south-america')!.countries
+    const japanKoreas = index.bundle.regions.find((r) => r.slug === 'japan-koreas')!.countries
+    for (const iso of southAmerica) {
+      const card = { ...reviewed(iso, new Date('2026-05-01')), due: now.getTime() - 5000 }
+      cards[card.id] = card
+    }
+    for (const iso of japanKoreas) {
+      const card = { ...reviewed(iso, new Date('2026-05-01')), due: now.getTime() - 1000 }
+      cards[card.id] = card
+    }
+
+    const round = selectRapidCards(index, cards, now, 8).map((i) => i.country.region)
+    // All three Japan & Koreas cards make the round despite twelve older
+    // South American debts competing for eight slots.
+    expect(round.filter((r) => r === 'japan-koreas')).toHaveLength(3)
+    expect(round.filter((r) => r === 'south-america')).toHaveLength(5)
+    // The oldest debt's region leads the deal.
+    expect(round[0]).toBe('south-america')
+  })
+
   it('caps the round', () => {
     const cards: Record<string, StoredCard> = {}
     for (const c of index.ordered.slice(0, RAPID_ROUND_SIZE + 10)) {
