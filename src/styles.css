@@ -511,6 +511,18 @@ button.ghost:hover:not(:disabled) {
   font-size: 13px;
 }
 
+/* The border story reads as body text, not a footnote — it is the answer to
+ * the question the shape itself raises. Only the label is dimmed. */
+.hook .borders-why {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.borders-label {
+  color: var(--info);
+  font-weight: 600;
+}
+
 .centered {
   text-align: center;
   margin: 0;
