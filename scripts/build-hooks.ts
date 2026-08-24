@@ -20,6 +20,9 @@ interface Hook {
   hook: string
   place: string
   exports: string[]
+  /** Why the border runs where it does. Required: a shape without its story
+   *  is exactly what this dataset exists to prevent. */
+  borders: string
 }
 
 const bundle: DataBundle = JSON.parse(readFileSync(join(ROOT, 'public/data/countries.json'), 'utf8'))
@@ -66,7 +69,7 @@ for (const file of readdirSync(SRC).filter((f) => f.endsWith('.json') && f !== '
     if (seen.has(iso3)) problems.push(`${iso3} appears in both ${seen.get(iso3)} and ${file}`)
     seen.set(iso3, file)
 
-    for (const field of ['hook', 'place'] as const) {
+    for (const field of ['hook', 'place', 'borders'] as const) {
       if (!hook[field]?.trim()) problems.push(`${file}: ${iso3} has an empty ${field}`)
     }
     if (!Array.isArray(hook.exports)) problems.push(`${file}: ${iso3} exports must be an array`)

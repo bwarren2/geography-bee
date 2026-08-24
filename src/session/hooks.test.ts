@@ -4,7 +4,7 @@ import type { DataBundle } from '../types'
 
 const bundle: DataBundle = JSON.parse(readFileSync('public/data/countries.json', 'utf8'))
 const { hooks } = JSON.parse(readFileSync('public/data/hooks.json', 'utf8')) as {
-  hooks: Record<string, { hook: string; place: string; exports: string[] }>
+  hooks: Record<string, { hook: string; place: string; exports: string[]; borders: string }>
 }
 
 describe('country hooks', () => {
@@ -37,6 +37,16 @@ describe('country hooks', () => {
       .filter(([iso, h]) => iso !== 'VAT' && (!Array.isArray(h.exports) || h.exports.length === 0))
       .map(([iso]) => iso)
     expect(empty).toEqual([])
+  })
+
+  it('tells every country’s border story, at readable length', () => {
+    // The border story answers the question the shape itself raises — why the
+    // lines run where they do. Every country gets one, substantial enough to
+    // carry a treaty or a river, short enough for a phone reveal.
+    const bad = Object.entries(hooks)
+      .filter(([, h]) => !h.borders || h.borders.trim().length < 60 || h.borders.length > 340)
+      .map(([iso, h]) => `${iso} (${h.borders?.length ?? 0})`)
+    expect(bad).toEqual([])
   })
 
   it('names the confusable partner on each side of the classic mix-ups', () => {
