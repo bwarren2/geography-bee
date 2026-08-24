@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { clampTransform, IDENTITY, zoomAround } from './GeoMap'
+import { clampTransform, IDENTITY, snapRadiusPx, zoomAround } from './GeoMap'
 
 const W = 390
 const H = 600
@@ -41,5 +41,22 @@ describe('map transform', () => {
     const zoomed = zoomAround(IDENTITY, 200, 300, 4, W, H)
     const back = zoomAround(zoomed, 200, 300, 1, W, H)
     expect(back).toEqual(IDENTITY)
+  })
+})
+
+describe('snapRadiusPx', () => {
+  it('caps at 45% of the on-screen gap, floors at 5, ceils at a half tap', () => {
+    expect(snapRadiusPx(25)).toBeCloseTo(11.25) // crowded: Vatican beside San Marino at 1x
+    expect(snapRadiusPx(4)).toBe(5) // never below the floor
+    expect(snapRadiusPx(500)).toBe(20) // lonely: full half-tap target
+    expect(snapRadiusPx(Infinity)).toBe(20)
+  })
+
+  it('grows with zoom until the enclave is a full-size target', () => {
+    // The regression that prompted this: zooming toward Vatican City used to
+    // leave its tap target frozen at the crowded 1x size.
+    const gapAt1x = 25
+    expect(snapRadiusPx(gapAt1x * 4)).toBe(20)
+    expect(snapRadiusPx(gapAt1x * 2)).toBeGreaterThan(snapRadiusPx(gapAt1x))
   })
 })
