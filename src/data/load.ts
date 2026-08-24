@@ -29,6 +29,10 @@ export interface CountryHook {
   place: string
   /** Leading exports by value. */
   exports: string[]
+  /** Why the border runs where it does — the treaty, river, war, or colonial
+   *  pen behind the shape. For islands, why the state spans the islands it
+   *  does. Optional so older cached hooks.json files still parse. */
+  borders?: string
 }
 
 /** Hand-written context, keyed by ISO3. Absent for countries not yet written,
