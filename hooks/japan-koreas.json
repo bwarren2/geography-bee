@@ -2,6 +2,7 @@
   "JPN": {
     "hook": "Nearly 14,000 islands, and three quarters of the land is mountain — almost everyone is packed onto the coastal fringe.",
     "place": "The arc of islands off the Asian mainland, east of the Korean peninsula.",
+    "borders": "An archipelago with no land border — the contested lines are at sea: the four southern Kuril islands, seized by the USSR in the last days of 1945, still block a formal peace treaty with Russia.",
     "exports": [
       "cars",
       "vehicle parts",
@@ -11,6 +12,7 @@
   "KOR": {
     "hook": "Went from one of the world's poorest countries to one of its richest inside a single lifetime — the fastest such climb on record.",
     "place": "The southern half of the Korean peninsula, facing Japan across a narrow strait.",
+    "borders": "The DMZ is the 1953 armistice line — near, but not identical to, the 38th parallel along which the US and USSR hastily divided the peninsula in 1945; a 'temporary' line now the world's most fortified border.",
     "exports": [
       "integrated circuits",
       "cars",
@@ -20,6 +22,7 @@
   "PRK": {
     "hook": "The 4km-wide strip separating it from the South has been left alone so long it has become an accidental wildlife refuge.",
     "place": "The northern half of the Korean peninsula, bordering China along the Yalu river.",
+    "borders": "The Yalu and Tumen rivers have been Korea's border with China since the fifteenth century, with a short Russian touch at the Tumen's mouth; the southern edge is the 1953 armistice line, not a negotiated border.",
     "exports": [
       "coal",
       "iron alloys",

@@ -2,6 +2,7 @@
   "GBR": {
     "hook": "Nowhere in Britain is more than about 125km from the sea — no point on the island is genuinely inland.",
     "place": "The large island off northwest France, plus Northern Ireland across the Irish Sea.",
+    "borders": "An island state whose one land border — across Ireland — is the 1921 partition line around six Ulster counties, following old county boundaries rather than any natural feature.",
     "exports": [
       "gold",
       "cars",
@@ -11,6 +12,7 @@
   "SWE": {
     "hook": "Has roughly 270,000 islands, more than any other country, though barely a thousand of them are lived on.",
     "place": "The eastern half of the Scandinavian peninsula, Norway to the west, Baltic Sea to the east.",
+    "borders": "The Scandinavian mountain crest with Norway was surveyed in 1751 and has barely moved — one of Europe's oldest lines; the Torne river became the Finnish border in 1809 when Sweden lost Finland to Russia.",
     "exports": [
       "cars",
       "packaged medicines",
@@ -20,6 +22,7 @@
   "FIN": {
     "hook": "Counts about 188,000 lakes, and its language is related to neither Swedish nor Russian — it is not Indo-European at all.",
     "place": "East of Sweden, sharing a 1,340km border with Russia — the longest in the EU.",
+    "borders": "The Torne river line marks where Russia tore Finland from Sweden in 1809; the eastern border is the 1944 armistice line — Karelia and the Arctic port of Petsamo stayed Soviet, sealing Finland off from the Barents Sea.",
     "exports": [
       "refined petroleum",
       "paper",
@@ -29,6 +32,7 @@
   "NOR": {
     "hook": "The fjords fold its coastline out to about 100,000km — more than twice the distance around the Earth.",
     "place": "The western spine of Scandinavia, running up the Atlantic side from Denmark to the Arctic.",
+    "borders": "The mountain watershed with Sweden, agreed in 1751 and unchanged since; the short Arctic line with Russia along the Pasvik river dates to an 1826 treaty.",
     "exports": [
       "crude petroleum",
       "natural gas",
@@ -38,6 +42,7 @@
   "IRL": {
     "hook": "Has no native snakes, and far more people of Irish descent live abroad than on the island itself.",
     "place": "The western island of the British Isles, across the Irish Sea from Britain.",
+    "borders": "The 1921 partition left six counties in the UK, and the border simply traces their centuries-old county lines — which is why it wanders through farmyards and villages with no natural logic at all.",
     "exports": [
       "packaged medicines",
       "blood products",
@@ -47,6 +52,7 @@
   "DNK": {
     "hook": "Over 400 islands and a peninsula, and no point in the country is further than about 52km from the sea.",
     "place": "The peninsula and islands above Germany, corking the entrance to the Baltic. Greenland and the Faroes are its territories.",
+    "borders": "The Jutland border was set by plebiscite in 1920: Schleswig voted zone by zone on being Danish or German after half a century under Prussia — one of the few borders in the world drawn by asking the residents.",
     "exports": [
       "packaged medicines",
       "electric generators",
@@ -56,6 +62,7 @@
   "LTU": {
     "hook": "Was once the largest country in Europe — the medieval Grand Duchy stretched from the Baltic all the way to the Black Sea.",
     "place": "The southernmost of the three Baltic states, sitting directly above Poland.",
+    "borders": "Soviet republic lines made international in 1991 — including Vilnius, which interwar Poland had seized, restored in 1939; the line along Kaliningrad marks where East Prussia was erased in 1945.",
     "exports": [
       "refined petroleum",
       "furniture",
@@ -65,6 +72,7 @@
   "LVA": {
     "hook": "Riga holds the largest concentration of Art Nouveau architecture anywhere in the world.",
     "place": "The middle of the three Baltic states, between Estonia and Lithuania.",
+    "borders": "Essentially the 1920 independence treaty lines, restored in 1991 minus the Abrene border district that Russia kept — beneath them, the old boundary between the Baltic provinces of the Tsarist empire.",
     "exports": [
       "sawn wood",
       "wheat",
@@ -74,6 +82,7 @@
   "EST": {
     "hook": "The first country in the world to hold a general election online, and more forested now than a century ago.",
     "place": "The northernmost Baltic state, across a narrow gulf from Finland.",
+    "borders": "The 1920 Treaty of Tartu drew the first border; on the 1991 restoration the land east of the Narva river and around Pechory stayed Russian, and the treaty meant to confirm the new line remains unratified.",
     "exports": [
       "broadcasting equipment",
       "refined petroleum",
@@ -83,6 +92,7 @@
   "ISL": {
     "hook": "Straddles the Mid-Atlantic Ridge and is pulling apart about 2cm a year — and heats nearly every home with geothermal water.",
     "place": "Alone in the North Atlantic between Norway and Greenland, just below the Arctic Circle.",
+    "borders": "No land neighbour within 750 km — Iceland's real boundary battles were at sea, where it pushed its fishing limit from 4 to 200 miles through three 'Cod Wars' with Britain and won every round.",
     "exports": [
       "aluminium",
       "fish fillets",

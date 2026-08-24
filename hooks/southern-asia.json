@@ -2,6 +2,7 @@
   "IND": {
     "hook": "Runs on a single time zone offset by half an hour from the rest of the world — and is now the most populous country on Earth.",
     "place": "The triangle jutting into the Indian Ocean, Himalaya across the top, Pakistan west and Bangladesh east.",
+    "borders": "The Radcliffe line of 1947, drawn through Punjab and Bengal in five weeks by a lawyer who had never been to India; the Himalayan McMahon line that China rejects; and Kashmir's Line of Control — a ceasefire line, not an agreed border.",
     "exports": [
       "refined petroleum",
       "packaged medicines",
@@ -11,6 +12,7 @@
   "PAK": {
     "hook": "Holds K2 and four more of the world's fourteen 8,000m peaks — a greater concentration than anywhere outside Nepal.",
     "place": "West of India, running from the Arabian Sea up to the Karakoram, with Afghanistan and Iran to the west.",
+    "borders": "Born from the 1947 Radcliffe line through Punjab; the western Durand Line of 1893 cuts straight through Pashtun lands and has never been accepted by any Afghan government, and Kashmir's Line of Control remains a ceasefire line.",
     "exports": [
       "knitted garments",
       "rice",
@@ -20,6 +22,7 @@
   "IRN": {
     "hook": "Persian, not Arabic, and Indo-European rather than Semitic — the language is a closer relative of English than of the languages around it.",
     "place": "Between the Caspian and the Gulf, with Iraq and Türkiye west, Afghanistan and Pakistan east.",
+    "borders": "The Iraq line along the Zagros foothills and the Shatt al-Arab descends from Ottoman–Persian treaties of 1639 and 1847 — and was still worth a ruinous war in the 1980s; the eastern desert lines were drawn by British arbitration in the 1870s–90s.",
     "exports": [
       "crude petroleum",
       "ethylene polymers",
@@ -29,6 +32,7 @@
   "BGD": {
     "hook": "Most of the country is one enormous river delta, barely above sea level — the Ganges and Brahmaputra meet and empty out through it.",
     "place": "Almost entirely surrounded by India, opening south onto the Bay of Bengal.",
+    "borders": "The Bengal half of the 1947 Radcliffe line, hastily separating Muslim-majority districts — it created one of the world's strangest borders, with over 160 enclaves that India and Bangladesh only swapped away in 2015.",
     "exports": [
       "knitted garments",
       "non-knit garments",
@@ -38,6 +42,7 @@
   "AFG": {
     "hook": "The Wakhan Corridor is a finger of land drawn purely to keep the Russian and British empires from touching — it still reaches out to China.",
     "place": "Landlocked between Iran, Pakistan and the Central Asian states, with the Hindu Kush through its middle.",
+    "borders": "A buffer by design: Britain and Russia fixed the Amu Darya line and added the narrow Wakhan corridor in 1873–95 purely so their empires would nowhere touch, while the 1893 Durand Line split the Pashtuns from British India.",
     "exports": [
       "grapes",
       "coal",
@@ -47,6 +52,7 @@
   "NPL": {
     "hook": "Holds eight of the world's ten highest mountains, and is the only country whose flag is not a rectangle.",
     "place": "A long strip along the Himalaya, entirely between India and China.",
+    "borders": "The 1816 Treaty of Sugauli with the British East India Company fixed the lowland line after the Anglo-Nepalese War; the high Himalayan crest bounds Tibet — a kingdom that survived as the buffer between empires.",
     "exports": [
       "iron alloys",
       "carpets",
@@ -56,6 +62,7 @@
   "LKA": {
     "hook": "Produces some of the world's best tea from land that was all coffee until a fungus wiped the crop out in the 1870s.",
     "place": "The island off India's southeastern tip, separated by a strait shallow enough to nearly walk.",
+    "borders": "An island separated from India by the shallow Palk Strait; Britain ruled Ceylon as a crown colony apart from British India, which is why it stayed off the Partition map entirely.",
     "exports": [
       "tea",
       "knitted garments",
@@ -65,6 +72,7 @@
   "BTN": {
     "hook": "Measures Gross National Happiness alongside GDP, and is one of the few carbon-negative countries — its forests absorb more than it emits.",
     "place": "A small Himalayan kingdom between India and China, east of Nepal.",
+    "borders": "A Himalayan kingdom bounded by the main crest against Tibet — a line still not formally settled with China — and by the duars lowland strip that Britain annexed after the 1865 war, fixing the Indian side.",
     "exports": [
       "iron alloys",
       "electricity",
@@ -74,6 +82,7 @@
   "MDV": {
     "hook": "The lowest country on Earth — its highest natural point is about 2.4m, lower than most ceilings.",
     "place": "A chain of atolls in the Indian Ocean, southwest of Sri Lanka.",
+    "borders": "Coral atolls with no land neighbour at all; Britain ran it as a protectorate separate from both India and Ceylon, so it emerged as its own state — the only lines are maritime.",
     "exports": [
       "fish",
       "scrap iron",

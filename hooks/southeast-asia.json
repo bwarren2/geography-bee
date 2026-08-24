@@ -2,6 +2,7 @@
   "IDN": {
     "hook": "Over 17,000 islands spread across 5,000km — wider than the United States — and it is moving its capital off Java because Jakarta is sinking.",
     "place": "The great archipelago strung along the equator between mainland Asia and Australia.",
+    "borders": "The Dutch East Indies inherited whole in 1949 — which is why three islands are split along colonial lines: New Guinea on the ruler-straight 141°E meridian, Borneo along the Anglo-Dutch watershed, Timor by treaty with Portugal.",
     "exports": [
       "coal",
       "palm oil",
@@ -11,6 +12,7 @@
   "PHL": {
     "hook": "7,641 islands on the Ring of Fire, and about 20 typhoons a year — more than anywhere else on Earth.",
     "place": "The archipelago north of Indonesia and east of Vietnam, facing the open Pacific.",
+    "borders": "The islands Spain ruled and then sold to the US in 1898 — the Treaty of Paris literally drew a box around the archipelago, so the national territory descends from a rectangle on a colonial map.",
     "exports": [
       "integrated circuits",
       "office machine parts",
@@ -20,6 +22,7 @@
   "THA": {
     "hook": "The only country in Southeast Asia never colonised by a European power — it played the British and French off against each other.",
     "place": "The middle of the mainland, between Myanmar and Laos, tailing south down the peninsula toward Malaysia.",
+    "borders": "Never colonized, so its edges are where British Burma and Malaya and French Indochina stopped: the Mekong line with Laos and the Cambodian line come from Franco-Siamese treaties of 1893–1907, the Malaysian line from a 1909 Anglo-Siamese treaty.",
     "exports": [
       "cars",
       "computers",
@@ -29,6 +32,7 @@
   "VNM": {
     "hook": "About 1,650km long but as little as 50km wide at its waist — you can drive coast to border in under an hour in the middle.",
     "place": "The eastern edge of the mainland, an S-curve down the coast from China to the Mekong delta.",
+    "borders": "The Chinese border follows the old imperial frontier as confirmed by Franco-Chinese treaties in the 1880s; the long western edge rides the Annamite mountain crest against Laos, with the Mekong delta line drawn by France inside Indochina.",
     "exports": [
       "broadcasting equipment",
       "telephones",
@@ -38,6 +42,7 @@
   "MMR": {
     "hook": "Produces the large majority of the world's rubies, from the Mogok valley — and answers to Burma just as often.",
     "place": "The western end of mainland Southeast Asia, between India and Thailand.",
+    "borders": "British India's eastern limits: mountain arcs against India and Thailand, a Chinese line pieced together from agreements between 1894 and 1960, and the short Naf river line with Bangladesh — colonial lines drawn across highland peoples' lands.",
     "exports": [
       "natural gas",
       "non-knit garments",
@@ -47,6 +52,7 @@
   "MYS": {
     "hook": "Split clean in two by the South China Sea — half a peninsula, half a slice of Borneo, 640km apart.",
     "place": "Below Thailand on the mainland peninsula, and along the north coast of Borneo beside Indonesia and Brunei.",
+    "borders": "Two pieces of British empire that never touched: Malaya's line with Thailand from the 1909 Anglo-Siamese treaty, and northern Borneo's boundary along the island's central watershed against the Dutch, now Indonesian, south.",
     "exports": [
       "integrated circuits",
       "refined petroleum",
@@ -56,6 +62,7 @@
   "KHM": {
     "hook": "Angkor Wat is the largest religious monument on Earth, and Cambodia's is the only national flag anywhere that shows a building.",
     "place": "Between Thailand and Vietnam, opening onto the Gulf of Thailand.",
+    "borders": "French Indochina's internal lines made international: the Thai border from 1904–07 Franco-Siamese treaties — fought over at the Preah Vihear temple as recently as 2011 — and a delta line with Vietnam that left many Khmer speakers outside.",
     "exports": [
       "non-knit garments",
       "knitted garments",
@@ -65,6 +72,7 @@
   "LAO": {
     "hook": "The only landlocked country in Southeast Asia, and the most heavily bombed country per person in history — unexploded ordnance is still being cleared.",
     "place": "Landlocked between Thailand and Vietnam, the Mekong running down much of its western edge.",
+    "borders": "Assembled by France as a buffer along the Mekong — the river is the Thai border for most of its length, cutting the Lao-speaking world in half; the Annamite cordillera divides it from Vietnam.",
     "exports": [
       "electricity",
       "copper",
@@ -74,6 +82,7 @@
   "TLS": {
     "hook": "One of the youngest countries on Earth, independent only in 2002 after 24 years of occupation.",
     "place": "The eastern half of Timor at the far end of the Indonesian arc, just north of Australia.",
+    "borders": "The Portuguese half of Timor, divided from the Dutch half by treaties finalized in 1914 — including the Oecusse enclave, Portugal's original landing point, marooned inside Indonesian West Timor.",
     "exports": [
       "crude petroleum",
       "coffee",
@@ -83,6 +92,7 @@
   "SGP": {
     "hook": "One of the last true city-states, and about a quarter larger than at independence — the extra land was reclaimed from the sea.",
     "place": "At the tip of the Malay peninsula, on the Strait of Malacca, one of the busiest shipping lanes on Earth.",
+    "borders": "A trading island the British acquired in 1819; the border is the Johor Strait because Singapore was expelled from Malaysia in 1965 after two turbulent years in the federation — independence by eviction.",
     "exports": [
       "integrated circuits",
       "refined petroleum",
@@ -92,6 +102,7 @@
   "BRN": {
     "hook": "Oil wealth means no income tax at all — and the country is split into two separate pieces by Malaysian territory.",
     "place": "Two enclaves on the north coast of Borneo, both entirely surrounded by Malaysia.",
+    "borders": "The rump of a sultanate that once claimed Borneo's whole north coast, whittled away by cessions to Sarawak's Brooke rajas until Britain froze what remained in the 1880s — two separate pieces, split when Limbang was ceded in 1890.",
     "exports": [
       "crude petroleum",
       "natural gas",

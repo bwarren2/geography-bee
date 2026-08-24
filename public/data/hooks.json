@@ -5,6 +5,7 @@
     "AUS": {
       "hook": "The only country that is also a continent, and more than 80% of its mammals, reptiles and frogs live nowhere else.",
       "place": "The continent-sized island between the Indian and Pacific oceans, below Indonesia and Papua New Guinea.",
+      "borders": "A whole continent claimed by Britain, so its only land lines are internal state borders; the external boundary that needed drawing — through the Torres Strait, where Australian islands sit within sight of Papua New Guinea — took a careful 1978 treaty.",
       "exports": [
         "iron ore",
         "coal",
@@ -14,6 +15,7 @@
     "NZL": {
       "hook": "One of the last large landmasses humans reached, settled only around 1300 — and it had no land mammals at all except bats.",
       "place": "Two main islands about 2,000km southeast of Australia, alone in the South Pacific.",
+      "borders": "Two main islands with no neighbour within 1,500 km, annexed by Britain under the 1840 Treaty of Waitangi — the only boundary questions are maritime, plus free-association ties to the Cook Islands and Niue.",
       "exports": [
         "concentrated milk",
         "sheep and goat meat",
@@ -23,6 +25,7 @@
     "ROU": {
       "hook": "Speaks a Romance language completely surrounded by Slavic and Hungarian ones — a linguistic island left behind by Rome.",
       "place": "North of Bulgaria on the Black Sea, with the Carpathians curving through its middle and the Danube delta on its edge.",
+      "borders": "Principalities either side of the Carpathians united, then doubled by Trianon in 1920 when Transylvania came from Hungary; the Prut river line in the east marks where the USSR took Bessarabia — today's Moldova — in 1940.",
       "exports": [
         "cars",
         "insulated wire",
@@ -32,6 +35,7 @@
     "BGR": {
       "hook": "Grows much of the world's rose oil in the Valley of the Roses — it takes roughly 3,000kg of petals to make one kilogram.",
       "place": "South of Romania on the Black Sea, sitting above Greece and Türkiye.",
+      "borders": "Drawn and redrawn by great-power congresses: the big Bulgaria of San Stefano (1878) was cut down within months at Berlin, and the Danube line with Romania plus the southern Rhodope line settled through the Balkan Wars and world wars.",
       "exports": [
         "refined petroleum",
         "copper",
@@ -41,6 +45,7 @@
     "SRB": {
       "hook": "Became landlocked overnight in 2006 when Montenegro voted to leave — it kept the Danube and lost the sea.",
       "place": "The landlocked centre of the Balkans, touching eight neighbours.",
+      "borders": "The core that remained as Yugoslavia shed its republics along internal administrative lines; the boundary around Kosovo is the old autonomous province's line — a border in practice that Serbia does not recognize as one.",
       "exports": [
         "insulated wire",
         "cars",
@@ -50,6 +55,7 @@
     "HRV": {
       "hook": "Over 1,200 islands, and a shape like a crescent — its coast is cut clean in two by a 20km strip belonging to Bosnia.",
       "place": "The crescent along the Adriatic, curving around Bosnia and Herzegovina.",
+      "borders": "The boomerang shape is the old Habsburg–Ottoman military frontier: the arc wrapped around Bosnia follows imperial lines centuries old, which became Yugoslav republic lines and then, in 1991, international borders.",
       "exports": [
         "refined petroleum",
         "packaged medicines",
@@ -59,6 +65,7 @@
     "BIH": {
       "hook": "Has just 20km of coastline, at Neum — barely a beach, but enough to split Croatia's coast into two pieces.",
       "place": "Inside the Croatian crescent, with one narrow sliver reaching the Adriatic.",
+      "borders": "Broadly the Ottoman province of Bosnia as it stood before 1878, preserved as a Yugoslav republic; the 1995 Dayton agreement froze internal ethnic lines but deliberately kept the republic's outer border intact.",
       "exports": [
         "refined petroleum",
         "insulated wire",
@@ -68,6 +75,7 @@
     "ALB": {
       "hook": "Over 170,000 concrete bunkers were poured across the country under Hoxha — roughly one for every eleven Albanians, and most are still there.",
       "place": "Facing Italy's heel across the Adriatic and Ionian, directly below Montenegro.",
+      "borders": "Drawn by a conference of ambassadors in London in 1913 as Ottoman rule collapsed — a great-power compromise that left nearly half of all Albanian speakers outside the state, most consequentially in Kosovo.",
       "exports": [
         "footwear",
         "crude petroleum",
@@ -77,6 +85,7 @@
     "MKD": {
       "hook": "Landlocked, and Lake Ohrid on its border is among the oldest lakes on Earth — roughly 1.3 million years, with species found nowhere else.",
       "place": "Landlocked in the middle of the southern Balkans, between Greece, Bulgaria, Serbia, Kosovo and Albania.",
+      "borders": "A Yugoslav republic line cut from the 1913 partition of Ottoman Macedonia among Serbia, Greece and Bulgaria — a partition so raw the country's very name stayed disputed with Greece until 2018.",
       "exports": [
         "catalysts",
         "insulated wire",
@@ -86,6 +95,7 @@
     "MNE": {
       "hook": "Its name means black mountain, and the Bay of Kotor cuts so deep inland it is often mistaken for Europe's southernmost fjord.",
       "place": "On the Adriatic between Croatia and Albania.",
+      "borders": "A mountain principality the powers recognized in 1878, doubled in the Balkan Wars, merged into Yugoslavia, and restored in 2006 along its old republic line after a 55% independence vote.",
       "exports": [
         "aluminium",
         "packaged medicines",
@@ -95,6 +105,7 @@
     "CUB": {
       "hook": "The largest island in the Caribbean and the longest — end to end it covers about the distance from London to Edinburgh, yet sits only 145km from Florida.",
       "place": "The long island guarding the mouth of the Gulf of Mexico, directly south of Florida.",
+      "borders": "Spain's last American colony, an island with one anomalous line: Guantánamo Bay, leased in perpetuity to the US in 1903 under the Platt Amendment — a boundary Cuba refuses to recognize but cannot remove.",
       "exports": [
         "cigars",
         "raw sugar",
@@ -104,6 +115,7 @@
     "DOM": {
       "hook": "Holds the highest peak in the entire Caribbean, Pico Duarte at 3,101m — high enough that it occasionally gets frost.",
       "place": "The eastern two-thirds of Hispaniola, the island between Cuba and Puerto Rico.",
+      "borders": "Hispaniola was split between France and Spain at Ryswick in 1697; today's border descends from that colonial partition, finally fixed by treaties in 1929–36 along rivers and survey lines.",
       "exports": [
         "gold",
         "medical instruments",
@@ -113,6 +125,7 @@
     "HTI": {
       "hook": "The only nation founded by a successful slave revolt, in 1804 — and the first independent country in Latin America.",
       "place": "The western third of Hispaniola, sharing one island with the Dominican Republic.",
+      "borders": "The French third of Hispaniola from the 1697 partition, independent by slave revolution in 1804; the line with the Dominican Republic follows the Massacre and Pedernales rivers as fixed by the 1929 treaty.",
       "exports": [
         "knitted t-shirts",
         "essential oils",
@@ -122,6 +135,7 @@
     "JAM": {
       "hook": "Its Blue Mountains are steep and wet enough that the coffee grown there sells for several times the world price.",
       "place": "South of Cuba and west of Hispaniola, on its own in the middle of the sea.",
+      "borders": "An island England seized from Spain in 1655 and never gave back — no land border, and the state is the island with its cays.",
       "exports": [
         "alumina",
         "bauxite",
@@ -131,6 +145,7 @@
     "TTO": {
       "hook": "Home to Pitch Lake, the largest natural asphalt deposit on Earth — parts of London and New York are paved with it.",
       "place": "Just 11km off Venezuela's northeast tip, the last stop at the bottom of the island arc.",
+      "borders": "Trinidad taken from Spain in 1797, Tobago attached to it administratively by Britain in 1889 — two islands paired by colonial bookkeeping, with the narrow channel to Venezuela delimited by treaty in 1990.",
       "exports": [
         "natural gas",
         "ammonia",
@@ -140,6 +155,7 @@
     "BHS": {
       "hook": "Around 700 islands, only about 30 of them inhabited — and the seabed beside the shallow banks drops away to 4,000m.",
       "place": "The long scatter northeast of Cuba, beginning just off the Florida coast.",
+      "borders": "Seven hundred islands defined by colonial paperwork: the Turks and Caicos were split off in 1848 and stayed British at independence, so the archipelago's southern end belongs to a different flag.",
       "exports": [
         "ships",
         "crustaceans",
@@ -149,6 +165,7 @@
     "BRB": {
       "hook": "Sits out in the Atlantic beyond the island arc rather than in it, which is why hurricanes so often pass it by.",
       "place": "Alone to the east of the chain, past Saint Vincent — the most easterly country in the Caribbean.",
+      "borders": "A single coral island Britain held continuously from 1627 — never conquered or traded between empires, so no partition line ever touched it.",
       "exports": [
         "rum",
         "ships",
@@ -158,6 +175,7 @@
     "LCA": {
       "hook": "The Pitons rise straight out of the sea as twin volcanic spires — the only place in the Caribbean with a drive-in volcano.",
       "place": "Midway down the eastern arc, between Martinique and Saint Vincent.",
+      "borders": "One island that changed hands between Britain and France fourteen times before 1814 — its border history is temporal rather than spatial: French place-names and creole under an eventually British state.",
       "exports": [
         "refined petroleum",
         "bananas",
@@ -167,6 +185,7 @@
     "DMA": {
       "hook": "The Nature Island, with the world's second-largest boiling lake — and no relation whatsoever to the Dominican Republic, 800km northwest.",
       "place": "In the eastern arc between Guadeloupe and Martinique. The mix-up with the Dominican Republic is the one to watch for.",
+      "borders": "A volcanic island lying between the two French islands of Guadeloupe and Martinique — Britain secured it in 1763, which is why an anglophone state interrupts the French Antilles.",
       "exports": [
         "medical instruments",
         "bananas",
@@ -176,6 +195,7 @@
     "VCT": {
       "hook": "One main island plus 32 smaller ones, and a volcano — La Soufrière — that erupted as recently as 2021.",
       "place": "In the eastern arc, directly between Saint Lucia and Grenada.",
+      "borders": "St Vincent plus the northern Grenadines: Britain split the Grenadine chain administratively with Grenada, and that colonial partition line through the small islands survives as the state boundary.",
       "exports": [
         "ships",
         "wheat flour",
@@ -185,6 +205,7 @@
     "ATG": {
       "hook": "Claims a beach for every day of the year — 365 of them, one for each day.",
       "place": "Near the top of the eastern arc, east of Saint Kitts.",
+      "borders": "Antigua, Barbuda and uninhabited Redonda, bundled as one British colony — Barbuda spent two centuries leased to a single family, and its forced pairing with Antigua still chafes in island politics.",
       "exports": [
         "ships",
         "refined petroleum",
@@ -194,6 +215,7 @@
     "GRD": {
       "hook": "The Isle of Spice, and one of the world's great nutmeg producers — the nut is on the national flag.",
       "place": "The southern end of the eastern arc, just north of Trinidad.",
+      "borders": "Grenada plus the southern Grenadines, Carriacou and Petite Martinique — the other half of the chain Britain divided with St Vincent, the split line running through open water mid-archipelago.",
       "exports": [
         "nutmeg",
         "fish",
@@ -203,6 +225,7 @@
     "KNA": {
       "hook": "The smallest sovereign state in the Americas by both area and population — the whole country would fit inside Liverpool.",
       "place": "Near the top of the eastern arc, northwest of Antigua.",
+      "borders": "Two islands run as one British presidency — originally with Anguilla, which rebelled in 1967 rather than stay yoked to distant Basseterre and returned to British rule; the remaining pair is the smallest state in the Americas.",
       "exports": [
         "electronics",
         "machinery",
@@ -212,6 +235,7 @@
     "COD": {
       "hook": "The Congo is the deepest river in the world, over 220m in places — and the country holds most of the world's cobalt.",
       "place": "The vast heart of Africa astride the equator, with only a 40km squeeze of Atlantic coast.",
+      "borders": "King Leopold's personal 'Congo Free State', recognized at the 1885 Berlin Conference: the Congo basin's rivers and watersheds, plus the narrow corridor to the Atlantic at the river's mouth — the strip that cuts Angola's Cabinda off from Angola.",
       "exports": [
         "refined copper",
         "cobalt",
@@ -221,6 +245,7 @@
     "AGO": {
       "hook": "Portuguese-speaking, and split in two — the oil-rich Cabinda exclave is cut off from the rest by a strip of DR Congo.",
       "place": "On the Atlantic below DR Congo, with the separate Cabinda enclave sitting to its north.",
+      "borders": "Portugal's coastal colony pushed inland to Berlin-Conference-era lines; Cabinda sits detached to the north because Leopold's Congo was granted a corridor to the sea between the two in 1885.",
       "exports": [
         "crude petroleum",
         "diamonds",
@@ -230,6 +255,7 @@
     "TCD": {
       "hook": "Lake Chad has lost about 90% of its surface area since the 1960s — the country is named after a lake that is nearly gone.",
       "place": "Landlocked in north-central Africa, running from deep Sahara down into the Sahel.",
+      "borders": "French Equatorial Africa's desert north: straight survey lines with Libya — the Aouzou Strip was confirmed Chadian by the world court in 1994 — and a Lake Chad boundary drawn when the lake was far larger than it is now.",
       "exports": [
         "crude petroleum",
         "gold",
@@ -239,6 +265,7 @@
     "CMR": {
       "hook": "Called Africa in miniature — desert, rainforest, savanna, mountains and coast in one country, with both English and French official.",
       "place": "At the crook of the Gulf of Guinea, where West Africa turns the corner and heads south.",
+      "borders": "German Kamerun split between Britain and France after WWI, then partly reunited by ballot: in 1961 the British north voted to join Nigeria and the British south to join Cameroon; the world court added Bakassi in a ruling completed in 2008.",
       "exports": [
         "crude petroleum",
         "cocoa beans",
@@ -248,6 +275,7 @@
     "SSD": {
       "hook": "The newest country in the world, independent in 2011 — and the Sudd wetland at its centre is among the largest on Earth.",
       "place": "Landlocked below Sudan, between Ethiopia and the Central African Republic.",
+      "borders": "The internal north–south administrative line of Anglo-Egyptian Sudan, made an international border by the 2011 independence referendum — with Abyei's status and several stretches of the line still unresolved.",
       "exports": [
         "crude petroleum",
         "sawn wood",
@@ -257,6 +285,7 @@
     "CAF": {
       "hook": "Sits almost exactly at the geographic centre of the continent, and is among the least visited countries on the planet.",
       "place": "Landlocked in the middle of Africa, below Chad and above DR Congo.",
+      "borders": "France's Ubangi-Shari, a colony of administrative convenience linking French Congo to Chad: the Ubangi and Mbomou rivers draw the southern border, survey lines the rest.",
       "exports": [
         "diamonds",
         "sawn wood",
@@ -266,6 +295,7 @@
     "COG": {
       "hook": "Its capital Brazzaville faces Kinshasa across the river — the closest pair of capital cities anywhere in the world.",
       "place": "On the Atlantic west of DR Congo. This is the smaller Congo; the two stare at each other across the water.",
+      "borders": "French Congo's share of the Berlin-era carve-up: the Congo and Ubangi rivers divide it from the vastly larger Belgian (now Democratic Republic of the) Congo — leaving Brazzaville and Kinshasa, the world's closest capitals, facing each other across the water.",
       "exports": [
         "crude petroleum",
         "refined copper",
@@ -275,6 +305,7 @@
     "GAB": {
       "hook": "About 88% forest, and in 2002 it turned a tenth of the entire country into national parks in a single stroke.",
       "place": "On the equator on the Atlantic coast, below Cameroon and west of the Republic of the Congo.",
+      "borders": "French Equatorial Africa's coastal quarter, divided from Congo along administrative lines; the northern boundary comes from the 1900 Franco-Spanish convention, with the offshore Mbanié islets dispute settled at the world court only in 2025.",
       "exports": [
         "crude petroleum",
         "manganese",
@@ -284,6 +315,7 @@
     "GNQ": {
       "hook": "The only African country with Spanish as an official language — and its capital is not on the mainland but on an island.",
       "place": "A mainland slice plus islands in the Gulf of Guinea; Malabo sits on Bioko, closer to Cameroon than to its own territory.",
+      "borders": "Spain's two-part colony: the Rio Muni box on the mainland, drawn by the 1900 convention with France, plus Bioko island far offshore to the northwest — the capital sits on the island, most of the territory on the mainland, nothing contiguous.",
       "exports": [
         "crude petroleum",
         "natural gas",
@@ -293,6 +325,7 @@
     "STP": {
       "hook": "Two volcanic islands on the equator that were once the largest cocoa producer in the world — from almost nothing to first place and back.",
       "place": "In the Gulf of Guinea off Gabon, straddling the equator.",
+      "borders": "Two volcanic islands, uninhabited until Portuguese sugar planters arrived in the 1470s — the state is simply the islands, and no land border has ever existed.",
       "exports": [
         "cocoa beans",
         "palm oil",
@@ -302,6 +335,7 @@
     "GTM": {
       "hook": "The world's largest exporter of cardamom, a spice barely used in its own kitchens — almost the entire crop is shipped to the Middle East.",
       "place": "The first link in the Central American chain, directly south of Mexico.",
+      "borders": "Spanish provincial lines from the old Captaincy General; the ruler-straight eastern edge is the 1859 Anglo-Guatemalan treaty line around British Honduras — a line Guatemala disputed so long the claim went to the world court in the 2020s.",
       "exports": [
         "bananas",
         "coffee",
@@ -311,6 +345,7 @@
     "HND": {
       "hook": "The original banana republic — the phrase was coined for it in 1904, when US fruit companies effectively ran the country.",
       "place": "The wide part of the isthmus, between Guatemala and Nicaragua, with a long Caribbean coast.",
+      "borders": "The Coco river line with Nicaragua took a 1906 royal arbitration (upheld by the world court in 1960), and the short El Salvador line was only finished by a 1992 ICJ ruling — two decades after the two fought the 'Football War'.",
       "exports": [
         "coffee",
         "knitted garments",
@@ -320,6 +355,7 @@
     "NIC": {
       "hook": "Largest country in Central America, and its lake has bull sharks — they swim up the San Juan river from the Caribbean and stay.",
       "place": "The middle of the isthmus, between Honduras and Costa Rica.",
+      "borders": "Bounded by arbitration: the Coco river line with Honduras from a 1906 award Nicaragua resisted for fifty years, and the San Juan river line with Costa Rica from an 1858 treaty still argued over navigation rights.",
       "exports": [
         "coffee",
         "gold",
@@ -329,6 +365,7 @@
     "PAN": {
       "hook": "The isthmus runs east-west, not north-south — so in Panama City the sun rises over the Pacific and sets over the Atlantic.",
       "place": "The S-bend at the bottom of Central America, joining the continent to Colombia.",
+      "borders": "Was Colombia's northernmost department until 1903, when it seceded with US backing to make way for the canal — so the Colombian border is just the old provincial line through the roadless Darién jungle.",
       "exports": [
         "copper ore",
         "bananas",
@@ -338,6 +375,7 @@
     "CRI": {
       "hook": "Abolished its army in 1948 and put the money into schools and hospitals — it has not had one since.",
       "place": "Between Nicaragua and Panama, near the bottom of the isthmus.",
+      "borders": "The 1858 Cañas–Jerez treaty put the border on the San Juan river's Costa Rican bank — Nicaragua owns the water; the Panama line dates from when Panama was still Colombia, confirmed by later arbitration.",
       "exports": [
         "medical instruments",
         "bananas",
@@ -347,6 +385,7 @@
     "SLV": {
       "hook": "The smallest country in mainland Americas, and the only one in Central America with no Caribbean coast at all.",
       "place": "Pacific side only, wedged between Guatemala and Honduras.",
+      "borders": "Old Spanish provincial lines so vaguely drawn that pockets of the Honduran border stayed contested until the International Court allocated them in 1992 — the dispute that helped spark the 1969 Football War.",
       "exports": [
         "knitted garments",
         "coffee",
@@ -356,6 +395,7 @@
     "BLZ": {
       "hook": "The only Central American country with English as its official language, and home to the largest barrier reef in the northern hemisphere.",
       "place": "The small notch on the Caribbean side, east of Guatemala and just below Mexico's Yucatán.",
+      "borders": "The limits of a British logging settlement: the straight western and southern lines come from the 1859 treaty with Guatemala, which later claimed the whole country — a claim both sides finally sent to the world court.",
       "exports": [
         "raw sugar",
         "bananas",
@@ -365,6 +405,7 @@
     "KAZ": {
       "hook": "The largest landlocked country in the world — bigger than all of Western Europe, and Russia's border with it is the longest continuous land border anywhere.",
       "place": "The vast steppe below Russia, stretching from the Caspian east to China.",
+      "borders": "The Kazakh SSR's line, consolidated by 1936 to bundle the steppe peoples — including a terrain-free line across open grassland that became, in 1991, the world's longest continuous land border, with Russia.",
       "exports": [
         "crude petroleum",
         "copper",
@@ -374,6 +415,7 @@
     "UZB": {
       "hook": "One of only two doubly landlocked countries on Earth — every route to the sea crosses at least two borders. The other is Liechtenstein.",
       "place": "The centre of Central Asia, touching all four of its neighbours and Afghanistan.",
+      "borders": "The centrepiece of Stalin's 1924 'national delimitation': republic lines drawn valley by valley and village by village, producing the Fergana Valley's interlocking jigsaw with Kyrgyzstan and Tajikistan — enclaves included — and a country that touches all four other -stans.",
       "exports": [
         "gold",
         "natural gas",
@@ -383,6 +425,7 @@
     "TKM": {
       "hook": "The Darvaza gas crater has been burning since 1971, when geologists set it alight expecting it to go out in weeks.",
       "place": "On the Caspian's eastern shore, mostly the Karakum desert, below Kazakhstan and Uzbekistan.",
+      "borders": "The 1924 delimitation assigned the Turkmen lands between the Caspian, the Amu Darya and the Kopet Dag mountains; the Iranian line along those mountains descends from Russo-Persian treaties of the 1880s.",
       "exports": [
         "natural gas",
         "refined petroleum",
@@ -392,6 +435,7 @@
     "TJK": {
       "hook": "Over 90% mountain — the Pamirs are so high and remote the road through them is nicknamed the roof of the world.",
       "place": "The southeastern corner of Central Asia, squeezed between Uzbekistan, Kyrgyzstan, China and Afghanistan.",
+      "borders": "The mountain remainder of the 1924–29 carve-up: it received the high Pamirs but not Samarkand and Bukhara, the historic Tajik-speaking cities left in Uzbekistan — and its Fergana valley edges stayed contested into the 2020s.",
       "exports": [
         "gold",
         "aluminium",
@@ -401,6 +445,7 @@
     "KGZ": {
       "hook": "Lake Issyk-Kul is the second-largest mountain lake in the world and never freezes, despite sitting at 1,600m in the Tian Shan.",
       "place": "The mountainous strip along China's western border, above Tajikistan.",
+      "borders": "Drawn around the Tian Shan in the Soviet delimitation; its rim of the Fergana Valley interlocks so tightly with Uzbek and Tajik territory that the last disputed stretches with Tajikistan were only settled by treaty in 2025.",
       "exports": [
         "gold",
         "refined petroleum",
@@ -410,6 +455,7 @@
     "CHN": {
       "hook": "Borders fourteen countries, tied with Russia for the most on Earth — yet the whole country runs on a single time zone.",
       "place": "The eastern bulk of Asia, from the Pacific coast west to the Himalaya and the Central Asian deserts.",
+      "borders": "The Qing empire's outer reach, largely kept — which is why Tibet and Xinjiang are inside; the Himalayan line with India was never fully agreed (Aksai Chin and Arunachal Pradesh are both still contested), while the river borders with Russia, drawn in the 1860s, were finally settled in 2008.",
       "exports": [
         "broadcasting equipment",
         "computers",
@@ -419,6 +465,7 @@
     "MNG": {
       "hook": "The least densely populated sovereign country on Earth — about two people per square kilometre, and more horses than people.",
       "place": "Landlocked between Russia and China, with nothing else touching it.",
+      "borders": "Outer Mongolia's Qing-era administrative limits, frozen when it broke away in 1911–24 under Russian protection; Inner Mongolia stayed Chinese, and the border is mostly survey lines across steppe and the Gobi rather than any river or crest.",
       "exports": [
         "coal",
         "copper ore",
@@ -428,6 +475,7 @@
     "ETH": {
       "hook": "Never colonised, and it keeps its own calendar — thirteen months, and about seven years behind the one the rest of the world uses.",
       "place": "The highlands of the Horn of Africa, landlocked since Eritrea broke away in 1993.",
+      "borders": "The rare African borders drawn by an African power: Menelik II's conquests, confirmed in treaties with Britain, France and Italy around 1897–1908 — including the Somali-inhabited Ogaden, contested by war as late as 1977; the coast went when Eritrea left in 1993.",
       "exports": [
         "coffee",
         "sesame seeds",
@@ -437,6 +485,7 @@
     "TZA": {
       "hook": "Kilimanjaro rises 5,895m straight off the plain with no range around it — the tallest freestanding mountain on Earth.",
       "place": "On the Indian Ocean below Kenya, with Zanzibar offshore and Lake Victoria at its northwestern corner.",
+      "borders": "German East Africa's lines — the 1890 Anglo-German border with Kenya famously bends around Kilimanjaro to keep the mountain on the German side — plus Zanzibar, whose 1964 union with Tanganyika coined the name Tanzania.",
       "exports": [
         "gold",
         "raw tobacco",
@@ -446,6 +495,7 @@
     "KEN": {
       "hook": "The Great Rift Valley runs straight through it — the same crack in the continent that will eventually split Africa in two.",
       "place": "On the Indian Ocean astride the equator, between Somalia and Tanzania.",
+      "borders": "British East Africa's survey lines: a straight eastern edge through Somali-inhabited country (contested at independence), Lake Victoria's waters divided by compass lines, and the Kilimanjaro bend shared with Tanzania.",
       "exports": [
         "tea",
         "cut flowers",
@@ -455,6 +505,7 @@
     "MOZ": {
       "hook": "One of very few country names containing all five vowels — and its coast faces Madagascar across a 400km channel.",
       "place": "The long Indian Ocean coast below Tanzania, curving around toward South Africa.",
+      "borders": "Portugal's coastal claims, stopped from meeting Angola across the continent by Britain's 1890 ultimatum — hence the long coastal shape; the Ruvuma river draws the northern line, and the Zambezi corridor runs through the middle.",
       "exports": [
         "coal",
         "aluminium",
@@ -464,6 +515,7 @@
     "MDG": {
       "hook": "Broke away from Africa about 160 million years ago, and roughly 90% of its wildlife lives nowhere else on Earth.",
       "place": "The huge island off Mozambique — the fourth largest in the world.",
+      "borders": "An island 400 km off the African coast — no land border; France ruled it as one colony but attached the small Scattered Islands around it to other administrations, which is why those islets are still French and still claimed.",
       "exports": [
         "vanilla",
         "nickel",
@@ -473,6 +525,7 @@
     "UGA": {
       "hook": "The White Nile begins here, flowing out of Lake Victoria and then running 6,000km north to the Mediterranean.",
       "place": "Landlocked on the equator between Kenya and DR Congo, on Lake Victoria's northern shore.",
+      "borders": "A British protectorate bundling old kingdoms — Buganda lends the name; the southern border follows the 1890 Anglo-German agreement's 1°S parallel, and Lake Victoria is split by straight lines through open water.",
       "exports": [
         "gold",
         "coffee",
@@ -482,6 +535,7 @@
     "ZMB": {
       "hook": "Shares Victoria Falls with Zimbabwe — the largest single sheet of falling water in the world, and its spray is visible from 50km away.",
       "place": "Landlocked in south-central Africa above Zimbabwe, touching eight neighbours.",
+      "borders": "Rhodes's British South Africa Company concessions define it; the deep notch of the Congo Pedicle was conceded to Leopold's Congo by an 1894 agreement, and the Zambezi river gives both the southern border and the name.",
       "exports": [
         "refined copper",
         "copper ore",
@@ -491,6 +545,7 @@
     "SOM": {
       "hook": "Has the longest coastline of any country in mainland Africa — over 3,000km wrapping around the Horn.",
       "place": "The Horn itself, curving around Ethiopia from the Gulf of Aden to the Indian Ocean.",
+      "borders": "The 1960 merger of British and Italian Somalilands; the straight western line cuts through Somali grazing lands — the grievance behind the 1977 Ogaden war — and the former British north has run itself as Somaliland since 1991.",
       "exports": [
         "live sheep and goats",
         "gold",
@@ -500,6 +555,7 @@
     "ZWE": {
       "hook": "Named after Great Zimbabwe, a stone city built entirely without mortar — the largest ancient structure south of the Sahara.",
       "place": "Landlocked between Zambia and South Africa, sharing Victoria Falls along its northern border.",
+      "borders": "The land between the rivers: Rhodes's company concessions bounded by the Limpopo in the south and the Zambezi in the north, confirmed as Southern Rhodesia's colonial limits.",
       "exports": [
         "gold",
         "raw tobacco",
@@ -509,6 +565,7 @@
     "MWI": {
       "hook": "Lake Malawi holds more fish species than any other lake on Earth — several hundred of them found nowhere else.",
       "place": "A long thin landlocked country wrapped around its own lake, between Zambia, Tanzania and Mozambique.",
+      "borders": "Britain's Nyasaland protectorate ran along the lake, and the 1890 Anglo-German agreement put the boundary on Lake Malawi's eastern shore rather than mid-water — so Malawi claims the whole lake surface, which Tanzania disputes to this day.",
       "exports": [
         "raw tobacco",
         "raw sugar",
@@ -518,6 +575,7 @@
     "ERI": {
       "hook": "Asmara is a near-intact Italian modernist city, built in the 1930s and now a World Heritage site.",
       "place": "On the Red Sea directly above Ethiopia — this is the coastline Ethiopia lost in 1993.",
+      "borders": "Italy's Red Sea colony, delimited against Ethiopia by treaties of 1900–08 whose ambiguity at Badme helped ignite the 1998–2000 war; independence in 1993 restored the colonial outline — and took Ethiopia's entire coastline with it.",
       "exports": [
         "gold",
         "copper ore",
@@ -527,6 +585,7 @@
     "RWA": {
       "hook": "The land of a thousand hills — and it banned plastic bags back in 2008, long before anyone else did.",
       "place": "Small and landlocked, between DR Congo, Uganda, Tanzania and Burundi.",
+      "borders": "Unusually, a precolonial African kingdom kept nearly intact: Germany and then Belgium administered Rwanda within its royal borders, so the state matches an old polity rather than a survey line — split from twin Burundi in 1962.",
       "exports": [
         "gold",
         "coffee",
@@ -536,6 +595,7 @@
     "BDI": {
       "hook": "One of the most densely populated countries in Africa, and the southernmost headwater of the Nile rises inside it.",
       "place": "Landlocked directly below Rwanda, on the northeastern shore of Lake Tanganyika.",
+      "borders": "Like Rwanda, an old kingdom whose limits survived colonization: administered under German East Africa, then Belgian Ruanda-Urundi, with the 1962 independence split restoring the two kingdoms as separate states.",
       "exports": [
         "gold",
         "coffee",
@@ -545,6 +605,7 @@
     "DJI": {
       "hook": "Lake Assal is the lowest point in Africa and one of the saltiest bodies of water anywhere — saltier than the Dead Sea.",
       "place": "A small country on the Bab-el-Mandeb strait, wedged between Eritrea, Ethiopia and Somalia.",
+      "borders": "France's toehold at the Red Sea's exit: treaties of 1888–1901 with Ethiopia and Italy drew a small triangle around the port and the railhead — a border justified almost entirely by the railway to Addis Ababa.",
       "exports": [
         "reexported goods",
         "livestock",
@@ -554,6 +615,7 @@
     "MUS": {
       "hook": "The dodo lived here and only here, and was gone within about eighty years of humans first landing.",
       "place": "An island in the Indian Ocean roughly 900km east of Madagascar.",
+      "borders": "Volcanic islands with no neighbour for 800 km; the contested line was drawn in colonial paperwork when Britain detached the Chagos archipelago in 1965 — a severance ruled unlawful, with sovereignty finally conceded back in the 2020s.",
       "exports": [
         "knitted garments",
         "raw sugar",
@@ -563,6 +625,7 @@
     "COM": {
       "hook": "Supplies most of the world's ylang-ylang — the flower essence at the heart of Chanel No. 5.",
       "place": "A small archipelago in the channel between Mozambique and Madagascar.",
+      "borders": "A border decided by referendum, island by island: three of the four Comoro islands voted for independence in 1974, while France kept Mayotte — which Comoros claims to this day.",
       "exports": [
         "cloves",
         "essential oils",
@@ -572,6 +635,7 @@
     "SYC": {
       "hook": "The smallest population of any African country, and its coco de mer palm grows the largest seed in the plant kingdom.",
       "place": "115 islands in the Indian Ocean, northeast of Madagascar.",
+      "borders": "A scatter of 115 islands with no neighbours — claimed by France, taken by Britain in 1814, and independent since 1976; its only boundaries are vast maritime ones.",
       "exports": [
         "fish",
         "refined petroleum",
@@ -581,6 +645,7 @@
     "UKR": {
       "hook": "The largest country lying entirely within Europe, sitting on roughly a third of the world's black-earth chernozem soil.",
       "place": "North of the Black Sea, filling the space between Poland and Russia.",
+      "borders": "Soviet republic lines: the west was annexed from interwar Poland, Romania and Czechoslovakia in 1939–45, Crimea transferred from the Russian republic in 1954 — the lines Russia has been violating by force since 2014.",
       "exports": [
         "sunflower oil",
         "corn",
@@ -590,6 +655,7 @@
     "BLR": {
       "hook": "About 40% forest, and it shares the Białowieża primeval woodland — and its bison — with Poland.",
       "place": "Landlocked between Poland and Russia, directly above Ukraine.",
+      "borders": "A Soviet republic line across flat marsh and forest with no terrain to follow: the western half was Polish between the wars until the 1939 partition, and the eastern edge roughly follows the old Tsarist provinces.",
       "exports": [
         "potassic fertilizers",
         "refined petroleum",
@@ -599,6 +665,7 @@
     "MDA": {
       "hook": "One of the most wine-dependent economies anywhere — the Cricova cellars alone run for over 120km underground, with streets and traffic signs.",
       "place": "The small landlocked country wedged between Romania and Ukraine.",
+      "borders": "Bessarabia — the land between the Prut and Dniester rivers — taken from Romania by the USSR in 1940; the strip beyond the Dniester, stapled on then, now runs itself as the unrecognized state of Transnistria.",
       "exports": [
         "sunflower seeds",
         "insulated wire",
@@ -608,6 +675,7 @@
     "JPN": {
       "hook": "Nearly 14,000 islands, and three quarters of the land is mountain — almost everyone is packed onto the coastal fringe.",
       "place": "The arc of islands off the Asian mainland, east of the Korean peninsula.",
+      "borders": "An archipelago with no land border — the contested lines are at sea: the four southern Kuril islands, seized by the USSR in the last days of 1945, still block a formal peace treaty with Russia.",
       "exports": [
         "cars",
         "vehicle parts",
@@ -617,6 +685,7 @@
     "KOR": {
       "hook": "Went from one of the world's poorest countries to one of its richest inside a single lifetime — the fastest such climb on record.",
       "place": "The southern half of the Korean peninsula, facing Japan across a narrow strait.",
+      "borders": "The DMZ is the 1953 armistice line — near, but not identical to, the 38th parallel along which the US and USSR hastily divided the peninsula in 1945; a 'temporary' line now the world's most fortified border.",
       "exports": [
         "integrated circuits",
         "cars",
@@ -626,6 +695,7 @@
     "PRK": {
       "hook": "The 4km-wide strip separating it from the South has been left alone so long it has become an accidental wildlife refuge.",
       "place": "The northern half of the Korean peninsula, bordering China along the Yalu river.",
+      "borders": "The Yalu and Tumen rivers have been Korea's border with China since the fifteenth century, with a short Russian touch at the Tumen's mouth; the southern edge is the 1953 armistice line, not a negotiated border.",
       "exports": [
         "coal",
         "iron alloys",
@@ -635,6 +705,7 @@
     "TUR": {
       "hook": "Straddles two continents, which makes Istanbul the only major city in the world with a European half and an Asian half.",
       "place": "The land bridge between Europe and Asia, Black Sea above, Mediterranean below.",
+      "borders": "The 1923 Treaty of Lausanne, won by Atatürk after tearing up the punitive Sèvres partition: the Maritsa river with Greece, the 1921 Kars treaty line in the Caucasus, and a Syrian border that famously follows the old Baghdad railway track.",
       "exports": [
         "cars",
         "vehicle parts",
@@ -644,6 +715,7 @@
     "SAU": {
       "hook": "The largest country on Earth with no rivers — not one permanent watercourse anywhere in it.",
       "place": "Most of the Arabian peninsula, Red Sea to the west, the Gulf to the east.",
+      "borders": "Desert lines mostly ruled by Britain in the 1920s — the Uqair conference simply drew them on a map — and finished by quiet bilateral deals as late as 2000, when the Yemen line through the Empty Quarter was finally fixed.",
       "exports": [
         "crude petroleum",
         "refined petroleum",
@@ -653,6 +725,7 @@
     "IRQ": {
       "hook": "Mesopotamia, the land between the Tigris and Euphrates — writing, the wheel and the city were all invented here.",
       "place": "Between Iran and Syria, with a narrow squeeze of coast at the head of the Gulf.",
+      "borders": "Stitched by Britain after WWI from three Ottoman provinces — Mosul, Baghdad, Basra; the Kuwait line, another British creation confirmed by the UN in 1993, is what leaves it with barely 50 km of coast.",
       "exports": [
         "crude petroleum",
         "refined petroleum",
@@ -662,6 +735,7 @@
     "YEM": {
       "hook": "Its island of Socotra has been isolated so long that a third of its plants grow nowhere else — including trees that bleed red sap.",
       "place": "The southwestern corner of Arabia, on the strait where the Red Sea meets the Gulf of Aden.",
+      "borders": "Two Yemens merged in 1990: the north's Ottoman-era limits and the south's British Aden protectorate, joined to a long Empty Quarter line with Saudi Arabia that was only settled by the Treaty of Jeddah in 2000.",
       "exports": [
         "crude petroleum",
         "fish",
@@ -671,6 +745,7 @@
     "SYR": {
       "hook": "Damascus has been continuously inhabited for perhaps 11,000 years, which makes it a contender for the oldest city on Earth.",
       "place": "On the eastern Mediterranean between Türkiye and Jordan, with Iraq to the east.",
+      "borders": "A French mandate cut from Ottoman Syria: the dead-straight desert line with Iraq is the Anglo-French partition sketched in Sykes–Picot, the northern border follows the Baghdad railway — and Hatay, ceded to Türkiye in 1939, still appears on some Syrian maps.",
       "exports": [
         "olive oil",
         "spices",
@@ -680,6 +755,7 @@
     "OMN": {
       "hook": "Its detached northern tip controls the Strait of Hormuz, the 33km gap that about a fifth of the world's oil must pass through.",
       "place": "The southeastern corner of Arabia, with the Musandam exclave cut off by the UAE.",
+      "borders": "The sultanate's coastal reach plus desert lines settled quietly with Saudi Arabia in 1990 and Yemen in 1992; the Musandam exclave guarding the Strait of Hormuz is cut off by UAE territory — a matter of which tribes swore loyalty to whom.",
       "exports": [
         "crude petroleum",
         "refined petroleum",
@@ -689,6 +765,7 @@
     "JOR": {
       "hook": "Its Dead Sea shore is the lowest dry land on the planet, about 430m below sea level — and dropping about a metre a year.",
       "place": "Between the West Bank and Iraq, with one small outlet to the Red Sea at Aqaba.",
+      "borders": "Churchill's 1921 creation of Transjordan carved the mandate lands east of the Jordan river into an emirate; in 1965 it traded desert with Saudi Arabia to stretch its tiny Red Sea coastline at Aqaba.",
       "exports": [
         "potassic fertilizers",
         "packaged medicines",
@@ -698,6 +775,7 @@
     "AZE": {
       "hook": "The name means Land of Fire, and the gas seeps at Yanar Dag have been burning on the hillside for centuries.",
       "place": "On the Caspian's western shore below Russia, with the Nakhchivan exclave cut off by Armenia.",
+      "borders": "Soviet lines with long consequences: the 1921 settlement placed Armenian-populated Karabakh inside Azerbaijan — retaken by force in 2020–23 — and left Nakhchivan as an exclave separated by Armenian territory.",
       "exports": [
         "crude petroleum",
         "refined petroleum",
@@ -707,6 +785,7 @@
     "ARE": {
       "hook": "A federation of seven emirates, and home to the Burj Khalifa — still the tallest building in the world by a wide margin.",
       "place": "On the southern shore of the Gulf, between Saudi Arabia and Oman.",
+      "borders": "Seven Trucial sheikhdoms that federated in 1971 keeping their tribal-allegiance boundaries — which is why the map is a jigsaw of enclaves, including an Omani enclave that itself contains a piece of Sharjah.",
       "exports": [
         "crude petroleum",
         "gold",
@@ -716,6 +795,7 @@
     "GEO": {
       "hook": "Has been making wine for about 8,000 years, fermenting it in clay vessels buried in the ground — the oldest such tradition known.",
       "place": "Between the Black Sea and the Caucasus, below Russia and above Armenia and Türkiye.",
+      "borders": "The Caucasus main crest carries the Russian border above the old kingdoms' lands, fixed as a Soviet republic; the lines around Abkhazia and South Ossetia are 1990s ceasefire lines that Russia now treats as borders.",
       "exports": [
         "copper ore",
         "cars",
@@ -725,6 +805,7 @@
     "ISR": {
       "hook": "Recycles around 90% of its wastewater, far more than any other country — the next best manages barely a quarter.",
       "place": "A narrow strip on the eastern Mediterranean, between Lebanon and Egypt's Sinai.",
+      "borders": "The 1949 armistice line — the 'Green Line' — not the 1947 UN partition map; the Egyptian and Jordanian borders were settled by the 1979 and 1994 peace treaties along old mandate lines.",
       "exports": [
         "diamonds",
         "integrated circuits",
@@ -734,6 +815,7 @@
     "LBN": {
       "hook": "The cedar on its flag once supplied timber to Egypt and Phoenicia for millennia — only a few ancient groves are left standing.",
       "place": "A narrow coastal strip on the eastern Mediterranean, squeezed between Syria and Israel.",
+      "borders": "France carved 'Greater Lebanon' from mandate Syria in 1920, attaching the Bekaa valley and the coastal cities to the Christian-majority Mount Lebanon core — a border Syria declined to formally demarcate for decades.",
       "exports": [
         "gold",
         "jewellery",
@@ -743,6 +825,7 @@
     "ARM": {
       "hook": "The first state anywhere to adopt Christianity, in 301 — and its national symbol, Mount Ararat, sits across a closed border in Türkiye.",
       "place": "Landlocked in the southern Caucasus, ringed by Türkiye, Georgia, Azerbaijan and Iran.",
+      "borders": "The 1921 treaties of Moscow and Kars fixed the Turkish line — putting Mount Ararat, the national symbol, just outside; the Azerbaijani lines are Soviet-drawn, leaving Karabakh beyond them, the spark of the wars since 1988.",
       "exports": [
         "copper ore",
         "gold",
@@ -752,6 +835,7 @@
     "KWT": {
       "hook": "Its dinar is the highest-valued currency in the world — one buys more than three US dollars.",
       "place": "At the very top of the Gulf, wedged between Iraq and Saudi Arabia.",
+      "borders": "Drawn at the 1922 Uqair conference, where Britain's Percy Cox reportedly pencilled the lines personally — granting Saudi Arabia a slice of Kuwait's claimed desert and boxing Iraq away from the Gulf, a grievance Saddam invoked in 1990.",
       "exports": [
         "crude petroleum",
         "refined petroleum",
@@ -761,6 +845,7 @@
     "PSE": {
       "hook": "Two separated territories with Israel in between — the West Bank and Gaza are about 45km apart with no direct link.",
       "place": "The West Bank inland along the Jordan, and Gaza on the Mediterranean coast beside Egypt.",
+      "borders": "The West Bank and Gaza are the two pieces of mandate Palestine left outside Israel by the 1949 armistice — held then by Jordan and Egypt, occupied by Israel since 1967, with the Green Line still the reference for every peace plan.",
       "exports": [
         "building stone",
         "dates",
@@ -770,6 +855,7 @@
     "QAT": {
       "hook": "Sits on the largest single natural gas field on Earth, which it shares with Iran across the middle of the Gulf.",
       "place": "A thumb of land pointing north into the Gulf from Saudi Arabia.",
+      "borders": "A peninsula under British protection whose single land line, with Saudi Arabia, was only finally fixed in agreements completed in 2008; the Hawar islands question with Bahrain took a 2001 world-court ruling.",
       "exports": [
         "natural gas",
         "crude petroleum",
@@ -779,6 +865,7 @@
     "BHR": {
       "hook": "First Gulf state to strike oil, and the first to largely run out — it has been diversifying longer than its neighbours have had to.",
       "place": "A small archipelago in the Gulf off Saudi Arabia's east coast, linked by a 25km causeway.",
+      "borders": "An island state with no land border at all; the 2001 International Court of Justice ruling with Qatar over the Hawar islands closed one of the region's oldest disputes, and the King Fahd Causeway is the only land link out.",
       "exports": [
         "refined petroleum",
         "aluminium",
@@ -788,6 +875,7 @@
     "USA": {
       "hook": "The only country with land borders on just two nations yet coastline on three oceans — the Arctic one courtesy of Alaska, bought from Russia for two cents an acre.",
       "place": "The wide middle of North America, Canada above and Mexico below, with Alaska detached in the far northwest corner.",
+      "borders": "The 49th parallel with Canada is a pure treaty line of latitude (1818–46); the Mexican border is half Rio Grande, half a surveyors' desert line, both from the 1848 treaty that ended the Mexican–American War.",
       "exports": [
         "refined petroleum",
         "crude petroleum",
@@ -797,6 +885,7 @@
     "CAN": {
       "hook": "Has the longest coastline of any country on Earth — about 202,000km, roughly a sixth of the world's total, thanks to a shattered Arctic archipelago.",
       "place": "Everything above the United States, ocean to ocean to ocean. The border it shares with the US is the longest between any two countries.",
+      "borders": "The world's longest border: the Great Lakes and St Lawrence in the east, the 49th parallel — an 1818 diplomatic compromise — ruled straight across the west, and the Alaska panhandle line settled by arbitration in 1903.",
       "exports": [
         "crude petroleum",
         "cars",
@@ -806,6 +895,7 @@
     "MEX": {
       "hook": "Mexico City is sinking as much as 50cm a year in places — it was built on a drained lake bed, and the ground is still compacting under it.",
       "place": "The funnel narrowing southeast from the US border down to the Central American chain.",
+      "borders": "Lost everything north of the Rio Grande and the desert survey line to the US in 1848 after the Mexican–American War; the southern border with Guatemala follows the Usumacinta river and 1882 treaty lines through rainforest.",
       "exports": [
         "cars",
         "vehicle parts",
@@ -815,6 +905,7 @@
     "EGY": {
       "hook": "About 95% of Egyptians live on roughly 5% of the land — from orbit the inhabited country is a thin green ribbon along the Nile.",
       "place": "The northeast corner of Africa, with the Sinai peninsula reaching across into Asia.",
+      "borders": "Britain drew the straight 22nd-parallel line with Sudan in 1899, then bent an administrative line around it in 1902 — creating the still-disputed Halayib Triangle and Bir Tawil, the rare land that neither country wants.",
       "exports": [
         "crude petroleum",
         "refined petroleum",
@@ -824,6 +915,7 @@
     "DZA": {
       "hook": "The largest country in Africa, and about four-fifths of it is Sahara — the population clings to the northern coast.",
       "place": "The middle of the Maghreb coast between Morocco and Tunisia, running deep south into the desert.",
+      "borders": "France governed the Sahara from Algiers and drew the desert lines to match, which is why Algeria swells so deep into the desert; the Moroccan line was left vague enough to cause the 1963 Sand War, and it has been closed since 1994.",
       "exports": [
         "natural gas",
         "crude petroleum",
@@ -833,6 +925,7 @@
     "SDN": {
       "hook": "Has more pyramids than Egypt — around 200 of them at Meroë, steeper and narrower, and far less visited.",
       "place": "Below Egypt on the Red Sea, above South Sudan, where the Blue and White Niles meet at Khartoum.",
+      "borders": "The Anglo-Egyptian condominium's 1899 lines — the 22nd parallel in the north, colonial survey lines around the rest; the south departed in 2011 along the old internal north–south administrative line, with Abyei still unassigned.",
       "exports": [
         "gold",
         "crude petroleum",
@@ -842,6 +935,7 @@
     "MAR": {
       "hook": "You can stand on its coast and see Spain — the Strait of Gibraltar is only about 13km across at its narrowest.",
       "place": "The northwest corner of Africa, with both Atlantic and Mediterranean coasts and the Atlas range inland.",
+      "borders": "The Algerian line was never fully settled under France — hence the 1963 Sand War; south of the 27°40′ line it holds Western Sahara, the former Spanish colony it annexed after the 1975 Green March, whose status the UN still lists as undecided.",
       "exports": [
         "cars",
         "phosphates",
@@ -851,6 +945,7 @@
     "LBY": {
       "hook": "The Great Man-Made River pumps fossil water from under the Sahara through 2,800km of pipe — the largest irrigation project ever built.",
       "place": "On the Mediterranean between Tunisia and Egypt, almost entirely desert behind a thin coastal strip.",
+      "borders": "Three Ottoman-then-Italian provinces — Tripolitania, Cyrenaica, Fezzan — boxed in by straight colonial lines; its claim to Chad's Aouzou Strip, based on an unratified 1935 treaty, was ended by the world court in 1994.",
       "exports": [
         "crude petroleum",
         "refined petroleum",
@@ -860,6 +955,7 @@
     "TUN": {
       "hook": "Contains the northernmost point in Africa, and Carthage — Rome's great rival — stood just outside the modern capital.",
       "place": "The small wedge on the Mediterranean between Algeria and Libya, reaching closest to Sicily.",
+      "borders": "Roughly the Ottoman beylik of Tunis, fixed under the French protectorate — the oldest and most stable outline in the Maghreb, with only the southern desert wedge added by French survey lines.",
       "exports": [
         "insulated wire",
         "non-knit garments",
@@ -869,6 +965,7 @@
     "GBR": {
       "hook": "Nowhere in Britain is more than about 125km from the sea — no point on the island is genuinely inland.",
       "place": "The large island off northwest France, plus Northern Ireland across the Irish Sea.",
+      "borders": "An island state whose one land border — across Ireland — is the 1921 partition line around six Ulster counties, following old county boundaries rather than any natural feature.",
       "exports": [
         "gold",
         "cars",
@@ -878,6 +975,7 @@
     "SWE": {
       "hook": "Has roughly 270,000 islands, more than any other country, though barely a thousand of them are lived on.",
       "place": "The eastern half of the Scandinavian peninsula, Norway to the west, Baltic Sea to the east.",
+      "borders": "The Scandinavian mountain crest with Norway was surveyed in 1751 and has barely moved — one of Europe's oldest lines; the Torne river became the Finnish border in 1809 when Sweden lost Finland to Russia.",
       "exports": [
         "cars",
         "packaged medicines",
@@ -887,6 +985,7 @@
     "FIN": {
       "hook": "Counts about 188,000 lakes, and its language is related to neither Swedish nor Russian — it is not Indo-European at all.",
       "place": "East of Sweden, sharing a 1,340km border with Russia — the longest in the EU.",
+      "borders": "The Torne river line marks where Russia tore Finland from Sweden in 1809; the eastern border is the 1944 armistice line — Karelia and the Arctic port of Petsamo stayed Soviet, sealing Finland off from the Barents Sea.",
       "exports": [
         "refined petroleum",
         "paper",
@@ -896,6 +995,7 @@
     "NOR": {
       "hook": "The fjords fold its coastline out to about 100,000km — more than twice the distance around the Earth.",
       "place": "The western spine of Scandinavia, running up the Atlantic side from Denmark to the Arctic.",
+      "borders": "The mountain watershed with Sweden, agreed in 1751 and unchanged since; the short Arctic line with Russia along the Pasvik river dates to an 1826 treaty.",
       "exports": [
         "crude petroleum",
         "natural gas",
@@ -905,6 +1005,7 @@
     "IRL": {
       "hook": "Has no native snakes, and far more people of Irish descent live abroad than on the island itself.",
       "place": "The western island of the British Isles, across the Irish Sea from Britain.",
+      "borders": "The 1921 partition left six counties in the UK, and the border simply traces their centuries-old county lines — which is why it wanders through farmyards and villages with no natural logic at all.",
       "exports": [
         "packaged medicines",
         "blood products",
@@ -914,6 +1015,7 @@
     "DNK": {
       "hook": "Over 400 islands and a peninsula, and no point in the country is further than about 52km from the sea.",
       "place": "The peninsula and islands above Germany, corking the entrance to the Baltic. Greenland and the Faroes are its territories.",
+      "borders": "The Jutland border was set by plebiscite in 1920: Schleswig voted zone by zone on being Danish or German after half a century under Prussia — one of the few borders in the world drawn by asking the residents.",
       "exports": [
         "packaged medicines",
         "electric generators",
@@ -923,6 +1025,7 @@
     "LTU": {
       "hook": "Was once the largest country in Europe — the medieval Grand Duchy stretched from the Baltic all the way to the Black Sea.",
       "place": "The southernmost of the three Baltic states, sitting directly above Poland.",
+      "borders": "Soviet republic lines made international in 1991 — including Vilnius, which interwar Poland had seized, restored in 1939; the line along Kaliningrad marks where East Prussia was erased in 1945.",
       "exports": [
         "refined petroleum",
         "furniture",
@@ -932,6 +1035,7 @@
     "LVA": {
       "hook": "Riga holds the largest concentration of Art Nouveau architecture anywhere in the world.",
       "place": "The middle of the three Baltic states, between Estonia and Lithuania.",
+      "borders": "Essentially the 1920 independence treaty lines, restored in 1991 minus the Abrene border district that Russia kept — beneath them, the old boundary between the Baltic provinces of the Tsarist empire.",
       "exports": [
         "sawn wood",
         "wheat",
@@ -941,6 +1045,7 @@
     "EST": {
       "hook": "The first country in the world to hold a general election online, and more forested now than a century ago.",
       "place": "The northernmost Baltic state, across a narrow gulf from Finland.",
+      "borders": "The 1920 Treaty of Tartu drew the first border; on the 1991 restoration the land east of the Narva river and around Pechory stayed Russian, and the treaty meant to confirm the new line remains unratified.",
       "exports": [
         "broadcasting equipment",
         "refined petroleum",
@@ -950,6 +1055,7 @@
     "ISL": {
       "hook": "Straddles the Mid-Atlantic Ridge and is pulling apart about 2cm a year — and heats nearly every home with geothermal water.",
       "place": "Alone in the North Atlantic between Norway and Greenland, just below the Arctic Circle.",
+      "borders": "No land neighbour within 750 km — Iceland's real boundary battles were at sea, where it pushed its fishing limit from 4 to 200 miles through three 'Cod Wars' with Britain and won every round.",
       "exports": [
         "aluminium",
         "fish fillets",
@@ -959,6 +1065,7 @@
     "PNG": {
       "hook": "Over 800 living languages are spoken here — roughly one in eight of all the languages on Earth, in one country.",
       "place": "The eastern half of New Guinea, sharing the island with Indonesia, directly north of Australia.",
+      "borders": "The ruler-straight 141°E line down New Guinea is the old Dutch–German/British partition — the Dutch west became Indonesian Papua in the 1960s; the eastern half's two colonial pieces merged under Australia, and Bougainville voted for independence in 2019.",
       "exports": [
         "natural gas",
         "gold",
@@ -968,6 +1075,7 @@
     "SLB": {
       "hook": "Nearly a thousand islands, and Guadalcanal among them — the campaign fought there turned the Pacific war.",
       "place": "A double chain running southeast from Papua New Guinea, northeast of Australia.",
+      "borders": "The 1899 Anglo-German deal split the Solomon chain: Buka and Bougainville — geographically Solomon islands — went to German New Guinea and are in PNG today, so the border cuts across the archipelago it names.",
       "exports": [
         "rough wood",
         "fish",
@@ -977,6 +1085,7 @@
     "FJI": {
       "hook": "The 180th meridian runs right through it, so the international date line had to be bent around the country to keep it on one day.",
       "place": "About 330 islands in the South Pacific east of Vanuatu — the hub of the region.",
+      "borders": "An archipelago ceded whole to Britain by its chiefs in 1874 — no line touches another state, and the country's extent is simply the 330-island group of the cession.",
       "exports": [
         "water",
         "fish",
@@ -986,6 +1095,7 @@
     "VUT": {
       "hook": "Regularly ranked the most disaster-exposed country on Earth — cyclones, earthquakes and active volcanoes, all at once.",
       "place": "A Y-shaped chain west of Fiji, out in the Coral Sea east of Australia.",
+      "borders": "Ruled jointly by Britain and France as the New Hebrides condominium — duplicate police forces, courts and currencies — until 1980: an archipelago two empires shared rather than split.",
       "exports": [
         "fish",
         "copra",
@@ -995,6 +1105,7 @@
     "WSM": {
       "hook": "Skipped 30 December 2011 entirely, jumping across the date line so it could share a working week with Australia and New Zealand.",
       "place": "In Polynesia, northeast of Fiji.",
+      "borders": "The 1899 partition of the Samoan islands: Germany took the west (independent since 1962), the United States kept the east — one people still divided between Samoa and American Samoa by a colonial meridian.",
       "exports": [
         "coconut oil",
         "fish",
@@ -1004,6 +1115,7 @@
     "KIR": {
       "hook": "The only country in all four hemispheres — its islands are scattered over 3.5 million km² of ocean, an area the size of India.",
       "place": "Strung across the central Pacific, straddling both the equator and the date line.",
+      "borders": "The Gilbert and Ellice Islands colony split by referendum in the 1970s along ethnic lines — the Micronesian Gilberts became Kiribati; its islands then straddle so much ocean that the International Date Line was bent around it in 1995.",
       "exports": [
         "fish",
         "coconut oil",
@@ -1013,6 +1125,7 @@
     "FSM": {
       "hook": "Nan Madol is a ruined city built on around a hundred artificial islets of stacked basalt — a Venice made of volcanic rock.",
       "place": "A long scatter of islands north of Papua New Guinea, running east from Palau.",
+      "borders": "Four districts of the US Trust Territory of the Pacific that federated in 1979 — Palau and the Marshalls voted to go their own way — so its boundaries are trusteeship district lines across open ocean.",
       "exports": [
         "fish",
         "ships",
@@ -1022,6 +1135,7 @@
     "TON": {
       "hook": "The only Pacific nation never colonised, and the only one to keep its own monarchy unbroken through the whole colonial era.",
       "place": "In Polynesia south of Samoa and east of Fiji.",
+      "borders": "The one Pacific kingdom never colonized: a British-protected monarchy that kept its own archipelago intact, its extent the islands the Tongan kings had always ruled.",
       "exports": [
         "squash",
         "fish",
@@ -1031,6 +1145,7 @@
     "MHL": {
       "hook": "Bikini Atoll absorbed 23 nuclear tests, one of them a thousand times the Hiroshima bomb — the crater is still in the reef.",
       "place": "Two parallel chains of atolls in the central Pacific, north of Kiribati.",
+      "borders": "German, then Japanese, then American trust territory: the Marshalls voted for separate free association with the US rather than joining the Federated States of Micronesia — a border set by trusteeship ballot.",
       "exports": [
         "ships",
         "fish",
@@ -1040,6 +1155,7 @@
     "PLW": {
       "hook": "Created the world's first shark sanctuary, and requires every visitor to sign a pledge to the country's children on arrival.",
       "place": "The westernmost Pacific islands, east of the Philippines and north of Indonesia.",
+      "borders": "Voted itself out of the proposed Federated States of Micronesia in 1978 and into separate free association with the US — the westernmost Carolines became a state by referendum.",
       "exports": [
         "fish",
         "ships",
@@ -1049,6 +1165,7 @@
     "TUV": {
       "hook": "Earns a large slice of national income leasing its .tv internet domain — an accident of the alphabet worth millions a year.",
       "place": "Nine low atolls in the central Pacific north of Fiji, and among the smallest countries anywhere.",
+      "borders": "The Polynesian half of the Gilbert-and-Ellice split: nine atolls whose people voted in 1974 to separate from the Micronesian Gilberts rather than remain a minority in a single colony-turned-state.",
       "exports": [
         "fish",
         "ships",
@@ -1058,6 +1175,7 @@
     "NRU": {
       "hook": "About 21km² and strip-mined for phosphate until most of the interior was left as bare limestone pinnacles — briefly the richest country per head on Earth.",
       "place": "A single island just south of the equator, west of Kiribati.",
+      "borders": "A single 21 km² phosphate island mined under German, British-Australian and UN administration in turn — the world's smallest island republic, with no boundary but its own reef.",
       "exports": [
         "phosphates",
         "fish",
@@ -1067,6 +1185,7 @@
     "RUS": {
       "hook": "Spans eleven time zones — when Monday morning starts in Kaliningrad it is already Monday evening in Kamchatka.",
       "place": "From the Baltic to the Pacific across the whole top of Asia. Kaliningrad is a detached piece between Poland and Lithuania.",
+      "borders": "Four centuries of expansion to the Pacific, cut back in the west by the USSR's 1991 collapse into republic lines; the Amur and Ussuri rivers carry the Chinese border from 1860s treaties (final islands split in 2008), and Kaliningrad survives as an exclave carved from East Prussia in 1945.",
       "exports": [
         "crude petroleum",
         "refined petroleum",
@@ -1076,6 +1195,7 @@
     "NER": {
       "hook": "Has the youngest population on Earth — around half of Niger is under fifteen.",
       "place": "Landlocked and mostly Sahara, sitting directly on top of Nigeria. The two names are the mix-up to watch.",
+      "borders": "French West Africa's internal lines made international in 1960: survey arcs across the Sahara, a Libyan line inherited from Franco-Italian bargains, and the southern edge along Anglo-French treaty lines of 1898–1906 that split Hausa country with Nigeria.",
       "exports": [
         "uranium",
         "gold",
@@ -1085,6 +1205,7 @@
     "MLI": {
       "hook": "Timbuktu was a university town when Oxford was new, and its medieval ruler Mansa Musa may have been the richest person who ever lived.",
       "place": "Landlocked across the western Sahel, with the Niger river arcing through its middle.",
+      "borders": "French Sudan's administrative outline: ruler lines across the desert toward Algeria and Mauritania, and a scalloped southern edge negotiated around existing chiefdoms — none of it older than the 1890s.",
       "exports": [
         "gold",
         "cotton",
@@ -1094,6 +1215,7 @@
     "MRT": {
       "hook": "Runs one of the longest trains in the world — up to 2.5km of iron ore across the desert, with passengers riding on top of the load.",
       "place": "Where the Sahara meets the Atlantic, above Senegal and west of Mali.",
+      "borders": "French survey lines linking France's West African and North African holdings — including a right-angled bite at the northeast drawn to skirt then-Spanish Sahara; it annexed the southern third of Western Sahara in 1976 and renounced it in 1979.",
       "exports": [
         "iron ore",
         "gold",
@@ -1103,6 +1225,7 @@
     "BRA": {
       "hook": "Borders every country in South America except Chile and Ecuador — ten neighbours, more than any country outside Russia and China.",
       "place": "Fills the whole eastern bulge. If you can draw Brazil, the rest of the continent is the leftovers around it.",
+      "borders": "The 1750 Treaty of Madrid swapped the paper Tordesillas line for where Portuguese settlers actually were — which is why Brazil bulges far west of the original divide; most modern edges are watershed and river lines negotiated peacefully around 1900 by the diplomat Rio Branco.",
       "exports": [
         "soybeans",
         "iron ore",
@@ -1112,6 +1235,7 @@
     "ARG": {
       "hook": "Home to Aconcagua, at 6,961m the highest peak anywhere outside Asia — and it sits barely 100km from the Chilean border.",
       "place": "The long southern wedge below Brazil, sharing the Andes spine with Chile the whole way down.",
+      "borders": "The 1881 treaty with Chile put the border on 'the highest peaks dividing the waters' of the Andes — a formula ambiguous enough to feed disputes for a century; the northern lines follow the Pilcomayo and Paraná rivers after wars and arbitrations.",
       "exports": [
         "soybean meal",
         "corn",
@@ -1121,6 +1245,7 @@
     "COL": {
       "hook": "The only country in South America with coastline on both the Pacific and the Caribbean.",
       "place": "The top-left corner of the continent, and the only one that touches Panama — the land bridge to North America.",
+      "borders": "Spanish viceroyalty lines trimmed by losses: Panama seceded with US backing in 1903, and the southern Amazon reach down to Leticia survived a 1932–33 border war with Peru.",
       "exports": [
         "crude petroleum",
         "coal briquettes",
@@ -1130,6 +1255,7 @@
     "PER": {
       "hook": "The Amazon starts here, in Andean meltwater, and runs the width of the continent before reaching the Atlantic in Brazil.",
       "place": "Pacific coast, just south of the equator. Ecuador and Colombia above, Chile below, Brazil behind the mountains.",
+      "borders": "Colonial audiencia lines fought over ever since: the nitrate-rich south went to Chile in the War of the Pacific (1879–83), and the Ecuador line in the Cordillera del Cóndor was only demarcated after a 1995 war and the 1998 peace.",
       "exports": [
         "copper ore",
         "gold",
@@ -1139,6 +1265,7 @@
     "VEN": {
       "hook": "Angel Falls drops 979m, so tall the water atomises into mist before it lands.",
       "place": "The Caribbean shoulder, east of Colombia. Trinidad sits just off its northeast tip.",
+      "borders": "The old Captaincy General's limits — except in the east, where an 1899 arbitration drew the Essequibo line with British Guiana. Venezuela repudiated that award and still claims everything west of the Essequibo river.",
       "exports": [
         "crude petroleum",
         "gold",
@@ -1148,6 +1275,7 @@
     "CHL": {
       "hook": "4,300km long and averages 180km wide — the same proportions as a country stretched from Norway to the Sahara.",
       "place": "The ribbon down the Pacific edge, pinned between the Andes and the ocean for its entire length.",
+      "borders": "A ribbon pinned between the Andes crest and the Pacific by the 1881 treaty with Argentina; the northern third — Bolivia's coast and Peru's Tarapacá — was won in the War of the Pacific, which is why Bolivia is landlocked.",
       "exports": [
         "refined copper",
         "copper ore",
@@ -1157,6 +1285,7 @@
     "BOL": {
       "hook": "Landlocked since 1884, and still keeps a navy — it patrols Lake Titicaca and waits for the sea to come back.",
       "place": "The landlocked heart of the continent, ringed by Brazil, Peru, Chile, Argentina and Paraguay.",
+      "borders": "A map of losses: the Pacific coast to Chile (1879–83), the rubber-rich Acre to Brazil (1903), and much of the Chaco to Paraguay after the bloody 1932–35 war — each defeat carved today's outline.",
       "exports": [
         "natural gas",
         "gold",
@@ -1166,6 +1295,7 @@
     "ECU": {
       "hook": "Named after the equator, which crosses just north of Quito — the only country named for a line of latitude.",
       "place": "A small Pacific notch between Colombia and Peru. The Galápagos belong to it, 900km out to sea.",
+      "borders": "Colonial Quito's claimed Amazon wedge appeared on its maps until 1998: most of it went to Peru in the 1941 war and the Rio Protocol, and the final Cordillera del Cóndor stretch was settled after the 1995 Cenepa war.",
       "exports": [
         "crude petroleum",
         "bananas",
@@ -1175,6 +1305,7 @@
     "PRY": {
       "hook": "Runs almost entirely on the Itaipú dam and sells the surplus to Brazil, making it one of the world's largest electricity exporters per head.",
       "place": "The other landlocked one, tucked between Bolivia, Brazil and Argentina.",
+      "borders": "Rivers nearly all the way round — Paraná, Paraguay, Pilcomayo. It lost swathes of territory after the catastrophic War of the Triple Alliance (1864–70), then won most of the disputed Chaco from Bolivia in the 1930s.",
       "exports": [
         "soybeans",
         "electricity",
@@ -1184,6 +1315,7 @@
     "URY": {
       "hook": "Smaller than every other Spanish-speaking country in South America, with more cattle than people — about four to one.",
       "place": "The small wedge on the Atlantic between Brazil and Argentina, across the river from Buenos Aires.",
+      "borders": "Created whole as a buffer state: Britain brokered its independence in 1828 precisely so neither Brazil nor Argentina would hold both banks of the Río de la Plata; the Uruguay river draws the western line.",
       "exports": [
         "beef",
         "soybeans",
@@ -1193,6 +1325,7 @@
     "GUY": {
       "hook": "The only country in South America where English is the official language — and since a 2015 offshore oil strike, among the fastest-growing economies on Earth.",
       "place": "One of the three small countries stacked along the northeast coast, east of Venezuela.",
+      "borders": "British Guiana's colonial limits: the west is the 1899 arbitration line Venezuela still rejects (it claims all land west of the Essequibo), and the southeastern New River triangle is likewise claimed by Suriname.",
       "exports": [
         "crude petroleum",
         "gold",
@@ -1202,6 +1335,7 @@
     "SUR": {
       "hook": "Dutch-speaking, and the smallest sovereign country in South America — most of it is rainforest almost nobody lives in.",
       "place": "The middle of the three northeastern neighbours: Guyana to its west, French Guiana to its east.",
+      "borders": "Dutch Guiana's edges are two rivers — the Corentyne west, the Maroni east — but each has rival headstreams upstream, so both ends of the country are still quietly disputed with its neighbours.",
       "exports": [
         "gold",
         "crude petroleum",
@@ -1211,6 +1345,7 @@
     "IDN": {
       "hook": "Over 17,000 islands spread across 5,000km — wider than the United States — and it is moving its capital off Java because Jakarta is sinking.",
       "place": "The great archipelago strung along the equator between mainland Asia and Australia.",
+      "borders": "The Dutch East Indies inherited whole in 1949 — which is why three islands are split along colonial lines: New Guinea on the ruler-straight 141°E meridian, Borneo along the Anglo-Dutch watershed, Timor by treaty with Portugal.",
       "exports": [
         "coal",
         "palm oil",
@@ -1220,6 +1355,7 @@
     "PHL": {
       "hook": "7,641 islands on the Ring of Fire, and about 20 typhoons a year — more than anywhere else on Earth.",
       "place": "The archipelago north of Indonesia and east of Vietnam, facing the open Pacific.",
+      "borders": "The islands Spain ruled and then sold to the US in 1898 — the Treaty of Paris literally drew a box around the archipelago, so the national territory descends from a rectangle on a colonial map.",
       "exports": [
         "integrated circuits",
         "office machine parts",
@@ -1229,6 +1365,7 @@
     "THA": {
       "hook": "The only country in Southeast Asia never colonised by a European power — it played the British and French off against each other.",
       "place": "The middle of the mainland, between Myanmar and Laos, tailing south down the peninsula toward Malaysia.",
+      "borders": "Never colonized, so its edges are where British Burma and Malaya and French Indochina stopped: the Mekong line with Laos and the Cambodian line come from Franco-Siamese treaties of 1893–1907, the Malaysian line from a 1909 Anglo-Siamese treaty.",
       "exports": [
         "cars",
         "computers",
@@ -1238,6 +1375,7 @@
     "VNM": {
       "hook": "About 1,650km long but as little as 50km wide at its waist — you can drive coast to border in under an hour in the middle.",
       "place": "The eastern edge of the mainland, an S-curve down the coast from China to the Mekong delta.",
+      "borders": "The Chinese border follows the old imperial frontier as confirmed by Franco-Chinese treaties in the 1880s; the long western edge rides the Annamite mountain crest against Laos, with the Mekong delta line drawn by France inside Indochina.",
       "exports": [
         "broadcasting equipment",
         "telephones",
@@ -1247,6 +1385,7 @@
     "MMR": {
       "hook": "Produces the large majority of the world's rubies, from the Mogok valley — and answers to Burma just as often.",
       "place": "The western end of mainland Southeast Asia, between India and Thailand.",
+      "borders": "British India's eastern limits: mountain arcs against India and Thailand, a Chinese line pieced together from agreements between 1894 and 1960, and the short Naf river line with Bangladesh — colonial lines drawn across highland peoples' lands.",
       "exports": [
         "natural gas",
         "non-knit garments",
@@ -1256,6 +1395,7 @@
     "MYS": {
       "hook": "Split clean in two by the South China Sea — half a peninsula, half a slice of Borneo, 640km apart.",
       "place": "Below Thailand on the mainland peninsula, and along the north coast of Borneo beside Indonesia and Brunei.",
+      "borders": "Two pieces of British empire that never touched: Malaya's line with Thailand from the 1909 Anglo-Siamese treaty, and northern Borneo's boundary along the island's central watershed against the Dutch, now Indonesian, south.",
       "exports": [
         "integrated circuits",
         "refined petroleum",
@@ -1265,6 +1405,7 @@
     "KHM": {
       "hook": "Angkor Wat is the largest religious monument on Earth, and Cambodia's is the only national flag anywhere that shows a building.",
       "place": "Between Thailand and Vietnam, opening onto the Gulf of Thailand.",
+      "borders": "French Indochina's internal lines made international: the Thai border from 1904–07 Franco-Siamese treaties — fought over at the Preah Vihear temple as recently as 2011 — and a delta line with Vietnam that left many Khmer speakers outside.",
       "exports": [
         "non-knit garments",
         "knitted garments",
@@ -1274,6 +1415,7 @@
     "LAO": {
       "hook": "The only landlocked country in Southeast Asia, and the most heavily bombed country per person in history — unexploded ordnance is still being cleared.",
       "place": "Landlocked between Thailand and Vietnam, the Mekong running down much of its western edge.",
+      "borders": "Assembled by France as a buffer along the Mekong — the river is the Thai border for most of its length, cutting the Lao-speaking world in half; the Annamite cordillera divides it from Vietnam.",
       "exports": [
         "electricity",
         "copper",
@@ -1283,6 +1425,7 @@
     "TLS": {
       "hook": "One of the youngest countries on Earth, independent only in 2002 after 24 years of occupation.",
       "place": "The eastern half of Timor at the far end of the Indonesian arc, just north of Australia.",
+      "borders": "The Portuguese half of Timor, divided from the Dutch half by treaties finalized in 1914 — including the Oecusse enclave, Portugal's original landing point, marooned inside Indonesian West Timor.",
       "exports": [
         "crude petroleum",
         "coffee",
@@ -1292,6 +1435,7 @@
     "SGP": {
       "hook": "One of the last true city-states, and about a quarter larger than at independence — the extra land was reclaimed from the sea.",
       "place": "At the tip of the Malay peninsula, on the Strait of Malacca, one of the busiest shipping lanes on Earth.",
+      "borders": "A trading island the British acquired in 1819; the border is the Johor Strait because Singapore was expelled from Malaysia in 1965 after two turbulent years in the federation — independence by eviction.",
       "exports": [
         "integrated circuits",
         "refined petroleum",
@@ -1301,6 +1445,7 @@
     "BRN": {
       "hook": "Oil wealth means no income tax at all — and the country is split into two separate pieces by Malaysian territory.",
       "place": "Two enclaves on the north coast of Borneo, both entirely surrounded by Malaysia.",
+      "borders": "The rump of a sultanate that once claimed Borneo's whole north coast, whittled away by cessions to Sarawak's Brooke rajas until Britain froze what remained in the 1880s — two separate pieces, split when Limbang was ceded in 1890.",
       "exports": [
         "crude petroleum",
         "natural gas",
@@ -1310,6 +1455,7 @@
     "ZAF": {
       "hook": "Has three capital cities at once — Pretoria governs, Cape Town legislates, Bloemfontein judges — and twelve official languages.",
       "place": "The bottom of the continent, completely surrounding Lesotho and wrapping around Eswatini.",
+      "borders": "The 1910 Union stitched two British colonies and two Boer republics inside their outer limits — completely surrounding Lesotho; on the Namibian border the line sits on the Orange river's north bank rather than midstream, a colonial quirk Namibia still contests.",
       "exports": [
         "gold",
         "platinum",
@@ -1319,6 +1465,7 @@
     "NAM": {
       "hook": "The Namib is the oldest desert on Earth at around 55 million years, and its Skeleton Coast is littered with shipwrecks.",
       "place": "On the Atlantic between Angola and South Africa, with the Caprivi Strip reaching east toward the Zambezi.",
+      "borders": "German South-West Africa's box — including the Caprivi Strip, a 450 km corridor Germany extracted in an 1890 treaty hoping to reach the Zambezi and the Indian Ocean, apparently not reckoning with Victoria Falls in between.",
       "exports": [
         "diamonds",
         "gold",
@@ -1328,6 +1475,7 @@
     "BWA": {
       "hook": "The Okavango spills into the Kalahari and simply evaporates — one of the few great river deltas that never reaches the sea.",
       "place": "Landlocked above South Africa, between Namibia and Zimbabwe.",
+      "borders": "The Bechuanaland Protectorate's lines: the Molopo and Limpopo rivers plus long survey lines through the Kalahari, meeting three neighbours at Kazungula on the Zambezi — a near-four-corners point now spanned by a bridge.",
       "exports": [
         "diamonds",
         "insulated wire",
@@ -1337,6 +1485,7 @@
     "LSO": {
       "hook": "One of only three countries entirely surrounded by a single other country — and its lowest point, at 1,400m, is the highest low point on Earth.",
       "place": "Entirely inside South Africa, up in the Drakensberg mountains.",
+      "borders": "The mountain kingdom of Moshoeshoe I, who accepted British protection in 1868 to halt Boer encroachment — at the price of the western lowlands, leaving a state entirely surrounded by what became South Africa.",
       "exports": [
         "diamonds",
         "knitted garments",
@@ -1346,6 +1495,7 @@
     "SWZ": {
       "hook": "Renamed itself from Swaziland in 2018, partly because it kept being confused with Switzerland — and it remains one of the world's last absolute monarchies.",
       "place": "A small landlocked kingdom between South Africa and Mozambique.",
+      "borders": "The Swazi kingdom's core, kept as a British protectorate rather than absorbed — though 19th-century concessions trimmed it, and the modern state still claims Swazi lands lying inside South Africa.",
       "exports": [
         "raw sugar",
         "perfume mixtures",
@@ -1355,6 +1505,7 @@
     "IND": {
       "hook": "Runs on a single time zone offset by half an hour from the rest of the world — and is now the most populous country on Earth.",
       "place": "The triangle jutting into the Indian Ocean, Himalaya across the top, Pakistan west and Bangladesh east.",
+      "borders": "The Radcliffe line of 1947, drawn through Punjab and Bengal in five weeks by a lawyer who had never been to India; the Himalayan McMahon line that China rejects; and Kashmir's Line of Control — a ceasefire line, not an agreed border.",
       "exports": [
         "refined petroleum",
         "packaged medicines",
@@ -1364,6 +1515,7 @@
     "PAK": {
       "hook": "Holds K2 and four more of the world's fourteen 8,000m peaks — a greater concentration than anywhere outside Nepal.",
       "place": "West of India, running from the Arabian Sea up to the Karakoram, with Afghanistan and Iran to the west.",
+      "borders": "Born from the 1947 Radcliffe line through Punjab; the western Durand Line of 1893 cuts straight through Pashtun lands and has never been accepted by any Afghan government, and Kashmir's Line of Control remains a ceasefire line.",
       "exports": [
         "knitted garments",
         "rice",
@@ -1373,6 +1525,7 @@
     "IRN": {
       "hook": "Persian, not Arabic, and Indo-European rather than Semitic — the language is a closer relative of English than of the languages around it.",
       "place": "Between the Caspian and the Gulf, with Iraq and Türkiye west, Afghanistan and Pakistan east.",
+      "borders": "The Iraq line along the Zagros foothills and the Shatt al-Arab descends from Ottoman–Persian treaties of 1639 and 1847 — and was still worth a ruinous war in the 1980s; the eastern desert lines were drawn by British arbitration in the 1870s–90s.",
       "exports": [
         "crude petroleum",
         "ethylene polymers",
@@ -1382,6 +1535,7 @@
     "BGD": {
       "hook": "Most of the country is one enormous river delta, barely above sea level — the Ganges and Brahmaputra meet and empty out through it.",
       "place": "Almost entirely surrounded by India, opening south onto the Bay of Bengal.",
+      "borders": "The Bengal half of the 1947 Radcliffe line, hastily separating Muslim-majority districts — it created one of the world's strangest borders, with over 160 enclaves that India and Bangladesh only swapped away in 2015.",
       "exports": [
         "knitted garments",
         "non-knit garments",
@@ -1391,6 +1545,7 @@
     "AFG": {
       "hook": "The Wakhan Corridor is a finger of land drawn purely to keep the Russian and British empires from touching — it still reaches out to China.",
       "place": "Landlocked between Iran, Pakistan and the Central Asian states, with the Hindu Kush through its middle.",
+      "borders": "A buffer by design: Britain and Russia fixed the Amu Darya line and added the narrow Wakhan corridor in 1873–95 purely so their empires would nowhere touch, while the 1893 Durand Line split the Pashtuns from British India.",
       "exports": [
         "grapes",
         "coal",
@@ -1400,6 +1555,7 @@
     "NPL": {
       "hook": "Holds eight of the world's ten highest mountains, and is the only country whose flag is not a rectangle.",
       "place": "A long strip along the Himalaya, entirely between India and China.",
+      "borders": "The 1816 Treaty of Sugauli with the British East India Company fixed the lowland line after the Anglo-Nepalese War; the high Himalayan crest bounds Tibet — a kingdom that survived as the buffer between empires.",
       "exports": [
         "iron alloys",
         "carpets",
@@ -1409,6 +1565,7 @@
     "LKA": {
       "hook": "Produces some of the world's best tea from land that was all coffee until a fungus wiped the crop out in the 1870s.",
       "place": "The island off India's southeastern tip, separated by a strait shallow enough to nearly walk.",
+      "borders": "An island separated from India by the shallow Palk Strait; Britain ruled Ceylon as a crown colony apart from British India, which is why it stayed off the Partition map entirely.",
       "exports": [
         "tea",
         "knitted garments",
@@ -1418,6 +1575,7 @@
     "BTN": {
       "hook": "Measures Gross National Happiness alongside GDP, and is one of the few carbon-negative countries — its forests absorb more than it emits.",
       "place": "A small Himalayan kingdom between India and China, east of Nepal.",
+      "borders": "A Himalayan kingdom bounded by the main crest against Tibet — a line still not formally settled with China — and by the duars lowland strip that Britain annexed after the 1865 war, fixing the Indian side.",
       "exports": [
         "iron alloys",
         "electricity",
@@ -1427,6 +1585,7 @@
     "MDV": {
       "hook": "The lowest country on Earth — its highest natural point is about 2.4m, lower than most ceilings.",
       "place": "A chain of atolls in the Indian Ocean, southwest of Sri Lanka.",
+      "borders": "Coral atolls with no land neighbour at all; Britain ran it as a protectorate separate from both India and Ceylon, so it emerged as its own state — the only lines are maritime.",
       "exports": [
         "fish",
         "scrap iron",
@@ -1436,6 +1595,7 @@
     "ESP": {
       "hook": "After Switzerland, the most mountainous country in Europe — Madrid sits at 650m, the highest capital on the continent.",
       "place": "Most of the Iberian peninsula, Portugal down its western side, the Pyrenees sealing it off from France.",
+      "borders": "The Pyrenees crest, fixed by the 1659 Treaty of the Pyrenees; the Portuguese line is even older, largely the 1297 Treaty of Alcañices — while Gibraltar, ceded to Britain in 1713, remains the peninsula's unresolved corner.",
       "exports": [
         "cars",
         "refined petroleum",
@@ -1445,6 +1605,7 @@
     "ITA": {
       "hook": "The only country with two entire sovereign states inside it — San Marino in the northeast, Vatican City in the middle of Rome.",
       "place": "The boot kicking into the Mediterranean, Sicily at the toe and Sardinia out to the west.",
+      "borders": "The Alpine watershed, assembled in stages: Savoy and Nice traded to France in 1860 for unification support, South Tyrol taken to the Brenner pass in 1919 despite its German speakers, and the Trieste line with Yugoslavia settled only in 1954.",
       "exports": [
         "packaged medicines",
         "cars",
@@ -1454,6 +1615,7 @@
     "GRC": {
       "hook": "Around 6,000 islands, only about 230 of them inhabited, and nowhere on the mainland is more than 137km from the sea.",
       "place": "The southern tip of the Balkans, its islands scattered east across the Aegean toward Türkiye.",
+      "borders": "Expanded northward in waves as Ottoman rule receded — 1830, 1881, 1913, 1947 — ending with the Dodecanese from Italy; the Evros river line with Türkiye was fixed by the 1923 Lausanne settlement and its brutal population exchange.",
       "exports": [
         "refined petroleum",
         "packaged medicines",
@@ -1463,6 +1625,7 @@
     "PRT": {
       "hook": "Has the oldest fixed borders in Europe, essentially unchanged since 1297 — and supplies about half the world's cork.",
       "place": "The western strip of Iberia: Atlantic on two sides, Spain on the other two.",
+      "borders": "Substantially the 1297 Treaty of Alcañices — the oldest almost-unchanged border in Europe, following the Minho and Guadiana rivers, with one gap: Olivenza, held by Spain since 1801 and still claimed on paper.",
       "exports": [
         "cars",
         "vehicle parts",
@@ -1472,6 +1635,7 @@
     "CYP": {
       "hook": "Divided since 1974, which makes Nicosia the last divided capital city in Europe — a buffer zone runs straight through it.",
       "place": "In the eastern Mediterranean south of Türkiye — geographically Asian, politically European.",
+      "borders": "The lines on the island are ceasefire lines: the UN-patrolled Green Line has divided the Turkish-occupied north from the republic since 1974, and two British sovereign base areas survive from the 1960 independence deal.",
       "exports": [
         "ships",
         "packaged medicines",
@@ -1481,6 +1645,7 @@
     "MLT": {
       "hook": "The most densely populated country in the EU, on islands with no rivers and no lakes at all.",
       "place": "In the middle of the Mediterranean, about 80km south of Sicily.",
+      "borders": "No land border ever — the state is the three inhabited islands Britain took from Napoleon in 1800 and held as a Mediterranean fortress until 1964.",
       "exports": [
         "integrated circuits",
         "packaged medicines",
@@ -1490,6 +1655,7 @@
     "AND": {
       "hook": "No airport, no railway, and two heads of state at once — the President of France and a Spanish bishop share the job.",
       "place": "High in the Pyrenees, entirely enclosed by Spain and France.",
+      "borders": "A feudal arrangement fossilized: since the 1278 paréage, France's head of state and the Spanish bishop of Urgell have been joint princes of the same mountain valleys, and the border is simply that valley territory.",
       "exports": [
         "integrated circuits",
         "cars",
@@ -1499,6 +1665,7 @@
     "SMR": {
       "hook": "Claims to be the oldest surviving republic in the world, founded in 301 — and it is completely surrounded by Italy.",
       "place": "A landlocked enclave inside northeastern Italy, up a mountain near Rimini.",
+      "borders": "A hilltop commune that persuaded Napoleon, then unifying Italy, to leave it alone — the border is the old commune's territory, essentially unchanged since the fifteenth century.",
       "exports": [
         "machinery",
         "wood products",
@@ -1508,6 +1675,7 @@
     "VAT": {
       "hook": "The smallest country on Earth at 0.49km² — the whole state fits inside a single city, with room for a garden.",
       "place": "Entirely within Rome, on the west bank of the Tiber.",
+      "borders": "The 1929 Lateran Treaty drew a wall-following line around St Peter's, its museums and gardens — 44 hectares left sovereign from the Papal States that Italy had absorbed in 1870.",
       "exports": [
         "postage stamps",
         "commemorative coins",
@@ -1517,6 +1685,7 @@
     "NGA": {
       "hook": "The most populous country in Africa — about one in six Africans is Nigerian — and Nollywood releases more films a year than Hollywood.",
       "place": "On the Gulf of Guinea at the inner corner of the West African bulge.",
+      "borders": "Anglo-French and Anglo-German treaty lines of 1885–1906 boxing Britain's Niger trading sphere — cutting through Yoruba, Hausa and Kanuri lands alike; the oil-rich Bakassi peninsula was transferred to Cameroon by a world-court ruling, completed in 2008.",
       "exports": [
         "crude petroleum",
         "natural gas",
@@ -1526,6 +1695,7 @@
     "CIV": {
       "hook": "Grows roughly 40% of the world's cocoa — more than the next two countries combined. Also answers to Côte d'Ivoire.",
       "place": "On the Gulf of Guinea between Ghana and Liberia.",
+      "borders": "France's coastal colony lines of the 1890s: river stretches near the coast, then ruler lines inland — the eastern edge splitting Akan peoples with the British Gold Coast, today's Ghana.",
       "exports": [
         "cocoa beans",
         "gold",
@@ -1535,6 +1705,7 @@
     "GHA": {
       "hook": "The first colony in sub-Saharan Africa to win independence, in 1957 — and Lake Volta is the largest reservoir on Earth by surface area.",
       "place": "On the Gulf of Guinea, between Ivory Coast and Togo.",
+      "borders": "The Gold Coast plus British Togoland, which voted in a 1956 UN plebiscite to join Ghana — so the eastern border is the WWI partition line of German Togoland, still splitting the Ewe people with Togo.",
       "exports": [
         "gold",
         "crude petroleum",
@@ -1544,6 +1715,7 @@
     "BFA": {
       "hook": "Its name was invented in 1984 and means land of upright people — stitched together from two different local languages.",
       "place": "Landlocked directly above Ghana and Ivory Coast, below Mali and Niger.",
+      "borders": "Pure administrative convenience: France created Upper Volta in 1919, dissolved it in 1932 — dividing it among three neighbours — and reassembled it in 1947; independence froze the restored outline.",
       "exports": [
         "gold",
         "cotton",
@@ -1553,6 +1725,7 @@
     "SEN": {
       "hook": "Reaches the westernmost point of mainland Africa, and almost completely surrounds another country — The Gambia.",
       "place": "The Atlantic tip of the West African bulge, wrapped around The Gambia on three sides.",
+      "borders": "France's oldest African colony, wrapped entirely around the British enclave of the Gambia — the inner border traces the river's banks at roughly gunboat range, nearly cutting Senegal in two.",
       "exports": [
         "gold",
         "refined petroleum",
@@ -1562,6 +1735,7 @@
     "GIN": {
       "hook": "Holds the world's largest bauxite reserves — and the Niger, Senegal and Gambia rivers all rise in its highlands.",
       "place": "On the Atlantic below Senegal, between Guinea-Bissau and Sierra Leone.",
+      "borders": "French Guinea's treaty lines of the 1880s–1900s against Portuguese Guinea, British Sierra Leone and Liberia — rivers and watershed stretches that give the country its curling hook around its smaller neighbours.",
       "exports": [
         "bauxite",
         "gold",
@@ -1571,6 +1745,7 @@
     "BEN": {
       "hook": "The birthplace of Vodun, which is an official religion here — and home of the Dahomey kingdom's all-female regiment.",
       "place": "A narrow strip running north from the Gulf of Guinea, between Togo and Nigeria.",
+      "borders": "Colonial Dahomey: a narrow corridor drawn northward from the coast between British Nigeria and German Togoland, splitting Yoruba lands in the east and reaching inland to the Niger river bend.",
       "exports": [
         "cotton",
         "cashews",
@@ -1580,6 +1755,7 @@
     "SLE": {
       "hook": "Freetown sits on one of the largest natural harbours in the world, which is why freed slaves were resettled there in 1792.",
       "place": "On the Atlantic coast between Guinea and Liberia.",
+      "borders": "A British freed-slave settlement at Freetown, expanded inland to lines agreed with France in 1895; the Liberian border along the Mano river separates it from the other freed-slave republic.",
       "exports": [
         "iron ore",
         "titanium ore",
@@ -1589,6 +1765,7 @@
     "LBR": {
       "hook": "Founded by freed American slaves in 1847, making it Africa's oldest republic — and more of the world's shipping flies its flag than almost any other.",
       "place": "On the Atlantic below Sierra Leone, west of Ivory Coast.",
+      "borders": "Founded by American freed-slave settlers in 1822 and never colonized — but France and Britain trimmed its claimed hinterland through the 1880s–1900s to today's lines along the Mano and Cavalla rivers.",
       "exports": [
         "ships",
         "gold",
@@ -1598,6 +1775,7 @@
     "TGO": {
       "hook": "One of Africa's narrowest countries — about 110km wide but 550km long, a strip you can drive across in two hours.",
       "place": "A thin ribbon between Ghana and Benin, running north from the Gulf of Guinea.",
+      "borders": "The eastern strip of German Togoland: the colony was split after WWI, Britain's western strip eventually voting to join Ghana, France's eastern strip becoming Togo — a partition remnant 550 km long and barely 100 km wide.",
       "exports": [
         "refined petroleum",
         "calcium phosphates",
@@ -1607,6 +1785,7 @@
     "GNB": {
       "hook": "The Bijagós archipelago off its coast is 88 islands, only about twenty of them inhabited — and a biosphere reserve.",
       "place": "A small Atlantic country tucked between Senegal and Guinea.",
+      "borders": "Portuguese Guinea's limits against surrounding French West Africa, set by an 1886 Franco-Portuguese convention — rivers and short survey lines around the stretch of coast Portugal actually held.",
       "exports": [
         "cashews",
         "fish",
@@ -1616,6 +1795,7 @@
     "GMB": {
       "hook": "The smallest country in mainland Africa — a ribbon of land either side of one river, nowhere more than 50km wide.",
       "place": "Following the Gambia river inland, enclosed by Senegal on every side but the Atlantic.",
+      "borders": "Africa's strangest border: a ribbon along both banks of the Gambia river, agreed with France in 1889 at roughly ten kilometres per bank — by legend, the range of British gunboat cannon.",
       "exports": [
         "sawn wood",
         "cashews",
@@ -1625,6 +1805,7 @@
     "CPV": {
       "hook": "Ten volcanic islands that were completely uninhabited until Portuguese ships arrived in 1456 — everyone there descends from later arrivals.",
       "place": "An Atlantic archipelago about 570km west of Senegal, out on its own.",
+      "borders": "Uninhabited Atlantic islands when the Portuguese arrived in 1456 — the state's extent is simply the archipelago Portugal settled; its only boundaries are maritime.",
       "exports": [
         "fish",
         "footwear",
@@ -1634,6 +1815,7 @@
     "FRA": {
       "hook": "Spans twelve time zones — more than any other country — because its overseas departments reach from the Pacific to the Caribbean to the Indian Ocean.",
       "place": "The hexagon between the Atlantic and the Alps, Spain beyond the Pyrenees, Germany across the Rhine.",
+      "borders": "The 'natural frontiers' pursued for centuries: the Pyrenees crest fixed by the 1659 treaty with Spain, the Alpine line completed in 1860 when Nice and Savoy were annexed, and a flat northeastern edge that is simply where the wars stopped.",
       "exports": [
         "aircraft",
         "cars",
@@ -1643,6 +1825,7 @@
     "DEU": {
       "hook": "Borders nine countries, more than any other in Europe — it touches nearly everyone from Denmark round to the Netherlands.",
       "place": "The middle of Europe, running from the North Sea coast down to the Alps.",
+      "borders": "Cut to its present lines in 1945: the Oder and Neisse rivers became the Polish border — a quarter of prewar Germany lost — while the western edges are the old dynastic boundaries with France and the Low Countries, Alsace having changed hands four times in 75 years.",
       "exports": [
         "cars",
         "vehicle parts",
@@ -1652,6 +1835,7 @@
     "POL": {
       "hook": "Holds Białowieża, the last great primeval lowland forest in Europe, and the wild bison that live in it.",
       "place": "On the flat plain between Germany and the Baltics — the same corridor that runs unbroken from France to Russia.",
+      "borders": "Shifted bodily westward in 1945: Stalin kept everything east of the Bug river (roughly the 'Curzon line'), and Poland was compensated with German territory up to the Oder and Neisse rivers.",
       "exports": [
         "vehicle parts",
         "seats",
@@ -1661,6 +1845,7 @@
     "HUN": {
       "hook": "Its language is related to nothing around it — the nearest relatives of Hungarian are Finnish and Estonian, 1,500km north.",
       "place": "The landlocked floor of the Carpathian basin, ringed by seven neighbours.",
+      "borders": "The 1920 Treaty of Trianon cut the Kingdom of Hungary to a third of its size, drawing lines straight through the Hungarian-speaking plain — which is why Hungarian minorities sit just across every border.",
       "exports": [
         "cars",
         "vehicle parts",
@@ -1670,6 +1855,7 @@
     "CZE": {
       "hook": "Drinks more beer per person than any other country, and has done for three decades running.",
       "place": "Landlocked west of Slovakia, wrapped on three sides by Germany, Poland and Austria.",
+      "borders": "Bohemia's mountain rim — Sudetes, Ore Mountains, Šumava — is one of Europe's oldest stable borders, medieval in origin; the eastern line with Slovakia is just where the 1993 'Velvet Divorce' split Czechoslovakia.",
       "exports": [
         "cars",
         "vehicle parts",
@@ -1679,6 +1865,7 @@
     "NLD": {
       "hook": "About a quarter of it lies below sea level, and much of that is land the Dutch built themselves by pumping the sea out.",
       "place": "The North Sea corner above Belgium and west of Germany.",
+      "borders": "The 1839 treaty that let Belgium leave drew the line through Limburg and Brabant; the Baarle enclaves on that border — Belgian pockets inside Dutch pockets — survive from medieval lordship deals the treaty never untangled.",
       "exports": [
         "refined petroleum",
         "packaged medicines",
@@ -1688,6 +1875,7 @@
     "AUT": {
       "hook": "Nearly two-thirds Alps, and Vienna is the only capital city with commercial vineyards inside its own boundaries.",
       "place": "Landlocked, the Alpine strip east of Switzerland and south of Germany.",
+      "borders": "What was left of the Habsburg empire's Alpine, German-speaking core after the 1919 Treaty of Saint-Germain distributed the rest — the Brenner line handed South Tyrol's German speakers to Italy.",
       "exports": [
         "cars",
         "vehicle parts",
@@ -1697,6 +1885,7 @@
     "BEL": {
       "hook": "Antwerp handles the large majority of the world's rough diamonds, in a district a few streets across.",
       "place": "The small country on the North Sea between France and the Netherlands.",
+      "borders": "Drawn in 1839 when the great powers guaranteed a neutral buffer carved out of the Netherlands; the eastern cantons around Eupen were added from Germany in 1919, and the internal language line is older than the country.",
       "exports": [
         "packaged medicines",
         "cars",
@@ -1706,6 +1895,7 @@
     "CHE": {
       "hook": "Landlocked and mountainous, yet its rivers drain to three different seas — the North Sea, the Mediterranean and the Black Sea.",
       "place": "The Alpine knot where France, Germany, Austria and Italy all meet.",
+      "borders": "A confederation's accumulated medieval cantons frozen in place by the neutrality the powers guaranteed in 1815 — which is why the outline is a patchwork, with Italian-speaking Ticino hanging south of the Alps.",
       "exports": [
         "gold",
         "packaged medicines",
@@ -1715,6 +1905,7 @@
     "SVK": {
       "hook": "Builds more cars per person than any country on Earth — roughly one for every five Slovaks each year.",
       "place": "Landlocked, directly east of Czechia. This is the one with Bratislava; Slovenia is 400km southwest.",
+      "borders": "Trianon's 1920 lines made the southern edge — the Danube and a line through Hungarian-speaking country; the western edge is the amicable 1993 split of Czechoslovakia along the old Czech–Slovak provincial line.",
       "exports": [
         "cars",
         "vehicle parts",
@@ -1724,6 +1915,7 @@
     "SVN": {
       "hook": "More than half forest, one of the greenest countries in Europe — and it has only about 47km of coast to its name.",
       "place": "At the head of the Adriatic below Austria. Not Slovakia, which is 400km northeast — the classic mix-up.",
+      "borders": "Yugoslav republic lines turned international in 1991: the Karawanks crest with Austria from the 1919–20 treaties, the Italian edge from the postwar Trieste settlement, and a sliver of sea it had to win from Croatia in arbitration.",
       "exports": [
         "packaged medicines",
         "cars",
@@ -1733,6 +1925,7 @@
     "LUX": {
       "hook": "The richest country per head on Earth, and nearly half its workforce drives in from France, Belgium and Germany every morning.",
       "place": "Tucked into the corner where Belgium, France and Germany meet.",
+      "borders": "Partitioned three times as neighbours grew — the 1839 split alone gave the francophone west to Belgium — leaving today's rump grand duchy, kept alive because the powers wanted a buffer between France and Germany.",
       "exports": [
         "iron and steel",
         "tyres",
@@ -1742,6 +1935,7 @@
     "LIE": {
       "hook": "Doubly landlocked — you must cross two borders to reach any sea — and it is the world's largest producer of false teeth.",
       "place": "A 25km sliver in the upper Rhine valley, entirely between Switzerland and Austria.",
+      "borders": "Two medieval lordships the Liechtenstein family bought (1699, 1712) and never let be absorbed: the Rhine is the whole Swiss border, the Alpine ridge the Austrian one.",
       "exports": [
         "dental products",
         "machinery",
@@ -1751,6 +1945,7 @@
     "MCO": {
       "hook": "The most densely populated country on Earth, and small enough to walk end to end in under an hour.",
       "place": "A 2km² notch on the French Riviera coast, close to the Italian border.",
+      "borders": "A Grimaldi possession since 1297, shrunk to two square kilometres in 1861 when the family sold its hinterland towns of Menton and Roquebrune to France — the border is the edge of what they kept.",
       "exports": [
         "cosmetics",
         "pharmaceuticals",

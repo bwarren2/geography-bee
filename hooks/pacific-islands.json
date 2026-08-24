@@ -2,6 +2,7 @@
   "PNG": {
     "hook": "Over 800 living languages are spoken here — roughly one in eight of all the languages on Earth, in one country.",
     "place": "The eastern half of New Guinea, sharing the island with Indonesia, directly north of Australia.",
+    "borders": "The ruler-straight 141°E line down New Guinea is the old Dutch–German/British partition — the Dutch west became Indonesian Papua in the 1960s; the eastern half's two colonial pieces merged under Australia, and Bougainville voted for independence in 2019.",
     "exports": [
       "natural gas",
       "gold",
@@ -11,6 +12,7 @@
   "SLB": {
     "hook": "Nearly a thousand islands, and Guadalcanal among them — the campaign fought there turned the Pacific war.",
     "place": "A double chain running southeast from Papua New Guinea, northeast of Australia.",
+    "borders": "The 1899 Anglo-German deal split the Solomon chain: Buka and Bougainville — geographically Solomon islands — went to German New Guinea and are in PNG today, so the border cuts across the archipelago it names.",
     "exports": [
       "rough wood",
       "fish",
@@ -20,6 +22,7 @@
   "FJI": {
     "hook": "The 180th meridian runs right through it, so the international date line had to be bent around the country to keep it on one day.",
     "place": "About 330 islands in the South Pacific east of Vanuatu — the hub of the region.",
+    "borders": "An archipelago ceded whole to Britain by its chiefs in 1874 — no line touches another state, and the country's extent is simply the 330-island group of the cession.",
     "exports": [
       "water",
       "fish",
@@ -29,6 +32,7 @@
   "VUT": {
     "hook": "Regularly ranked the most disaster-exposed country on Earth — cyclones, earthquakes and active volcanoes, all at once.",
     "place": "A Y-shaped chain west of Fiji, out in the Coral Sea east of Australia.",
+    "borders": "Ruled jointly by Britain and France as the New Hebrides condominium — duplicate police forces, courts and currencies — until 1980: an archipelago two empires shared rather than split.",
     "exports": [
       "fish",
       "copra",
@@ -38,6 +42,7 @@
   "WSM": {
     "hook": "Skipped 30 December 2011 entirely, jumping across the date line so it could share a working week with Australia and New Zealand.",
     "place": "In Polynesia, northeast of Fiji.",
+    "borders": "The 1899 partition of the Samoan islands: Germany took the west (independent since 1962), the United States kept the east — one people still divided between Samoa and American Samoa by a colonial meridian.",
     "exports": [
       "coconut oil",
       "fish",
@@ -47,6 +52,7 @@
   "KIR": {
     "hook": "The only country in all four hemispheres — its islands are scattered over 3.5 million km² of ocean, an area the size of India.",
     "place": "Strung across the central Pacific, straddling both the equator and the date line.",
+    "borders": "The Gilbert and Ellice Islands colony split by referendum in the 1970s along ethnic lines — the Micronesian Gilberts became Kiribati; its islands then straddle so much ocean that the International Date Line was bent around it in 1995.",
     "exports": [
       "fish",
       "coconut oil",
@@ -56,6 +62,7 @@
   "FSM": {
     "hook": "Nan Madol is a ruined city built on around a hundred artificial islets of stacked basalt — a Venice made of volcanic rock.",
     "place": "A long scatter of islands north of Papua New Guinea, running east from Palau.",
+    "borders": "Four districts of the US Trust Territory of the Pacific that federated in 1979 — Palau and the Marshalls voted to go their own way — so its boundaries are trusteeship district lines across open ocean.",
     "exports": [
       "fish",
       "ships",
@@ -65,6 +72,7 @@
   "TON": {
     "hook": "The only Pacific nation never colonised, and the only one to keep its own monarchy unbroken through the whole colonial era.",
     "place": "In Polynesia south of Samoa and east of Fiji.",
+    "borders": "The one Pacific kingdom never colonized: a British-protected monarchy that kept its own archipelago intact, its extent the islands the Tongan kings had always ruled.",
     "exports": [
       "squash",
       "fish",
@@ -74,6 +82,7 @@
   "MHL": {
     "hook": "Bikini Atoll absorbed 23 nuclear tests, one of them a thousand times the Hiroshima bomb — the crater is still in the reef.",
     "place": "Two parallel chains of atolls in the central Pacific, north of Kiribati.",
+    "borders": "German, then Japanese, then American trust territory: the Marshalls voted for separate free association with the US rather than joining the Federated States of Micronesia — a border set by trusteeship ballot.",
     "exports": [
       "ships",
       "fish",
@@ -83,6 +92,7 @@
   "PLW": {
     "hook": "Created the world's first shark sanctuary, and requires every visitor to sign a pledge to the country's children on arrival.",
     "place": "The westernmost Pacific islands, east of the Philippines and north of Indonesia.",
+    "borders": "Voted itself out of the proposed Federated States of Micronesia in 1978 and into separate free association with the US — the westernmost Carolines became a state by referendum.",
     "exports": [
       "fish",
       "ships",
@@ -92,6 +102,7 @@
   "TUV": {
     "hook": "Earns a large slice of national income leasing its .tv internet domain — an accident of the alphabet worth millions a year.",
     "place": "Nine low atolls in the central Pacific north of Fiji, and among the smallest countries anywhere.",
+    "borders": "The Polynesian half of the Gilbert-and-Ellice split: nine atolls whose people voted in 1974 to separate from the Micronesian Gilberts rather than remain a minority in a single colony-turned-state.",
     "exports": [
       "fish",
       "ships",
@@ -101,6 +112,7 @@
   "NRU": {
     "hook": "About 21km² and strip-mined for phosphate until most of the interior was left as bare limestone pinnacles — briefly the richest country per head on Earth.",
     "place": "A single island just south of the equator, west of Kiribati.",
+    "borders": "A single 21 km² phosphate island mined under German, British-Australian and UN administration in turn — the world's smallest island republic, with no boundary but its own reef.",
     "exports": [
       "phosphates",
       "fish",

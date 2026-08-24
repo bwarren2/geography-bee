@@ -2,6 +2,7 @@
   "AUS": {
     "hook": "The only country that is also a continent, and more than 80% of its mammals, reptiles and frogs live nowhere else.",
     "place": "The continent-sized island between the Indian and Pacific oceans, below Indonesia and Papua New Guinea.",
+    "borders": "A whole continent claimed by Britain, so its only land lines are internal state borders; the external boundary that needed drawing — through the Torres Strait, where Australian islands sit within sight of Papua New Guinea — took a careful 1978 treaty.",
     "exports": [
       "iron ore",
       "coal",
@@ -11,6 +12,7 @@
   "NZL": {
     "hook": "One of the last large landmasses humans reached, settled only around 1300 — and it had no land mammals at all except bats.",
     "place": "Two main islands about 2,000km southeast of Australia, alone in the South Pacific.",
+    "borders": "Two main islands with no neighbour within 1,500 km, annexed by Britain under the 1840 Treaty of Waitangi — the only boundary questions are maritime, plus free-association ties to the Cook Islands and Niue.",
     "exports": [
       "concentrated milk",
       "sheep and goat meat",

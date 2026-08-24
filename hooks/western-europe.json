@@ -2,6 +2,7 @@
   "FRA": {
     "hook": "Spans twelve time zones — more than any other country — because its overseas departments reach from the Pacific to the Caribbean to the Indian Ocean.",
     "place": "The hexagon between the Atlantic and the Alps, Spain beyond the Pyrenees, Germany across the Rhine.",
+    "borders": "The 'natural frontiers' pursued for centuries: the Pyrenees crest fixed by the 1659 treaty with Spain, the Alpine line completed in 1860 when Nice and Savoy were annexed, and a flat northeastern edge that is simply where the wars stopped.",
     "exports": [
       "aircraft",
       "cars",
@@ -11,6 +12,7 @@
   "DEU": {
     "hook": "Borders nine countries, more than any other in Europe — it touches nearly everyone from Denmark round to the Netherlands.",
     "place": "The middle of Europe, running from the North Sea coast down to the Alps.",
+    "borders": "Cut to its present lines in 1945: the Oder and Neisse rivers became the Polish border — a quarter of prewar Germany lost — while the western edges are the old dynastic boundaries with France and the Low Countries, Alsace having changed hands four times in 75 years.",
     "exports": [
       "cars",
       "vehicle parts",
@@ -20,6 +22,7 @@
   "POL": {
     "hook": "Holds Białowieża, the last great primeval lowland forest in Europe, and the wild bison that live in it.",
     "place": "On the flat plain between Germany and the Baltics — the same corridor that runs unbroken from France to Russia.",
+    "borders": "Shifted bodily westward in 1945: Stalin kept everything east of the Bug river (roughly the 'Curzon line'), and Poland was compensated with German territory up to the Oder and Neisse rivers.",
     "exports": [
       "vehicle parts",
       "seats",
@@ -29,6 +32,7 @@
   "HUN": {
     "hook": "Its language is related to nothing around it — the nearest relatives of Hungarian are Finnish and Estonian, 1,500km north.",
     "place": "The landlocked floor of the Carpathian basin, ringed by seven neighbours.",
+    "borders": "The 1920 Treaty of Trianon cut the Kingdom of Hungary to a third of its size, drawing lines straight through the Hungarian-speaking plain — which is why Hungarian minorities sit just across every border.",
     "exports": [
       "cars",
       "vehicle parts",
@@ -38,6 +42,7 @@
   "CZE": {
     "hook": "Drinks more beer per person than any other country, and has done for three decades running.",
     "place": "Landlocked west of Slovakia, wrapped on three sides by Germany, Poland and Austria.",
+    "borders": "Bohemia's mountain rim — Sudetes, Ore Mountains, Šumava — is one of Europe's oldest stable borders, medieval in origin; the eastern line with Slovakia is just where the 1993 'Velvet Divorce' split Czechoslovakia.",
     "exports": [
       "cars",
       "vehicle parts",
@@ -47,6 +52,7 @@
   "NLD": {
     "hook": "About a quarter of it lies below sea level, and much of that is land the Dutch built themselves by pumping the sea out.",
     "place": "The North Sea corner above Belgium and west of Germany.",
+    "borders": "The 1839 treaty that let Belgium leave drew the line through Limburg and Brabant; the Baarle enclaves on that border — Belgian pockets inside Dutch pockets — survive from medieval lordship deals the treaty never untangled.",
     "exports": [
       "refined petroleum",
       "packaged medicines",
@@ -56,6 +62,7 @@
   "AUT": {
     "hook": "Nearly two-thirds Alps, and Vienna is the only capital city with commercial vineyards inside its own boundaries.",
     "place": "Landlocked, the Alpine strip east of Switzerland and south of Germany.",
+    "borders": "What was left of the Habsburg empire's Alpine, German-speaking core after the 1919 Treaty of Saint-Germain distributed the rest — the Brenner line handed South Tyrol's German speakers to Italy.",
     "exports": [
       "cars",
       "vehicle parts",
@@ -65,6 +72,7 @@
   "BEL": {
     "hook": "Antwerp handles the large majority of the world's rough diamonds, in a district a few streets across.",
     "place": "The small country on the North Sea between France and the Netherlands.",
+    "borders": "Drawn in 1839 when the great powers guaranteed a neutral buffer carved out of the Netherlands; the eastern cantons around Eupen were added from Germany in 1919, and the internal language line is older than the country.",
     "exports": [
       "packaged medicines",
       "cars",
@@ -74,6 +82,7 @@
   "CHE": {
     "hook": "Landlocked and mountainous, yet its rivers drain to three different seas — the North Sea, the Mediterranean and the Black Sea.",
     "place": "The Alpine knot where France, Germany, Austria and Italy all meet.",
+    "borders": "A confederation's accumulated medieval cantons frozen in place by the neutrality the powers guaranteed in 1815 — which is why the outline is a patchwork, with Italian-speaking Ticino hanging south of the Alps.",
     "exports": [
       "gold",
       "packaged medicines",
@@ -83,6 +92,7 @@
   "SVK": {
     "hook": "Builds more cars per person than any country on Earth — roughly one for every five Slovaks each year.",
     "place": "Landlocked, directly east of Czechia. This is the one with Bratislava; Slovenia is 400km southwest.",
+    "borders": "Trianon's 1920 lines made the southern edge — the Danube and a line through Hungarian-speaking country; the western edge is the amicable 1993 split of Czechoslovakia along the old Czech–Slovak provincial line.",
     "exports": [
       "cars",
       "vehicle parts",
@@ -92,6 +102,7 @@
   "SVN": {
     "hook": "More than half forest, one of the greenest countries in Europe — and it has only about 47km of coast to its name.",
     "place": "At the head of the Adriatic below Austria. Not Slovakia, which is 400km northeast — the classic mix-up.",
+    "borders": "Yugoslav republic lines turned international in 1991: the Karawanks crest with Austria from the 1919–20 treaties, the Italian edge from the postwar Trieste settlement, and a sliver of sea it had to win from Croatia in arbitration.",
     "exports": [
       "packaged medicines",
       "cars",
@@ -101,6 +112,7 @@
   "LUX": {
     "hook": "The richest country per head on Earth, and nearly half its workforce drives in from France, Belgium and Germany every morning.",
     "place": "Tucked into the corner where Belgium, France and Germany meet.",
+    "borders": "Partitioned three times as neighbours grew — the 1839 split alone gave the francophone west to Belgium — leaving today's rump grand duchy, kept alive because the powers wanted a buffer between France and Germany.",
     "exports": [
       "iron and steel",
       "tyres",
@@ -110,6 +122,7 @@
   "LIE": {
     "hook": "Doubly landlocked — you must cross two borders to reach any sea — and it is the world's largest producer of false teeth.",
     "place": "A 25km sliver in the upper Rhine valley, entirely between Switzerland and Austria.",
+    "borders": "Two medieval lordships the Liechtenstein family bought (1699, 1712) and never let be absorbed: the Rhine is the whole Swiss border, the Alpine ridge the Austrian one.",
     "exports": [
       "dental products",
       "machinery",
@@ -119,6 +132,7 @@
   "MCO": {
     "hook": "The most densely populated country on Earth, and small enough to walk end to end in under an hour.",
     "place": "A 2km² notch on the French Riviera coast, close to the Italian border.",
+    "borders": "A Grimaldi possession since 1297, shrunk to two square kilometres in 1861 when the family sold its hinterland towns of Menton and Roquebrune to France — the border is the edge of what they kept.",
     "exports": [
       "cosmetics",
       "pharmaceuticals",

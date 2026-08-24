@@ -2,6 +2,7 @@
   "USA": {
     "hook": "The only country with land borders on just two nations yet coastline on three oceans — the Arctic one courtesy of Alaska, bought from Russia for two cents an acre.",
     "place": "The wide middle of North America, Canada above and Mexico below, with Alaska detached in the far northwest corner.",
+    "borders": "The 49th parallel with Canada is a pure treaty line of latitude (1818–46); the Mexican border is half Rio Grande, half a surveyors' desert line, both from the 1848 treaty that ended the Mexican–American War.",
     "exports": [
       "refined petroleum",
       "crude petroleum",
@@ -11,6 +12,7 @@
   "CAN": {
     "hook": "Has the longest coastline of any country on Earth — about 202,000km, roughly a sixth of the world's total, thanks to a shattered Arctic archipelago.",
     "place": "Everything above the United States, ocean to ocean to ocean. The border it shares with the US is the longest between any two countries.",
+    "borders": "The world's longest border: the Great Lakes and St Lawrence in the east, the 49th parallel — an 1818 diplomatic compromise — ruled straight across the west, and the Alaska panhandle line settled by arbitration in 1903.",
     "exports": [
       "crude petroleum",
       "cars",
@@ -20,6 +22,7 @@
   "MEX": {
     "hook": "Mexico City is sinking as much as 50cm a year in places — it was built on a drained lake bed, and the ground is still compacting under it.",
     "place": "The funnel narrowing southeast from the US border down to the Central American chain.",
+    "borders": "Lost everything north of the Rio Grande and the desert survey line to the US in 1848 after the Mexican–American War; the southern border with Guatemala follows the Usumacinta river and 1882 treaty lines through rainforest.",
     "exports": [
       "cars",
       "vehicle parts",

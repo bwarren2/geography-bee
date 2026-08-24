@@ -2,6 +2,7 @@
   "ZAF": {
     "hook": "Has three capital cities at once — Pretoria governs, Cape Town legislates, Bloemfontein judges — and twelve official languages.",
     "place": "The bottom of the continent, completely surrounding Lesotho and wrapping around Eswatini.",
+    "borders": "The 1910 Union stitched two British colonies and two Boer republics inside their outer limits — completely surrounding Lesotho; on the Namibian border the line sits on the Orange river's north bank rather than midstream, a colonial quirk Namibia still contests.",
     "exports": [
       "gold",
       "platinum",
@@ -11,6 +12,7 @@
   "NAM": {
     "hook": "The Namib is the oldest desert on Earth at around 55 million years, and its Skeleton Coast is littered with shipwrecks.",
     "place": "On the Atlantic between Angola and South Africa, with the Caprivi Strip reaching east toward the Zambezi.",
+    "borders": "German South-West Africa's box — including the Caprivi Strip, a 450 km corridor Germany extracted in an 1890 treaty hoping to reach the Zambezi and the Indian Ocean, apparently not reckoning with Victoria Falls in between.",
     "exports": [
       "diamonds",
       "gold",
@@ -20,6 +22,7 @@
   "BWA": {
     "hook": "The Okavango spills into the Kalahari and simply evaporates — one of the few great river deltas that never reaches the sea.",
     "place": "Landlocked above South Africa, between Namibia and Zimbabwe.",
+    "borders": "The Bechuanaland Protectorate's lines: the Molopo and Limpopo rivers plus long survey lines through the Kalahari, meeting three neighbours at Kazungula on the Zambezi — a near-four-corners point now spanned by a bridge.",
     "exports": [
       "diamonds",
       "insulated wire",
@@ -29,6 +32,7 @@
   "LSO": {
     "hook": "One of only three countries entirely surrounded by a single other country — and its lowest point, at 1,400m, is the highest low point on Earth.",
     "place": "Entirely inside South Africa, up in the Drakensberg mountains.",
+    "borders": "The mountain kingdom of Moshoeshoe I, who accepted British protection in 1868 to halt Boer encroachment — at the price of the western lowlands, leaving a state entirely surrounded by what became South Africa.",
     "exports": [
       "diamonds",
       "knitted garments",
@@ -38,6 +42,7 @@
   "SWZ": {
     "hook": "Renamed itself from Swaziland in 2018, partly because it kept being confused with Switzerland — and it remains one of the world's last absolute monarchies.",
     "place": "A small landlocked kingdom between South Africa and Mozambique.",
+    "borders": "The Swazi kingdom's core, kept as a British protectorate rather than absorbed — though 19th-century concessions trimmed it, and the modern state still claims Swazi lands lying inside South Africa.",
     "exports": [
       "raw sugar",
       "perfume mixtures",

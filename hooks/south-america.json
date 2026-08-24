@@ -2,6 +2,7 @@
   "BRA": {
     "hook": "Borders every country in South America except Chile and Ecuador — ten neighbours, more than any country outside Russia and China.",
     "place": "Fills the whole eastern bulge. If you can draw Brazil, the rest of the continent is the leftovers around it.",
+    "borders": "The 1750 Treaty of Madrid swapped the paper Tordesillas line for where Portuguese settlers actually were — which is why Brazil bulges far west of the original divide; most modern edges are watershed and river lines negotiated peacefully around 1900 by the diplomat Rio Branco.",
     "exports": [
       "soybeans",
       "iron ore",
@@ -11,6 +12,7 @@
   "ARG": {
     "hook": "Home to Aconcagua, at 6,961m the highest peak anywhere outside Asia — and it sits barely 100km from the Chilean border.",
     "place": "The long southern wedge below Brazil, sharing the Andes spine with Chile the whole way down.",
+    "borders": "The 1881 treaty with Chile put the border on 'the highest peaks dividing the waters' of the Andes — a formula ambiguous enough to feed disputes for a century; the northern lines follow the Pilcomayo and Paraná rivers after wars and arbitrations.",
     "exports": [
       "soybean meal",
       "corn",
@@ -20,6 +22,7 @@
   "COL": {
     "hook": "The only country in South America with coastline on both the Pacific and the Caribbean.",
     "place": "The top-left corner of the continent, and the only one that touches Panama — the land bridge to North America.",
+    "borders": "Spanish viceroyalty lines trimmed by losses: Panama seceded with US backing in 1903, and the southern Amazon reach down to Leticia survived a 1932–33 border war with Peru.",
     "exports": [
       "crude petroleum",
       "coal briquettes",
@@ -29,6 +32,7 @@
   "PER": {
     "hook": "The Amazon starts here, in Andean meltwater, and runs the width of the continent before reaching the Atlantic in Brazil.",
     "place": "Pacific coast, just south of the equator. Ecuador and Colombia above, Chile below, Brazil behind the mountains.",
+    "borders": "Colonial audiencia lines fought over ever since: the nitrate-rich south went to Chile in the War of the Pacific (1879–83), and the Ecuador line in the Cordillera del Cóndor was only demarcated after a 1995 war and the 1998 peace.",
     "exports": [
       "copper ore",
       "gold",
@@ -38,6 +42,7 @@
   "VEN": {
     "hook": "Angel Falls drops 979m, so tall the water atomises into mist before it lands.",
     "place": "The Caribbean shoulder, east of Colombia. Trinidad sits just off its northeast tip.",
+    "borders": "The old Captaincy General's limits — except in the east, where an 1899 arbitration drew the Essequibo line with British Guiana. Venezuela repudiated that award and still claims everything west of the Essequibo river.",
     "exports": [
       "crude petroleum",
       "gold",
@@ -47,6 +52,7 @@
   "CHL": {
     "hook": "4,300km long and averages 180km wide — the same proportions as a country stretched from Norway to the Sahara.",
     "place": "The ribbon down the Pacific edge, pinned between the Andes and the ocean for its entire length.",
+    "borders": "A ribbon pinned between the Andes crest and the Pacific by the 1881 treaty with Argentina; the northern third — Bolivia's coast and Peru's Tarapacá — was won in the War of the Pacific, which is why Bolivia is landlocked.",
     "exports": [
       "refined copper",
       "copper ore",
@@ -56,6 +62,7 @@
   "BOL": {
     "hook": "Landlocked since 1884, and still keeps a navy — it patrols Lake Titicaca and waits for the sea to come back.",
     "place": "The landlocked heart of the continent, ringed by Brazil, Peru, Chile, Argentina and Paraguay.",
+    "borders": "A map of losses: the Pacific coast to Chile (1879–83), the rubber-rich Acre to Brazil (1903), and much of the Chaco to Paraguay after the bloody 1932–35 war — each defeat carved today's outline.",
     "exports": [
       "natural gas",
       "gold",
@@ -65,6 +72,7 @@
   "ECU": {
     "hook": "Named after the equator, which crosses just north of Quito — the only country named for a line of latitude.",
     "place": "A small Pacific notch between Colombia and Peru. The Galápagos belong to it, 900km out to sea.",
+    "borders": "Colonial Quito's claimed Amazon wedge appeared on its maps until 1998: most of it went to Peru in the 1941 war and the Rio Protocol, and the final Cordillera del Cóndor stretch was settled after the 1995 Cenepa war.",
     "exports": [
       "crude petroleum",
       "bananas",
@@ -74,6 +82,7 @@
   "PRY": {
     "hook": "Runs almost entirely on the Itaipú dam and sells the surplus to Brazil, making it one of the world's largest electricity exporters per head.",
     "place": "The other landlocked one, tucked between Bolivia, Brazil and Argentina.",
+    "borders": "Rivers nearly all the way round — Paraná, Paraguay, Pilcomayo. It lost swathes of territory after the catastrophic War of the Triple Alliance (1864–70), then won most of the disputed Chaco from Bolivia in the 1930s.",
     "exports": [
       "soybeans",
       "electricity",
@@ -83,6 +92,7 @@
   "URY": {
     "hook": "Smaller than every other Spanish-speaking country in South America, with more cattle than people — about four to one.",
     "place": "The small wedge on the Atlantic between Brazil and Argentina, across the river from Buenos Aires.",
+    "borders": "Created whole as a buffer state: Britain brokered its independence in 1828 precisely so neither Brazil nor Argentina would hold both banks of the Río de la Plata; the Uruguay river draws the western line.",
     "exports": [
       "beef",
       "soybeans",
@@ -92,6 +102,7 @@
   "GUY": {
     "hook": "The only country in South America where English is the official language — and since a 2015 offshore oil strike, among the fastest-growing economies on Earth.",
     "place": "One of the three small countries stacked along the northeast coast, east of Venezuela.",
+    "borders": "British Guiana's colonial limits: the west is the 1899 arbitration line Venezuela still rejects (it claims all land west of the Essequibo), and the southeastern New River triangle is likewise claimed by Suriname.",
     "exports": [
       "crude petroleum",
       "gold",
@@ -101,6 +112,7 @@
   "SUR": {
     "hook": "Dutch-speaking, and the smallest sovereign country in South America — most of it is rainforest almost nobody lives in.",
     "place": "The middle of the three northeastern neighbours: Guyana to its west, French Guiana to its east.",
+    "borders": "Dutch Guiana's edges are two rivers — the Corentyne west, the Maroni east — but each has rival headstreams upstream, so both ends of the country are still quietly disputed with its neighbours.",
     "exports": [
       "gold",
       "crude petroleum",

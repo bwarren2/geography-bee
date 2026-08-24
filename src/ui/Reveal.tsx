@@ -134,6 +134,12 @@ export function Reveal({ country, city, tappedAt, index, terrain, correct, chose
         <div className="hook">
           <p>{hook.hook}</p>
           <p className="place">{hook.place}</p>
+          {hook.borders && (
+            <p className="place borders-why">
+              <span className="borders-label">Why the border: </span>
+              {hook.borders}
+            </p>
+          )}
           {hook.exports.length > 0 && <p className="place">Exports: {hook.exports.join(', ')}</p>}
         </div>
       )}

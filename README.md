@@ -29,6 +29,15 @@ answer cold.
 shows the country with its neighbours labelled, plus context. Their job early on
 is to give the shape a story, not to be recalled.
 
+**Every border has a story, and the reveal tells it.** A shape on a map raises
+a question — why does the line run *there*? — and the answer is always a
+treaty, a river, a war, or a colonial pen: Uzbekistan's jigsaw is Stalin's
+1924 delimitation, the Gambia is gunboat range up a river, Bolivia's outline
+is a history of lost wars. Each country's hook entry carries a hand-written
+`borders` field (islands get why the state spans the islands it does), the
+build validates that none is missing, and the reveal shows it under "Why the
+border" — because a line with a reason is easier to remember than a line.
+
 **Rapid review is the sprint lane.** A tap-only run over countries already
 met: no teach screens, no reveal panel, just prompt → tap → a sub-second flash
 of the answer → next. One attempt per card. Every answer still lands in the

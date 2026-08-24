@@ -2,6 +2,7 @@
   "TUR": {
     "hook": "Straddles two continents, which makes Istanbul the only major city in the world with a European half and an Asian half.",
     "place": "The land bridge between Europe and Asia, Black Sea above, Mediterranean below.",
+    "borders": "The 1923 Treaty of Lausanne, won by Atatürk after tearing up the punitive Sèvres partition: the Maritsa river with Greece, the 1921 Kars treaty line in the Caucasus, and a Syrian border that famously follows the old Baghdad railway track.",
     "exports": [
       "cars",
       "vehicle parts",
@@ -11,6 +12,7 @@
   "SAU": {
     "hook": "The largest country on Earth with no rivers — not one permanent watercourse anywhere in it.",
     "place": "Most of the Arabian peninsula, Red Sea to the west, the Gulf to the east.",
+    "borders": "Desert lines mostly ruled by Britain in the 1920s — the Uqair conference simply drew them on a map — and finished by quiet bilateral deals as late as 2000, when the Yemen line through the Empty Quarter was finally fixed.",
     "exports": [
       "crude petroleum",
       "refined petroleum",
@@ -20,6 +22,7 @@
   "IRQ": {
     "hook": "Mesopotamia, the land between the Tigris and Euphrates — writing, the wheel and the city were all invented here.",
     "place": "Between Iran and Syria, with a narrow squeeze of coast at the head of the Gulf.",
+    "borders": "Stitched by Britain after WWI from three Ottoman provinces — Mosul, Baghdad, Basra; the Kuwait line, another British creation confirmed by the UN in 1993, is what leaves it with barely 50 km of coast.",
     "exports": [
       "crude petroleum",
       "refined petroleum",
@@ -29,6 +32,7 @@
   "YEM": {
     "hook": "Its island of Socotra has been isolated so long that a third of its plants grow nowhere else — including trees that bleed red sap.",
     "place": "The southwestern corner of Arabia, on the strait where the Red Sea meets the Gulf of Aden.",
+    "borders": "Two Yemens merged in 1990: the north's Ottoman-era limits and the south's British Aden protectorate, joined to a long Empty Quarter line with Saudi Arabia that was only settled by the Treaty of Jeddah in 2000.",
     "exports": [
       "crude petroleum",
       "fish",
@@ -38,6 +42,7 @@
   "SYR": {
     "hook": "Damascus has been continuously inhabited for perhaps 11,000 years, which makes it a contender for the oldest city on Earth.",
     "place": "On the eastern Mediterranean between Türkiye and Jordan, with Iraq to the east.",
+    "borders": "A French mandate cut from Ottoman Syria: the dead-straight desert line with Iraq is the Anglo-French partition sketched in Sykes–Picot, the northern border follows the Baghdad railway — and Hatay, ceded to Türkiye in 1939, still appears on some Syrian maps.",
     "exports": [
       "olive oil",
       "spices",
@@ -47,6 +52,7 @@
   "OMN": {
     "hook": "Its detached northern tip controls the Strait of Hormuz, the 33km gap that about a fifth of the world's oil must pass through.",
     "place": "The southeastern corner of Arabia, with the Musandam exclave cut off by the UAE.",
+    "borders": "The sultanate's coastal reach plus desert lines settled quietly with Saudi Arabia in 1990 and Yemen in 1992; the Musandam exclave guarding the Strait of Hormuz is cut off by UAE territory — a matter of which tribes swore loyalty to whom.",
     "exports": [
       "crude petroleum",
       "refined petroleum",
@@ -56,6 +62,7 @@
   "JOR": {
     "hook": "Its Dead Sea shore is the lowest dry land on the planet, about 430m below sea level — and dropping about a metre a year.",
     "place": "Between the West Bank and Iraq, with one small outlet to the Red Sea at Aqaba.",
+    "borders": "Churchill's 1921 creation of Transjordan carved the mandate lands east of the Jordan river into an emirate; in 1965 it traded desert with Saudi Arabia to stretch its tiny Red Sea coastline at Aqaba.",
     "exports": [
       "potassic fertilizers",
       "packaged medicines",
@@ -65,6 +72,7 @@
   "AZE": {
     "hook": "The name means Land of Fire, and the gas seeps at Yanar Dag have been burning on the hillside for centuries.",
     "place": "On the Caspian's western shore below Russia, with the Nakhchivan exclave cut off by Armenia.",
+    "borders": "Soviet lines with long consequences: the 1921 settlement placed Armenian-populated Karabakh inside Azerbaijan — retaken by force in 2020–23 — and left Nakhchivan as an exclave separated by Armenian territory.",
     "exports": [
       "crude petroleum",
       "refined petroleum",
@@ -74,6 +82,7 @@
   "ARE": {
     "hook": "A federation of seven emirates, and home to the Burj Khalifa — still the tallest building in the world by a wide margin.",
     "place": "On the southern shore of the Gulf, between Saudi Arabia and Oman.",
+    "borders": "Seven Trucial sheikhdoms that federated in 1971 keeping their tribal-allegiance boundaries — which is why the map is a jigsaw of enclaves, including an Omani enclave that itself contains a piece of Sharjah.",
     "exports": [
       "crude petroleum",
       "gold",
@@ -83,6 +92,7 @@
   "GEO": {
     "hook": "Has been making wine for about 8,000 years, fermenting it in clay vessels buried in the ground — the oldest such tradition known.",
     "place": "Between the Black Sea and the Caucasus, below Russia and above Armenia and Türkiye.",
+    "borders": "The Caucasus main crest carries the Russian border above the old kingdoms' lands, fixed as a Soviet republic; the lines around Abkhazia and South Ossetia are 1990s ceasefire lines that Russia now treats as borders.",
     "exports": [
       "copper ore",
       "cars",
@@ -92,6 +102,7 @@
   "ISR": {
     "hook": "Recycles around 90% of its wastewater, far more than any other country — the next best manages barely a quarter.",
     "place": "A narrow strip on the eastern Mediterranean, between Lebanon and Egypt's Sinai.",
+    "borders": "The 1949 armistice line — the 'Green Line' — not the 1947 UN partition map; the Egyptian and Jordanian borders were settled by the 1979 and 1994 peace treaties along old mandate lines.",
     "exports": [
       "diamonds",
       "integrated circuits",
@@ -101,6 +112,7 @@
   "LBN": {
     "hook": "The cedar on its flag once supplied timber to Egypt and Phoenicia for millennia — only a few ancient groves are left standing.",
     "place": "A narrow coastal strip on the eastern Mediterranean, squeezed between Syria and Israel.",
+    "borders": "France carved 'Greater Lebanon' from mandate Syria in 1920, attaching the Bekaa valley and the coastal cities to the Christian-majority Mount Lebanon core — a border Syria declined to formally demarcate for decades.",
     "exports": [
       "gold",
       "jewellery",
@@ -110,6 +122,7 @@
   "ARM": {
     "hook": "The first state anywhere to adopt Christianity, in 301 — and its national symbol, Mount Ararat, sits across a closed border in Türkiye.",
     "place": "Landlocked in the southern Caucasus, ringed by Türkiye, Georgia, Azerbaijan and Iran.",
+    "borders": "The 1921 treaties of Moscow and Kars fixed the Turkish line — putting Mount Ararat, the national symbol, just outside; the Azerbaijani lines are Soviet-drawn, leaving Karabakh beyond them, the spark of the wars since 1988.",
     "exports": [
       "copper ore",
       "gold",
@@ -119,6 +132,7 @@
   "KWT": {
     "hook": "Its dinar is the highest-valued currency in the world — one buys more than three US dollars.",
     "place": "At the very top of the Gulf, wedged between Iraq and Saudi Arabia.",
+    "borders": "Drawn at the 1922 Uqair conference, where Britain's Percy Cox reportedly pencilled the lines personally — granting Saudi Arabia a slice of Kuwait's claimed desert and boxing Iraq away from the Gulf, a grievance Saddam invoked in 1990.",
     "exports": [
       "crude petroleum",
       "refined petroleum",
@@ -128,6 +142,7 @@
   "PSE": {
     "hook": "Two separated territories with Israel in between — the West Bank and Gaza are about 45km apart with no direct link.",
     "place": "The West Bank inland along the Jordan, and Gaza on the Mediterranean coast beside Egypt.",
+    "borders": "The West Bank and Gaza are the two pieces of mandate Palestine left outside Israel by the 1949 armistice — held then by Jordan and Egypt, occupied by Israel since 1967, with the Green Line still the reference for every peace plan.",
     "exports": [
       "building stone",
       "dates",
@@ -137,6 +152,7 @@
   "QAT": {
     "hook": "Sits on the largest single natural gas field on Earth, which it shares with Iran across the middle of the Gulf.",
     "place": "A thumb of land pointing north into the Gulf from Saudi Arabia.",
+    "borders": "A peninsula under British protection whose single land line, with Saudi Arabia, was only finally fixed in agreements completed in 2008; the Hawar islands question with Bahrain took a 2001 world-court ruling.",
     "exports": [
       "natural gas",
       "crude petroleum",
@@ -146,6 +162,7 @@
   "BHR": {
     "hook": "First Gulf state to strike oil, and the first to largely run out — it has been diversifying longer than its neighbours have had to.",
     "place": "A small archipelago in the Gulf off Saudi Arabia's east coast, linked by a 25km causeway.",
+    "borders": "An island state with no land border at all; the 2001 International Court of Justice ruling with Qatar over the Hawar islands closed one of the region's oldest disputes, and the King Fahd Causeway is the only land link out.",
     "exports": [
       "refined petroleum",
       "aluminium",

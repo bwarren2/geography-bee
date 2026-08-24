@@ -2,6 +2,7 @@
   "CUB": {
     "hook": "The largest island in the Caribbean and the longest — end to end it covers about the distance from London to Edinburgh, yet sits only 145km from Florida.",
     "place": "The long island guarding the mouth of the Gulf of Mexico, directly south of Florida.",
+    "borders": "Spain's last American colony, an island with one anomalous line: Guantánamo Bay, leased in perpetuity to the US in 1903 under the Platt Amendment — a boundary Cuba refuses to recognize but cannot remove.",
     "exports": [
       "cigars",
       "raw sugar",
@@ -11,6 +12,7 @@
   "DOM": {
     "hook": "Holds the highest peak in the entire Caribbean, Pico Duarte at 3,101m — high enough that it occasionally gets frost.",
     "place": "The eastern two-thirds of Hispaniola, the island between Cuba and Puerto Rico.",
+    "borders": "Hispaniola was split between France and Spain at Ryswick in 1697; today's border descends from that colonial partition, finally fixed by treaties in 1929–36 along rivers and survey lines.",
     "exports": [
       "gold",
       "medical instruments",
@@ -20,6 +22,7 @@
   "HTI": {
     "hook": "The only nation founded by a successful slave revolt, in 1804 — and the first independent country in Latin America.",
     "place": "The western third of Hispaniola, sharing one island with the Dominican Republic.",
+    "borders": "The French third of Hispaniola from the 1697 partition, independent by slave revolution in 1804; the line with the Dominican Republic follows the Massacre and Pedernales rivers as fixed by the 1929 treaty.",
     "exports": [
       "knitted t-shirts",
       "essential oils",
@@ -29,6 +32,7 @@
   "JAM": {
     "hook": "Its Blue Mountains are steep and wet enough that the coffee grown there sells for several times the world price.",
     "place": "South of Cuba and west of Hispaniola, on its own in the middle of the sea.",
+    "borders": "An island England seized from Spain in 1655 and never gave back — no land border, and the state is the island with its cays.",
     "exports": [
       "alumina",
       "bauxite",
@@ -38,6 +42,7 @@
   "TTO": {
     "hook": "Home to Pitch Lake, the largest natural asphalt deposit on Earth — parts of London and New York are paved with it.",
     "place": "Just 11km off Venezuela's northeast tip, the last stop at the bottom of the island arc.",
+    "borders": "Trinidad taken from Spain in 1797, Tobago attached to it administratively by Britain in 1889 — two islands paired by colonial bookkeeping, with the narrow channel to Venezuela delimited by treaty in 1990.",
     "exports": [
       "natural gas",
       "ammonia",
@@ -47,6 +52,7 @@
   "BHS": {
     "hook": "Around 700 islands, only about 30 of them inhabited — and the seabed beside the shallow banks drops away to 4,000m.",
     "place": "The long scatter northeast of Cuba, beginning just off the Florida coast.",
+    "borders": "Seven hundred islands defined by colonial paperwork: the Turks and Caicos were split off in 1848 and stayed British at independence, so the archipelago's southern end belongs to a different flag.",
     "exports": [
       "ships",
       "crustaceans",
@@ -56,6 +62,7 @@
   "BRB": {
     "hook": "Sits out in the Atlantic beyond the island arc rather than in it, which is why hurricanes so often pass it by.",
     "place": "Alone to the east of the chain, past Saint Vincent — the most easterly country in the Caribbean.",
+    "borders": "A single coral island Britain held continuously from 1627 — never conquered or traded between empires, so no partition line ever touched it.",
     "exports": [
       "rum",
       "ships",
@@ -65,6 +72,7 @@
   "LCA": {
     "hook": "The Pitons rise straight out of the sea as twin volcanic spires — the only place in the Caribbean with a drive-in volcano.",
     "place": "Midway down the eastern arc, between Martinique and Saint Vincent.",
+    "borders": "One island that changed hands between Britain and France fourteen times before 1814 — its border history is temporal rather than spatial: French place-names and creole under an eventually British state.",
     "exports": [
       "refined petroleum",
       "bananas",
@@ -74,6 +82,7 @@
   "DMA": {
     "hook": "The Nature Island, with the world's second-largest boiling lake — and no relation whatsoever to the Dominican Republic, 800km northwest.",
     "place": "In the eastern arc between Guadeloupe and Martinique. The mix-up with the Dominican Republic is the one to watch for.",
+    "borders": "A volcanic island lying between the two French islands of Guadeloupe and Martinique — Britain secured it in 1763, which is why an anglophone state interrupts the French Antilles.",
     "exports": [
       "medical instruments",
       "bananas",
@@ -83,6 +92,7 @@
   "VCT": {
     "hook": "One main island plus 32 smaller ones, and a volcano — La Soufrière — that erupted as recently as 2021.",
     "place": "In the eastern arc, directly between Saint Lucia and Grenada.",
+    "borders": "St Vincent plus the northern Grenadines: Britain split the Grenadine chain administratively with Grenada, and that colonial partition line through the small islands survives as the state boundary.",
     "exports": [
       "ships",
       "wheat flour",
@@ -92,6 +102,7 @@
   "ATG": {
     "hook": "Claims a beach for every day of the year — 365 of them, one for each day.",
     "place": "Near the top of the eastern arc, east of Saint Kitts.",
+    "borders": "Antigua, Barbuda and uninhabited Redonda, bundled as one British colony — Barbuda spent two centuries leased to a single family, and its forced pairing with Antigua still chafes in island politics.",
     "exports": [
       "ships",
       "refined petroleum",
@@ -101,6 +112,7 @@
   "GRD": {
     "hook": "The Isle of Spice, and one of the world's great nutmeg producers — the nut is on the national flag.",
     "place": "The southern end of the eastern arc, just north of Trinidad.",
+    "borders": "Grenada plus the southern Grenadines, Carriacou and Petite Martinique — the other half of the chain Britain divided with St Vincent, the split line running through open water mid-archipelago.",
     "exports": [
       "nutmeg",
       "fish",
@@ -110,6 +122,7 @@
   "KNA": {
     "hook": "The smallest sovereign state in the Americas by both area and population — the whole country would fit inside Liverpool.",
     "place": "Near the top of the eastern arc, northwest of Antigua.",
+    "borders": "Two islands run as one British presidency — originally with Anguilla, which rebelled in 1967 rather than stay yoked to distant Basseterre and returned to British rule; the remaining pair is the smallest state in the Americas.",
     "exports": [
       "electronics",
       "machinery",

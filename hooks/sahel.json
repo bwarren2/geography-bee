@@ -2,6 +2,7 @@
   "NER": {
     "hook": "Has the youngest population on Earth — around half of Niger is under fifteen.",
     "place": "Landlocked and mostly Sahara, sitting directly on top of Nigeria. The two names are the mix-up to watch.",
+    "borders": "French West Africa's internal lines made international in 1960: survey arcs across the Sahara, a Libyan line inherited from Franco-Italian bargains, and the southern edge along Anglo-French treaty lines of 1898–1906 that split Hausa country with Nigeria.",
     "exports": [
       "uranium",
       "gold",
@@ -11,6 +12,7 @@
   "MLI": {
     "hook": "Timbuktu was a university town when Oxford was new, and its medieval ruler Mansa Musa may have been the richest person who ever lived.",
     "place": "Landlocked across the western Sahel, with the Niger river arcing through its middle.",
+    "borders": "French Sudan's administrative outline: ruler lines across the desert toward Algeria and Mauritania, and a scalloped southern edge negotiated around existing chiefdoms — none of it older than the 1890s.",
     "exports": [
       "gold",
       "cotton",
@@ -20,6 +22,7 @@
   "MRT": {
     "hook": "Runs one of the longest trains in the world — up to 2.5km of iron ore across the desert, with passengers riding on top of the load.",
     "place": "Where the Sahara meets the Atlantic, above Senegal and west of Mali.",
+    "borders": "French survey lines linking France's West African and North African holdings — including a right-angled bite at the northeast drawn to skirt then-Spanish Sahara; it annexed the southern third of Western Sahara in 1976 and renounced it in 1979.",
     "exports": [
       "iron ore",
       "gold",

@@ -2,6 +2,7 @@
   "ESP": {
     "hook": "After Switzerland, the most mountainous country in Europe — Madrid sits at 650m, the highest capital on the continent.",
     "place": "Most of the Iberian peninsula, Portugal down its western side, the Pyrenees sealing it off from France.",
+    "borders": "The Pyrenees crest, fixed by the 1659 Treaty of the Pyrenees; the Portuguese line is even older, largely the 1297 Treaty of Alcañices — while Gibraltar, ceded to Britain in 1713, remains the peninsula's unresolved corner.",
     "exports": [
       "cars",
       "refined petroleum",
@@ -11,6 +12,7 @@
   "ITA": {
     "hook": "The only country with two entire sovereign states inside it — San Marino in the northeast, Vatican City in the middle of Rome.",
     "place": "The boot kicking into the Mediterranean, Sicily at the toe and Sardinia out to the west.",
+    "borders": "The Alpine watershed, assembled in stages: Savoy and Nice traded to France in 1860 for unification support, South Tyrol taken to the Brenner pass in 1919 despite its German speakers, and the Trieste line with Yugoslavia settled only in 1954.",
     "exports": [
       "packaged medicines",
       "cars",
@@ -20,6 +22,7 @@
   "GRC": {
     "hook": "Around 6,000 islands, only about 230 of them inhabited, and nowhere on the mainland is more than 137km from the sea.",
     "place": "The southern tip of the Balkans, its islands scattered east across the Aegean toward Türkiye.",
+    "borders": "Expanded northward in waves as Ottoman rule receded — 1830, 1881, 1913, 1947 — ending with the Dodecanese from Italy; the Evros river line with Türkiye was fixed by the 1923 Lausanne settlement and its brutal population exchange.",
     "exports": [
       "refined petroleum",
       "packaged medicines",
@@ -29,6 +32,7 @@
   "PRT": {
     "hook": "Has the oldest fixed borders in Europe, essentially unchanged since 1297 — and supplies about half the world's cork.",
     "place": "The western strip of Iberia: Atlantic on two sides, Spain on the other two.",
+    "borders": "Substantially the 1297 Treaty of Alcañices — the oldest almost-unchanged border in Europe, following the Minho and Guadiana rivers, with one gap: Olivenza, held by Spain since 1801 and still claimed on paper.",
     "exports": [
       "cars",
       "vehicle parts",
@@ -38,6 +42,7 @@
   "CYP": {
     "hook": "Divided since 1974, which makes Nicosia the last divided capital city in Europe — a buffer zone runs straight through it.",
     "place": "In the eastern Mediterranean south of Türkiye — geographically Asian, politically European.",
+    "borders": "The lines on the island are ceasefire lines: the UN-patrolled Green Line has divided the Turkish-occupied north from the republic since 1974, and two British sovereign base areas survive from the 1960 independence deal.",
     "exports": [
       "ships",
       "packaged medicines",
@@ -47,6 +52,7 @@
   "MLT": {
     "hook": "The most densely populated country in the EU, on islands with no rivers and no lakes at all.",
     "place": "In the middle of the Mediterranean, about 80km south of Sicily.",
+    "borders": "No land border ever — the state is the three inhabited islands Britain took from Napoleon in 1800 and held as a Mediterranean fortress until 1964.",
     "exports": [
       "integrated circuits",
       "packaged medicines",
@@ -56,6 +62,7 @@
   "AND": {
     "hook": "No airport, no railway, and two heads of state at once — the President of France and a Spanish bishop share the job.",
     "place": "High in the Pyrenees, entirely enclosed by Spain and France.",
+    "borders": "A feudal arrangement fossilized: since the 1278 paréage, France's head of state and the Spanish bishop of Urgell have been joint princes of the same mountain valleys, and the border is simply that valley territory.",
     "exports": [
       "integrated circuits",
       "cars",
@@ -65,6 +72,7 @@
   "SMR": {
     "hook": "Claims to be the oldest surviving republic in the world, founded in 301 — and it is completely surrounded by Italy.",
     "place": "A landlocked enclave inside northeastern Italy, up a mountain near Rimini.",
+    "borders": "A hilltop commune that persuaded Napoleon, then unifying Italy, to leave it alone — the border is the old commune's territory, essentially unchanged since the fifteenth century.",
     "exports": [
       "machinery",
       "wood products",
@@ -74,6 +82,7 @@
   "VAT": {
     "hook": "The smallest country on Earth at 0.49km² — the whole state fits inside a single city, with room for a garden.",
     "place": "Entirely within Rome, on the west bank of the Tiber.",
+    "borders": "The 1929 Lateran Treaty drew a wall-following line around St Peter's, its museums and gardens — 44 hectares left sovereign from the Papal States that Italy had absorbed in 1870.",
     "exports": [
       "postage stamps",
       "commemorative coins",
