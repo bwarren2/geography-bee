@@ -37,8 +37,11 @@ removed. The round starts from a picker that is the mastery map itself:
 whole-world, or tap a region's anchor dot to sprint just that part of the
 map — the shading is live recall, so choosing a focus and finding your weak
 spot are the same glance. World rounds deal due cards and weakest recall
-round-robin across regions so no single cohort can capture them; a focused
-round deliberately concentrates instead. Either way the round is shuffled,
+round-robin across regions so no single cohort can capture them, and only
+cards whose recall has actually slipped qualify — a country declared known
+cold stays out of world sprints until its recall genuinely decays. A focused
+round deliberately concentrates instead, fresh cards included: drilling a
+chosen area is a request, not filler. Either way the round is shuffled,
 because a predictable sequence would let order memory stand in for actually
 knowing the map.
 

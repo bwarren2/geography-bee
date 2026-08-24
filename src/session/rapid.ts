@@ -21,6 +21,18 @@ export const RAPID_ROUND_SIZE = 20
 export const RAPID_MIN_SEEN = 5
 
 /**
+ * Whole-world rounds only take cards whose recall has actually slipped below
+ * this. Without the cutoff, thin rounds padded themselves with whatever was
+ * least fresh, and the region round-robin then guaranteed a seat to every
+ * region — including ones whose only card is a declared-cold country at
+ * 99.9% recall. "Know it cold" means exactly that the sprint leaves it
+ * alone until its recall genuinely decays (months, for a mastered card).
+ * Focused region rounds skip the cutoff: deliberately drilling a chosen
+ * area over fresh cards is a request, not filler.
+ */
+export const RAPID_FRESH_CUTOFF = 0.92
+
+/**
  * Which cards deserve a slot in the round: due cards first (oldest debt
  * first), then the weakest recall — dealt round-robin across regions.
  *
@@ -48,9 +60,10 @@ export function selectRapidCards(
 
   const ts = now.getTime()
   const due = seen.filter((c) => c.due <= ts).sort((a, b) => a.due - b.due)
-  // The rest, weakest recall first — the countries most worth a fast refresher.
+  // The rest, weakest recall first — the countries most worth a fast
+  // refresher. World rounds drop anything still fresh; see RAPID_FRESH_CUTOFF.
   const rest = seen
-    .filter((c) => c.due > ts)
+    .filter((c) => c.due > ts && (regionSlug ? true : retrievability(c, now) < RAPID_FRESH_CUTOFF))
     .sort((a, b) => retrievability(a, now) - retrievability(b, now))
 
   // Per-region queues in global priority order; regions take turns in the

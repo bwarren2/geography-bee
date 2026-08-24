@@ -89,6 +89,27 @@ describe('buildRapidQueue', () => {
     expect(round[0]).toBe('south-america')
   })
 
+  it('keeps fresh, high-recall cards out of whole-world rounds', () => {
+    // The declared-cold regression: Russia's region queue holds exactly one
+    // card at ~100% recall, and the round-robin seated it in every round.
+    const cards: Record<string, StoredCard> = {}
+    const due = { ...reviewed('PER', new Date('2026-05-01')), due: now.getTime() - 1000 }
+    cards[due.id] = due
+    // A declared-mastered card: huge stability, reviewed yesterday, not due.
+    const cold = {
+      ...reviewed('RUS', new Date('2026-05-31')),
+      stability: 424,
+      due: now.getTime() + 400 * 86_400_000,
+    }
+    cards[cold.id] = cold
+
+    const world = selectRapidCards(index, cards, now)
+    expect(world.map((i) => i.card.iso3)).toEqual(['PER'])
+    // A deliberate focus on Russia is a request, not filler: still served.
+    const focused = selectRapidCards(index, cards, now, 20, 'russia')
+    expect(focused.map((i) => i.card.iso3)).toEqual(['RUS'])
+  })
+
   it('restricts a focused round to the chosen region', () => {
     const cards: Record<string, StoredCard> = {}
     const balkans = index.bundle.regions.find((r) => r.slug === 'balkans')!.countries
