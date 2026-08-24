@@ -47,6 +47,23 @@ const MAX_ZOOM = 8
 const WHEEL_SENSITIVITY = 0.0022
 
 /**
+ * Effective snap radius, in screen pixels, for a micro-state whose nearest
+ * neighbouring centroid is `nearestPx` away on screen right now.
+ *
+ * The crowding cap protects neighbours: a snap zone never covers more than
+ * 45% of the visible gap, so Vatican City cannot swallow taps meant for
+ * Rome. But the gap is a *screen* quantity — zooming in widens it — so the
+ * cap must scale with zoom. The old fixed cap made zooming useless for
+ * enclaves: San Marino's polygon stays sub-pixel at any zoom, and its snap
+ * target stayed 11px however far in you went. Now zooming toward an enclave
+ * grows its tap target to the full comfortable size.
+ */
+export function snapRadiusPx(nearestPx: number): number {
+  if (!Number.isFinite(nearestPx)) return MIN_TAP_PX / 2
+  return Math.max(MIN_SNAP_PX, Math.min(MIN_TAP_PX / 2, nearestPx * CROWDING_FACTOR))
+}
+
+/**
  * The map owns its own pan/zoom instead of leaving pinch to the browser.
  * Page-level pinch zoom was the original behaviour, and it made small
  * countries a trap: zoom the page in to tap Monaco, answer, and the reveal
@@ -388,10 +405,9 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, cityMarks
           if (other === s) continue
           nearest = Math.min(nearest, Math.hypot(other.cx - s.cx, other.cy - s.cy))
         }
-        const radius = Number.isFinite(nearest)
-          ? Math.max(MIN_SNAP_PX, Math.min(MIN_TAP_PX / 2, nearest * CROWDING_FACTOR))
-          : MIN_TAP_PX / 2
-        return { iso3: s.iso3, cx: s.cx, cy: s.cy, radius }
+        // nearest is in base coordinates; the click handler scales it by the
+        // live zoom before applying the crowding cap.
+        return { iso3: s.iso3, cx: s.cx, cy: s.cy, nearest }
       })
 
     return { projection, path, shapes, snaps }
@@ -467,13 +483,14 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, cityMarks
       return
     }
 
-    // Snap distances compare in screen pixels, so zooming in shrinks the snap
-    // zones on the ground: the assist fades out exactly as it stops being
-    // needed, and a zoomed-in tap lands where it visibly points.
+    // Snap distances compare in screen pixels, so zooming in shrinks each
+    // zone on the ground — the assist fades as it stops being needed — while
+    // the crowding cap grows with the widening on-screen gaps, so an enclave
+    // like Vatican City becomes a full-size tap target once zoomed toward.
     let best: { iso3: string; dist: number } | null = null
     for (const s of scene.snaps) {
       const dist = Math.hypot(s.cx - x, s.cy - y) * tf.k
-      if (dist <= s.radius && (!best || dist < best.dist) && canPick(s.iso3)) {
+      if (dist <= snapRadiusPx(s.nearest * tf.k) && (!best || dist < best.dist) && canPick(s.iso3)) {
         best = { iso3: s.iso3, dist }
       }
     }
@@ -614,6 +631,7 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, cityMarks
               .map((s) => (
                 <circle
                   key={s.iso3}
+                  data-iso3-dot={s.iso3}
                   cx={s.cx}
                   cy={s.cy}
                   r={3 / tf.k}
