@@ -806,6 +806,33 @@ button.ghost:hover:not(:disabled) {
   font-size: 12px;
 }
 
+/* Dashboard tabs: Overview (how far along) vs Analytics (what is going wrong). */
+.tab-bar {
+  display: flex;
+  gap: 3px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 3px;
+}
+
+.tab-bar button {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.tab-bar button.active {
+  background: var(--panel-2);
+  color: var(--text);
+}
+
 /* Dashboard insight panels: activity strip, trouble spots, mix-ups. */
 .insight {
   background: var(--panel);

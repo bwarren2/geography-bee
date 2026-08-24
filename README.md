@@ -100,7 +100,10 @@ candidates marked, tap the named one, then the mirror question. A correct
 discrimination decays the pair's count and a wrong one feeds it, so a pair is
 drilled exactly until it stops being confused — no extra scheduling state.
 
-**Every diagnosis on the dashboard ends in a button.** Trouble spots are the
+**Every diagnosis on the Analytics tab ends in a button.** The progress screen
+splits in two: Overview answers "how far along am I?" (choropleth, ETAs, the
+region table) and Analytics answers "what is going wrong and what do I do
+about it?". Trouble spots are the
 countries actually missed — miss rate shrunk so one early stumble cannot
 outrank a chronic problem, weighted by how hard the scheduler currently rates
 the card so an old rough patch expires once the country settles — and the
