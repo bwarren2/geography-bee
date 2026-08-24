@@ -2,8 +2,11 @@ import { useMemo, useState } from 'react'
 import type { CountryIndex } from '../data/load'
 import { recallFill } from '../map/colors'
 import { GeoMap } from '../map/GeoMap'
+import { buildDrills, DRILL_MIN_CONFUSIONS, type Drill } from '../session/drills'
+import { buildRapidQueue, buildTargetedQueue, type RapidItem } from '../session/rapid'
 import { APP_URL, buildShareCardSvg, progressCardContent, svgToPngBlob } from '../share/shareCard'
 import type { DeclareLevel } from '../srs/seed'
+import { activityByDay, topConfusions, troubleSpots, weakAreas } from '../stats/insights'
 import { buildOutlook, cityMastery, countryMastery, formatEta } from '../stats/outlook'
 import type { StudySnapshot } from '../store/store'
 import type { CityRecord } from '../types'
@@ -16,10 +19,20 @@ interface DashboardViewProps {
   snapshot: StudySnapshot
   onBack: () => void
   onChanged: () => void
+  onSprint: (items: RapidItem[]) => void
+  onDrill: (drills: Drill[]) => void
 }
 
-export function DashboardView({ index, snapshot, onBack, onChanged }: DashboardViewProps) {
-  const outlook = useMemo(() => buildOutlook(index, snapshot, new Date()), [index, snapshot])
+export function DashboardView({ index, snapshot, onBack, onChanged, onSprint, onDrill }: DashboardViewProps) {
+  const now = useMemo(() => new Date(), [])
+  const outlook = useMemo(() => buildOutlook(index, snapshot, now), [index, snapshot, now])
+  const spots = useMemo(() => troubleSpots(index, snapshot.cards, snapshot.stats), [index, snapshot])
+  const areas = useMemo(() => weakAreas(index, snapshot.cards, snapshot.stats), [index, snapshot])
+  const mixups = useMemo(
+    () => topConfusions(snapshot.stats.confusion, index, DRILL_MIN_CONFUSIONS),
+    [index, snapshot],
+  )
+  const activity = useMemo(() => activityByDay(snapshot.stats.daily, now), [snapshot, now])
   const [shareState, setShareState] = useState<'idle' | 'busy' | 'saved'>('idle')
   const [openRegion, setOpenRegion] = useState<string | null>(null)
 
@@ -69,6 +82,15 @@ export function DashboardView({ index, snapshot, onBack, onChanged }: DashboardV
   }
 
   const pct = (n: number, total: number) => (total ? Math.round((n / total) * 100) : 0)
+
+  const windowReviews = activity.reduce((sum, d) => sum + d.reviews, 0)
+  const windowCorrect = activity.reduce((sum, d) => sum + d.correct, 0)
+  const maxReviews = Math.max(1, ...activity.map((d) => d.reviews))
+
+  const countryName = (iso3: string) => {
+    const c = index.byIso3.get(iso3)
+    return c ? `${c.flag} ${c.name}` : iso3
+  }
 
   return (
     <div className="home dashboard">
@@ -120,6 +142,117 @@ export function DashboardView({ index, snapshot, onBack, onChanged }: DashboardV
           current pace of {outlook.introPerDay.toFixed(1)} new cards a day. Estimates, not promises.
         </span>
       </div>
+
+      {windowReviews > 0 && (
+        <section className="insight">
+          <div className="insight-head">
+            <h2>Last 4 weeks</h2>
+            <span className="muted small">
+              {windowReviews} reviews · {pct(windowCorrect, windowReviews)}% first-try
+            </span>
+          </div>
+          <div className="activity-bars">
+            {activity.map((d) => (
+              <div key={d.day} className="abar-slot" title={`${d.day}: ${d.reviews} reviews`}>
+                {d.reviews > 0 && (
+                  <div
+                    className="abar"
+                    style={{
+                      height: `${Math.max(8, Math.round((d.reviews / maxReviews) * 100))}%`,
+                      background: recallFill(d.reviews ? d.correct / d.reviews : 0, true),
+                    }}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+          <p className="muted small">
+            Bar height is reviews that day; colour is that day's first-try accuracy on the usual
+            fading–solid scale.
+          </p>
+        </section>
+      )}
+
+      {spots.length > 0 && (
+        <section className="insight">
+          <div className="insight-head">
+            <h2>Trouble spots</h2>
+            <button
+              className="ghost sprint"
+              onClick={() => onSprint(buildTargetedQueue(index, snapshot.cards, spots.map((s) => s.iso3)))}
+            >
+              ⚡ Sprint these
+            </button>
+          </div>
+          {areas.length > 0 && (
+            <div className="weak-areas">
+              {areas.map((a) => (
+                <button
+                  key={a.slug}
+                  className="ghost weak-area"
+                  onClick={() =>
+                    onSprint(buildRapidQueue(index, snapshot.cards, new Date(), undefined, Math.random, a.slug))
+                  }
+                >
+                  ⚡ {a.name}
+                  <span className="muted">
+                    {' '}
+                    · {a.spots} of {a.seen} shaky
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
+          <div className="spot-list">
+            {spots.map((s) => (
+              <div key={s.iso3} className="spot-row">
+                <span className="cname">{countryName(s.iso3)}</span>
+                <div className="minibar miss">
+                  <div className="fill" style={{ width: `${Math.round(s.missRate * 100)}%` }} />
+                </div>
+                <span className="muted spot-detail">
+                  missed {s.lapses}/{s.reps} · {s.avgSeconds.toFixed(0)}s avg
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="muted small">
+            Map cards you keep getting wrong, worst first — miss rate weighted by how hard the
+            scheduler currently rates the card, so an old rough patch fades once a country settles.
+            Sprint runs a rapid round over exactly this list; the region buttons sprint a whole
+            weak area instead.
+          </p>
+        </section>
+      )}
+
+      {mixups.length > 0 && (
+        <section className="insight">
+          <div className="insight-head">
+            <h2>Frequent mix-ups</h2>
+            <button
+              className="ghost sprint"
+              onClick={() => onDrill(buildDrills(snapshot.stats.confusion, index))}
+            >
+              🎯 Drill these
+            </button>
+          </div>
+          <div className="spot-list">
+            {mixups.map((m) => (
+              <div key={`${m.a}|${m.b}`} className="spot-row">
+                <span className="cname">
+                  {countryName(m.a)} ↔ {countryName(m.b)}
+                </span>
+                <span className="muted spot-detail">×{m.count}</span>
+              </div>
+            ))}
+          </div>
+          <p className="muted small">
+            Pairs you have swapped on the map, both directions pooled. Drilling shows both and asks
+            you to tell them apart; each correct discrimination decays a pair's count until it
+            leaves this list.
+          </p>
+        </section>
+      )}
 
       <table className="region-table">
         <thead>
