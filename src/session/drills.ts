@@ -23,14 +23,16 @@ export const DRILL_MIN_CONFUSIONS = 2
  *  session. */
 export const DRILL_MAX_PAIRS = 4
 
-export function buildDrills(
+/**
+ * Confusion is directional ("SVK>SVN": clicked Slovenia when asked for
+ * Slovakia) but the *relationship* is symmetric, so both directions pool
+ * into one pair — keyed `A|B` with the isos sorted. Shared with the
+ * dashboard's mix-up list so what it shows is exactly what gets drilled.
+ */
+export function pooledConfusions(
   confusion: Record<string, number>,
   index: CountryIndex,
-  maxPairs = DRILL_MAX_PAIRS,
-): Drill[] {
-  // Confusion is directional ("SVK>SVN": clicked Slovenia when asked for
-  // Slovakia) but the *relationship* is symmetric, so both directions pool
-  // into one pair for thresholding.
+): Map<string, number> {
   const pairs = new Map<string, number>()
   for (const [key, count] of Object.entries(confusion)) {
     if (count <= 0) continue
@@ -40,8 +42,15 @@ export function buildDrills(
     const pairKey = [a, b].sort().join('|')
     pairs.set(pairKey, (pairs.get(pairKey) ?? 0) + count)
   }
+  return pairs
+}
 
-  const selected = [...pairs.entries()]
+export function buildDrills(
+  confusion: Record<string, number>,
+  index: CountryIndex,
+  maxPairs = DRILL_MAX_PAIRS,
+): Drill[] {
+  const selected = [...pooledConfusions(confusion, index).entries()]
     .filter(([, count]) => count >= DRILL_MIN_CONFUSIONS)
     .sort((x, y) => y[1] - x[1])
     .slice(0, maxPairs)

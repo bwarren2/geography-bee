@@ -1,5 +1,5 @@
 import type { CountryIndex } from '../data/load'
-import type { StoredCard } from '../srs/model'
+import { cardId, type StoredCard } from '../srs/model'
 import { retrievability } from '../srs/scheduler'
 import type { CountryRecord } from '../types'
 
@@ -119,6 +119,27 @@ export function buildRapidQueue(
   regionSlug?: string,
 ): RapidItem[] {
   return shuffled(selectRapidCards(index, cards, now, cap, regionSlug), rng)
+}
+
+/**
+ * A sprint over an explicit set of countries — the dashboard's "sprint these"
+ * on its trouble list. No due-ness or freshness filtering at all: like a
+ * focused region round, drilling a named list is a request, not filler. Only
+ * the usual floor holds — a country never met cannot be rapidly recalled.
+ */
+export function buildTargetedQueue(
+  index: CountryIndex,
+  cards: Record<string, StoredCard>,
+  isos: string[],
+  rng: () => number = Math.random,
+): RapidItem[] {
+  const items: RapidItem[] = []
+  for (const iso3 of isos) {
+    const card = cards[cardId(iso3, 'locate')]
+    const country = index.byIso3.get(iso3)
+    if (card && card.reps > 0 && country) items.push({ card, country })
+  }
+  return shuffled(items, rng)
 }
 
 /** A region can host a focused round once this many of its countries have

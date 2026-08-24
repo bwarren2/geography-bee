@@ -806,6 +806,137 @@ button.ghost:hover:not(:disabled) {
   font-size: 12px;
 }
 
+/* Dashboard tabs: Overview (how far along) vs Analytics (what is going wrong). */
+.tab-bar {
+  display: flex;
+  gap: 3px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 3px;
+}
+
+.tab-bar button {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.tab-bar button.active {
+  background: var(--panel-2);
+  color: var(--text);
+}
+
+/* Dashboard insight panels: activity strip, trouble spots, mix-ups. */
+.insight {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.insight h2 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.insight-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.insight-head .sprint {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.insight .muted.small {
+  margin: 0;
+}
+
+.weak-areas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.weak-area {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.spot-list {
+  display: grid;
+  gap: 6px;
+}
+
+.spot-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  min-width: 0;
+}
+
+.spot-row .cname {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spot-row .minibar {
+  width: 56px;
+  flex-shrink: 0;
+}
+
+.minibar.miss .fill {
+  background: var(--bad);
+}
+
+.spot-detail {
+  font-size: 12px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.activity-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 48px;
+}
+
+.abar-slot {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--panel-2);
+}
+
+.abar {
+  width: 100%;
+  border-radius: 2px 2px 0 0;
+}
+
 .lead-inline {
   color: var(--accent);
   font-size: 12px;

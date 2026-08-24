@@ -19,8 +19,10 @@ type Screen =
   | { name: 'study'; items: SessionItem[] }
   | { name: 'rapid-pick' }
   | { name: 'rapid'; items: RapidItem[] }
-  | { name: 'drills'; drills: Drill[]; result: SessionResult }
-  | { name: 'summary'; result: SessionResult; drills?: DrillResult }
+  // No session result when drills are launched on their own from the
+  // dashboard's mix-up list; the summary then shows only the drill score.
+  | { name: 'drills'; drills: Drill[]; result?: SessionResult }
+  | { name: 'summary'; result?: SessionResult; drills?: DrillResult }
 
 export function App() {
   const [index, setIndex] = useState<CountryIndex | null>(null)
@@ -169,7 +171,20 @@ export function App() {
   }
 
   if (screen.name === 'dashboard') {
-    return <DashboardView index={index} snapshot={snapshot} onBack={leave} onChanged={reload} />
+    return (
+      <DashboardView
+        index={index}
+        snapshot={snapshot}
+        onBack={leave}
+        onChanged={reload}
+        onSprint={(items) => {
+          if (items.length) enter({ name: 'rapid', items })
+        }}
+        onDrill={(drills) => {
+          if (drills.length) enter({ name: 'drills', drills })
+        }}
+      />
+    )
   }
 
   if (screen.name === 'packs') {
@@ -184,28 +199,32 @@ export function App() {
   }
 
   if (screen.name === 'summary') {
-    const { answered, correct, introduced, elapsedMs } = screen.result
+    const { answered = 0, correct = 0, introduced = 0, elapsedMs = 0 } = screen.result ?? {}
     const accuracy = answered ? Math.round((correct / answered) * 100) : 0
     return (
       <div className="home">
-        <h1>Session done</h1>
+        <h1>{screen.result ? 'Session done' : 'Drills done'}</h1>
         <div className="stats">
-          <div className="stat">
-            <strong>{answered}</strong>
-            <span>answered</span>
-          </div>
-          <div className="stat">
-            <strong>{accuracy}%</strong>
-            <span>first try</span>
-          </div>
-          <div className="stat">
-            <strong>{introduced}</strong>
-            <span>new</span>
-          </div>
-          <div className="stat">
-            <strong>{Math.round(elapsedMs / 1000)}s</strong>
-            <span>elapsed</span>
-          </div>
+          {screen.result && (
+            <>
+              <div className="stat">
+                <strong>{answered}</strong>
+                <span>answered</span>
+              </div>
+              <div className="stat">
+                <strong>{accuracy}%</strong>
+                <span>first try</span>
+              </div>
+              <div className="stat">
+                <strong>{introduced}</strong>
+                <span>new</span>
+              </div>
+              <div className="stat">
+                <strong>{Math.round(elapsedMs / 1000)}s</strong>
+                <span>elapsed</span>
+              </div>
+            </>
+          )}
           {screen.drills && (
             <div className="stat">
               <strong>

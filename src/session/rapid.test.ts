@@ -6,7 +6,7 @@ import type { CountryIndex } from '../data/load'
 import type { DataBundle } from '../types'
 import type { StoredCard } from '../srs/model'
 import { createCard, schedule } from '../srs/scheduler'
-import { buildRapidQueue, RAPID_ROUND_SIZE, rapidSeenByRegion, selectRapidCards } from './rapid'
+import { buildRapidQueue, buildTargetedQueue, RAPID_ROUND_SIZE, rapidSeenByRegion, selectRapidCards } from './rapid'
 
 const bundle: DataBundle = JSON.parse(readFileSync('public/data/countries.json', 'utf8'))
 const cityRecords = JSON.parse(readFileSync('public/data/cities.json', 'utf8')).cities
@@ -174,5 +174,29 @@ describe('buildRapidQueue', () => {
     const a = buildRapidQueue(index, cards, now, RAPID_ROUND_SIZE, lcg(1)).map((i) => i.card.iso3)
     const b = buildRapidQueue(index, cards, now, RAPID_ROUND_SIZE, lcg(2)).map((i) => i.card.iso3)
     expect(a).not.toEqual(b)
+  })
+})
+
+describe('buildTargetedQueue', () => {
+  it('takes exactly the named countries, skipping the never-met', () => {
+    const cards: Record<string, StoredCard> = {}
+    const per = reviewed('PER', new Date('2026-05-01'))
+    const bra = reviewed('BRA', new Date('2026-05-01'))
+    cards[per.id] = per
+    cards[bra.id] = bra
+    // CHL exists but was never reviewed; ARG has no card at all.
+    cards['CHL:locate'] = createCard('CHL', 'locate', now)
+
+    const queue = buildTargetedQueue(index, cards, ['PER', 'BRA', 'CHL', 'ARG'], () => 0)
+    expect(queue.map((i) => i.card.iso3).sort()).toEqual(['BRA', 'PER'])
+  })
+
+  it('ignores due-ness and freshness entirely — a named list is a request', () => {
+    const cards: Record<string, StoredCard> = {}
+    // Reviewed moments ago: as fresh as a card can be, still included.
+    const fresh = reviewed('PER', new Date(now.getTime() - 60_000))
+    cards[fresh.id] = fresh
+    const queue = buildTargetedQueue(index, cards, ['PER'], () => 0)
+    expect(queue.map((i) => i.card.iso3)).toEqual(['PER'])
   })
 })
