@@ -2,6 +2,7 @@
   "ROU": {
     "hook": "Speaks a Romance language completely surrounded by Slavic and Hungarian ones — a linguistic island left behind by Rome.",
     "place": "North of Bulgaria on the Black Sea, with the Carpathians curving through its middle and the Danube delta on its edge.",
+    "borders": "Principalities either side of the Carpathians united, then doubled by Trianon in 1920 when Transylvania came from Hungary; the Prut river line in the east marks where the USSR took Bessarabia — today's Moldova — in 1940.",
     "exports": [
       "cars",
       "insulated wire",
@@ -11,6 +12,7 @@
   "BGR": {
     "hook": "Grows much of the world's rose oil in the Valley of the Roses — it takes roughly 3,000kg of petals to make one kilogram.",
     "place": "South of Romania on the Black Sea, sitting above Greece and Türkiye.",
+    "borders": "Drawn and redrawn by great-power congresses: the big Bulgaria of San Stefano (1878) was cut down within months at Berlin, and the Danube line with Romania plus the southern Rhodope line settled through the Balkan Wars and world wars.",
     "exports": [
       "refined petroleum",
       "copper",
@@ -20,6 +22,7 @@
   "SRB": {
     "hook": "Became landlocked overnight in 2006 when Montenegro voted to leave — it kept the Danube and lost the sea.",
     "place": "The landlocked centre of the Balkans, touching eight neighbours.",
+    "borders": "The core that remained as Yugoslavia shed its republics along internal administrative lines; the boundary around Kosovo is the old autonomous province's line — a border in practice that Serbia does not recognize as one.",
     "exports": [
       "insulated wire",
       "cars",
@@ -29,6 +32,7 @@
   "HRV": {
     "hook": "Over 1,200 islands, and a shape like a crescent — its coast is cut clean in two by a 20km strip belonging to Bosnia.",
     "place": "The crescent along the Adriatic, curving around Bosnia and Herzegovina.",
+    "borders": "The boomerang shape is the old Habsburg–Ottoman military frontier: the arc wrapped around Bosnia follows imperial lines centuries old, which became Yugoslav republic lines and then, in 1991, international borders.",
     "exports": [
       "refined petroleum",
       "packaged medicines",
@@ -38,6 +42,7 @@
   "BIH": {
     "hook": "Has just 20km of coastline, at Neum — barely a beach, but enough to split Croatia's coast into two pieces.",
     "place": "Inside the Croatian crescent, with one narrow sliver reaching the Adriatic.",
+    "borders": "Broadly the Ottoman province of Bosnia as it stood before 1878, preserved as a Yugoslav republic; the 1995 Dayton agreement froze internal ethnic lines but deliberately kept the republic's outer border intact.",
     "exports": [
       "refined petroleum",
       "insulated wire",
@@ -47,6 +52,7 @@
   "ALB": {
     "hook": "Over 170,000 concrete bunkers were poured across the country under Hoxha — roughly one for every eleven Albanians, and most are still there.",
     "place": "Facing Italy's heel across the Adriatic and Ionian, directly below Montenegro.",
+    "borders": "Drawn by a conference of ambassadors in London in 1913 as Ottoman rule collapsed — a great-power compromise that left nearly half of all Albanian speakers outside the state, most consequentially in Kosovo.",
     "exports": [
       "footwear",
       "crude petroleum",
@@ -56,6 +62,7 @@
   "MKD": {
     "hook": "Landlocked, and Lake Ohrid on its border is among the oldest lakes on Earth — roughly 1.3 million years, with species found nowhere else.",
     "place": "Landlocked in the middle of the southern Balkans, between Greece, Bulgaria, Serbia, Kosovo and Albania.",
+    "borders": "A Yugoslav republic line cut from the 1913 partition of Ottoman Macedonia among Serbia, Greece and Bulgaria — a partition so raw the country's very name stayed disputed with Greece until 2018.",
     "exports": [
       "catalysts",
       "insulated wire",
@@ -65,6 +72,7 @@
   "MNE": {
     "hook": "Its name means black mountain, and the Bay of Kotor cuts so deep inland it is often mistaken for Europe's southernmost fjord.",
     "place": "On the Adriatic between Croatia and Albania.",
+    "borders": "A mountain principality the powers recognized in 1878, doubled in the Balkan Wars, merged into Yugoslavia, and restored in 2006 along its old republic line after a 55% independence vote.",
     "exports": [
       "aluminium",
       "packaged medicines",

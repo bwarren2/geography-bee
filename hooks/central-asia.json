@@ -2,6 +2,7 @@
   "KAZ": {
     "hook": "The largest landlocked country in the world — bigger than all of Western Europe, and Russia's border with it is the longest continuous land border anywhere.",
     "place": "The vast steppe below Russia, stretching from the Caspian east to China.",
+    "borders": "The Kazakh SSR's line, consolidated by 1936 to bundle the steppe peoples — including a terrain-free line across open grassland that became, in 1991, the world's longest continuous land border, with Russia.",
     "exports": [
       "crude petroleum",
       "copper",
@@ -11,6 +12,7 @@
   "UZB": {
     "hook": "One of only two doubly landlocked countries on Earth — every route to the sea crosses at least two borders. The other is Liechtenstein.",
     "place": "The centre of Central Asia, touching all four of its neighbours and Afghanistan.",
+    "borders": "The centrepiece of Stalin's 1924 'national delimitation': republic lines drawn valley by valley and village by village, producing the Fergana Valley's interlocking jigsaw with Kyrgyzstan and Tajikistan — enclaves included — and a country that touches all four other -stans.",
     "exports": [
       "gold",
       "natural gas",
@@ -20,6 +22,7 @@
   "TKM": {
     "hook": "The Darvaza gas crater has been burning since 1971, when geologists set it alight expecting it to go out in weeks.",
     "place": "On the Caspian's eastern shore, mostly the Karakum desert, below Kazakhstan and Uzbekistan.",
+    "borders": "The 1924 delimitation assigned the Turkmen lands between the Caspian, the Amu Darya and the Kopet Dag mountains; the Iranian line along those mountains descends from Russo-Persian treaties of the 1880s.",
     "exports": [
       "natural gas",
       "refined petroleum",
@@ -29,6 +32,7 @@
   "TJK": {
     "hook": "Over 90% mountain — the Pamirs are so high and remote the road through them is nicknamed the roof of the world.",
     "place": "The southeastern corner of Central Asia, squeezed between Uzbekistan, Kyrgyzstan, China and Afghanistan.",
+    "borders": "The mountain remainder of the 1924–29 carve-up: it received the high Pamirs but not Samarkand and Bukhara, the historic Tajik-speaking cities left in Uzbekistan — and its Fergana valley edges stayed contested into the 2020s.",
     "exports": [
       "gold",
       "aluminium",
@@ -38,6 +42,7 @@
   "KGZ": {
     "hook": "Lake Issyk-Kul is the second-largest mountain lake in the world and never freezes, despite sitting at 1,600m in the Tian Shan.",
     "place": "The mountainous strip along China's western border, above Tajikistan.",
+    "borders": "Drawn around the Tian Shan in the Soviet delimitation; its rim of the Fergana Valley interlocks so tightly with Uzbek and Tajik territory that the last disputed stretches with Tajikistan were only settled by treaty in 2025.",
     "exports": [
       "gold",
       "refined petroleum",

@@ -2,6 +2,7 @@
   "UKR": {
     "hook": "The largest country lying entirely within Europe, sitting on roughly a third of the world's black-earth chernozem soil.",
     "place": "North of the Black Sea, filling the space between Poland and Russia.",
+    "borders": "Soviet republic lines: the west was annexed from interwar Poland, Romania and Czechoslovakia in 1939–45, Crimea transferred from the Russian republic in 1954 — the lines Russia has been violating by force since 2014.",
     "exports": [
       "sunflower oil",
       "corn",
@@ -11,6 +12,7 @@
   "BLR": {
     "hook": "About 40% forest, and it shares the Białowieża primeval woodland — and its bison — with Poland.",
     "place": "Landlocked between Poland and Russia, directly above Ukraine.",
+    "borders": "A Soviet republic line across flat marsh and forest with no terrain to follow: the western half was Polish between the wars until the 1939 partition, and the eastern edge roughly follows the old Tsarist provinces.",
     "exports": [
       "potassic fertilizers",
       "refined petroleum",
@@ -20,6 +22,7 @@
   "MDA": {
     "hook": "One of the most wine-dependent economies anywhere — the Cricova cellars alone run for over 120km underground, with streets and traffic signs.",
     "place": "The small landlocked country wedged between Romania and Ukraine.",
+    "borders": "Bessarabia — the land between the Prut and Dniester rivers — taken from Romania by the USSR in 1940; the strip beyond the Dniester, stapled on then, now runs itself as the unrecognized state of Transnistria.",
     "exports": [
       "sunflower seeds",
       "insulated wire",
