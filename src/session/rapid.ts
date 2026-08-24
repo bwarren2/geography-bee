@@ -37,9 +37,13 @@ export function selectRapidCards(
   cards: Record<string, StoredCard>,
   now: Date,
   cap = RAPID_ROUND_SIZE,
+  regionSlug?: string,
 ): RapidItem[] {
   const seen = Object.values(cards).filter(
-    (c): c is StoredCard => c.type === 'locate' && c.reps > 0,
+    (c): c is StoredCard =>
+      c.type === 'locate' &&
+      c.reps > 0 &&
+      (!regionSlug || index.byIso3.get(c.iso3)?.region === regionSlug),
   )
 
   const ts = now.getTime()
@@ -99,6 +103,24 @@ export function buildRapidQueue(
   now: Date,
   cap = RAPID_ROUND_SIZE,
   rng: () => number = Math.random,
+  regionSlug?: string,
 ): RapidItem[] {
-  return shuffled(selectRapidCards(index, cards, now, cap), rng)
+  return shuffled(selectRapidCards(index, cards, now, cap, regionSlug), rng)
+}
+
+/** A region can host a focused round once this many of its countries have
+ *  reviewed locate cards. Small on purpose: Japan & the Koreas has three
+ *  members, and a focused sprint over four cards is still a sprint. */
+export const RAPID_REGION_MIN_SEEN = 2
+
+/** How many reviewed locate cards each region holds — the picker's
+ *  eligibility and its "where am I weak" glance both read from this. */
+export function rapidSeenByRegion(index: CountryIndex, cards: Record<string, StoredCard>): Map<string, number> {
+  const out = new Map<string, number>()
+  for (const c of Object.values(cards)) {
+    if (c.type !== 'locate' || c.reps === 0) continue
+    const region = index.byIso3.get(c.iso3)?.region
+    if (region) out.set(region, (out.get(region) ?? 0) + 1)
+  }
+  return out
 }

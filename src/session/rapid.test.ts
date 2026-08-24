@@ -6,7 +6,7 @@ import type { CountryIndex } from '../data/load'
 import type { DataBundle } from '../types'
 import type { StoredCard } from '../srs/model'
 import { createCard, schedule } from '../srs/scheduler'
-import { buildRapidQueue, RAPID_ROUND_SIZE, selectRapidCards } from './rapid'
+import { buildRapidQueue, RAPID_ROUND_SIZE, rapidSeenByRegion, selectRapidCards } from './rapid'
 
 const bundle: DataBundle = JSON.parse(readFileSync('public/data/countries.json', 'utf8'))
 const cityRecords = JSON.parse(readFileSync('public/data/cities.json', 'utf8')).cities
@@ -87,6 +87,31 @@ describe('buildRapidQueue', () => {
     expect(round.filter((r) => r === 'south-america')).toHaveLength(5)
     // The oldest debt's region leads the deal.
     expect(round[0]).toBe('south-america')
+  })
+
+  it('restricts a focused round to the chosen region', () => {
+    const cards: Record<string, StoredCard> = {}
+    const balkans = index.bundle.regions.find((r) => r.slug === 'balkans')!.countries
+    for (const iso of [...balkans, 'PER', 'BRA', 'JPN']) {
+      const card = { ...reviewed(iso, new Date('2026-05-01')), due: now.getTime() - 1000 }
+      cards[card.id] = card
+    }
+    const round = selectRapidCards(index, cards, now, 20, 'balkans')
+    expect(round.length).toBe(balkans.length)
+    expect(round.every((i) => i.country.region === 'balkans')).toBe(true)
+  })
+
+  it('counts reviewed locate cards per region for the picker', () => {
+    const cards: Record<string, StoredCard> = {}
+    for (const iso of ['ALB', 'SRB', 'PER']) {
+      const card = reviewed(iso, new Date('2026-05-01'))
+      cards[card.id] = card
+    }
+    cards['GRC:locate'] = createCard('GRC', 'locate', now) // unreviewed: not counted
+    const seen = rapidSeenByRegion(index, cards)
+    expect(seen.get('balkans')).toBe(2)
+    expect(seen.get('south-america')).toBe(1)
+    expect(seen.get('southern-europe')).toBeUndefined()
   })
 
   it('caps the round', () => {
