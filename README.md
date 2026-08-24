@@ -33,9 +33,11 @@ is to give the shape a story, not to be recalled.
 met: no teach screens, no reveal panel, just prompt → tap → a sub-second flash
 of the answer → next. One attempt per card. Every answer still lands in the
 scheduler, the review log, and the confusion matrix — only the ceremony is
-removed. Due cards and the weakest recall claim the round's slots, and the
-round is then shuffled — a predictable sequence would let order memory stand in
-for actually knowing the map.
+removed. Due cards and the weakest recall claim the round's slots, dealt
+round-robin across regions so no single cohort — a batch of declared
+countries all due at once, say — can capture whole rounds; the round is then
+shuffled, because a predictable sequence would let order memory stand in for
+actually knowing the map.
 
 **Borders are training wheels that fade with mastery.** A locate card's map
 draws internal borders at full strength while the card is young, fades them
