@@ -8,6 +8,7 @@ import { DashboardView } from './ui/DashboardView'
 import { DrillView, type DrillResult } from './ui/DrillView'
 import { Home } from './ui/Home'
 import { PacksView } from './ui/PacksView'
+import { RapidPickerView } from './ui/RapidPickerView'
 import { RapidView } from './ui/RapidView'
 import { StudyView, type SessionResult } from './ui/StudyView'
 
@@ -16,6 +17,7 @@ type Screen =
   | { name: 'packs' }
   | { name: 'dashboard' }
   | { name: 'study'; items: SessionItem[] }
+  | { name: 'rapid-pick' }
   | { name: 'rapid'; items: RapidItem[] }
   | { name: 'drills'; drills: Drill[]; result: SessionResult }
   | { name: 'summary'; result: SessionResult; drills?: DrillResult }
@@ -123,6 +125,20 @@ export function App() {
     )
   }
 
+  if (screen.name === 'rapid-pick') {
+    return (
+      <RapidPickerView
+        index={index}
+        snapshot={snapshot}
+        onBack={leave}
+        onPick={(slug) => {
+          const items = buildRapidQueue(index, snapshot.cards, new Date(), undefined, Math.random, slug ?? undefined)
+          if (items.length) enter({ name: 'rapid', items })
+        }}
+      />
+    )
+  }
+
   if (screen.name === 'rapid') {
     return (
       <RapidView
@@ -217,10 +233,7 @@ export function App() {
       onBoost={() => {
         void store.grantBoost(BOOST_STEP, today(new Date())).then(reload)
       }}
-      onRapid={() => {
-        const items = buildRapidQueue(index, snapshot.cards, new Date())
-        if (items.length) enter({ name: 'rapid', items })
-      }}
+      onRapid={() => enter({ name: 'rapid-pick' })}
       onPacks={() => enter({ name: 'packs' })}
       onDashboard={() => enter({ name: 'dashboard' })}
       onReload={reload}

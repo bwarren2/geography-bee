@@ -2,7 +2,7 @@ import { geoArea, geoCentroid, geoEqualEarth, geoMercator, type GeoProjection } 
 import type { CountryFeature } from '../data/load'
 
 export type MapView =
-  | { kind: 'world' }
+  | { kind: 'world'; trim?: boolean }
   | { kind: 'region'; slug: string }
   | { kind: 'country'; iso3: string }
 
@@ -89,12 +89,31 @@ export function makeProjection(
   height: number,
 ): GeoProjection {
   if (view.kind === 'world' || features.length === 0) {
+    // trim: fit the inhabited band instead of the whole sphere — everything
+    // below 56°S is ocean and Antarctica, and nothing quizzable sits past
+    // 84°N, so the sphere fit spends a third of the panel on empty polar
+    // dead space.
+    const target =
+      view.kind === 'world' && view.trim
+        ? ({
+            type: 'Polygon',
+            coordinates: [
+              [
+                [-179.9, -56],
+                [179.9, -56],
+                [179.9, 84],
+                [-179.9, 84],
+                [-179.9, -56],
+              ],
+            ],
+          } as const)
+        : ({ type: 'Sphere' } as const)
     return geoEqualEarth().fitExtent(
       [
         [PAD, PAD],
         [width - PAD, height - PAD],
       ],
-      { type: 'Sphere' },
+      target as never,
     )
   }
 
