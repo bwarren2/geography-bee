@@ -2,6 +2,7 @@
   "COD": {
     "hook": "The Congo is the deepest river in the world, over 220m in places — and the country holds most of the world's cobalt.",
     "place": "The vast heart of Africa astride the equator, with only a 40km squeeze of Atlantic coast.",
+    "borders": "King Leopold's personal 'Congo Free State', recognized at the 1885 Berlin Conference: the Congo basin's rivers and watersheds, plus the narrow corridor to the Atlantic at the river's mouth — the strip that cuts Angola's Cabinda off from Angola.",
     "exports": [
       "refined copper",
       "cobalt",
@@ -11,6 +12,7 @@
   "AGO": {
     "hook": "Portuguese-speaking, and split in two — the oil-rich Cabinda exclave is cut off from the rest by a strip of DR Congo.",
     "place": "On the Atlantic below DR Congo, with the separate Cabinda enclave sitting to its north.",
+    "borders": "Portugal's coastal colony pushed inland to Berlin-Conference-era lines; Cabinda sits detached to the north because Leopold's Congo was granted a corridor to the sea between the two in 1885.",
     "exports": [
       "crude petroleum",
       "diamonds",
@@ -20,6 +22,7 @@
   "TCD": {
     "hook": "Lake Chad has lost about 90% of its surface area since the 1960s — the country is named after a lake that is nearly gone.",
     "place": "Landlocked in north-central Africa, running from deep Sahara down into the Sahel.",
+    "borders": "French Equatorial Africa's desert north: straight survey lines with Libya — the Aouzou Strip was confirmed Chadian by the world court in 1994 — and a Lake Chad boundary drawn when the lake was far larger than it is now.",
     "exports": [
       "crude petroleum",
       "gold",
@@ -29,6 +32,7 @@
   "CMR": {
     "hook": "Called Africa in miniature — desert, rainforest, savanna, mountains and coast in one country, with both English and French official.",
     "place": "At the crook of the Gulf of Guinea, where West Africa turns the corner and heads south.",
+    "borders": "German Kamerun split between Britain and France after WWI, then partly reunited by ballot: in 1961 the British north voted to join Nigeria and the British south to join Cameroon; the world court added Bakassi in a ruling completed in 2008.",
     "exports": [
       "crude petroleum",
       "cocoa beans",
@@ -38,6 +42,7 @@
   "SSD": {
     "hook": "The newest country in the world, independent in 2011 — and the Sudd wetland at its centre is among the largest on Earth.",
     "place": "Landlocked below Sudan, between Ethiopia and the Central African Republic.",
+    "borders": "The internal north–south administrative line of Anglo-Egyptian Sudan, made an international border by the 2011 independence referendum — with Abyei's status and several stretches of the line still unresolved.",
     "exports": [
       "crude petroleum",
       "sawn wood",
@@ -47,6 +52,7 @@
   "CAF": {
     "hook": "Sits almost exactly at the geographic centre of the continent, and is among the least visited countries on the planet.",
     "place": "Landlocked in the middle of Africa, below Chad and above DR Congo.",
+    "borders": "France's Ubangi-Shari, a colony of administrative convenience linking French Congo to Chad: the Ubangi and Mbomou rivers draw the southern border, survey lines the rest.",
     "exports": [
       "diamonds",
       "sawn wood",
@@ -56,6 +62,7 @@
   "COG": {
     "hook": "Its capital Brazzaville faces Kinshasa across the river — the closest pair of capital cities anywhere in the world.",
     "place": "On the Atlantic west of DR Congo. This is the smaller Congo; the two stare at each other across the water.",
+    "borders": "French Congo's share of the Berlin-era carve-up: the Congo and Ubangi rivers divide it from the vastly larger Belgian (now Democratic Republic of the) Congo — leaving Brazzaville and Kinshasa, the world's closest capitals, facing each other across the water.",
     "exports": [
       "crude petroleum",
       "refined copper",
@@ -65,6 +72,7 @@
   "GAB": {
     "hook": "About 88% forest, and in 2002 it turned a tenth of the entire country into national parks in a single stroke.",
     "place": "On the equator on the Atlantic coast, below Cameroon and west of the Republic of the Congo.",
+    "borders": "French Equatorial Africa's coastal quarter, divided from Congo along administrative lines; the northern boundary comes from the 1900 Franco-Spanish convention, with the offshore Mbanié islets dispute settled at the world court only in 2025.",
     "exports": [
       "crude petroleum",
       "manganese",
@@ -74,6 +82,7 @@
   "GNQ": {
     "hook": "The only African country with Spanish as an official language — and its capital is not on the mainland but on an island.",
     "place": "A mainland slice plus islands in the Gulf of Guinea; Malabo sits on Bioko, closer to Cameroon than to its own territory.",
+    "borders": "Spain's two-part colony: the Rio Muni box on the mainland, drawn by the 1900 convention with France, plus Bioko island far offshore to the northwest — the capital sits on the island, most of the territory on the mainland, nothing contiguous.",
     "exports": [
       "crude petroleum",
       "natural gas",
@@ -83,6 +92,7 @@
   "STP": {
     "hook": "Two volcanic islands on the equator that were once the largest cocoa producer in the world — from almost nothing to first place and back.",
     "place": "In the Gulf of Guinea off Gabon, straddling the equator.",
+    "borders": "Two volcanic islands, uninhabited until Portuguese sugar planters arrived in the 1470s — the state is simply the islands, and no land border has ever existed.",
     "exports": [
       "cocoa beans",
       "palm oil",

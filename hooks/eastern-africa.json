@@ -2,6 +2,7 @@
   "ETH": {
     "hook": "Never colonised, and it keeps its own calendar — thirteen months, and about seven years behind the one the rest of the world uses.",
     "place": "The highlands of the Horn of Africa, landlocked since Eritrea broke away in 1993.",
+    "borders": "The rare African borders drawn by an African power: Menelik II's conquests, confirmed in treaties with Britain, France and Italy around 1897–1908 — including the Somali-inhabited Ogaden, contested by war as late as 1977; the coast went when Eritrea left in 1993.",
     "exports": [
       "coffee",
       "sesame seeds",
@@ -11,6 +12,7 @@
   "TZA": {
     "hook": "Kilimanjaro rises 5,895m straight off the plain with no range around it — the tallest freestanding mountain on Earth.",
     "place": "On the Indian Ocean below Kenya, with Zanzibar offshore and Lake Victoria at its northwestern corner.",
+    "borders": "German East Africa's lines — the 1890 Anglo-German border with Kenya famously bends around Kilimanjaro to keep the mountain on the German side — plus Zanzibar, whose 1964 union with Tanganyika coined the name Tanzania.",
     "exports": [
       "gold",
       "raw tobacco",
@@ -20,6 +22,7 @@
   "KEN": {
     "hook": "The Great Rift Valley runs straight through it — the same crack in the continent that will eventually split Africa in two.",
     "place": "On the Indian Ocean astride the equator, between Somalia and Tanzania.",
+    "borders": "British East Africa's survey lines: a straight eastern edge through Somali-inhabited country (contested at independence), Lake Victoria's waters divided by compass lines, and the Kilimanjaro bend shared with Tanzania.",
     "exports": [
       "tea",
       "cut flowers",
@@ -29,6 +32,7 @@
   "MOZ": {
     "hook": "One of very few country names containing all five vowels — and its coast faces Madagascar across a 400km channel.",
     "place": "The long Indian Ocean coast below Tanzania, curving around toward South Africa.",
+    "borders": "Portugal's coastal claims, stopped from meeting Angola across the continent by Britain's 1890 ultimatum — hence the long coastal shape; the Ruvuma river draws the northern line, and the Zambezi corridor runs through the middle.",
     "exports": [
       "coal",
       "aluminium",
@@ -38,6 +42,7 @@
   "MDG": {
     "hook": "Broke away from Africa about 160 million years ago, and roughly 90% of its wildlife lives nowhere else on Earth.",
     "place": "The huge island off Mozambique — the fourth largest in the world.",
+    "borders": "An island 400 km off the African coast — no land border; France ruled it as one colony but attached the small Scattered Islands around it to other administrations, which is why those islets are still French and still claimed.",
     "exports": [
       "vanilla",
       "nickel",
@@ -47,6 +52,7 @@
   "UGA": {
     "hook": "The White Nile begins here, flowing out of Lake Victoria and then running 6,000km north to the Mediterranean.",
     "place": "Landlocked on the equator between Kenya and DR Congo, on Lake Victoria's northern shore.",
+    "borders": "A British protectorate bundling old kingdoms — Buganda lends the name; the southern border follows the 1890 Anglo-German agreement's 1°S parallel, and Lake Victoria is split by straight lines through open water.",
     "exports": [
       "gold",
       "coffee",
@@ -56,6 +62,7 @@
   "ZMB": {
     "hook": "Shares Victoria Falls with Zimbabwe — the largest single sheet of falling water in the world, and its spray is visible from 50km away.",
     "place": "Landlocked in south-central Africa above Zimbabwe, touching eight neighbours.",
+    "borders": "Rhodes's British South Africa Company concessions define it; the deep notch of the Congo Pedicle was conceded to Leopold's Congo by an 1894 agreement, and the Zambezi river gives both the southern border and the name.",
     "exports": [
       "refined copper",
       "copper ore",
@@ -65,6 +72,7 @@
   "SOM": {
     "hook": "Has the longest coastline of any country in mainland Africa — over 3,000km wrapping around the Horn.",
     "place": "The Horn itself, curving around Ethiopia from the Gulf of Aden to the Indian Ocean.",
+    "borders": "The 1960 merger of British and Italian Somalilands; the straight western line cuts through Somali grazing lands — the grievance behind the 1977 Ogaden war — and the former British north has run itself as Somaliland since 1991.",
     "exports": [
       "live sheep and goats",
       "gold",
@@ -74,6 +82,7 @@
   "ZWE": {
     "hook": "Named after Great Zimbabwe, a stone city built entirely without mortar — the largest ancient structure south of the Sahara.",
     "place": "Landlocked between Zambia and South Africa, sharing Victoria Falls along its northern border.",
+    "borders": "The land between the rivers: Rhodes's company concessions bounded by the Limpopo in the south and the Zambezi in the north, confirmed as Southern Rhodesia's colonial limits.",
     "exports": [
       "gold",
       "raw tobacco",
@@ -83,6 +92,7 @@
   "MWI": {
     "hook": "Lake Malawi holds more fish species than any other lake on Earth — several hundred of them found nowhere else.",
     "place": "A long thin landlocked country wrapped around its own lake, between Zambia, Tanzania and Mozambique.",
+    "borders": "Britain's Nyasaland protectorate ran along the lake, and the 1890 Anglo-German agreement put the boundary on Lake Malawi's eastern shore rather than mid-water — so Malawi claims the whole lake surface, which Tanzania disputes to this day.",
     "exports": [
       "raw tobacco",
       "raw sugar",
@@ -92,6 +102,7 @@
   "ERI": {
     "hook": "Asmara is a near-intact Italian modernist city, built in the 1930s and now a World Heritage site.",
     "place": "On the Red Sea directly above Ethiopia — this is the coastline Ethiopia lost in 1993.",
+    "borders": "Italy's Red Sea colony, delimited against Ethiopia by treaties of 1900–08 whose ambiguity at Badme helped ignite the 1998–2000 war; independence in 1993 restored the colonial outline — and took Ethiopia's entire coastline with it.",
     "exports": [
       "gold",
       "copper ore",
@@ -101,6 +112,7 @@
   "RWA": {
     "hook": "The land of a thousand hills — and it banned plastic bags back in 2008, long before anyone else did.",
     "place": "Small and landlocked, between DR Congo, Uganda, Tanzania and Burundi.",
+    "borders": "Unusually, a precolonial African kingdom kept nearly intact: Germany and then Belgium administered Rwanda within its royal borders, so the state matches an old polity rather than a survey line — split from twin Burundi in 1962.",
     "exports": [
       "gold",
       "coffee",
@@ -110,6 +122,7 @@
   "BDI": {
     "hook": "One of the most densely populated countries in Africa, and the southernmost headwater of the Nile rises inside it.",
     "place": "Landlocked directly below Rwanda, on the northeastern shore of Lake Tanganyika.",
+    "borders": "Like Rwanda, an old kingdom whose limits survived colonization: administered under German East Africa, then Belgian Ruanda-Urundi, with the 1962 independence split restoring the two kingdoms as separate states.",
     "exports": [
       "gold",
       "coffee",
@@ -119,6 +132,7 @@
   "DJI": {
     "hook": "Lake Assal is the lowest point in Africa and one of the saltiest bodies of water anywhere — saltier than the Dead Sea.",
     "place": "A small country on the Bab-el-Mandeb strait, wedged between Eritrea, Ethiopia and Somalia.",
+    "borders": "France's toehold at the Red Sea's exit: treaties of 1888–1901 with Ethiopia and Italy drew a small triangle around the port and the railhead — a border justified almost entirely by the railway to Addis Ababa.",
     "exports": [
       "reexported goods",
       "livestock",
@@ -128,6 +142,7 @@
   "MUS": {
     "hook": "The dodo lived here and only here, and was gone within about eighty years of humans first landing.",
     "place": "An island in the Indian Ocean roughly 900km east of Madagascar.",
+    "borders": "Volcanic islands with no neighbour for 800 km; the contested line was drawn in colonial paperwork when Britain detached the Chagos archipelago in 1965 — a severance ruled unlawful, with sovereignty finally conceded back in the 2020s.",
     "exports": [
       "knitted garments",
       "raw sugar",
@@ -137,6 +152,7 @@
   "COM": {
     "hook": "Supplies most of the world's ylang-ylang — the flower essence at the heart of Chanel No. 5.",
     "place": "A small archipelago in the channel between Mozambique and Madagascar.",
+    "borders": "A border decided by referendum, island by island: three of the four Comoro islands voted for independence in 1974, while France kept Mayotte — which Comoros claims to this day.",
     "exports": [
       "cloves",
       "essential oils",
@@ -146,6 +162,7 @@
   "SYC": {
     "hook": "The smallest population of any African country, and its coco de mer palm grows the largest seed in the plant kingdom.",
     "place": "115 islands in the Indian Ocean, northeast of Madagascar.",
+    "borders": "A scatter of 115 islands with no neighbours — claimed by France, taken by Britain in 1814, and independent since 1976; its only boundaries are vast maritime ones.",
     "exports": [
       "fish",
       "refined petroleum",

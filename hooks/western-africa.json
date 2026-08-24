@@ -2,6 +2,7 @@
   "NGA": {
     "hook": "The most populous country in Africa — about one in six Africans is Nigerian — and Nollywood releases more films a year than Hollywood.",
     "place": "On the Gulf of Guinea at the inner corner of the West African bulge.",
+    "borders": "Anglo-French and Anglo-German treaty lines of 1885–1906 boxing Britain's Niger trading sphere — cutting through Yoruba, Hausa and Kanuri lands alike; the oil-rich Bakassi peninsula was transferred to Cameroon by a world-court ruling, completed in 2008.",
     "exports": [
       "crude petroleum",
       "natural gas",
@@ -11,6 +12,7 @@
   "CIV": {
     "hook": "Grows roughly 40% of the world's cocoa — more than the next two countries combined. Also answers to Côte d'Ivoire.",
     "place": "On the Gulf of Guinea between Ghana and Liberia.",
+    "borders": "France's coastal colony lines of the 1890s: river stretches near the coast, then ruler lines inland — the eastern edge splitting Akan peoples with the British Gold Coast, today's Ghana.",
     "exports": [
       "cocoa beans",
       "gold",
@@ -20,6 +22,7 @@
   "GHA": {
     "hook": "The first colony in sub-Saharan Africa to win independence, in 1957 — and Lake Volta is the largest reservoir on Earth by surface area.",
     "place": "On the Gulf of Guinea, between Ivory Coast and Togo.",
+    "borders": "The Gold Coast plus British Togoland, which voted in a 1956 UN plebiscite to join Ghana — so the eastern border is the WWI partition line of German Togoland, still splitting the Ewe people with Togo.",
     "exports": [
       "gold",
       "crude petroleum",
@@ -29,6 +32,7 @@
   "BFA": {
     "hook": "Its name was invented in 1984 and means land of upright people — stitched together from two different local languages.",
     "place": "Landlocked directly above Ghana and Ivory Coast, below Mali and Niger.",
+    "borders": "Pure administrative convenience: France created Upper Volta in 1919, dissolved it in 1932 — dividing it among three neighbours — and reassembled it in 1947; independence froze the restored outline.",
     "exports": [
       "gold",
       "cotton",
@@ -38,6 +42,7 @@
   "SEN": {
     "hook": "Reaches the westernmost point of mainland Africa, and almost completely surrounds another country — The Gambia.",
     "place": "The Atlantic tip of the West African bulge, wrapped around The Gambia on three sides.",
+    "borders": "France's oldest African colony, wrapped entirely around the British enclave of the Gambia — the inner border traces the river's banks at roughly gunboat range, nearly cutting Senegal in two.",
     "exports": [
       "gold",
       "refined petroleum",
@@ -47,6 +52,7 @@
   "GIN": {
     "hook": "Holds the world's largest bauxite reserves — and the Niger, Senegal and Gambia rivers all rise in its highlands.",
     "place": "On the Atlantic below Senegal, between Guinea-Bissau and Sierra Leone.",
+    "borders": "French Guinea's treaty lines of the 1880s–1900s against Portuguese Guinea, British Sierra Leone and Liberia — rivers and watershed stretches that give the country its curling hook around its smaller neighbours.",
     "exports": [
       "bauxite",
       "gold",
@@ -56,6 +62,7 @@
   "BEN": {
     "hook": "The birthplace of Vodun, which is an official religion here — and home of the Dahomey kingdom's all-female regiment.",
     "place": "A narrow strip running north from the Gulf of Guinea, between Togo and Nigeria.",
+    "borders": "Colonial Dahomey: a narrow corridor drawn northward from the coast between British Nigeria and German Togoland, splitting Yoruba lands in the east and reaching inland to the Niger river bend.",
     "exports": [
       "cotton",
       "cashews",
@@ -65,6 +72,7 @@
   "SLE": {
     "hook": "Freetown sits on one of the largest natural harbours in the world, which is why freed slaves were resettled there in 1792.",
     "place": "On the Atlantic coast between Guinea and Liberia.",
+    "borders": "A British freed-slave settlement at Freetown, expanded inland to lines agreed with France in 1895; the Liberian border along the Mano river separates it from the other freed-slave republic.",
     "exports": [
       "iron ore",
       "titanium ore",
@@ -74,6 +82,7 @@
   "LBR": {
     "hook": "Founded by freed American slaves in 1847, making it Africa's oldest republic — and more of the world's shipping flies its flag than almost any other.",
     "place": "On the Atlantic below Sierra Leone, west of Ivory Coast.",
+    "borders": "Founded by American freed-slave settlers in 1822 and never colonized — but France and Britain trimmed its claimed hinterland through the 1880s–1900s to today's lines along the Mano and Cavalla rivers.",
     "exports": [
       "ships",
       "gold",
@@ -83,6 +92,7 @@
   "TGO": {
     "hook": "One of Africa's narrowest countries — about 110km wide but 550km long, a strip you can drive across in two hours.",
     "place": "A thin ribbon between Ghana and Benin, running north from the Gulf of Guinea.",
+    "borders": "The eastern strip of German Togoland: the colony was split after WWI, Britain's western strip eventually voting to join Ghana, France's eastern strip becoming Togo — a partition remnant 550 km long and barely 100 km wide.",
     "exports": [
       "refined petroleum",
       "calcium phosphates",
@@ -92,6 +102,7 @@
   "GNB": {
     "hook": "The Bijagós archipelago off its coast is 88 islands, only about twenty of them inhabited — and a biosphere reserve.",
     "place": "A small Atlantic country tucked between Senegal and Guinea.",
+    "borders": "Portuguese Guinea's limits against surrounding French West Africa, set by an 1886 Franco-Portuguese convention — rivers and short survey lines around the stretch of coast Portugal actually held.",
     "exports": [
       "cashews",
       "fish",
@@ -101,6 +112,7 @@
   "GMB": {
     "hook": "The smallest country in mainland Africa — a ribbon of land either side of one river, nowhere more than 50km wide.",
     "place": "Following the Gambia river inland, enclosed by Senegal on every side but the Atlantic.",
+    "borders": "Africa's strangest border: a ribbon along both banks of the Gambia river, agreed with France in 1889 at roughly ten kilometres per bank — by legend, the range of British gunboat cannon.",
     "exports": [
       "sawn wood",
       "cashews",
@@ -110,6 +122,7 @@
   "CPV": {
     "hook": "Ten volcanic islands that were completely uninhabited until Portuguese ships arrived in 1456 — everyone there descends from later arrivals.",
     "place": "An Atlantic archipelago about 570km west of Senegal, out on its own.",
+    "borders": "Uninhabited Atlantic islands when the Portuguese arrived in 1456 — the state's extent is simply the archipelago Portugal settled; its only boundaries are maritime.",
     "exports": [
       "fish",
       "footwear",
