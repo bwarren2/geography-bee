@@ -2,6 +2,7 @@
   "GTM": {
     "hook": "The world's largest exporter of cardamom, a spice barely used in its own kitchens — almost the entire crop is shipped to the Middle East.",
     "place": "The first link in the Central American chain, directly south of Mexico.",
+    "borders": "Spanish provincial lines from the old Captaincy General; the ruler-straight eastern edge is the 1859 Anglo-Guatemalan treaty line around British Honduras — a line Guatemala disputed so long the claim went to the world court in the 2020s.",
     "exports": [
       "bananas",
       "coffee",
@@ -11,6 +12,7 @@
   "HND": {
     "hook": "The original banana republic — the phrase was coined for it in 1904, when US fruit companies effectively ran the country.",
     "place": "The wide part of the isthmus, between Guatemala and Nicaragua, with a long Caribbean coast.",
+    "borders": "The Coco river line with Nicaragua took a 1906 royal arbitration (upheld by the world court in 1960), and the short El Salvador line was only finished by a 1992 ICJ ruling — two decades after the two fought the 'Football War'.",
     "exports": [
       "coffee",
       "knitted garments",
@@ -20,6 +22,7 @@
   "NIC": {
     "hook": "Largest country in Central America, and its lake has bull sharks — they swim up the San Juan river from the Caribbean and stay.",
     "place": "The middle of the isthmus, between Honduras and Costa Rica.",
+    "borders": "Bounded by arbitration: the Coco river line with Honduras from a 1906 award Nicaragua resisted for fifty years, and the San Juan river line with Costa Rica from an 1858 treaty still argued over navigation rights.",
     "exports": [
       "coffee",
       "gold",
@@ -29,6 +32,7 @@
   "PAN": {
     "hook": "The isthmus runs east-west, not north-south — so in Panama City the sun rises over the Pacific and sets over the Atlantic.",
     "place": "The S-bend at the bottom of Central America, joining the continent to Colombia.",
+    "borders": "Was Colombia's northernmost department until 1903, when it seceded with US backing to make way for the canal — so the Colombian border is just the old provincial line through the roadless Darién jungle.",
     "exports": [
       "copper ore",
       "bananas",
@@ -38,6 +42,7 @@
   "CRI": {
     "hook": "Abolished its army in 1948 and put the money into schools and hospitals — it has not had one since.",
     "place": "Between Nicaragua and Panama, near the bottom of the isthmus.",
+    "borders": "The 1858 Cañas–Jerez treaty put the border on the San Juan river's Costa Rican bank — Nicaragua owns the water; the Panama line dates from when Panama was still Colombia, confirmed by later arbitration.",
     "exports": [
       "medical instruments",
       "bananas",
@@ -47,6 +52,7 @@
   "SLV": {
     "hook": "The smallest country in mainland Americas, and the only one in Central America with no Caribbean coast at all.",
     "place": "Pacific side only, wedged between Guatemala and Honduras.",
+    "borders": "Old Spanish provincial lines so vaguely drawn that pockets of the Honduran border stayed contested until the International Court allocated them in 1992 — the dispute that helped spark the 1969 Football War.",
     "exports": [
       "knitted garments",
       "coffee",
@@ -56,6 +62,7 @@
   "BLZ": {
     "hook": "The only Central American country with English as its official language, and home to the largest barrier reef in the northern hemisphere.",
     "place": "The small notch on the Caribbean side, east of Guatemala and just below Mexico's Yucatán.",
+    "borders": "The limits of a British logging settlement: the straight western and southern lines come from the 1859 treaty with Guatemala, which later claimed the whole country — a claim both sides finally sent to the world court.",
     "exports": [
       "raw sugar",
       "bananas",

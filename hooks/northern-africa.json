@@ -2,6 +2,7 @@
   "EGY": {
     "hook": "About 95% of Egyptians live on roughly 5% of the land — from orbit the inhabited country is a thin green ribbon along the Nile.",
     "place": "The northeast corner of Africa, with the Sinai peninsula reaching across into Asia.",
+    "borders": "Britain drew the straight 22nd-parallel line with Sudan in 1899, then bent an administrative line around it in 1902 — creating the still-disputed Halayib Triangle and Bir Tawil, the rare land that neither country wants.",
     "exports": [
       "crude petroleum",
       "refined petroleum",
@@ -11,6 +12,7 @@
   "DZA": {
     "hook": "The largest country in Africa, and about four-fifths of it is Sahara — the population clings to the northern coast.",
     "place": "The middle of the Maghreb coast between Morocco and Tunisia, running deep south into the desert.",
+    "borders": "France governed the Sahara from Algiers and drew the desert lines to match, which is why Algeria swells so deep into the desert; the Moroccan line was left vague enough to cause the 1963 Sand War, and it has been closed since 1994.",
     "exports": [
       "natural gas",
       "crude petroleum",
@@ -20,6 +22,7 @@
   "SDN": {
     "hook": "Has more pyramids than Egypt — around 200 of them at Meroë, steeper and narrower, and far less visited.",
     "place": "Below Egypt on the Red Sea, above South Sudan, where the Blue and White Niles meet at Khartoum.",
+    "borders": "The Anglo-Egyptian condominium's 1899 lines — the 22nd parallel in the north, colonial survey lines around the rest; the south departed in 2011 along the old internal north–south administrative line, with Abyei still unassigned.",
     "exports": [
       "gold",
       "crude petroleum",
@@ -29,6 +32,7 @@
   "MAR": {
     "hook": "You can stand on its coast and see Spain — the Strait of Gibraltar is only about 13km across at its narrowest.",
     "place": "The northwest corner of Africa, with both Atlantic and Mediterranean coasts and the Atlas range inland.",
+    "borders": "The Algerian line was never fully settled under France — hence the 1963 Sand War; south of the 27°40′ line it holds Western Sahara, the former Spanish colony it annexed after the 1975 Green March, whose status the UN still lists as undecided.",
     "exports": [
       "cars",
       "phosphates",
@@ -38,6 +42,7 @@
   "LBY": {
     "hook": "The Great Man-Made River pumps fossil water from under the Sahara through 2,800km of pipe — the largest irrigation project ever built.",
     "place": "On the Mediterranean between Tunisia and Egypt, almost entirely desert behind a thin coastal strip.",
+    "borders": "Three Ottoman-then-Italian provinces — Tripolitania, Cyrenaica, Fezzan — boxed in by straight colonial lines; its claim to Chad's Aouzou Strip, based on an unratified 1935 treaty, was ended by the world court in 1994.",
     "exports": [
       "crude petroleum",
       "refined petroleum",
@@ -47,6 +52,7 @@
   "TUN": {
     "hook": "Contains the northernmost point in Africa, and Carthage — Rome's great rival — stood just outside the modern capital.",
     "place": "The small wedge on the Mediterranean between Algeria and Libya, reaching closest to Sicily.",
+    "borders": "Roughly the Ottoman beylik of Tunis, fixed under the French protectorate — the oldest and most stable outline in the Maghreb, with only the southern desert wedge added by French survey lines.",
     "exports": [
       "insulated wire",
       "non-knit garments",
