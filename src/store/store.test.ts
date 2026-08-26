@@ -202,3 +202,57 @@ describe('StudyStore', () => {
     expect(await driver.keys('gb:v1:log:')).not.toContain('gb:v1:log:2026-01')
   })
 })
+
+describe('World Challenge record', () => {
+  let store: StudyStore
+  let driver: MemoryDriver
+
+  beforeEach(() => {
+    driver = new MemoryDriver()
+    store = new StudyStore(driver)
+  })
+
+  const run = (at: number, missKm = 500) => ({
+    at,
+    answers: [
+      { iso3: 'PER', chosen: 'PER', correct: true, ms: 2000, tap: [-75, -10] as [number, number], missKm: 0 },
+      { iso3: 'ECU', chosen: 'COL', correct: false, ms: 4000, tap: [-74, 4] as [number, number], missKm },
+    ],
+  })
+  const summary = (at: number) => ({ at, total: 2, correct: 1, meanMissKm: 250, medianMissKm: 500, medianMs: 3000 })
+
+  it('stays fully separable from study analytics except the confusion matrix', async () => {
+    const before = await store.load()
+    const perCardBefore = JSON.stringify(before.stats.perCard)
+    const dailyBefore = JSON.stringify(before.stats.daily)
+    const cardsBefore = JSON.stringify(before.cards)
+
+    await store.recordChallenge(run(1000), summary(1000))
+    const snap = store.snapshot()
+
+    // A challenge is a test: nothing it does may move the scheduler, the
+    // per-card stats, or the daily counts that feed streaks and pacing.
+    expect(JSON.stringify(snap.stats.perCard)).toBe(perCardBefore)
+    expect(JSON.stringify(snap.stats.daily)).toBe(dailyBefore)
+    expect(JSON.stringify(snap.cards)).toBe(cardsBefore)
+    // The one shared write: a wrong tap is a confusion wherever it happens.
+    expect(snap.stats.confusion['ECU>COL']).toBe(1)
+
+    expect(snap.challenges.summaries).toHaveLength(1)
+    expect(snap.challenges.runs).toHaveLength(1)
+  })
+
+  it('persists across reload and caps run detail while keeping every summary', async () => {
+    await store.load()
+    for (let i = 0; i < 15; i++) await store.recordChallenge(run(i), summary(i))
+    await store.flush()
+
+    const reopened = new StudyStore(driver)
+    const snap = await reopened.load()
+    expect(snap.challenges.summaries).toHaveLength(15)
+    expect(snap.challenges.runs).toHaveLength(12)
+    // Oldest detail dropped first; summaries keep the full record.
+    expect(snap.challenges.runs[0]!.at).toBe(3)
+    expect(snap.challenges.summaries[0]!.at).toBe(0)
+  })
+})

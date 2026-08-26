@@ -27,6 +27,7 @@ const snap = (over: Partial<StudySnapshot> = {}): StudySnapshot => ({
   stats: { perCard: {}, daily: {}, confusion: {} },
   settings: { ...DEFAULT_SETTINGS },
   meta: { schema: 1, lastBackupAt: null, createdAt: now.getTime() },
+  challenges: { summaries: [], runs: [] },
   ...over,
 })
 

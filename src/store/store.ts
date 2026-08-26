@@ -1,3 +1,4 @@
+import { CHALLENGE_DETAIL_CAP, type ChallengeRun, type ChallengeSummary } from '../session/challenge'
 import { CITY_TYPES, cityCardId, STARTING_TYPES, type CardId, type StoredCard } from '../srs/model'
 import { seedKnownCards, simulateKnownCard, type DeclareLevel } from '../srs/seed'
 import { citiesDemoCards, citiesDemoSettings, demoRequested } from './demo'
@@ -9,6 +10,7 @@ const K = {
   stats: `${NS}:stats`,
   settings: `${NS}:settings`,
   meta: `${NS}:meta`,
+  challenges: `${NS}:challenges`,
   /** Row counts per month, so pruning never has to parse the chunks. */
   logIndex: `${NS}:logindex`,
   logPrefix: `${NS}:log:`,
@@ -133,15 +135,26 @@ function hydrateSettings(stored: Partial<Settings> | null): { settings: Settings
 
 const emptyAggregates = (): Aggregates => ({ perCard: {}, daily: {}, confusion: {} })
 const emptyCardStats = (): CardStats => ({ reps: 0, lapses: 0, ratings: [0, 0, 0, 0, 0], totalMs: 0 })
+const emptyChallenges = (): ChallengeLog => ({ summaries: [], runs: [] })
 
 const monthOf = (t: number) => new Date(t).toISOString().slice(0, 7)
 const dayOf = (t: number) => new Date(t).toISOString().slice(0, 10)
+
+/** The World Challenge's own record, deliberately outside Aggregates: a
+ *  challenge is a test, and its results must stay separable from — and never
+ *  inflate — the study analytics. Summaries are permanent; full per-answer
+ *  runs are capped (see CHALLENGE_DETAIL_CAP). */
+export interface ChallengeLog {
+  summaries: ChallengeSummary[]
+  runs: ChallengeRun[]
+}
 
 export interface StudySnapshot {
   cards: Record<string, StoredCard>
   stats: Aggregates
   settings: Settings
   meta: Meta
+  challenges: ChallengeLog
 }
 
 /**
@@ -159,9 +172,10 @@ export class StudyStore {
   private stats: Aggregates = emptyAggregates()
   private settings: Settings = { ...DEFAULT_SETTINGS }
   private meta: Meta = { schema: 1, lastBackupAt: null, createdAt: Date.now() }
+  private challenges: ChallengeLog = emptyChallenges()
   private loaded = false
 
-  private dirty = new Set<'cards' | 'stats' | 'settings' | 'meta' | 'log'>()
+  private dirty = new Set<'cards' | 'stats' | 'settings' | 'meta' | 'challenges' | 'log'>()
   private flushTimer: ReturnType<typeof setTimeout> | null = null
   private pending: Promise<void> | null = null
   /** Set when a write failed for lack of space, so the UI can say so plainly. */
@@ -183,11 +197,12 @@ export class StudyStore {
 
   async load(): Promise<StudySnapshot> {
     if (!this.loaded) {
-      const [cards, stats, settings, meta, logIndex] = await Promise.all([
+      const [cards, stats, settings, meta, challenges, logIndex] = await Promise.all([
         this.driver.get<Record<string, StoredCard>>(K.cards),
         this.driver.get<Aggregates>(K.stats),
         this.driver.get<Settings>(K.settings),
         this.driver.get<Meta>(K.meta),
+        this.driver.get<ChallengeLog>(K.challenges),
         this.driver.get<Record<string, number>>(K.logIndex),
       ])
       // Virgin storage — no cards key was ever written, not even an empty
@@ -213,6 +228,7 @@ export class StudyStore {
         this.scheduleFlush()
       }
       this.meta = meta ?? this.meta
+      this.challenges = { ...emptyChallenges(), ...(challenges ?? {}) }
       this.logCounts = logIndex ?? (await this.rebuildLogIndex())
       this.loaded = true
     }
@@ -220,7 +236,38 @@ export class StudyStore {
   }
 
   snapshot(): StudySnapshot {
-    return { cards: this.cards, stats: this.stats, settings: this.settings, meta: this.meta }
+    return {
+      cards: this.cards,
+      stats: this.stats,
+      settings: this.settings,
+      meta: this.meta,
+      challenges: this.challenges,
+    }
+  }
+
+  /**
+   * Persist a completed World Challenge run. Deliberately narrow: nothing
+   * here touches card scheduling, per-card stats, daily counts, or the
+   * streak — the challenge's record stays fully separable, so runs are
+   * comparable and the study analytics stay honest. The one shared write is
+   * the confusion matrix: a wrong tap is a confusion wherever it happens,
+   * and drills live outside the scheduler anyway.
+   */
+  async recordChallenge(run: ChallengeRun, summary: ChallengeSummary): Promise<void> {
+    this.challenges.summaries.push(summary)
+    this.challenges.runs.push(run)
+    while (this.challenges.runs.length > CHALLENGE_DETAIL_CAP) this.challenges.runs.shift()
+
+    for (const a of run.answers) {
+      if (!a.correct && a.chosen && a.chosen !== a.iso3) {
+        const key = `${a.iso3}>${a.chosen}`
+        this.stats.confusion[key] = (this.stats.confusion[key] ?? 0) + 1
+      }
+    }
+
+    this.dirty.add('challenges')
+    this.dirty.add('stats')
+    return this.flush()
   }
 
   getCard(id: CardId): StoredCard | undefined {
@@ -412,7 +459,13 @@ export class StudyStore {
     }
     if (this.pending) return this.pending
 
-    const KEYS = { cards: K.cards, stats: K.stats, settings: K.settings, meta: K.meta } as const
+    const KEYS = {
+      cards: K.cards,
+      stats: K.stats,
+      settings: K.settings,
+      meta: K.meta,
+      challenges: K.challenges,
+    } as const
 
     const work = (async () => {
       const targets = [...this.dirty]
@@ -427,7 +480,15 @@ export class StudyStore {
           continue
         }
         const value =
-          t === 'cards' ? this.cards : t === 'stats' ? this.stats : t === 'settings' ? this.settings : this.meta
+          t === 'cards'
+            ? this.cards
+            : t === 'stats'
+              ? this.stats
+              : t === 'settings'
+                ? this.settings
+                : t === 'challenges'
+                  ? this.challenges
+                  : this.meta
         await this.writeGuarded(KEYS[t], value)
       }
     })()
@@ -473,6 +534,7 @@ export class StudyStore {
       stats: this.stats,
       settings: this.settings,
       meta: this.meta,
+      challenges: this.challenges,
       log: await this.getRawLog(),
     })
   }
@@ -491,6 +553,7 @@ export class StudyStore {
 
     this.cards = data.cards ?? {}
     this.stats = { ...emptyAggregates(), ...(data.stats ?? {}) }
+    this.challenges = { ...emptyChallenges(), ...(data.challenges ?? {}) }
     // Backups written before a region re-cut carry old pack ids; imports go
     // through the same migration as stored settings.
     this.settings = hydrateSettings(data.settings ?? null).settings
@@ -519,6 +582,7 @@ export class StudyStore {
     this.dirty.add('stats')
     this.dirty.add('settings')
     this.dirty.add('meta')
+    this.dirty.add('challenges')
     return this.flush()
   }
 }

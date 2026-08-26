@@ -1,9 +1,17 @@
 import { useEffect, useMemo, useState } from 'react'
 import { loadIndex, type CountryIndex } from './data/load'
 import { BOOST_STEP, buildSession, today, type SessionItem } from './session/builder'
+import {
+  buildChallengeOrder,
+  summarizeRun,
+  type ChallengeRun,
+  type ChallengeSummary,
+} from './session/challenge'
 import { buildDrills, type Drill } from './session/drills'
 import { buildRapidQueue, RAPID_MIN_SEEN, type RapidItem } from './session/rapid'
 import { store, useStudyStore } from './store/useStore'
+import type { CountryRecord } from './types'
+import { ChallengeView } from './ui/ChallengeView'
 import { DashboardView } from './ui/DashboardView'
 import { DrillView, type DrillResult } from './ui/DrillView'
 import { Home } from './ui/Home'
@@ -19,6 +27,8 @@ type Screen =
   | { name: 'study'; items: SessionItem[] }
   | { name: 'rapid-pick' }
   | { name: 'rapid'; items: RapidItem[] }
+  | { name: 'challenge'; countries: CountryRecord[] }
+  | { name: 'challenge-summary'; summary: ChallengeSummary; prev: ChallengeSummary | null; run: ChallengeRun }
   // No session result when drills are launched on their own from the
   // dashboard's mix-up list; the summary then shows only the drill score.
   | { name: 'drills'; drills: Drill[]; result?: SessionResult }
@@ -137,7 +147,93 @@ export function App() {
           const items = buildRapidQueue(index, snapshot.cards, new Date(), undefined, Math.random, slug ?? undefined)
           if (items.length) enter({ name: 'rapid', items })
         }}
+        onChallenge={() => enter({ name: 'challenge', countries: buildChallengeOrder(index) })}
       />
+    )
+  }
+
+  if (screen.name === 'challenge') {
+    return (
+      <ChallengeView
+        countries={screen.countries}
+        index={index}
+        onQuit={leave}
+        onDone={(run) => {
+          const summary = summarizeRun(run)
+          // The previous summary is read before this run is recorded, so the
+          // results screen can say how this attempt compares to the last one.
+          const prev = snapshot.challenges.summaries.at(-1) ?? null
+          void store.recordChallenge(run, summary).then(reload)
+          enter({ name: 'challenge-summary', summary, prev, run })
+        }}
+      />
+    )
+  }
+
+  if (screen.name === 'challenge-summary') {
+    const { summary: s, prev, run } = screen
+    const pctOf = (x: ChallengeSummary) => Math.round((x.correct / x.total) * 100)
+    const worst = run.answers
+      .filter((a) => !a.correct)
+      .sort((a, b) => b.missKm - a.missKm)
+      .slice(0, 8)
+    const delta = prev ? s.correct - prev.correct : null
+    return (
+      <div className="home">
+        <h1>World Challenge</h1>
+        <div className="stats">
+          <div className="stat">
+            <strong>
+              {s.correct}/{s.total}
+            </strong>
+            <span>countries</span>
+          </div>
+          <div className="stat">
+            <strong>{pctOf(s)}%</strong>
+            <span>accuracy</span>
+          </div>
+          <div className="stat">
+            <strong>{s.meanMissKm}km</strong>
+            <span>mean miss</span>
+          </div>
+          <div className="stat">
+            <strong>{(s.medianMs / 1000).toFixed(1)}s</strong>
+            <span>median</span>
+          </div>
+        </div>
+        {prev && (
+          <p className="muted centered">
+            Last run: {prev.correct}/{prev.total} · mean miss {prev.meanMissKm}km —{' '}
+            {delta === 0
+              ? 'same score'
+              : `${delta! > 0 ? '+' : ''}${delta} countries`}
+            {s.meanMissKm !== prev.meanMissKm &&
+              `, misses ${s.meanMissKm < prev.meanMissKm ? 'closer' : 'wider'} by ${Math.abs(
+                s.meanMissKm - prev.meanMissKm,
+              )}km`}
+          </p>
+        )}
+        {worst.length > 0 && (
+          <section className="insight">
+            <h2>Farthest misses</h2>
+            <div className="spot-list">
+              {worst.map((a) => (
+                <div key={a.iso3} className="spot-row">
+                  <span className="cname">
+                    {index.byIso3.get(a.iso3)?.flag} {index.byIso3.get(a.iso3)?.name ?? a.iso3}
+                  </span>
+                  <span className="muted spot-detail">
+                    tapped {index.byIso3.get(a.chosen)?.name ?? a.chosen} · {a.missKm}km off
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+        <button className="primary big" onClick={leave}>
+          Back
+        </button>
+      </div>
     )
   }
 

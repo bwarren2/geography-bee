@@ -54,6 +54,21 @@ chosen area is a request, not filler. Either way the round is shuffled,
 because a predictable sequence would let order memory stand in for actually
 knowing the map.
 
+**The World Challenge is a test, not practice.** All 195 countries, shuffled,
+one tap each, under deliberately frozen conditions — full borders, flat map,
+every country regardless of what has been studied — so the only thing that
+differs between two runs is you. Challenge answers never touch the scheduler,
+the daily counts, or the streak (a test must not change what it measures, or
+inflate the study analytics it sits beside); results live on their own
+record, where every run's summary is kept forever and charted so the score
+climbs visibly across attempts. Each answer also stores where the tap
+actually landed and how far that was from the target's outline — a second
+axis of improvement, because tapping Chad when asked for Niger is a better
+miss than tapping Mozambique, and the mean miss distance closing over time
+proves the map is taking shape even before the score says so. The one thing
+a challenge shares with study is the confusion matrix: a wrong tap is a
+confusion wherever it happens, and drills live outside the scheduler anyway.
+
 **Borders are training wheels that fade with mastery.** A locate card's map
 draws internal borders at full strength while the card is young, fades them
 continuously as stability grows, and goes fully blank — coastline only — at

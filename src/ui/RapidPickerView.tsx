@@ -12,6 +12,8 @@ interface RapidPickerViewProps {
   snapshot: StudySnapshot
   /** null = whole world (the classic spread round). */
   onPick: (regionSlug: string | null) => void
+  /** Start a World Challenge — all 195, scored on its own record. */
+  onChallenge: () => void
   onBack: () => void
 }
 
@@ -29,7 +31,7 @@ const wrapDelta = (a: number, b: number) => {
  * so "what should I sprint?" and "where am I weak?" are the same glance,
  * and the reddest dot is the answer to both.
  */
-export function RapidPickerView({ index, snapshot, onPick, onBack }: RapidPickerViewProps) {
+export function RapidPickerView({ index, snapshot, onPick, onChallenge, onBack }: RapidPickerViewProps) {
   const now = useMemo(() => new Date(), [])
   const seenByRegion = useMemo(() => rapidSeenByRegion(index, snapshot.cards), [index, snapshot])
   // Whether a whole-world sprint would contain anything: due cards, or cards
@@ -114,6 +116,14 @@ export function RapidPickerView({ index, snapshot, onPick, onBack }: RapidPicker
           onPickPoint={({ lonlat }) => pickAt(lonlat)}
         />
       </div>
+
+      <button className="challenge-start" onClick={onChallenge}>
+        🏆 World Challenge
+        <span className="muted">
+          All 195 countries, shuffled, one tap each — a scored test on its own record, separate from
+          your review stats. Quitting midway discards the run.
+        </span>
+      </button>
     </div>
   )
 }
