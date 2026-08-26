@@ -11,6 +11,9 @@ const FLASH_MISS_MS = 1100
 interface ChallengeViewProps {
   countries: CountryRecord[]
   mode: ChallengeMode
+  /** Satellite terrain under the map, chosen at the picker; stamped on the
+   *  run so terrain-assisted results never mix with flat-field ones. */
+  terrain: boolean
   index: CountryIndex
   onDone: (run: ChallengeRun) => void
   onQuit: () => void
@@ -23,7 +26,7 @@ interface ChallengeViewProps {
  * writes to the store; the completed run is handed back whole, and quitting
  * midway discards it (a test you walked out of is not a comparable result).
  */
-export function ChallengeView({ countries, mode, index, onDone, onQuit }: ChallengeViewProps) {
+export function ChallengeView({ countries, mode, terrain, index, onDone, onQuit }: ChallengeViewProps) {
   const [pos, setPos] = useState(0)
   const [flash, setFlash] = useState<{ chosen: string; correct: boolean } | null>(null)
   const [tally, setTally] = useState({ answered: 0, correct: 0 })
@@ -52,7 +55,7 @@ export function ChallengeView({ countries, mode, index, onDone, onQuit }: Challe
   function advance() {
     setFlash(null)
     if (pos + 1 >= countries.length) {
-      onDone({ at: Date.now(), mode, answers: answers.current })
+      onDone({ at: Date.now(), mode, terrain, answers: answers.current })
     } else {
       setPos(pos + 1)
     }
@@ -116,8 +119,9 @@ export function ChallengeView({ countries, mode, index, onDone, onQuit }: Challe
             // Fixed test conditions per mode, whatever the cards have earned:
             // bordered runs always draw full borders, blank runs none at all
             // (coastline only) until the answer flash restores them so a miss
-            // shows in context. No terrain either way — two runs a month
-            // apart must differ only in the person taking them.
+            // shows in context. Terrain is a picker choice, stamped on the
+            // run — within one run the conditions never move.
+            terrain={terrain}
             borderOpacity={flash ? 1 : mode === 'blank' ? 0 : 1}
             labels={flash ? [country.iso3] : []}
             onPick={pick}

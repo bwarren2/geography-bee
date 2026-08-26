@@ -56,6 +56,11 @@ export interface ChallengeRun {
   /** Epoch ms at completion. */
   at: number
   mode: ChallengeMode
+  /** Ran with satellite terrain under the map. Terrain landmarks are real
+   *  help, so a terrain run is its own kind of measurement: marked in the
+   *  charts and only ever compared against other terrain runs of the same
+   *  title. Absent on records from before the option existed = false. */
+  terrain?: boolean
   answers: ChallengeAnswer[]
 }
 
@@ -63,6 +68,8 @@ export interface ChallengeRun {
 export interface ChallengeSummary {
   at: number
   mode: ChallengeMode
+  /** See ChallengeRun.terrain. */
+  terrain?: boolean
   total: number
   correct: number
   /** Mean km-from-target across ALL answers (correct counts 0): the single
@@ -102,6 +109,7 @@ export function summarizeRun(run: ChallengeRun): ChallengeSummary {
   return {
     at: run.at,
     mode: run.mode,
+    terrain: !!run.terrain,
     total: run.answers.length,
     correct: run.answers.length - misses.length,
     meanMissKm: run.answers.length ? Math.round(totalKm / run.answers.length) : 0,

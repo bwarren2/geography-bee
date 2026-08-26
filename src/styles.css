@@ -272,7 +272,10 @@ button.ghost:hover:not(:disabled) {
 }
 
 .rapid-picker {
-  height: 100%;
+  /* Natural height on purpose: a fixed 100% made the flex column squeeze
+   * its children once the challenge cards were added, clipping buttons.
+   * The map sizes itself via aspect-ratio, so nothing needs the viewport. */
+  min-height: 100%;
 }
 
 .picker-map {
