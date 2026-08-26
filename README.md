@@ -61,7 +61,11 @@ two runs is you. It comes as two titles: the *World Challenge* with borders
 drawn, and the *Blank World Challenge* on coastline alone — the
 absolute-position exam mastered locate cards graduate to — and each title
 keeps its own record, because a bordered score and a blank score are
-different measurements and must never compete. Challenge answers never touch the scheduler,
+different measurements and must never compete. Satellite terrain is a
+per-run choice at the picker: real landmarks are real help, so the choice
+is stamped on the run, terrain runs are marked 🛰️ everywhere they appear,
+and they too keep their own record rather than mixing with flat-field
+scores. Challenge answers never touch the scheduler,
 the daily counts, or the streak (a test must not change what it measures, or
 inflate the study analytics it sits beside); results live on their own
 record, where every run's summary is kept forever and charted so the score

@@ -55,6 +55,7 @@ export function ChallengeRunView({ run, index, onBack }: ChallengeRunViewProps) 
       </header>
       <p className="muted run-date">
         {new Date(run.at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+        {run.terrain ? ' · 🛰️ satellite terrain' : ''}
       </p>
 
       <div className="stats">

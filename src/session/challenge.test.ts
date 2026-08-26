@@ -85,6 +85,12 @@ describe('summarizeRun', () => {
     expect(s.mode).toBe('blank')
   })
 
+  it('stamps the terrain choice, defaulting old runs to flat-field', () => {
+    expect(summarizeRun({ at: 1, mode: 'borders', terrain: true, answers: [answer()] }).terrain).toBe(true)
+    // Runs recorded before the option existed carry no flag: they were flat.
+    expect(summarizeRun({ at: 1, mode: 'borders', answers: [answer()] }).terrain).toBe(false)
+  })
+
   it('handles a perfect run without dividing by zero misses', () => {
     const s = summarizeRun({ at: 1, mode: 'borders', answers: [answer(), answer({ iso3: 'BOL' })] })
     expect(s).toMatchObject({ correct: 2, meanMissKm: 0, medianMissKm: 0 })

@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import type { CountryIndex } from '../data/load'
 import { recallFill } from '../map/colors'
 import { GeoMap, type CityMark } from '../map/GeoMap'
@@ -13,8 +13,9 @@ interface RapidPickerViewProps {
   snapshot: StudySnapshot
   /** null = whole world (the classic spread round). */
   onPick: (regionSlug: string | null) => void
-  /** Start a World Challenge — all 195, scored on its own per-mode record. */
-  onChallenge: (mode: ChallengeMode) => void
+  /** Start a World Challenge — all 195, scored on its own per-mode record.
+   *  Terrain runs are marked and kept comparable only with each other. */
+  onChallenge: (mode: ChallengeMode, terrain: boolean) => void
   onBack: () => void
 }
 
@@ -34,6 +35,9 @@ const wrapDelta = (a: number, b: number) => {
  */
 export function RapidPickerView({ index, snapshot, onPick, onChallenge, onBack }: RapidPickerViewProps) {
   const now = useMemo(() => new Date(), [])
+  // Challenge terrain choice, seeded from the study-map preference. Local
+  // state only: the pick is stamped on the run itself, not on settings.
+  const [challengeTerrain, setChallengeTerrain] = useState(snapshot.settings.terrain)
   const seenByRegion = useMemo(() => rapidSeenByRegion(index, snapshot.cards), [index, snapshot])
   // Whether a whole-world sprint would contain anything: due cards, or cards
   // whose recall has actually slipped. All fresh -> say so instead of a
@@ -119,15 +123,21 @@ export function RapidPickerView({ index, snapshot, onPick, onChallenge, onBack }
       </div>
 
       {CHALLENGE_MODES.map((m) => (
-        <button key={m.mode} className="challenge-start" onClick={() => onChallenge(m.mode)}>
+        <button key={m.mode} className="challenge-start" onClick={() => onChallenge(m.mode, challengeTerrain)}>
           {m.mode === 'blank' ? '🌑' : '🏆'} {m.title}
           <span className="muted">{m.blurb}</span>
         </button>
       ))}
+      <button
+        className="ghost terrain-toggle"
+        onClick={() => setChallengeTerrain(!challengeTerrain)}
+      >
+        🛰️ Challenge terrain: {challengeTerrain ? 'on' : 'off'}
+      </button>
       <p className="muted small">
         Challenges are tests, separate from your review stats — each title keeps its own record, so
-        a run only ever competes with your earlier runs of the same kind. Quitting midway discards
-        the run.
+        a run only ever competes with your earlier runs of the same kind, and terrain runs (marked
+        🛰️) only with other terrain runs. Quitting midway discards the run.
       </p>
     </div>
   )

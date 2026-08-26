@@ -30,7 +30,7 @@ type Screen =
   | { name: 'study'; items: SessionItem[] }
   | { name: 'rapid-pick' }
   | { name: 'rapid'; items: RapidItem[] }
-  | { name: 'challenge'; countries: CountryRecord[]; mode: ChallengeMode }
+  | { name: 'challenge'; countries: CountryRecord[]; mode: ChallengeMode; terrain: boolean }
   | { name: 'challenge-summary'; summary: ChallengeSummary; prev: ChallengeSummary | null; run: ChallengeRun }
   | { name: 'challenge-run'; run: ChallengeRun }
   // No session result when drills are launched on their own from the
@@ -151,7 +151,9 @@ export function App() {
           const items = buildRapidQueue(index, snapshot.cards, new Date(), undefined, Math.random, slug ?? undefined)
           if (items.length) enter({ name: 'rapid', items })
         }}
-        onChallenge={(mode) => enter({ name: 'challenge', countries: buildChallengeOrder(index), mode })}
+        onChallenge={(mode, terrain) =>
+          enter({ name: 'challenge', countries: buildChallengeOrder(index), mode, terrain })
+        }
       />
     )
   }
@@ -161,13 +163,18 @@ export function App() {
       <ChallengeView
         countries={screen.countries}
         mode={screen.mode}
+        terrain={screen.terrain}
         index={index}
         onQuit={leave}
         onDone={(run) => {
           const summary = summarizeRun(run)
-          // The previous summary of the SAME mode, read before this run is
-          // recorded — a bordered run never competes with a blank one.
-          const prev = snapshot.challenges.summaries.filter((s) => s.mode === run.mode).at(-1) ?? null
+          // The previous summary of the SAME mode and terrain, read before
+          // this run is recorded — a bordered run never competes with a
+          // blank one, nor a terrain-assisted run with a flat-field one.
+          const prev =
+            snapshot.challenges.summaries
+              .filter((s) => s.mode === run.mode && !!s.terrain === !!run.terrain)
+              .at(-1) ?? null
           void store.recordChallenge(run, summary).then(reload)
           enter({ name: 'challenge-summary', summary, prev, run })
         }}
@@ -185,7 +192,10 @@ export function App() {
     const delta = prev ? s.correct - prev.correct : null
     return (
       <div className="home">
-        <h1>{challengeTitle(s.mode)}</h1>
+        <h1>
+          {challengeTitle(s.mode)}
+          {s.terrain ? ' 🛰️' : ''}
+        </h1>
         <div className="stats">
           <div className="stat">
             <strong>

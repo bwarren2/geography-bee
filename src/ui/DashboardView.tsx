@@ -36,15 +36,25 @@ export function DashboardView({ index, snapshot, onBack, onChanged, onSprint, on
     [index, snapshot],
   )
   const activity = useMemo(() => activityByDay(snapshot.stats.daily, now), [snapshot, now])
-  // One record per challenge title: a bordered score and a blank score are
-  // different measurements, so each mode charts only against itself.
-  const challengeModes = CHALLENGE_MODES.map((m) => ({
-    ...m,
-    runs: snapshot.challenges.summaries.filter((s) => s.mode === m.mode).slice(-16),
-    // Per-answer detail survives for the most recent runs only; those are
-    // the ones a breakdown can be opened for.
-    details: snapshot.challenges.runs.filter((r) => r.mode === m.mode).slice(-6).reverse(),
-  })).filter((m) => m.runs.length > 0)
+  // One record per challenge title and terrain choice: a bordered score, a
+  // blank score, and a terrain-assisted score are all different
+  // measurements, so each charts only against itself. Empty combinations
+  // never render, so the panel stays as small as the habit actually is.
+  const challengeModes = CHALLENGE_MODES.flatMap((m) =>
+    [false, true].map((terrain) => ({
+      ...m,
+      terrain,
+      runs: snapshot.challenges.summaries
+        .filter((s) => s.mode === m.mode && !!s.terrain === terrain)
+        .slice(-16),
+      // Per-answer detail survives for the most recent runs only; those are
+      // the ones a breakdown can be opened for.
+      details: snapshot.challenges.runs
+        .filter((r) => r.mode === m.mode && !!r.terrain === terrain)
+        .slice(-6)
+        .reverse(),
+    })),
+  ).filter((m) => m.runs.length > 0)
   const [shareState, setShareState] = useState<'idle' | 'busy' | 'saved'>('idle')
   const [openRegion, setOpenRegion] = useState<string | null>(null)
   // Two audiences, one screen: Overview answers "how far along am I?",
@@ -189,10 +199,11 @@ export function DashboardView({ index, snapshot, onBack, onChanged, onSprint, on
                 const maxMissKm = Math.max(1, ...m.runs.map((r) => r.meanMissKm))
                 const last = m.runs.at(-1)!
                 return (
-                  <div key={m.mode} className="challenge-block">
+                  <div key={`${m.mode}-${m.terrain}`} className="challenge-block">
                     <div className="insight-head">
                       <h3>
                         {m.mode === 'blank' ? '🌑' : '🏆'} {m.title}
+                        {m.terrain ? ' 🛰️' : ''}
                       </h3>
                       <span className="muted small">best {Math.max(...m.runs.map((r) => r.correct))}/195</span>
                     </div>
@@ -245,8 +256,8 @@ export function DashboardView({ index, snapshot, onBack, onChanged, onSprint, on
               <p className="muted small">
                 One pair of bars per run, oldest first: top is score out of 195 (recall colours),
                 bottom is mean tap distance from the target — improvement is the top row rising
-                while the bottom row sinks. Each title is its own record; bordered and blank runs
-                never compete.
+                while the bottom row sinks. Each title is its own record — bordered, blank, and
+                terrain-assisted (🛰️) runs never compete with each other.
               </p>
             )}
           </section>
