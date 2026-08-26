@@ -955,6 +955,83 @@ button.ghost:hover:not(:disabled) {
   padding-top: 4px;
 }
 
+.run-date {
+  margin: -10px 0 0;
+  font-size: 13px;
+}
+
+/* Past-run chips inside a challenge block: date + score, tap for breakdown. */
+.run-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.run-chip {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 12px;
+  min-height: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Miss-distance dotplot. */
+.dotplot {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.miss-dot {
+  fill: var(--bad);
+  opacity: 0.8;
+}
+
+/* Answer-time histogram: count over bar over label, one column per second. */
+.histo {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.histo-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+
+.histo-count {
+  font-size: 10px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  min-height: 10px;
+}
+
+.histo-track {
+  width: 100%;
+  height: 64px;
+  display: flex;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--panel-2);
+}
+
+.histo-bar {
+  width: 100%;
+  background: var(--info);
+  border-radius: 2px 2px 0 0;
+}
+
+.histo-label {
+  font-size: 9px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
 .challenge-block h3 {
   margin: 0;
   font-size: 14px;

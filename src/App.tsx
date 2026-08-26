@@ -13,6 +13,7 @@ import { buildDrills, type Drill } from './session/drills'
 import { buildRapidQueue, RAPID_MIN_SEEN, type RapidItem } from './session/rapid'
 import { store, useStudyStore } from './store/useStore'
 import type { CountryRecord } from './types'
+import { ChallengeRunView } from './ui/ChallengeRunView'
 import { ChallengeView } from './ui/ChallengeView'
 import { DashboardView } from './ui/DashboardView'
 import { DrillView, type DrillResult } from './ui/DrillView'
@@ -31,6 +32,7 @@ type Screen =
   | { name: 'rapid'; items: RapidItem[] }
   | { name: 'challenge'; countries: CountryRecord[]; mode: ChallengeMode }
   | { name: 'challenge-summary'; summary: ChallengeSummary; prev: ChallengeSummary | null; run: ChallengeRun }
+  | { name: 'challenge-run'; run: ChallengeRun }
   // No session result when drills are launched on their own from the
   // dashboard's mix-up list; the summary then shows only the drill score.
   | { name: 'drills'; drills: Drill[]; result?: SessionResult }
@@ -233,11 +235,18 @@ export function App() {
             </div>
           </section>
         )}
+        <button className="ghost" onClick={() => enter({ name: 'challenge-run', run })}>
+          Full breakdown →
+        </button>
         <button className="primary big" onClick={leave}>
           Back
         </button>
       </div>
     )
+  }
+
+  if (screen.name === 'challenge-run') {
+    return <ChallengeRunView run={screen.run} index={index} onBack={leave} />
   }
 
   if (screen.name === 'rapid') {
@@ -282,6 +291,7 @@ export function App() {
         onDrill={(drills) => {
           if (drills.length) enter({ name: 'drills', drills })
         }}
+        onOpenRun={(run) => enter({ name: 'challenge-run', run })}
       />
     )
   }

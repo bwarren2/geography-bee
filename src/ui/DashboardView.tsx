@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import type { CountryIndex } from '../data/load'
 import { recallFill } from '../map/colors'
 import { GeoMap } from '../map/GeoMap'
-import { CHALLENGE_MODES } from '../session/challenge'
+import { CHALLENGE_MODES, type ChallengeRun } from '../session/challenge'
 import { buildDrills, DRILL_MIN_CONFUSIONS, type Drill } from '../session/drills'
 import { buildRapidQueue, buildTargetedQueue, type RapidItem } from '../session/rapid'
 import { APP_URL, buildShareCardSvg, progressCardContent, svgToPngBlob } from '../share/shareCard'
@@ -22,9 +22,11 @@ interface DashboardViewProps {
   onChanged: () => void
   onSprint: (items: RapidItem[]) => void
   onDrill: (drills: Drill[]) => void
+  /** Open the per-run breakdown for a stored challenge run. */
+  onOpenRun: (run: ChallengeRun) => void
 }
 
-export function DashboardView({ index, snapshot, onBack, onChanged, onSprint, onDrill }: DashboardViewProps) {
+export function DashboardView({ index, snapshot, onBack, onChanged, onSprint, onDrill, onOpenRun }: DashboardViewProps) {
   const now = useMemo(() => new Date(), [])
   const outlook = useMemo(() => buildOutlook(index, snapshot, now), [index, snapshot, now])
   const spots = useMemo(() => troubleSpots(index, snapshot.cards, snapshot.stats), [index, snapshot])
@@ -39,6 +41,9 @@ export function DashboardView({ index, snapshot, onBack, onChanged, onSprint, on
   const challengeModes = CHALLENGE_MODES.map((m) => ({
     ...m,
     runs: snapshot.challenges.summaries.filter((s) => s.mode === m.mode).slice(-16),
+    // Per-answer detail survives for the most recent runs only; those are
+    // the ones a breakdown can be opened for.
+    details: snapshot.challenges.runs.filter((r) => r.mode === m.mode).slice(-6).reverse(),
   })).filter((m) => m.runs.length > 0)
   const [shareState, setShareState] = useState<'idle' | 'busy' | 'saved'>('idle')
   const [openRegion, setOpenRegion] = useState<string | null>(null)
@@ -222,6 +227,16 @@ export function DashboardView({ index, snapshot, onBack, onChanged, onSprint, on
                       Latest: {last.correct}/195 · mean miss {last.meanMissKm}km · median{' '}
                       {(last.medianMs / 1000).toFixed(1)}s per country.
                     </p>
+                    {m.details.length > 0 && (
+                      <div className="run-chips">
+                        {m.details.map((r) => (
+                          <button key={r.at} className="ghost run-chip" onClick={() => onOpenRun(r)}>
+                            {new Date(r.at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} ·{' '}
+                            {r.answers.filter((a) => a.correct).length}/{r.answers.length} ▸
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )
               })
