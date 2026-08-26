@@ -214,12 +214,21 @@ describe('World Challenge record', () => {
 
   const run = (at: number, missKm = 500) => ({
     at,
+    mode: 'borders' as const,
     answers: [
       { iso3: 'PER', chosen: 'PER', correct: true, ms: 2000, tap: [-75, -10] as [number, number], missKm: 0 },
       { iso3: 'ECU', chosen: 'COL', correct: false, ms: 4000, tap: [-74, 4] as [number, number], missKm },
     ],
   })
-  const summary = (at: number) => ({ at, total: 2, correct: 1, meanMissKm: 250, medianMissKm: 500, medianMs: 3000 })
+  const summary = (at: number) => ({
+    at,
+    mode: 'borders' as const,
+    total: 2,
+    correct: 1,
+    meanMissKm: 250,
+    medianMissKm: 500,
+    medianMs: 3000,
+  })
 
   it('stays fully separable from study analytics except the confusion matrix', async () => {
     const before = await store.load()
@@ -254,5 +263,16 @@ describe('World Challenge record', () => {
     // Oldest detail dropped first; summaries keep the full record.
     expect(snap.challenges.runs[0]!.at).toBe(3)
     expect(snap.challenges.summaries[0]!.at).toBe(0)
+  })
+
+  it('hydrates pre-mode records as bordered runs instead of losing them', async () => {
+    // Challenge records written before the blank variant existed carry no
+    // mode field; they were all bordered runs.
+    const { mode: _rm, ...bareRun } = run(7)
+    const { mode: _sm, ...bareSummary } = summary(7)
+    await driver.set('gb:v1:challenges', { summaries: [bareSummary], runs: [bareRun] })
+    const snap = await store.load()
+    expect(snap.challenges.summaries[0]!.mode).toBe('borders')
+    expect(snap.challenges.runs[0]!.mode).toBe('borders')
   })
 })

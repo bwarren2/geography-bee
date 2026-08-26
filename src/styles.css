@@ -949,6 +949,17 @@ button.ghost:hover:not(:disabled) {
   border-radius: 2px 2px 0 0;
 }
 
+.challenge-block {
+  display: grid;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.challenge-block h3 {
+  margin: 0;
+  font-size: 14px;
+}
+
 /* The challenge's second strip: mean tap distance per run. Kept short and in
  * the cool secondary hue so the score row stays the headline. */
 .activity-bars.challenge-miss {
@@ -969,6 +980,9 @@ button.ghost:hover:not(:disabled) {
   text-align: left;
   border-color: var(--accent);
   font-weight: 650;
+  /* The picker is a fixed-height flex column; without this the cards get
+   * squeezed and their blurbs clip. */
+  flex-shrink: 0;
 }
 
 .challenge-start .muted {

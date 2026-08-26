@@ -137,6 +137,16 @@ const emptyAggregates = (): Aggregates => ({ perCard: {}, daily: {}, confusion: 
 const emptyCardStats = (): CardStats => ({ reps: 0, lapses: 0, ratings: [0, 0, 0, 0, 0], totalMs: 0 })
 const emptyChallenges = (): ChallengeLog => ({ summaries: [], runs: [] })
 
+/** Challenge records written before the blank-map variant existed carry no
+ *  mode; they were all bordered runs, so say so rather than losing them. */
+const hydrateChallenges = (stored: Partial<ChallengeLog> | null): ChallengeLog => {
+  const log = { ...emptyChallenges(), ...(stored ?? {}) }
+  return {
+    summaries: log.summaries.map((s) => ({ ...s, mode: s.mode ?? 'borders' })),
+    runs: log.runs.map((r) => ({ ...r, mode: r.mode ?? 'borders' })),
+  }
+}
+
 const monthOf = (t: number) => new Date(t).toISOString().slice(0, 7)
 const dayOf = (t: number) => new Date(t).toISOString().slice(0, 10)
 
@@ -228,7 +238,7 @@ export class StudyStore {
         this.scheduleFlush()
       }
       this.meta = meta ?? this.meta
-      this.challenges = { ...emptyChallenges(), ...(challenges ?? {}) }
+      this.challenges = hydrateChallenges(challenges)
       this.logCounts = logIndex ?? (await this.rebuildLogIndex())
       this.loaded = true
     }
@@ -553,7 +563,7 @@ export class StudyStore {
 
     this.cards = data.cards ?? {}
     this.stats = { ...emptyAggregates(), ...(data.stats ?? {}) }
-    this.challenges = { ...emptyChallenges(), ...(data.challenges ?? {}) }
+    this.challenges = hydrateChallenges(data.challenges ?? null)
     // Backups written before a region re-cut carry old pack ids; imports go
     // through the same migration as stored settings.
     this.settings = hydrateSettings(data.settings ?? null).settings

@@ -27,15 +27,42 @@ export interface ChallengeAnswer {
   missKm: number
 }
 
+/**
+ * Two titles, one test: the bordered challenge is the standard run, the
+ * blank one strips the internal borders away entirely — coastline only, the
+ * absolute-position exam that mastered locate cards graduate to. A bordered
+ * score and a blank score are different measurements, so each mode keeps its
+ * own record and is only ever compared against itself.
+ */
+export type ChallengeMode = 'borders' | 'blank'
+
+export const CHALLENGE_MODES: { mode: ChallengeMode; title: string; blurb: string }[] = [
+  {
+    mode: 'borders',
+    title: 'World Challenge',
+    blurb: 'All 195 countries, shuffled, one tap each — borders drawn, scored on its own record.',
+  },
+  {
+    mode: 'blank',
+    title: 'Blank World Challenge',
+    blurb: 'The same 195, but coastline only — no internal borders, absolute position or nothing.',
+  },
+]
+
+export const challengeTitle = (mode: ChallengeMode): string =>
+  CHALLENGE_MODES.find((m) => m.mode === mode)!.title
+
 export interface ChallengeRun {
   /** Epoch ms at completion. */
   at: number
+  mode: ChallengeMode
   answers: ChallengeAnswer[]
 }
 
 /** The comparable record of one run — small enough to keep forever. */
 export interface ChallengeSummary {
   at: number
+  mode: ChallengeMode
   total: number
   correct: number
   /** Mean km-from-target across ALL answers (correct counts 0): the single
@@ -74,6 +101,7 @@ export function summarizeRun(run: ChallengeRun): ChallengeSummary {
   const totalKm = misses.reduce((sum, a) => sum + a.missKm, 0)
   return {
     at: run.at,
+    mode: run.mode,
     total: run.answers.length,
     correct: run.answers.length - misses.length,
     meanMissKm: run.answers.length ? Math.round(totalKm / run.answers.length) : 0,

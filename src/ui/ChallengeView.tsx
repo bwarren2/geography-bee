@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { loadGeometry, type CountryFeature, type CountryIndex } from '../data/load'
 import { distanceToFeatureKm } from '../map/distance'
 import { GeoMap, type MarkRole } from '../map/GeoMap'
-import type { ChallengeAnswer, ChallengeRun } from '../session/challenge'
+import type { ChallengeAnswer, ChallengeMode, ChallengeRun } from '../session/challenge'
 import type { CountryRecord } from '../types'
 
 const FLASH_HIT_MS = 350
@@ -10,6 +10,7 @@ const FLASH_MISS_MS = 1100
 
 interface ChallengeViewProps {
   countries: CountryRecord[]
+  mode: ChallengeMode
   index: CountryIndex
   onDone: (run: ChallengeRun) => void
   onQuit: () => void
@@ -22,7 +23,7 @@ interface ChallengeViewProps {
  * writes to the store; the completed run is handed back whole, and quitting
  * midway discards it (a test you walked out of is not a comparable result).
  */
-export function ChallengeView({ countries, index, onDone, onQuit }: ChallengeViewProps) {
+export function ChallengeView({ countries, mode, index, onDone, onQuit }: ChallengeViewProps) {
   const [pos, setPos] = useState(0)
   const [flash, setFlash] = useState<{ chosen: string; correct: boolean } | null>(null)
   const [tally, setTally] = useState({ answered: 0, correct: 0 })
@@ -51,7 +52,7 @@ export function ChallengeView({ countries, index, onDone, onQuit }: ChallengeVie
   function advance() {
     setFlash(null)
     if (pos + 1 >= countries.length) {
-      onDone({ at: Date.now(), answers: answers.current })
+      onDone({ at: Date.now(), mode, answers: answers.current })
     } else {
       setPos(pos + 1)
     }
@@ -95,7 +96,7 @@ export function ChallengeView({ countries, index, onDone, onQuit }: ChallengeVie
         <button className="ghost" onClick={quit}>
           ✕
         </button>
-        <span className="lead-inline">Challenge</span>
+        <span className="lead-inline">{mode === 'blank' ? 'Blank challenge' : 'Challenge'}</span>
         <div className="progress">
           <div className="bar" style={{ width: `${(pos / countries.length) * 100}%` }} />
         </div>
@@ -112,10 +113,12 @@ export function ChallengeView({ countries, index, onDone, onQuit }: ChallengeVie
             key={country.iso3}
             view={{ kind: 'region', slug: country.region }}
             marks={marks}
-            // Fixed test conditions: borders always at full strength and no
-            // terrain, whatever the cards have earned — two runs a month
+            // Fixed test conditions per mode, whatever the cards have earned:
+            // bordered runs always draw full borders, blank runs none at all
+            // (coastline only) until the answer flash restores them so a miss
+            // shows in context. No terrain either way — two runs a month
             // apart must differ only in the person taking them.
-            borderOpacity={1}
+            borderOpacity={flash ? 1 : mode === 'blank' ? 0 : 1}
             labels={flash ? [country.iso3] : []}
             onPick={pick}
           />

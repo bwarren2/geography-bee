@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import type { CountryIndex } from '../data/load'
 import { recallFill } from '../map/colors'
 import { GeoMap, type CityMark } from '../map/GeoMap'
+import { CHALLENGE_MODES, type ChallengeMode } from '../session/challenge'
 import { RAPID_REGION_MIN_SEEN, rapidSeenByRegion, selectRapidCards } from '../session/rapid'
 import { retrievability } from '../srs/scheduler'
 import { cardId } from '../srs/model'
@@ -12,8 +13,8 @@ interface RapidPickerViewProps {
   snapshot: StudySnapshot
   /** null = whole world (the classic spread round). */
   onPick: (regionSlug: string | null) => void
-  /** Start a World Challenge — all 195, scored on its own record. */
-  onChallenge: () => void
+  /** Start a World Challenge — all 195, scored on its own per-mode record. */
+  onChallenge: (mode: ChallengeMode) => void
   onBack: () => void
 }
 
@@ -117,13 +118,17 @@ export function RapidPickerView({ index, snapshot, onPick, onChallenge, onBack }
         />
       </div>
 
-      <button className="challenge-start" onClick={onChallenge}>
-        🏆 World Challenge
-        <span className="muted">
-          All 195 countries, shuffled, one tap each — a scored test on its own record, separate from
-          your review stats. Quitting midway discards the run.
-        </span>
-      </button>
+      {CHALLENGE_MODES.map((m) => (
+        <button key={m.mode} className="challenge-start" onClick={() => onChallenge(m.mode)}>
+          {m.mode === 'blank' ? '🌑' : '🏆'} {m.title}
+          <span className="muted">{m.blurb}</span>
+        </button>
+      ))}
+      <p className="muted small">
+        Challenges are tests, separate from your review stats — each title keeps its own record, so
+        a run only ever competes with your earlier runs of the same kind. Quitting midway discards
+        the run.
+      </p>
     </div>
   )
 }

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import type { CountryIndex } from '../data/load'
 import { recallFill } from '../map/colors'
 import { GeoMap } from '../map/GeoMap'
+import { CHALLENGE_MODES } from '../session/challenge'
 import { buildDrills, DRILL_MIN_CONFUSIONS, type Drill } from '../session/drills'
 import { buildRapidQueue, buildTargetedQueue, type RapidItem } from '../session/rapid'
 import { APP_URL, buildShareCardSvg, progressCardContent, svgToPngBlob } from '../share/shareCard'
@@ -33,9 +34,12 @@ export function DashboardView({ index, snapshot, onBack, onChanged, onSprint, on
     [index, snapshot],
   )
   const activity = useMemo(() => activityByDay(snapshot.stats.daily, now), [snapshot, now])
-  const challengeRuns = snapshot.challenges.summaries
-  const shownRuns = challengeRuns.slice(-16)
-  const maxMissKm = Math.max(1, ...shownRuns.map((r) => r.meanMissKm))
+  // One record per challenge title: a bordered score and a blank score are
+  // different measurements, so each mode charts only against itself.
+  const challengeModes = CHALLENGE_MODES.map((m) => ({
+    ...m,
+    runs: snapshot.challenges.summaries.filter((s) => s.mode === m.mode).slice(-16),
+  })).filter((m) => m.runs.length > 0)
   const [shareState, setShareState] = useState<'idle' | 'busy' | 'saved'>('idle')
   const [openRegion, setOpenRegion] = useState<string | null>(null)
   // Two audiences, one screen: Overview answers "how far along am I?",
@@ -167,61 +171,68 @@ export function DashboardView({ index, snapshot, onBack, onChanged, onSprint, on
         <>
           <section className="insight">
             <div className="insight-head">
-              <h2>World Challenge</h2>
-              {challengeRuns.length > 0 && (
-                <span className="muted small">
-                  best {Math.max(...challengeRuns.map((r) => r.correct))}/195
-                </span>
-              )}
+              <h2>World Challenges</h2>
             </div>
-            {challengeRuns.length === 0 ? (
+            {challengeModes.length === 0 ? (
               <p className="muted small">
-                No runs yet. Start one from Rapid review — all 195 countries, scored on its own
-                record, so you can watch the whole-world score climb and the misses land closer.
+                No runs yet. Start one from Rapid review — all 195 countries, with borders or on a
+                blank map, each scored on its own record so the whole-world score climbs and the
+                misses land closer, run over run.
               </p>
             ) : (
-              <>
-                <div className="activity-bars">
-                  {shownRuns.map((r) => (
-                    <div
-                      key={r.at}
-                      className="abar-slot"
-                      title={`${new Date(r.at).toISOString().slice(0, 10)}: ${r.correct}/${r.total}, mean miss ${r.meanMissKm}km`}
-                    >
-                      <div
-                        className="abar"
-                        style={{
-                          height: `${Math.max(4, Math.round((r.correct / r.total) * 100))}%`,
-                          background: recallFill(r.correct / r.total, true),
-                        }}
-                      />
+              challengeModes.map((m) => {
+                const maxMissKm = Math.max(1, ...m.runs.map((r) => r.meanMissKm))
+                const last = m.runs.at(-1)!
+                return (
+                  <div key={m.mode} className="challenge-block">
+                    <div className="insight-head">
+                      <h3>
+                        {m.mode === 'blank' ? '🌑' : '🏆'} {m.title}
+                      </h3>
+                      <span className="muted small">best {Math.max(...m.runs.map((r) => r.correct))}/195</span>
                     </div>
-                  ))}
-                </div>
-                <div className="activity-bars challenge-miss">
-                  {shownRuns.map((r) => (
-                    <div
-                      key={r.at}
-                      className="abar-slot"
-                      title={`mean miss ${r.meanMissKm}km`}
-                    >
-                      <div
-                        className="abar miss"
-                        style={{
-                          height: `${Math.max(4, Math.round((r.meanMissKm / maxMissKm) * 100))}%`,
-                        }}
-                      />
+                    <div className="activity-bars">
+                      {m.runs.map((r) => (
+                        <div
+                          key={r.at}
+                          className="abar-slot"
+                          title={`${new Date(r.at).toISOString().slice(0, 10)}: ${r.correct}/${r.total}, mean miss ${r.meanMissKm}km`}
+                        >
+                          <div
+                            className="abar"
+                            style={{
+                              height: `${Math.max(4, Math.round((r.correct / r.total) * 100))}%`,
+                              background: recallFill(r.correct / r.total, true),
+                            }}
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-                <p className="muted small">
-                  One pair of bars per run, oldest first: top is score out of 195 (recall colours),
-                  bottom is mean tap distance from the target — improvement is the top row rising
-                  while the bottom row sinks. Latest:{' '}
-                  {challengeRuns.at(-1)!.correct}/195 · mean miss {challengeRuns.at(-1)!.meanMissKm}km ·
-                  median {(challengeRuns.at(-1)!.medianMs / 1000).toFixed(1)}s per country.
-                </p>
-              </>
+                    <div className="activity-bars challenge-miss">
+                      {m.runs.map((r) => (
+                        <div key={r.at} className="abar-slot" title={`mean miss ${r.meanMissKm}km`}>
+                          <div
+                            className="abar miss"
+                            style={{ height: `${Math.max(4, Math.round((r.meanMissKm / maxMissKm) * 100))}%` }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                    <p className="muted small">
+                      Latest: {last.correct}/195 · mean miss {last.meanMissKm}km · median{' '}
+                      {(last.medianMs / 1000).toFixed(1)}s per country.
+                    </p>
+                  </div>
+                )
+              })
+            )}
+            {challengeModes.length > 0 && (
+              <p className="muted small">
+                One pair of bars per run, oldest first: top is score out of 195 (recall colours),
+                bottom is mean tap distance from the target — improvement is the top row rising
+                while the bottom row sinks. Each title is its own record; bordered and blank runs
+                never compete.
+              </p>
             )}
           </section>
 

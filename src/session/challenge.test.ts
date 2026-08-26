@@ -59,6 +59,7 @@ describe('summarizeRun', () => {
   it('scores, and averages miss distance over all answers with corrects at zero', () => {
     const run: ChallengeRun = {
       at: 1000,
+      mode: 'borders',
       answers: [
         answer({ ms: 2000 }),
         answer({ iso3: 'BOL', ms: 4000 }),
@@ -68,12 +69,24 @@ describe('summarizeRun', () => {
       ],
     }
     const s = summarizeRun(run)
-    expect(s).toMatchObject({ at: 1000, total: 4, correct: 2, meanMissKm: 100, medianMissKm: 200 })
+    expect(s).toMatchObject({
+      at: 1000,
+      mode: 'borders',
+      total: 4,
+      correct: 2,
+      meanMissKm: 100,
+      medianMissKm: 200,
+    })
     expect(s.medianMs).toBe(3500)
   })
 
+  it('carries the mode through — a blank run summarizes as a blank record', () => {
+    const s = summarizeRun({ at: 1, mode: 'blank', answers: [answer()] })
+    expect(s.mode).toBe('blank')
+  })
+
   it('handles a perfect run without dividing by zero misses', () => {
-    const s = summarizeRun({ at: 1, answers: [answer(), answer({ iso3: 'BOL' })] })
+    const s = summarizeRun({ at: 1, mode: 'borders', answers: [answer(), answer({ iso3: 'BOL' })] })
     expect(s).toMatchObject({ correct: 2, meanMissKm: 0, medianMissKm: 0 })
   })
 })

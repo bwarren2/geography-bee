@@ -55,9 +55,13 @@ because a predictable sequence would let order memory stand in for actually
 knowing the map.
 
 **The World Challenge is a test, not practice.** All 195 countries, shuffled,
-one tap each, under deliberately frozen conditions — full borders, flat map,
-every country regardless of what has been studied — so the only thing that
-differs between two runs is you. Challenge answers never touch the scheduler,
+one tap each, under deliberately frozen conditions — flat map, every country
+regardless of what has been studied — so the only thing that differs between
+two runs is you. It comes as two titles: the *World Challenge* with borders
+drawn, and the *Blank World Challenge* on coastline alone — the
+absolute-position exam mastered locate cards graduate to — and each title
+keeps its own record, because a bordered score and a blank score are
+different measurements and must never compete. Challenge answers never touch the scheduler,
 the daily counts, or the streak (a test must not change what it measures, or
 inflate the study analytics it sits beside); results live on their own
 record, where every run's summary is kept forever and charted so the score

@@ -3,7 +3,9 @@ import { loadIndex, type CountryIndex } from './data/load'
 import { BOOST_STEP, buildSession, today, type SessionItem } from './session/builder'
 import {
   buildChallengeOrder,
+  challengeTitle,
   summarizeRun,
+  type ChallengeMode,
   type ChallengeRun,
   type ChallengeSummary,
 } from './session/challenge'
@@ -27,7 +29,7 @@ type Screen =
   | { name: 'study'; items: SessionItem[] }
   | { name: 'rapid-pick' }
   | { name: 'rapid'; items: RapidItem[] }
-  | { name: 'challenge'; countries: CountryRecord[] }
+  | { name: 'challenge'; countries: CountryRecord[]; mode: ChallengeMode }
   | { name: 'challenge-summary'; summary: ChallengeSummary; prev: ChallengeSummary | null; run: ChallengeRun }
   // No session result when drills are launched on their own from the
   // dashboard's mix-up list; the summary then shows only the drill score.
@@ -147,7 +149,7 @@ export function App() {
           const items = buildRapidQueue(index, snapshot.cards, new Date(), undefined, Math.random, slug ?? undefined)
           if (items.length) enter({ name: 'rapid', items })
         }}
-        onChallenge={() => enter({ name: 'challenge', countries: buildChallengeOrder(index) })}
+        onChallenge={(mode) => enter({ name: 'challenge', countries: buildChallengeOrder(index), mode })}
       />
     )
   }
@@ -156,13 +158,14 @@ export function App() {
     return (
       <ChallengeView
         countries={screen.countries}
+        mode={screen.mode}
         index={index}
         onQuit={leave}
         onDone={(run) => {
           const summary = summarizeRun(run)
-          // The previous summary is read before this run is recorded, so the
-          // results screen can say how this attempt compares to the last one.
-          const prev = snapshot.challenges.summaries.at(-1) ?? null
+          // The previous summary of the SAME mode, read before this run is
+          // recorded — a bordered run never competes with a blank one.
+          const prev = snapshot.challenges.summaries.filter((s) => s.mode === run.mode).at(-1) ?? null
           void store.recordChallenge(run, summary).then(reload)
           enter({ name: 'challenge-summary', summary, prev, run })
         }}
@@ -180,7 +183,7 @@ export function App() {
     const delta = prev ? s.correct - prev.correct : null
     return (
       <div className="home">
-        <h1>World Challenge</h1>
+        <h1>{challengeTitle(s.mode)}</h1>
         <div className="stats">
           <div className="stat">
             <strong>
