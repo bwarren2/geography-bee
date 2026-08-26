@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import type { CountryIndex } from '../data/load'
 import { recallFill } from '../map/colors'
 import { GeoMap, type CityMark } from '../map/GeoMap'
+import { CHALLENGE_MODES, type ChallengeMode } from '../session/challenge'
 import { RAPID_REGION_MIN_SEEN, rapidSeenByRegion, selectRapidCards } from '../session/rapid'
 import { retrievability } from '../srs/scheduler'
 import { cardId } from '../srs/model'
@@ -12,6 +13,8 @@ interface RapidPickerViewProps {
   snapshot: StudySnapshot
   /** null = whole world (the classic spread round). */
   onPick: (regionSlug: string | null) => void
+  /** Start a World Challenge — all 195, scored on its own per-mode record. */
+  onChallenge: (mode: ChallengeMode) => void
   onBack: () => void
 }
 
@@ -29,7 +32,7 @@ const wrapDelta = (a: number, b: number) => {
  * so "what should I sprint?" and "where am I weak?" are the same glance,
  * and the reddest dot is the answer to both.
  */
-export function RapidPickerView({ index, snapshot, onPick, onBack }: RapidPickerViewProps) {
+export function RapidPickerView({ index, snapshot, onPick, onChallenge, onBack }: RapidPickerViewProps) {
   const now = useMemo(() => new Date(), [])
   const seenByRegion = useMemo(() => rapidSeenByRegion(index, snapshot.cards), [index, snapshot])
   // Whether a whole-world sprint would contain anything: due cards, or cards
@@ -114,6 +117,18 @@ export function RapidPickerView({ index, snapshot, onPick, onBack }: RapidPicker
           onPickPoint={({ lonlat }) => pickAt(lonlat)}
         />
       </div>
+
+      {CHALLENGE_MODES.map((m) => (
+        <button key={m.mode} className="challenge-start" onClick={() => onChallenge(m.mode)}>
+          {m.mode === 'blank' ? '🌑' : '🏆'} {m.title}
+          <span className="muted">{m.blurb}</span>
+        </button>
+      ))}
+      <p className="muted small">
+        Challenges are tests, separate from your review stats — each title keeps its own record, so
+        a run only ever competes with your earlier runs of the same kind. Quitting midway discards
+        the run.
+      </p>
     </div>
   )
 }

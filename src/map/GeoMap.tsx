@@ -120,7 +120,9 @@ interface GeoMapProps {
   borderOpacity?: number
   /** ISO3 codes to label. */
   labels?: string[]
-  onPick?: (iso3: string) => void
+  /** Country picked (snapping resolved), plus the geographic point the tap
+   *  actually landed on — the raw signal for miss-distance analytics. */
+  onPick?: (iso3: string, lonlat?: [number, number]) => void
   /** Countries that may be picked. Others render but ignore clicks. */
   pickable?: Set<string>
   /** City dots to draw (city cards and their reveals). */
@@ -494,10 +496,11 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, cityMarks
         best = { iso3: s.iso3, dist }
       }
     }
-    if (best) return onPick?.(best.iso3)
+    const tappedAt = scene.projection.invert?.([x, y]) as [number, number] | undefined
+    if (best) return onPick?.(best.iso3, tappedAt)
 
     const hit = (e.target as Element).closest?.('[data-iso3]')?.getAttribute('data-iso3')
-    if (hit && canPick(hit)) onPick?.(hit)
+    if (hit && canPick(hit)) onPick?.(hit, tappedAt)
   }
 
   return (

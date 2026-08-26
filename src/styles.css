@@ -949,6 +949,47 @@ button.ghost:hover:not(:disabled) {
   border-radius: 2px 2px 0 0;
 }
 
+.challenge-block {
+  display: grid;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.challenge-block h3 {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* The challenge's second strip: mean tap distance per run. Kept short and in
+ * the cool secondary hue so the score row stays the headline. */
+.activity-bars.challenge-miss {
+  height: 28px;
+}
+
+.abar.miss {
+  background: var(--info);
+}
+
+/* World Challenge entry on the rapid picker: a full-width card, not a chip —
+ * a 195-question test deserves a deliberate press. */
+.challenge-start {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: left;
+  border-color: var(--accent);
+  font-weight: 650;
+  /* The picker is a fixed-height flex column; without this the cards get
+   * squeezed and their blurbs clip. */
+  flex-shrink: 0;
+}
+
+.challenge-start .muted {
+  font-weight: 400;
+  font-size: 13px;
+}
+
 .lead-inline {
   color: var(--accent);
   font-size: 12px;
