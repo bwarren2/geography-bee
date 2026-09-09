@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { CountryIndex } from '../data/load'
 import { GeoMap, type MarkRole } from '../map/GeoMap'
+import { PARCEL_REGIONS } from '../map/parcels'
 import { borderOpacityFor } from '../session/builder'
 import type { RapidItem } from '../session/rapid'
 import { deriveRating, type AnswerOutcome } from '../srs/model'
@@ -128,6 +129,12 @@ export function RapidView({ items, index, terrain, onDone, onQuit }: RapidViewPr
             // The sprint asks at the same difficulty the card has earned; the
             // answer flash restores full borders so the miss shows in context.
             borderOpacity={flash ? 1 : borderOpacityFor(card)}
+            // Archipelago sprints keep their sea parcels at the strength the
+            // card has earned; the answer flash restores them fully so a
+            // miss lights up the right patch of ocean.
+            parcels={
+              PARCEL_REGIONS.has(country.region) ? (flash ? 1 : borderOpacityFor(card)) : 0
+            }
             labels={flash ? [country.iso3] : []}
             onPick={pick}
           />

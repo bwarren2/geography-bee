@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { geoPath } from 'd3-geo'
 import { loadGeometry, loadIndex, type CountryFeature, type CountryIndex } from '../data/load'
+import { computeParcels, nearestParcel, PARCEL_REGIONS, parcelReachPx, parcelSeeds } from './parcels'
 import { mainland, makeProjection, type MapView } from './projection'
 import { terrainLayerUrl } from './terrain'
 
@@ -127,6 +128,13 @@ interface GeoMapProps {
   pickable?: Set<string>
   /** City dots to draw (city cards and their reveals). */
   cityMarks?: CityMark[]
+  /** Sea-parcel visibility, 0–1: the Voronoi training layer for archipelago
+   *  regions (see parcels.ts). Drives both how strongly the cells draw and
+   *  how far from an island a tap may land and still pick it — one dial for
+   *  assist you can see and assist you get. Ignored outside PARCEL_REGIONS;
+   *  0 (the default) keeps the layer off, so challenges stay honest by
+   *  simply never passing it. */
+  parcels?: number
   /** With onPickPoint: the lon/lat the tap is measured against. */
   pointTarget?: [number, number]
   /** Free-point picking (city-locate): every tap reports where it landed and
@@ -164,9 +172,14 @@ function useSize(ref: React.RefObject<HTMLElement | null>) {
  *  opacity so it reads as map lines rather than a lattice pasted on top.
  *  borderOpacity still multiplies in, so mastery fades it to nothing. */
 const TERRAIN_BORDER = '#dbe5f2'
+/** Sea-parcel lines: a cool mid-blue between ocean and border tones, dashed
+ *  like a chart's maritime boundary, dimmer than any land border so the real
+ *  map always outranks the training layer. */
+const PARCEL_STROKE = '#5b7bb0'
+const PARCEL_STROKE_ALPHA = 0.6
 const TERRAIN_BORDER_ALPHA = 0.65
 
-export function GeoMap({ view, marks, fills, labels, onPick, pickable, cityMarks, pointTarget, onPickPoint, initialZoom, terrain, className, borderOpacity = 1 }: GeoMapProps) {
+export function GeoMap({ view, marks, fills, labels, onPick, pickable, cityMarks, pointTarget, onPickPoint, initialZoom, terrain, className, borderOpacity = 1, parcels = 0 }: GeoMapProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const { width, height } = useSize(wrapRef)
   const [geo, setGeo] = useState<Map<string, CountryFeature> | null>(null)
@@ -412,7 +425,20 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, cityMarks
         return { iso3: s.iso3, cx: s.cx, cy: s.cy, nearest }
       })
 
-    return { projection, path, shapes, snaps }
+    // The sea-parcel geometry for archipelago regions, computed from the
+    // region's own members (context countries own no sea here) whether or
+    // not the layer is currently visible — the scene stays independent of
+    // the assist dial, which only gates rendering and picking.
+    const parcelGeom =
+      view.kind === 'region' && PARCEL_REGIONS.has(view.slug)
+        ? computeParcels(
+            parcelSeeds(inView, (ll) => projection(ll) as [number, number] | null, width, height),
+            width,
+            height,
+          )
+        : null
+
+    return { projection, path, shapes, snaps, parcels: parcelGeom }
   }, [geo, index, view, width, height])
 
   /**
@@ -500,7 +526,17 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, cityMarks
     if (best) return onPick?.(best.iso3, tappedAt)
 
     const hit = (e.target as Element).closest?.('[data-iso3]')?.getAttribute('data-iso3')
-    if (hit && canPick(hit)) onPick?.(hit, tappedAt)
+    if (hit && canPick(hit)) return onPick?.(hit, tappedAt)
+
+    // Sea-parcel pick: while the training cells are visible, a tap in open
+    // ocean resolves to the nearest island, with reach shrinking as the
+    // cells fade — the visible assist and the effective one are the same
+    // dial. Runs strictly after real hits and snaps, so it never steals a
+    // tap that already landed somewhere.
+    if (parcels > 0 && scene.parcels) {
+      const owner = nearestParcel(scene.parcels.seeds, x, y, tf.k, parcelReachPx(parcels), canPick)
+      if (owner) onPick?.(owner, tappedAt)
+    }
   }
 
   return (
@@ -533,6 +569,36 @@ export function GeoMap({ view, marks, fills, labels, onPick, pickable, cityMarks
               preserveAspectRatio="none"
               pointerEvents="none"
             />
+          )}
+          {parcels > 0 && scene.parcels && (
+            // Sea parcels, drawn UNDER the land so opaque country fills hide
+            // any line that strays over a continent — the dividing lines only
+            // ever show on ocean, dashed in the cartographic convention for
+            // maritime boundaries. Mark-tinted cells make the answer legible
+            // at reveal time: the island's whole sea patch lights up, not
+            // just its three invisible pixels.
+            <g pointerEvents="none">
+              {marks &&
+                scene.parcels.cells
+                  .filter((c) => marks[c.iso3])
+                  .map((c, i) => (
+                    <path
+                      key={`${c.iso3}-${i}`}
+                      d={`M${c.polygon.map((p) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join('L')}Z`}
+                      fill={ROLE_FILL[marks[c.iso3]!]}
+                      fillOpacity={0.18 * parcels}
+                    />
+                  ))}
+              <path
+                d={scene.parcels.boundaries}
+                fill="none"
+                stroke={PARCEL_STROKE}
+                strokeOpacity={PARCEL_STROKE_ALPHA * parcels}
+                strokeWidth={1}
+                strokeDasharray="4 5"
+                vectorEffect="non-scaling-stroke"
+              />
+            </g>
           )}
           <g>
             {scene.shapes.map((s) => {

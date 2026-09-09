@@ -123,6 +123,8 @@ export function ChallengeView({ countries, mode, terrain, index, onDone, onQuit 
             // run — within one run the conditions never move.
             terrain={terrain}
             borderOpacity={flash ? 1 : mode === 'blank' ? 0 : 1}
+            // Deliberately no `parcels`: sea-parcel training wheels never
+            // appear in a challenge — frozen test conditions stay frozen.
             labels={flash ? [country.iso3] : []}
             onPick={pick}
           />

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CountryIndex } from '../data/load'
 import { GeoMap, type CityMark, type MarkRole } from '../map/GeoMap'
+import { PARCEL_REGIONS } from '../map/parcels'
 import { deriveRating, type AnswerOutcome } from '../srs/model'
 import { schedule } from '../srs/scheduler'
 import { answerModeFor, borderOpacityFor, stimulusFor, type SessionItem } from '../session/builder'
@@ -162,6 +163,9 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
                 marks={{ [country.iso3]: 'target' }}
                 labels={[country.iso3]}
                 terrain={terrain}
+                // Meeting an archipelago: full sea parcels, so the new
+                // country arrives owning a visible patch of ocean.
+                parcels={PARCEL_REGIONS.has(country.region) ? 1 : 0}
               />
             )}
           </div>
@@ -216,6 +220,13 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
                 // other card keeps full borders — there the map is context,
                 // not the question.
                 borderOpacity={card.type === 'locate' ? borderOpacityFor(card) : 1}
+                // Sea parcels ride the same training-wheel dial as borders:
+                // strong while the locate card is young, gone at mastery.
+                parcels={
+                  card.type === 'locate' && PARCEL_REGIONS.has(country.region)
+                    ? borderOpacityFor(card)
+                    : 0
+                }
                 labels={stimulus === 'map-highlight' && mode === 'map-multi' ? [country.iso3] : []}
                 onPick={
                   mode === 'map-single'

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { GeoMap } from '../map/GeoMap'
 import type { CityMark, MarkRole } from '../map/GeoMap'
 import { loadCityHooks, loadHooks, type CountryHook, type CountryIndex } from '../data/load'
+import { PARCEL_REGIONS } from '../map/parcels'
 import type { CityRecord, CountryRecord } from '../types'
 
 const fmt = new Intl.NumberFormat('en-US')
@@ -127,7 +128,16 @@ export function Reveal({ country, city, tappedAt, index, terrain, correct, chose
       </header>
 
       <div className="reveal-map">
-        <GeoMap view={{ kind: 'region', slug: country.region }} marks={marks} labels={labels} terrain={terrain} />
+        <GeoMap
+          view={{ kind: 'region', slug: country.region }}
+          marks={marks}
+          labels={labels}
+          terrain={terrain}
+          // Reveals are teaching space: archipelago answers show their full
+          // sea parcel, so the cell you wanted (and the one you tapped)
+          // lights up instead of three invisible pixels.
+          parcels={PARCEL_REGIONS.has(country.region) ? 1 : 0}
+        />
       </div>
 
       {hook && (
