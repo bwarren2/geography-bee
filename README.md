@@ -88,6 +88,20 @@ blends stroke colour toward the land colour rather than reducing opacity: a
 transparent stroke lets the ocean grin through anti-aliasing seams between
 adjacent fills as ghost borders.)
 
+**Archipelagos get sea parcels.** In the Caribbean and Pacific frames a
+country is a three-pixel dot — there is no shape to learn, only arrangement —
+so those regions draw a Voronoi partition of the ocean: every point of sea
+belongs to its nearest island, turning the scatter into a normal map of
+large adjacent territories with dashed maritime lines between them. Wrong
+taps land in a nameable cell instead of anonymous ocean, reveals light up
+the island's whole sea patch, and it is not even a lie — nearest-island sea
+is roughly what maritime zones look like. Parcels are training wheels on
+the exact dial borders already use: they fade with the locate card's
+stability, and tap forgiveness (how far into open ocean a tap may land and
+still pick its island) shrinks in lockstep, so assist you can see is assist
+you get and the graduation exam is honest empty ocean. Challenges never
+draw them.
+
 **Terrain is an opt-in memory anchor.** A home-screen setting swaps the flat
 land colour for NASA's Blue Marble imagery, reprojected on-device into
 whatever projection the current view uses. Real landmarks (the Andes, the
