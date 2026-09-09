@@ -2045,5 +2045,148 @@
     "AUS-sydney": "Wrapped around the drowned river valley of Port Jackson — the harbor the First Fleet chose in 1788.",
     "AUS-melbourne": "Australia's southern rival, on Port Phillip Bay — a gold-rush boomtown that was briefly the richest city in the world.",
     "NZL-wellington": "The world's southernmost capital, gripping the hills of a strait so windy its nickname is simply 'Windy Wellington'."
+  },
+  "chains": {
+    "caribbean": [
+      {
+        "title": "Greater Antilles, west to east",
+        "stops": [
+          "CUB",
+          "JAM",
+          "HTI",
+          "DOM",
+          "(Puerto Rico)"
+        ],
+        "mnemonic": "The big-island train: Cuba first, Jamaica tucked below, then Hispaniola split in reading order — Haiti left, Dominican right — with Puerto Rico trailing."
+      },
+      {
+        "title": "The Lesser Antilles arc, north to south",
+        "stops": [
+          "KNA|St Kitts & Nevis",
+          "ATG|Antigua",
+          "(Guadeloupe)",
+          "DMA|Dominica",
+          "(Martinique)",
+          "LCA|St Lucia",
+          "VCT|St Vincent",
+          "GRD|Grenada",
+          "TTO|Trinidad"
+        ],
+        "mnemonic": "Kind Ants Dance Lightly, Very Gracefully, To Trinidad — the French islands fill the gaps, and Barbados stands apart, east into the open Atlantic."
+      }
+    ],
+    "pacific-islands": [
+      {
+        "title": "Melanesia: big to small, heading southeast",
+        "stops": [
+          "PNG|Papua New Guinea",
+          "SLB|Solomons",
+          "VUT|Vanuatu",
+          "FJI|Fiji"
+        ],
+        "mnemonic": "The islands shrink as you sail southeast off Papua's tail — PNG, Solomons, Vanuatu, Fiji. Fiji is the hub where the Pacific's bands meet."
+      },
+      {
+        "title": "Micronesia: dusted across the top, west to east",
+        "stops": [
+          "PLW|Palau",
+          "FSM|Micronesia",
+          "MHL|Marshalls",
+          "NRU|Nauru",
+          "KIR|Kiribati"
+        ],
+        "mnemonic": "Palau starts at the Philippines' doorstep, then Micronesia and the Marshalls; tiny Nauru hangs below, and Kiribati stretches on past the date line."
+      },
+      {
+        "title": "Polynesia: the eastern three",
+        "stops": [
+          "TUV|Tuvalu",
+          "WSM|Samoa",
+          "TON|Tonga"
+        ],
+        "mnemonic": "Northwest to southeast and shrinking in latitude: Tuvalu, Samoa, then Tonga below — the kingdom at the bottom of the triangle."
+      }
+    ],
+    "central-america": [
+      {
+        "title": "The isthmus, northwest to southeast",
+        "stops": [
+          "GTM|Guatemala",
+          "BLZ|Belize",
+          "SLV|El Salvador",
+          "HND|Honduras",
+          "NIC|Nicaragua",
+          "CRI|Costa Rica",
+          "PAN|Panama"
+        ],
+        "mnemonic": "Guatemala leads with Belize on its Caribbean shoulder; then the split pair — El Salvador Pacific-side, Honduras Caribbean-side — and Nicaragua, Costa Rica, Panama single-file to Colombia."
+      }
+    ],
+    "northern-europe": [
+      {
+        "title": "The Baltic stack, top to bottom",
+        "stops": [
+          "EST|Estonia",
+          "LVA|Latvia",
+          "LTU|Lithuania"
+        ],
+        "mnemonic": "Alphabetical from the top: Estonia, Latvia, Lithuania — E before L, and the two Ls in alphabetical order too."
+      }
+    ],
+    "south-america": [
+      {
+        "title": "The Guiana coast, west to east",
+        "stops": [
+          "GUY|Guyana",
+          "SUR|Suriname",
+          "(French Guiana)"
+        ],
+        "mnemonic": "Alphabetical sailing east: Guyana, then Suriname, then France's slice — English, Dutch, French, in the order the colonizers lined up."
+      }
+    ],
+    "sahel": [
+      {
+        "title": "The band, west to east",
+        "stops": [
+          "MRT|Mauritania",
+          "MLI|Mali",
+          "NER|Niger",
+          "(Chad)"
+        ],
+        "mnemonic": "M, M, N along the desert's edge: the two M's first with the longer name westmost, then Niger — sitting directly on top of Nigeria — and Chad continuing the band beyond the region's edge."
+      }
+    ],
+    "western-africa": [
+      {
+        "title": "The coast, west to east",
+        "stops": [
+          "SEN|Senegal",
+          "GMB|Gambia",
+          "GNB|Guinea-Bissau",
+          "GIN|Guinea",
+          "SLE|Sierra Leone",
+          "LBR|Liberia",
+          "CIV|Ivory Coast",
+          "GHA|Ghana",
+          "TGO|Togo",
+          "BEN|Benin",
+          "NGA|Nigeria"
+        ],
+        "mnemonic": "Senegal wraps the Gambia, then the two Guineas (Bissau first), then the freed-slave pair Sierra Leone and Liberia; around the corner Ivory Coast and Ghana, the thin twins Togo and Benin, and Nigeria at the end. Cape Verde floats offshore."
+      }
+    ],
+    "central-asia": [
+      {
+        "title": "Kazakhstan on top, then west to east below",
+        "stops": [
+          "KAZ|Kazakhstan",
+          "TKM|Turkmenistan",
+          "UZB|Uzbekistan",
+          "KGZ|Kyrgyzstan",
+          "TJK|Tajikistan"
+        ],
+        "mnemonic": "One giant on top; below it, west to east: Turkmenistan on the Caspian, Uzbekistan in the middle touching everyone, then the mountain pair — Kyrgyzstan up, Tajikistan down."
+      }
+    ]
   }
 }

@@ -102,6 +102,19 @@ still pick its island) shrinks in lockstep, so assist you can see is assist
 you get and the graduation exam is honest empty ocean. Challenges never
 draw them.
 
+**Regions that are lines get chains.** Some regions' real content is a
+sequence — the Antilles arc, the Central American isthmus, the Baltic
+stack, the West African coast — and sequence is exactly what per-country
+hooks cannot carry, so those regions have authored chains
+(`hooks/chains.json`): an ordered line of stops drawn like a transit map on
+teach and reveal screens, the current country's stop lit, with an optional
+mnemonic beneath. Stops can be non-sovereign context (Guadeloupe and
+Martinique fill the arc's gaps; Chad continues the Sahel band past the
+region's edge) so the line never has mysterious holes. Chains are only
+authored where a region genuinely is a line — a forced acrostic for a
+two-dimensional cluster like Western Europe would be worse than nothing —
+and the build validates every stop the way it validates hooks.
+
 **Terrain is an opt-in memory anchor.** A home-screen setting swaps the flat
 land colour for NASA's Blue Marble imagery, reprojected on-device into
 whatever projection the current view uses. Real landmarks (the Andes, the

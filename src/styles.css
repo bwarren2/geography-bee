@@ -531,6 +531,112 @@ button.ghost:hover:not(:disabled) {
   margin: 0;
 }
 
+/* ------------------------------------------------------------ chain ribbon
+   A region chain as a transit line: dots on a rail, the target stop lit.
+   Sequence is the content, so the rail is the diagram. */
+
+.chain {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chain-title {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.chain-scroll {
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 0 -4px;
+}
+
+.chain-track {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  min-width: 100%;
+  width: max-content;
+  padding: 4px 4px 0;
+}
+
+/* The rail, threaded through the dots. */
+.chain-track::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: 9px;
+  height: 2px;
+  background: var(--line);
+}
+
+.chain-stop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 58px;
+  max-width: 76px;
+  flex-shrink: 0;
+}
+
+.chain-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--panel);
+  border: 2.5px solid var(--info);
+  box-sizing: border-box;
+}
+
+.chain-name {
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--text);
+  padding: 0 2px;
+}
+
+.chain-stop.is-context .chain-dot {
+  width: 8px;
+  height: 8px;
+  margin-top: 2px;
+  border-color: var(--line);
+}
+
+.chain-stop.is-context .chain-name {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.chain-stop.is-target .chain-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(245, 168, 33, 0.25);
+}
+
+.chain-stop.is-target .chain-name {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.chain-mnemonic {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .zoom-reset {
   position: absolute;
   right: 10px;
