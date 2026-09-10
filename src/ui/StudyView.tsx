@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import type { CountryIndex } from '../data/load'
+import { chainsFor, loadChains, type CountryIndex, type RegionChain } from '../data/load'
 import { GeoMap, type CityMark, type MarkRole } from '../map/GeoMap'
 import { PARCEL_REGIONS } from '../map/parcels'
 import { deriveRating, type AnswerOutcome } from '../srs/model'
@@ -7,6 +7,7 @@ import { schedule } from '../srs/scheduler'
 import { answerModeFor, borderOpacityFor, stimulusFor, type SessionItem } from '../session/builder'
 import { matchAnswer, matchCityAnswer } from '../session/matching'
 import { store } from '../store/useStore'
+import { ChainRibbon } from './ChainRibbon'
 import { Reveal } from './Reveal'
 
 export interface SessionResult {
@@ -39,6 +40,15 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
   const [typed, setTyped] = useState('')
   const [selected, setSelected] = useState<string[]>([])
   const [tally, setTally] = useState({ answered: 0, correct: 0, introduced: 0 })
+  const [chains, setChains] = useState<Map<string, RegionChain[]> | null>(null)
+
+  useEffect(() => {
+    let live = true
+    void loadChains().then((c) => live && setChains(c))
+    return () => {
+      live = false
+    }
+  }, [])
 
   const startedAt = useRef(Date.now())
   const shownAt = useRef(Date.now())
@@ -174,6 +184,13 @@ export function StudyView({ items, index, terrain, onDone, onQuit }: StudyViewPr
               ? `${country.flag} ${country.name}${city.capital ? ' — the capital' : ''}`
               : index.regionBySlug.get(country.region)?.name}
           </p>
+          {/* Meeting a country that sits on a chain: show the line and the
+              stop before the first question — sequence is the mnemonic. */}
+          {!city &&
+            chains &&
+            chainsFor(chains, country.region, country.iso3).map((chain) => (
+              <ChainRibbon key={chain.title} chain={chain} highlight={country.iso3} index={index} />
+            ))}
           <button
             className="primary"
             autoFocus

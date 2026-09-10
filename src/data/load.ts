@@ -47,6 +47,58 @@ export const loadHooks = () =>
     }
   })
 
+/** One stop on a region chain: a sovereign country (iso3 set, label
+ *  optional — fall back to the country name) or a context stop (label only:
+ *  a non-sovereign gap island, or the chain's continuation beyond the
+ *  region's edge). */
+export interface ChainStop {
+  iso3?: string
+  label?: string
+}
+
+/** An authored ordering of countries along a shared structure — an island
+ *  arc, a coastal string, a band. Sequence is the knowledge per-country
+ *  hooks cannot carry: "third stop on the line" is rememberable in a way
+ *  "somewhere in that scatter" never is. */
+export interface RegionChain {
+  title: string
+  stops: ChainStop[]
+  mnemonic?: string
+}
+
+/** Authored stop syntax: "ISO3", "ISO3|Short Label", or "(Context Name)". */
+export const parseChainStop = (raw: string): ChainStop => {
+  if (raw.startsWith('(')) return { label: raw.slice(1, -1) }
+  const [iso3, label] = raw.split('|')
+  return label ? { iso3, label } : { iso3 }
+}
+
+/** Region chains keyed by slug. Most regions have none — a chain is only
+ *  authored where the region genuinely is a line — so absence is normal. */
+export const loadChains = () =>
+  once('chains', async (): Promise<Map<string, RegionChain[]>> => {
+    try {
+      const data = await json<{
+        chains?: Record<string, { title: string; stops: string[]; mnemonic?: string }[]>
+      }>('data/hooks.json')
+      return new Map(
+        Object.entries(data.chains ?? {}).map(([slug, chains]) => [
+          slug,
+          chains.map((c) => ({ ...c, stops: c.stops.map(parseChainStop) })),
+        ]),
+      )
+    } catch {
+      return new Map()
+    }
+  })
+
+/** The chains of `slug` that pass through `iso3` as a sovereign stop. */
+export const chainsFor = (
+  chains: Map<string, RegionChain[]>,
+  slug: string,
+  iso3: string,
+): RegionChain[] => (chains.get(slug) ?? []).filter((c) => c.stops.some((s) => s.iso3 === iso3))
+
 /** One-line anchoring facts for cities, keyed by city id. Authored in
  *  hooks/cities.json; absence is normal — the reveal falls back to
  *  generated facts (capital-of, population). */

@@ -1,8 +1,17 @@
 import { useEffect, useState } from 'react'
 import { GeoMap } from '../map/GeoMap'
 import type { CityMark, MarkRole } from '../map/GeoMap'
-import { loadCityHooks, loadHooks, type CountryHook, type CountryIndex } from '../data/load'
+import {
+  chainsFor,
+  loadCityHooks,
+  loadChains,
+  loadHooks,
+  type CountryHook,
+  type CountryIndex,
+  type RegionChain,
+} from '../data/load'
 import { PARCEL_REGIONS } from '../map/parcels'
+import { ChainRibbon } from './ChainRibbon'
 import type { CityRecord, CountryRecord } from '../types'
 
 const fmt = new Intl.NumberFormat('en-US')
@@ -47,14 +56,18 @@ interface RevealProps {
 export function Reveal({ country, city, tappedAt, index, terrain, correct, chosen, onNext }: RevealProps) {
   const [hook, setHook] = useState<CountryHook | null>(null)
   const [cityHook, setCityHook] = useState<string | null>(null)
+  const [chains, setChains] = useState<RegionChain[]>([])
   useEffect(() => {
     let live = true
     if (city) void loadCityHooks().then((h) => live && setCityHook(h.get(city.id) ?? null))
-    else void loadHooks().then((h) => live && setHook(h.get(country.iso3) ?? null))
+    else {
+      void loadHooks().then((h) => live && setHook(h.get(country.iso3) ?? null))
+      void loadChains().then((c) => live && setChains(chainsFor(c, country.region, country.iso3)))
+    }
     return () => {
       live = false
     }
-  }, [country.iso3, city])
+  }, [country.iso3, country.region, city])
 
   if (city) {
     const dots: CityMark[] = [
@@ -89,6 +102,11 @@ export function Reveal({ country, city, tappedAt, index, terrain, correct, chose
           <GeoMap view={{ kind: 'country', iso3: country.iso3 }} cityMarks={dots} terrain={terrain} />
         </div>
 
+        {/* Same fast path as country reveals: Next under the map, depth below. */}
+        <button className="primary" onClick={onNext} autoFocus>
+          Next
+        </button>
+
         {cityHook && (
           <div className="hook">
             <p>{cityHook}</p>
@@ -100,10 +118,6 @@ export function Reveal({ country, city, tappedAt, index, terrain, correct, chose
             <li key={f}>{f}</li>
           ))}
         </ul>
-
-        <button className="primary" onClick={onNext} autoFocus>
-          Next
-        </button>
       </div>
     )
   }
@@ -140,6 +154,13 @@ export function Reveal({ country, city, tappedAt, index, terrain, correct, chose
         />
       </div>
 
+      {/* Next sits directly under the map so quick review never scrolls:
+          the verdict, the map, and the button are the whole fast path.
+          Everything below — hook, chain, facts — is optional depth. */}
+      <button className="primary" onClick={onNext} autoFocus>
+        Next
+      </button>
+
       {hook && (
         <div className="hook">
           <p>{hook.hook}</p>
@@ -154,15 +175,18 @@ export function Reveal({ country, city, tappedAt, index, terrain, correct, chose
         </div>
       )}
 
+      {/* The country's place in its chain — sequence knowledge the map and
+          the hook cannot carry. Only regions that genuinely are a line have
+          chains, so absence is the common case. */}
+      {chains.map((chain) => (
+        <ChainRibbon key={chain.title} chain={chain} highlight={country.iso3} index={index} />
+      ))}
+
       <ul className="facts">
         {facts(country, index).map((f) => (
           <li key={f}>{f}</li>
         ))}
       </ul>
-
-      <button className="primary" onClick={onNext} autoFocus>
-        Next
-      </button>
     </div>
   )
 }
